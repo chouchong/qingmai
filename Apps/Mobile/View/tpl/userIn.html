@@ -22,13 +22,13 @@
         </div>
         <div class="card">
             <label class="item item-input">
-                <span class="input-label">姓名：<span>试试</span></span>
+                <span class="input-label">&nbsp;姓  &nbsp;名：<span>试试</span></span>
             </label>
             <label class="item item-input">
                 <span class="input-label">护照号码：<span>试试</span></span>
             </label>
             <label class="item item-input" style="padding:0 0 0 16px;">
-                <span class="input-label">性别：<span id="sex">男</span></span>
+                <span class="input-label">&nbsp;性  &nbsp;别：<span id="sex">男</span></span>
             </label>
             <label class="item item-button-right" >
                 <!-- <span class="" style="float: right;">修改</span> -->
@@ -37,7 +37,7 @@
         </div>
         <div class="card">
             <label class="item item-input">
-                <span class="input-label">姓名：</span>
+                <span class="input-label">&nbsp;姓  &nbsp;名：</span>
                 <input type="text" ng-model="oUser.userName">
             </label>
             <label class="item item-input">
@@ -45,7 +45,7 @@
                 <input type="text" ng-model="oUser.userCard">
             </label>
             <label class="item item-input" style="padding:0 0 0 16px;">
-                <span class="input-label">性别</span>
+                <span class="input-label">&nbsp;性  &nbsp;别：</span>
                 <ion-radio ng-repeat="item in sexlist" ng-value="item.value" ng-model="oUser.sex" ng-change="serverSideChange(item)">
                     {{ item.text }}
                 </ion-radio>
