@@ -1,0 +1,148 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>出境车辆行驶证</title>
+</block>
+<block name="css">
+<style type="text/css">
+.div1 {
+    border-radius: 2px;
+    float: left;
+    height: 25px;
+    position: relative;
+    top: 50px;
+    left: 48%;
+}
+.div2 {
+    font-size: 13px;
+    line-height: 25px;
+    text-align: center;
+}
+input[type=file] {
+    display: block;
+}
+.inputstyle {
+    cursor: pointer;
+    font-size: 13px;
+    height: 25px;
+    left: 0px;
+    opacity: 0;
+    outline: medium none;
+    position: absolute;
+    top: 0px;
+    width: 45px;
+}
+</style>
+</block>
+<block name="main">
+<div ng-app="myApp" ng-controller="carCtrl">
+<include file="tpl:nav"/>
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="    background: #f5f5f5;">
+        <div class="card  insurance">
+            <div class="item item-divider" >
+            <input type="hidden" id="orderId" value="{$row['orderId']}">
+                <span>订单号：<span>{$row.orderNo}</span></span>
+            </div>
+            <div class="item item-text-wrap insurancepeo">
+                <span>{$row.adultNum}</span><span>成人</span>
+                <span>{$row.childNum}</span><span>儿童</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>凡在本行程中需要驾驶车辆的人员均提供有效驾驶证信息。用于制作驾驶证标准英文翻译件、翻译件用于在国外发生检查时提供警察查看所用</span>
+            </div>
+        </div>
+        <div class="card">
+            <label class="item item-text-wrap ">
+                <p style="font-size: 18px;">
+                    上传示例<span style="font-size: 13px;"> 一个订单一位联系人即可</span>
+                </p>
+            </label>
+            <div class="item item-text-wrap">
+                <h2>驾驶证正本正面</h2>
+                <div style="border: 1px solid #f2f2f2;
+                min-height: 120px; text-align: center;vertical-align:middle;">
+                   <iframe name="upload" style="display:none"></iframe>
+                    <form id="uploadform_Filedata" autocomplete="off"  enctype="multipart/form-data" method="POST" target="upload" action="{:U('Home/Base/uploadPic')}" >
+                        <div style="position:relative;">
+                        <input id="carzImg" type="hidden"/>
+                        <div class="div1">
+                            <div class="div2"><span style="font-size: 30px">+</span></div>
+                            <input type="file" class="inputstyle" id="Filedata" name="Filedata" onchange="updfile('Filedata');" >
+                        </div>
+                        <div style="clear:both;"></div>
+                        <input type="hidden" name="dir" value="carLicense">
+                        <input type="hidden" name="width" value="416">
+                        <input  type="hidden" name="height" value="264" />
+                        <input type="hidden" name="folder" value="Filedata">
+                        <input type="hidden" name="sfilename" value="Filedata">
+                        <input type="hidden" name="fname" value="carzImg">
+                        <input type="hidden" id="s_Filedata" name="s_Filedata" value="">
+                        </div>
+                </form>
+                </div>
+            </div>
+            <div class="item item-text-wrap">
+                <h2>驾驶证正本反面</h2>
+                <div style="border: 1px solid #f2f2f2;
+                min-height: 120px; text-align: center;vertical-align:middle;">
+                    <form id="uploadform_CarF" autocomplete="off" enctype="multipart/form-data" method="POST" target="upload" action="{:U('Home/Base/uploadPic')}" >
+                        <div style="position:relative;">
+                        <input id="carfImg" type="hidden"/>
+                        <div class="div1">
+                            <div class="div2"><span style="font-size: 30px">+</span></div>
+                            <input type="file" class="inputstyle" id="CarF" name="CarF" onchange="updfile('CarF');" >
+                        </div>
+                        <div style="clear:both;"></div>
+                        <input type="hidden" name="dir" value="">
+                        <input type="hidden" name="width" value="416">
+                        <input  type="hidden" name="height" value="216" />
+                        <input type="hidden" name="folder" value="Filedata">
+                        <input type="hidden" name="sfilename" value="CarData">
+                        <input type="hidden" name="fname" value="carfImg">
+                        <input type="hidden" id="s_Filedata" name="s_Filedata" value="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <label class="item item-text-wrap ">
+                <p style="font-size: 18px;">
+                    <span style="font-size: 80%"> 驾驶证需在有效期、亲保证照片清晰</span>
+                </p>
+            </label>
+             <div class="item item-text-wrap">
+                <h2>驾驶证正本正面</h2>
+                <br/>
+                <div id="preview_Filedata">
+                    <img src="__PUBLIC__/Mobile/img/car1.png" alt="" width="100%">
+                </div>
+            </div>
+             <div class="item item-text-wrap">
+                <h2>驾驶证正本反面</h2>
+                <br/>
+                <div id="preview_CarData">
+                    <img src="__PUBLIC__/Mobile/img/car2.png" alt="" width="100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div style="width:100%;">
+                <a ng-click="carLic()">
+                    <button class="button button-block" style="background:#F77462;color:#fff;">提交资料</button>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</div>
+</block>
+<block name="js">
+<script>
+    var ThinkPHP = window.Think = {
+        "ROOT"   : "__ROOT__"
+    }
+    var filetypes = ["gif","jpg","png","jpeg"];
+</script>
+<script src="__PUBLIC__/Mobile/js/upload.js"></script>
+</block>

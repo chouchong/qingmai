@@ -1,0 +1,12 @@
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[25]------ ============处理前台请求开始=============== 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[26]------ 1140000 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[50]------ 前台请求地址为>40220995861346480087409489142384722381 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay\funs\secureUtil.php ], Line[10]------ =====签名报文开始====== 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay\funs\secureUtil.php ], Line[16]------ 签名key=val&...串 >accessType=0&backUrl=http://dt.ngrok.4kb.cn/Mobile/Pays/UnionPayGo&bizType=000201&certId=40220995861346480087409489142384722381&channelType=08&currencyCode=156&defaultPayType=0001&encoding=utf-8&frontUrl=http://dt.ngrok.4kb.cn/Mobile/Pays/UnionPayBack&merId=777290058127246&orderId=E1460715321&signMethod=01&txnAmt=1140000&txnSubType=01&txnTime=20160415181707&txnType=01&version=5.0.0 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay\funs\secureUtil.php ], Line[19]------ 摘要sha1x16 >6c24bcbed8541f6cc7c20d5c02abc91ccf51a36b 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay\funs\secureUtil.php ], Line[27]------ 签名串为 >h1uhtRGC1sG/NEAnIkvjkWK2W2td+3YLzVtPjGwBxoQaJLOt2EO0kxwD9VHHcBUYWfluqVsufzm142EWnHQk74xyBun0AL+m4Kt4BilGBM9o1wgCiHwmSHgWxotpQNmORLRmBLxFbsVtP+6SoMFAUHtVhCLhFAGiaBQL6pUOgzk= 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay\funs\secureUtil.php ], Line[32]------ =====签名报文结束====== 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[56]------ 前台请求地址为>https://101.231.204.80:5000/gateway/api/frontTransReq.do 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[60]------ -------前台交易自动提交表单>--begin---- 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[62]------ -------前台交易自动提交表单>--end------- 
+2016-04-15 18:17:07, INFO, 127.0.0.1, File[ D:\phpStudy\WWW\qingmai\ThinkPHP\Library\Org\Pay\UnionPay.class.php ], Line[63]------ ============处理前台请求 结束=========== 

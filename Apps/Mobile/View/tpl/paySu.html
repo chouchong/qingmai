@@ -19,7 +19,7 @@
                 <empty name="isNo">
                     <p><a>支付成功</a></p>
                 <else />
-                    <p><a>支付成功</a></p>
+                    <p><a>支付失败</a></p>
                 </empty>
             </div>
             <div class="successMsg">
@@ -29,9 +29,9 @@
             </div>
             <div class="successOrder">
                 <empty name="isNo">
-                    <p><a href="myorder.html">我的订单</a></p>
+                    <p><a href="{:U('Mobile/Orders/index')}">我的订单</a></p>
                 <else />
-                    <p><a href="myorder.html" style="color:#D22;">再试一次</a>&nbsp;&nbsp;&nbsp;<a href="myorder.html">返回我的订单</a></p>
+                    <p><a href="{:U('Mobile/Pays/payment',array('orderId'=>$row['orderId']))}" style="color:#D22;">再试一次</a>&nbsp;&nbsp;&nbsp;<a href="{:U('Mobile/Orders/index')}">返回我的订单</a></p>
                 </empty>
             </div>
           </div>

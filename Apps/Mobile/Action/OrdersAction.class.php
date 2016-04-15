@@ -39,6 +39,7 @@ class OrdersAction extends BaseAction {
    * 用户订单
    */
   public function index(){
+    $this->isLogin();
     $this->view->display('/tpl/order');
   }
   /**

@@ -138,9 +138,31 @@ class OrdersModel extends BaseModel {
   public function OrdersList()
   {
     $pagesize = 5;
-    $Sql = "SELECT o.orderStatus,o.goodsType,o.orderId,o.orderNo,o.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo,o.createTime FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
+    $Sql = "SELECT o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,o.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo,o.createTime FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
     $data= $this->query($Sql);
     return $data;
+  }
+  /**
+  *自驾出被保险人
+  **/
+  public function addCarLic()
+  {
+    $m = M('order_drivinglicences');
+    $rd = array('status' => -1);
+    $data['carzImg'] = I('carzImg');
+    $data['carfImg'] = I('carfImg');
+    $data['orderId'] = I('orderId');
+    $data['userId'] = session('Users')['userId'];
+    $id = $m->add($data);
+    if($id){
+      $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>$data['orderId']))->find();
+      if($o['isGo']>0){
+        M('orders')->where(array('orderId'=>$data['orderId']))->save(array('orderStatus' =>2 , 'isCar'=>1));
+      }
+      M('orders')->where(array('orderId'=>$data['orderId']))->save(array('isCar'=>1));
+      $rd['status'] = 1;
+    }
+    return $rd;
   }
 }
 ?>

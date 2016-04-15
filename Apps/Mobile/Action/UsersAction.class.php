@@ -171,4 +171,33 @@ class UsersAction extends BaseAction {
     $rs = $m->UserPws();
     $this->ajaxReturn($rs);
   }
+  /**
+  *用户外出被保险人
+  **/
+  public function UserIn()
+  {
+    $this->isLogin();
+    $Pay = D('Mobile/Pays');
+    $this->row = $Pay->getInfo(I('orderId'));
+    $this->view->display('/tpl/userIn');
+  }
+  /**
+  *用户外出被保险人
+  **/
+  public function UserCar()
+  {
+    $this->isLogin();
+    $Pay = D('Mobile/Pays');
+    $this->row = $Pay->getInfo(I('orderId'));
+    $this->view->display('/tpl/userCar');
+  }
+  /**
+  *用户外出被保险人
+  **/
+  public function addCarLic()
+  {
+    $m = D('Mobile/Orders');
+    $rs = $m->addCarLic();
+    $this->ajaxReturn($rs);
+  }
 }

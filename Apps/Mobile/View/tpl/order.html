@@ -2,6 +2,20 @@
 <block name="title">
 <title>我的订单</title>
 </block>
+<block name="css">
+<style>
+  .bb{
+    background: #387ef5;
+    color: #fff;
+    float: right;
+    padding: 5px;
+    margin: 0 5px;
+  }
+  .bb a{
+    color: #fff;
+  }
+</style>
+</block>
 <block name="main">
 <div ng-app="myApp" ng-controller="orCtrl">
 <include file="tpl:nav"/>
@@ -17,15 +31,19 @@
                 </element>
                 <element ng-switch="vo.orderStatus">
                   <element ng-switch-when="0">
-                    <span>待付款</span><span class="textright " ><a class="" href="/Mobile/Pays/payment/orderId/{{vo.orderId}}">去付款</a></span></element>
+                    <span>待付款</span><span class="textright " ><a  href="/Mobile/Pays/payment/orderId/{{vo.orderId}}">去付款</a></span></element>
                   <element ng-switch-when="1">
-                    <span>已付款</span>
-                    <p ng-if="vo.goodsType==1"><span class="textright " style="float:right;"><a class="" href="insurance.html">被保险人</a></span>
-                    <span class="textright " style="float:right;"><a class="" href="carLicense.html">出境车辆行驶证</a></span></p>
+                    <span>待出发</span>
+                    <p ng-if="vo.goodsType==1"><span ng-if="vo.isGo==0" class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
+                    <span ng-if="vo.isCar==0" class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span></p>
                   </element>
                   <element ng-switch-when="2">
+                    <span>去评论</span>
+                    <span ng-if="vo.goodsType==1" class="bb" style="float:right;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评论</a></span>
+                  </element>
+                  <element ng-switch-when="3">
                     <span>已完成</span>
-                    <span ng-if="vo.goodsType==1" class="textright" style="float:right;"><a class="" href="comment.html">去评论</a></span>
+                    <span  class="textright" style="float:right;"><a>完成</a></span>
                   </element>
                   <element ng-switch-default></element>
                 </element>
@@ -69,7 +87,7 @@
             </div>
             <div class="item item-wrap orderMessage">
                 成人
-                <span>{{vo.adultNum}}人 x {{vo.adultNum}}人/元</span>
+                <span>{{vo.adultNum}}人 x {{vo.adultPrice}}人/元</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.childNum > 0">
                 儿童

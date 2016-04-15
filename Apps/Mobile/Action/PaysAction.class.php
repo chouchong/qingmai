@@ -94,10 +94,16 @@ class PaysAction extends BaseAction {
   //微信
   public function wxPaySu(){
     $Pay = D('Mobile/Pays');
-    $this->row = $Pay->getInfo(I('orderId',1));
+    $this->row = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/paySu');
   }
-
+  //微信
+  public function wxPayEr(){
+    $Pay = D('Mobile/Pays');
+    $this->row = $Pay->getInfo(I('orderId'));
+    $this->isNo = 1;
+    $this->view->display('/tpl/paySu');
+  }
   //微信
   public function wxPay() {
 

@@ -45,9 +45,9 @@
                 <notempty name="order.roomNum">
                     <p>房价差<span>{$order.roomNum}&nbsp;X&nbsp;{$order.roomPrice}&nbsp;元/人</span></p>
                 </notempty>
-                <notempty name="order.zMoney">
+                <if condition="$order['zMoney'] gt 0 ">
                    <p>优惠<span>{$order.zMoney}&nbsp;元</span></p>
-                </notempty>
+                </if>
         </div>
         </div>
         <div class="list list-inset">

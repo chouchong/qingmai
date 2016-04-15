@@ -1,6 +1,6 @@
 (function() {
 'use strict';
-angular.module("myApp", ["ionic"])
+angular.module("myApp", ["ionic","ionic-ratings"])
 .config(['$httpProvider', function ($httpProvider) {
     // 设置post时使用urlencode编码方式;
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -634,6 +634,7 @@ angular.module("myApp", ["ionic"])
     }
   var payments;
   var values;
+  var orderId = $('#orderId').val();
   $scope.serverSideChange = function(item) {
     payments = item.text;
     values= item.value;
@@ -642,15 +643,15 @@ angular.module("myApp", ["ionic"])
     if(payments==undefined){
       $rootScope.msg('请选择支付方式');
     }else{
-      serviceHttp.isNoPay({orderId:$('#orderId').val(),adultNum:$('#adultNum').html()}).success(function(data){
+      serviceHttp.isNoPay({orderId:orderId,adultNum:$('#adultNum').html()}).success(function(data){
         if(data.status==2){
           $rootScope.msg('自驾旅游,你只能'+data.num+'人');
         }else{
-          serviceHttp.editPayment({orderId:$('#orderId').val(),payment:payments}).success(function(data){
+          serviceHttp.editPayment({orderId:orderId,payment:payments}).success(function(data){
             if(data.status>0){
               if(values==2){
                 if(ua.match(/MicroMessenger/i)=="micromessenger") {
-                  serviceHttp.wxPay({orderId:$('#orderId').val()}).success(function(data) {
+                  serviceHttp.wxPay({orderId:orderId}).success(function(data) {
                     if(data.status>0){
                       WeixinJSBridge.invoke('getBrandWCPayRequest',
                       {
@@ -666,11 +667,11 @@ angular.module("myApp", ["ionic"])
                           //支付成功后跳转的地址
                           window.location.href='/Mobile';
                         }else{
-                          $rootScope.msg('微信支付失败');
+                          window.location.href='/Mobile/Pays/wxPayEr/orderId/'+orderId;
                       }
                     })
                     }else{
-                      $rootScope.msg('微信支付失败');
+                      window.location.href='/Mobile/Pays/wxPayEr/orderId/'+orderId;
                     }
                 });
               }
@@ -700,7 +701,68 @@ angular.module("myApp", ["ionic"])
     });
   };
 }])
+.controller("carCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
+  $scope.carLic = function() {
+    var car = {
+      carzImg:$('#carzImg').val(),
+      carfImg:$('#carfImg').val(),
+      orderId:$('#orderId').val()
+    }
+    serviceHttp.addCarLic(car).success(function(data) {
+      if(data.status>0){
+        $rootScope.msg('上传成功');
+        window.location.href = '/Mobile/Users/Index';
+      }else{
+        $rootScope.msg('上传失败');
+      }
+    });
+  };
+}])
+.controller("userInCtrl",['$scope','serviceHttp',function($scope,serviceHttp) {
+  $scope.sexlist = [{
+      text: "男",
+      value: "1"
+  }, {
+      text: "女",
+      value: "2"
+  }];
+  $scope.oUser = {
+      sex: '1'
+  };
+  $scope.serverSideChange = function(item) {
+    $scope.oUser.sex = item.value;
+  };
+  console.log($('#adultNum').html());
+  $scope.u
+}])
+.controller("dCommentCtrl",['$scope','serviceHttp',function($scope,serviceHttp) {
+   $scope.ratingsObject = {
+    iconOn : 'ion-ios-star',
+    iconOff : 'ion-ios-star-outline',
+    iconOnColor: 'rgb(200, 200, 100)',
+    iconOffColor:  'rgb(200, 100, 100)',
+    rating:  1,
+    minRating:1,
+    callback: function(rating) {
+      $scope.ratingsCallback(rating);
+    }
+  };
+
+  $scope.ratingsCallback = function(rating) {
+    console.log('Selected rating is : ', rating);
+    //   var num = rating;
+         $("#myratings").html(rating+"分");
+  };
+
+}])
 .service('serviceHttp',['$http',function($http){
+  this.addCarLic=function(data){
+     return $http({
+          url:'/Mobile/Users/addCarLic',
+          method:"POST",
+          data:data
+      });
+  };
   this.OrdersList=function(data){
      return $http({
           url:'/Mobile/Orders/OrdersList',

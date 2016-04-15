@@ -13,13 +13,13 @@ class PaysModel extends BaseModel {
   //获取支付信息
   public function getInfoNo($orderNo='')
   {
-    return M('orders')->field('orderNo,payType,totalMoney')->where(array('orderNo'=>$orderNo))->find();
+    return M('orders')->field('orderId,orderNo,payType,totalMoney')->where(array('orderNo'=>$orderNo))->find();
   }
   //支付完成后修改订单
   public function editOrder($orderNo=0)
   {
     $o = M('orders');
-    $data = $o->field('orderId,adultNum')->where(array('orderNo'=>$orderNo))->find();
+    $data = $o->field('orderId,adultNum,goodsType')->where(array('orderNo'=>$orderNo))->find();
     $good = M('order_goods')->field('goodsId,drivesId,drivestimeId')->where(array('orderId'=>$data['orderId']))->find();
     if($good['goodsId']>0){
       M('order_goods')->where('goodsId='.$good['goodsId'])->setInc('saleCount');
@@ -36,7 +36,11 @@ class PaysModel extends BaseModel {
         M('coupons')->where(array('couponsCode'=>$coupons[$i]['couponsCode']))->save(array('isUse' =>1));
       }
     }
-    $o->where(array('orderNo' =>$orderNo))->save(array('orderStatus' =>1,'isPay'=>1));
+    if($data['goodsType']==1){
+      $o->where(array('orderNo' =>$orderNo))->save(array('orderStatus' =>1,'isPay'=>1));
+    }else {
+      $o->where(array('orderNo' =>$orderNo))->save(array('orderStatus' =>3,'isPay'=>1));
+    }
   }
 }
 ?>
