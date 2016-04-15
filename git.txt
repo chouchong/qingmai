@@ -1,0 +1,172 @@
+﻿echo "# qingmai" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/chouchong/qingmai.git
+git push -u origin master
+
+git remote add origin https://github.com/chouchong/qingmai.git
+git push -u origin master
+
+
+git add .
+git commit -m "清迈第一次代码提交"
+git push -u origin master
+
+
+git add .
+git commit -m "清迈景点商品add页面"
+git push -u origin master
+
+git add .
+git commit -m "清迈sql"
+git push -u origin master
+
+git add .
+git commit -m "商品添加"
+git push -u origin master
+
+git add .
+git commit -m "商品属性添加页面"
+git push -u origin master
+
+git add .
+git commit -m "商品属性添加完成"
+git push -u origin master
+
+git add .
+git commit -m "web设计图"
+git push -u origin master
+
+
+git add .
+git commit -m "酒店与自驾页面"
+git push -u origin master
+
+
+git add .
+git commit -m "自驾添加"
+git push -u origin master
+
+
+git add .
+git commit -m "自驾修改完成"
+git push -u origin master
+
+git add .
+git commit -m "自驾时间价格完成"
+git push -u origin master
+
+git add .
+git commit -m "5.sql"
+git push -u origin master
+
+git add .
+git commit -m "优惠码完成-周志红"
+git push -u origin master
+
+git add .
+git commit -m "报名完成-周志红-后台完成"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile首页完成"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile首页图片加载"
+git push -u origin master
+
+git add .
+git commit -m "mobile模板"
+git push -u origin master
+
+git add .
+git commit -m "mobile首页volist"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile自驾ssql"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile注册页面"
+git push -u origin master
+
+git add .
+git commit -m "mobile注册短信发送"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile个人中心"
+git push -u origin master
+
+git add .
+git commit -m "mobile个人用户名字修改"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile个人用户收货地址完成"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile自驾游页面"
+git push -u origin master
+
+git add .
+git commit -m "mobile自驾游页面url"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile自驾游页面1"
+git push -u origin master
+
+git add .
+git commit -m "mobile自驾游页面完成"
+git push -u origin master
+
+git add .
+git commit -m "mobile自驾游页面出发人数"
+git push -u origin master
+
+git add .
+git commit -m "mobile自驾确认"
+git push -u origin master
+
+git add .
+git commit -m "mobile自驾确认1"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile签证"
+git push -u origin master
+
+
+git add .
+git commit -m "mobile支付"
+git push -u origin master
+
+git add .
+git commit -m "mobile支付微信"
+git push -u origin master
+
+git add .
+git commit -m "微信支付"
+git push -u origin master
+
+git add .
+git commit -m "微信支付1"
+git push -u origin master
+
+git add .
+git commit -m "我的订单"
+git push -u origin master

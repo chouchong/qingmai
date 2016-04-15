@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>车辆行驶证</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.spinner.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    </script>
+    <style type="text/css">
+    .spinnerExample {
+        margin: 10px 0;
+    }
+    </style>
+</head>
+
+<body ng-app="myApp">
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" class="" style="background:#F5F5F5;width: 80px;
+      text-align: center; display:  none;
+      height: 80px;float: right;    right: 0px;    margin-top: 40px;
+      position: fixed;">
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" onclick="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="    background: #f5f5f5;">
+        <div class="card  insurance">
+            <div class="item item-divider" style="">
+                <span>订单号：<span>a12345678</span></span>
+            </div>
+            <div class="item item-text-wrap insurancepeo">
+                <span>2</span><span>成人</span>
+                <span>1</span><span>儿童</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>被保险人信息（请按护照信息录入）</span>
+            </div>
+        </div>
+    <div class="card">
+            <label class="item item-input">
+                <span class="input-label">姓名：</span>
+                <input type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">护照号码：</span>
+                <input type="password">
+            </label>
+            <label class="item item-input" style="padding:0 0 0 16px;" ng-controller="sexc">
+                <span class="input-label">性别：<span id="sex">{{ data.sex }}</span></span>
+                <ion-radio ng-repeat="item in sexlist"
+                                  ng-value="item.value" ng-model="data.sex"
+                                  ng-change="serverSideChange(item)">
+                                  {{ item.text }}
+              </ion-radio>
+            </label>
+        </div>
+<div class="card">
+            <label class="item item-input">
+                <span class="input-label">姓名：</span>
+                <input type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">护照号码：</span>
+                <input type="password">
+            </label>
+            <label class="item item-input" style="padding:0 0 0 16px;" ng-controller="sexc">
+                <span class="input-label">性别：<span id="sex">{{ data.sex }}</span></span>
+                <ion-radio ng-repeat="item in sexlist"
+                                  ng-value="item.value" ng-model="data.sex"
+                                  ng-change="serverSideChange(item)">
+                                  {{ item.text }}
+              </ion-radio>
+            </label>
+</div>
+<div class="card">
+            <label class="item item-input">
+                <span class="input-label">姓名：</span>
+                <input type="text">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">护照号码：</span>
+                <input type="password">
+            </label>
+            <label class="item item-input" style="padding:0 0 0 16px;" ng-controller="sexc">
+                <span class="input-label">性别：<span id="sex" ng-bind="data.sex"></span></span>
+                <ion-radio ng-repeat="item in sexlist"
+                                  ng-value="item.value" ng-model="data.sex"
+                                  ng-change="serverSideChange(item)">
+                                  {{ item.text }}
+              </ion-radio>
+            </label>
+</div>
+        <div class="row">
+            <div style="width:100%;">
+                <a href="myorder.html">
+                    <button class="button button-block " style="background:#F77462;color:#fff;">提交资料</button>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+    <script>
+    angular.module("myApp", ["ionic"])
+    .controller('sexc', function($scope) {
+
+      $scope.sexlist = [
+        { text: "男", value: "1" },
+        { text: "女", value: "2" }
+      ];
+       $scope.data = {
+        sex: '0'
+      };
+      $scope.serverSideChange = function(item) {
+
+      };
+      
+    });
+    </script>
+</body>
+
+</html>

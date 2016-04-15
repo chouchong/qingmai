@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" class="" style="background:#F5F5F5;width: 80px;
+      text-align: center; display:  none;
+      height: 80px;float: right;    right: 0px;    margin-top: 40px;
+      position: fixed;">
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" onclick="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="    background: #f5f5f5;">
+        <div class="item " style="text-align: center;"><h2>公司简介</h2></div>
+        <div class="item  item-text-wrap">
+            清迈“Flying Squirrels”丛林飞跃体验
+                    酒店往返拼车接送服务
+                    英文导游贴心陪伴
+                    泰式自助餐
+                    饮用水
+                    纪念T恤衫1件
+                    旅游医疗意外保险
+                    <br>
+                     
+                    费用不含
+                    <br>
+                     
+                    小费
+                    <br>
+                    个人消费及其他未提及费用
+
+                    <br>
+                    注意事项
+                    <br>
+
+                    1. 为了您的安全考虑，孕妇、65周岁以上老人、4周
+                    岁 (含)以下小孩、身高低于120cm、体重超过120kg
+                    及心脏病或其他特殊疾病患者禁止参加本行程。
+                    <br>
+                    2. 5-11周岁的儿童与成人 (12-65周岁)同价。
+                    <br>
+                    3. 游览过程中有经过严格专业训练的专业安全指导员、
+                    教练、导游陪同，在行程过程中请务必听从教练的教
+                    导。
+                    <br>
+                    4. 意外保险只含当地服务商为游客购买旅行意外险 (泰
+                    国本地保险公司)。如果需另外旅游意外险 (国内保险
+                    公司)请自行购买。
+                    <br>
+                    5. 如果您对导游、工作人员的服务表示满意，可以酌
+                    情付小费。
+                    <br>
+                    6. 拼车服务可能会晚到您的酒店，请按约定时间耐心
+                    等候。如果超过20分钟请联系我们的24小时当地紧急
+                    联系电话，工作人员会为您协调。
+                    <br>
+                    7. 行程仅供参考，具体游览的时间有可能因为天气等
+                    原因而有所变化，实际以当天导游安排为准。
+                     
+                    <br>
+                    预定须知
+                     
+                    <br>
+                    最晚请于游览前三天进行购买，一经预定不退改！
+                    由于该产品较热门，建议提早购买、以保证游览！
+                     
+                    <br>
+                    使用说明
+                    <br>
+                    产品预定成功后您将收到订单确认邮件，请将电子版
+                    邮件出示给我社当地工作人员，会为你进行细心安排！
+        </div>
+    </ion-content>
+    <script>
+    angular.module("myApp", ["ionic"]);
+    </script>
+</body>
+
+</html>

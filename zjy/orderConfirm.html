@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>订单确认</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.spinner.js"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="MainCtrl">
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" class="" style="background:#F5F5F5;width: 80px;
+      text-align: center; display:  none;
+      height: 80px;float: right;right: 0px;    margin-top: 40px;
+      position: fixed;">
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" onclick="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content overflow-scroll="false" id="content-index" class="scroll-content has-header" style="    background: #f5f5f5;">
+        <div class="row" style=" padding: 8px;margin-bottom: 8px;">
+            <div class="" style=" line-height: 180%;width: 100%;    background: #fff; padding:8px;">
+                <p><span><strong><b>年轻人的第一次的跨境自驾旅行</b></strong></span><span style="color:#F77766;float:right;">青新版&nbsp;9999元/人</span></p>
+                <p style="    clear: both;">
+                    <span style="">昆明——清迈</span>
+                    <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">6晚7夜跨境自驾自由行</span>
+                </p>
+                <p style="    clear: both;">
+                    出发时间： <span>2016年06月06日</span>
+                </p>
+                <p>
+                    结束时间： <span>2016年06月06日</span>
+                </p>
+            </div>
+        </div>
+        <div class="list">
+            <div class="item item-text-wrap">
+                <p style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>出发日期:<span>2016-06-09</span>&nbsp;&nbsp;<span>18:00</span><span style="float: right;">磨憨口岸</span></p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>出发日期:<span>2016-06-09</span>&nbsp;&nbsp;<span>18:00</span><span style="float: right;">磨憨口岸</span></p>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span style="float: right;">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span style="float: right;">2016-06-09</span><span style="float: right;">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span style="float: right;">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span style="float: right;">2016-06-09</span><span style="float: right;">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span style="float: right;">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span style="float: right;">2016-06-09</span><span style="float: right;">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-text-wrap">
+                成人
+                <span style="float:right;"><span id="manNum">2</span>人x <span>199</span>元/人</span>
+            </div>
+            <div class="item item-text-wrap">
+                儿童
+                <span style="float:right;"><span id="childNum">2</span>人x <span>199</span>元/人</span>
+            </div>
+            <div class="item item-text-wrap">
+                用房数
+                <span style="float:right;">1标准双床房</span>
+            </div>
+            <div class="item item-text-wrap">
+                单房差
+                <span style="float:right;">￥<span>0</span>元</span>
+            </div>
+            <div class="item item-text-wrap" style="color:#F88B7D;">
+                合计总价
+                <span style="float:right;">￥<span >12346</span>元</span>
+            </div>
+        </div>
+        <div class="card">
+            <p style="padding:10px;line-height: 150%;">全程酒店为标准双床房，如需安排标准大床房请勾选，我社工作人员将根据酒店情况尽量为您安排，但不保证能满足您的要求，敬请谅解！</p>
+            <ion-checkbox id="bigRoom" ng-model="isChecked" ng-checked="isChecked">尽量安排标准大床房</ion-checkbox>
+        </div>
+        <div class="card" style="">
+            <div class="item item-text-wrap defaultaddr">
+                <h2>使用默认地址</h2>
+                <span>张三</span>
+                <span style="float:right;">
+                    13388768745
+                </span>
+                <p><span>asdf@23.com</span></p>
+                <p><span>上海sd卡减肥拉斯看到烧烤、</span></p>
+            </div>
+            <div ng-click="resizeContent()" class="item item-divider">
+                <span>
+                <i  id="uselinkman" class="icon ion-android-radio-button-off placeholder-icon" style="color:#12f;"></i>添加新地址</span>
+            </div>
+        </div>
+        <div class="card linkmanfrom" style="display: none;">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <div style="padding:10px;">
+                        <p style="font-size: 18px;">
+                            联系人信息<span style="font-size: 13px;"> 一个订单一位联系人即可</span>
+                        </p>
+                    </div>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系人</span>
+                    <input type="text" placeholder="请输入联系人姓名" ng-model="manMsg.names">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系电话</span>
+                    <input type="text" placeholder="请输入联系人电话" ng-model="manMsg.phone">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系人地址邮件</span>
+                    <input type="text" placeholder="请输入您的地址邮件" ng-model="manMsg.em">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">您的地址<span style="font-size: 70%;
+    color: #FF5F5F;">用于接收赠送礼盒</span></span>
+                    <input type="text" placeholder="请输入您的地址" ng-model="manMsg.add">
+                </label>
+            </div>
+        </div>
+        <div class="card item-input" style="padding:16px;">
+            <textarea placeholder="亲如有特殊要求，请在此处留言，我们会尽快与您联系"></textarea>
+        </div>
+        <div id="Zcode" class="card ">
+            <div class="item item-button-right" id="ZcodeAdd">
+                我有Z码
+                <button ng-click="resizeContent()" id="addZcode" class="button ">&nbsp;&nbsp;<i class="ion-plus-round"></i>&nbsp;&nbsp;</button>
+            </div>
+        </div>
+        <div class="row" style="padding:10px;">
+            <div style="    border: 3px solid #69E0F9;width: 20px;height: 20px;padding: 2px;">
+                <div style="    background: #498CD0;   width: 10px; height: 10px;">
+                </div>
+            </div>
+            <p style="line-height: 22px;padding:0 10px;">本人及订单包含人员已阅读并同意《产品订购协议》</p>
+        </div>
+        <div class="row footermessage ">
+            <div>
+                <p>版权所有 昆明春秋国际旅行社有限公司</p>
+                <p>滇ICP证 16097834</p>
+                <p>2015 All copyrights by Kunming spring tour CO，ITd</p>
+            </div>
+        </div>
+        <div class="row" style="background:#fff ;    font-size: 20px; ">
+            <div class="col col-67">
+                <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">价格&nbsp;¥&nbsp;<span>1520</span></p>
+            </div>
+            <div class="col col-33" style="background:#F77462; text-align: center;">
+                <a ng-click="submit()" style="display: block;    text-decoration: none;">
+                    <span style="margin: 0; line-height: 50px;color: #fff;">立即支付</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+    <script>
+    var app = angular.module("myApp", ["ionic"]);
+
+    app.controller('MainCtrl', ['$scope', '$ionicScrollDelegate', function($scope, $ionicScrollDelegate) {
+        $scope.resizeContent = function() {
+            $ionicScrollDelegate.resize();
+        };
+
+        $scope.isChecked = false;
+        $scope.submit = function() {
+            console.log($scope.isChecked);
+        };
+
+    }]);
+
+    $('.spinnerExample').spinner({});
+    $('.aZcode').live("blur", function(event) {
+        var currZ = $(this).val();
+        var n = 0;
+        if (currZ != "") {
+            $(".aZcode").each(function() {
+                if (currZ == $(this).val()) {
+                    n++;
+                }
+            });
+        }
+        if (currZ == "") {
+            $(this).val("");
+            $(this).attr("placeholder", "请输入您的Z码");
+            $(this).next().html("");
+        } else if (n == 1) {
+            // $.ajax({
+            //     url: "http://192.168.0.123/Api/Api/getDtp",
+            //     data: {
+            //         zcode: $(this).val()
+            //     },
+            //     dataType: 'json',
+            //     type: 'POST',
+            //     success: function(data) {
+            //         $(this).next().html(data);
+            //     }
+            // });
+            $(this).next().html("66");
+        } else {
+            $(this).val("");
+            $(this).attr("placeholder", "Z码不能重复");
+            $(this).next().html("重复！");
+        }
+    });
+
+    $('#addZcode').live("click", function(event) {
+        // $("#ZcodePrice").show();
+        var men = parseInt($("#manNum").html());
+        var child = parseInt($("#childNum").html());
+        if ((men + child) > $('#Zcode input').size()) {
+            $("#ZcodeAdd").after('<div class="item item-input padding "><input class="aZcode" type="text" placeholder="请输入您的Z码"><span class="aZcodePrice">123</span></div>');
+        }
+        // $('#id').css('min-height','100');
+        // $('body').height(200);
+        // 遍历input的值
+        // $("#Zcode").find("input").each(function(){
+        //     alert(this.value);
+        // });
+    });
+    $("#uselinkman").parent().click(function() {
+        if ($("#uselinkman").hasClass("ion-android-radio-button-off")) {
+            $("#uselinkman").addClass("ion-android-checkmark-circle");
+            $("#uselinkman").removeClass("ion-android-radio-button-off");
+            $(".linkmanfrom").show();
+            $(".defaultaddr").hide();
+        } else {
+            $("#uselinkman").addClass("ion-android-radio-button-off");
+            $("#uselinkman").removeClass("ion-android-checkmark-circle");
+            $(".linkmanfrom").hide();
+            $(".defaultaddr").show();
+        }
+    });
+    $(".whatZcode").click(function() {
+        $(".detailZcode").show();
+    });
+    </script>
+</body>
+
+</html>

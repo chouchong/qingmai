@@ -1,0 +1,3 @@
+http://wmk223.imwork.net/Mobile/Pays/payment/orderId/
+http://wmk223.imwork.net/index.php/Mobile/Pays/
+http://wmk223.imwork.net/index.php/Mobile/Pays/payment/

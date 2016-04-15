@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>景点详细</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.spinner.js"></script>
+    <script src="js/dateSelect.js"></script>
+    <script src="js/script.js"></script>
+</head>
+
+<body ng-app="myApp" ng-controller="scenicCtrl">
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" style="display: none;">
+            <div class="" style="">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" onclick="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content id="content-index" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
+        <div class="card">
+            <div class="item item-divider">
+                <p style="font-size: 18px;margin:10px;"><span>丛林飞跃（半日 含中餐及接送）</span></p>
+                <img src="img/jd1.png" alt="" width="100%">
+                <p style="color:#F77A69;padding:10px; font-size: 16px;">￥<span>275</span>/人</p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>
+                    1. 性价比最高的丛林飞跃体验
+                    2. 长度居中、价格便宜、设备新全
+                    3. 目前清迈最热的丛林飞行类项目
+                    4. 空中自行车、空中滑板、高空网强等众多新鲜刺
+                        激的飞行项目深受众多游客的好评
+                    <br>
+                     
+                    产品详情
+                    <br>
+
+                     Flying Squirrels包括32个树间平台、17段滑索、1
+                    个绕绳下降、6段步行梯、2个攀爬网 (高空挑战网和
+                    一个蜘蛛攀爬网)、2个高空桥、1个高空速降、1个高
+                    空滑板、2个飞鼠冒险 (5米高的高空自行车和滑翔)。
+                    除了传统的滑索、空桥和高空垂降之外还有飞天滑板、
+                    高空自行车和大型溜滑梯等设计新颖的活动项目，惊
+                    险刺激使人难以忘怀。
+                    <br>
+                    费用包含
+                     
+                    <br>
+                    清迈“Flying Squirrels”丛林飞跃体验
+                    酒店往返拼车接送服务
+                    英文导游贴心陪伴
+                    泰式自助餐
+                    饮用水
+                    纪念T恤衫1件
+                    旅游医疗意外保险
+                    <br>
+                     
+                    费用不含
+                    <br>
+                     
+                    小费
+                    <br>
+                    个人消费及其他未提及费用
+
+                    <br>
+                    注意事项
+                    <br>
+
+                    1. 为了您的安全考虑，孕妇、65周岁以上老人、4周
+                    岁 (含)以下小孩、身高低于120cm、体重超过120kg
+                    及心脏病或其他特殊疾病患者禁止参加本行程。
+                    <br>
+                    2. 5-11周岁的儿童与成人 (12-65周岁)同价。
+                    <br>
+                    3. 游览过程中有经过严格专业训练的专业安全指导员、
+                    教练、导游陪同，在行程过程中请务必听从教练的教
+                    导。
+                    <br>
+                    4. 意外保险只含当地服务商为游客购买旅行意外险 (泰
+                    国本地保险公司)。如果需另外旅游意外险 (国内保险
+                    公司)请自行购买。
+                    <br>
+                    5. 如果您对导游、工作人员的服务表示满意，可以酌
+                    情付小费。
+                    <br>
+                    6. 拼车服务可能会晚到您的酒店，请按约定时间耐心
+                    等候。如果超过20分钟请联系我们的24小时当地紧急
+                    联系电话，工作人员会为您协调。
+                    <br>
+                    7. 行程仅供参考，具体游览的时间有可能因为天气等
+                    原因而有所变化，实际以当天导游安排为准。
+                     
+                    <br>
+                    预定须知
+                     
+                    <br>
+                    最晚请于游览前三天进行购买，一经预定不退改！
+                    由于该产品较热门，建议提早购买、以保证游览！
+                     
+                    <br>
+                    使用说明
+                    <br>
+                    产品预定成功后您将收到订单确认邮件，请将电子版
+                    邮件出示给我社当地工作人员，会为你进行细心安排！
+                </p>
+            </div>
+        </div>
+        <!-- 日历 -->
+        <div class="card" id="" style="margin: 0;">
+            <div class="item item-divider " style="background-color: #11c1f3;">
+                <div class="row" style="text-align: center;    margin: 0;">
+                    <div class="col col-25" onclick="preMonth()"><i class="ion-chevron-left"></i></div>
+                    <div class="col col-50"><span id="currentMonth">2016-03</span></div>
+                    <div class="col col-25" onclick="nextMonth()"><i class="ion-chevron-right"></i></div>
+                </div>
+            </div>
+            <div class="" style="text-align: center;  font-size: 20px;  color: #11c1f3;">
+                <div class=" col-14 dateday">日</div>
+                <div class=" col-14 dateday">一</div>
+                <div class=" col-14 dateday">二</div>
+                <div class=" col-14 dateday">三</div>
+                <div class=" col-14 dateday">四</div>
+                <div class=" col-14 dateday">五</div>
+                <div class=" col-14 dateday">六</div>
+            </div>
+            <div id="calendarSelect" class=" responsive-break" style="text-align: center;">
+            <!-- <div class="dateSelect">
+                    <div class="dateSelectDay">
+                    </div>
+                </div> -->
+            </div>
+            <div class="row" style="text-align: center;">
+                <div class="item item-text-wrap">
+                    <p>选择日期需从今日<span id="today" style="color:#c00;">2016-3-5</span>后三天起开始选择</p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                选择套餐
+            </div>
+            <div class="item item-text-wrap scenictime">
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+                    <div class="scenictimes" >
+                        <button class="button button-outline button-stable">15:00-16:00<br>出发</button>
+                    </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="item item-divider">
+                选择分店
+            </div>
+            <div class="item item-text-wrap scenicShop">
+                    <div class="scenicShops" >
+                        <button class="button button-outline button-stable">一店</button>
+                    </div>
+                    <div class="scenicShops" >
+                        <button class="button button-outline button-stable">二店</button>
+                    </div>
+                    <div class="scenicShops" >
+                        <button class="button button-outline button-stable">三点</button>
+                    </div>
+                    <div class="scenicShops" >
+                        <button class="button button-outline button-stable">三点</button>
+                    </div>
+            </div>
+        </div>
+        <div class="card">
+            <ion-item class="">
+                <div class="" style="width:33%; float:left;">
+                    成人
+                </div>
+                <div class=" " style="width:33%; float:left;">
+                    <input id="manNum" type="text" class="spinnerExample" />
+                </div>
+                <div class="" style="width:33%; float:left; text-align: right;">
+                    <span id="manPrice">343</span>元/人
+                </div>
+            </ion-item>
+            <ion-item style="    ">
+                <div class="" style="width:33%; float:left;">
+                    儿童
+                </div>
+                <div class=" " style="width:33%; float:left;">
+                    <input id="childNum" type="text" class="spinnerExample" />
+                </div>
+                <div class="" style="width:33%; float:left; text-align: right;">
+                    <span id="childPrice">9999</span>元/人
+                </div>
+            </ion-item>
+        </div>
+        <div class="card" >
+            <div class="item item-text-wrap defaultaddr">
+                <h2>使用默认地址</h2>
+                <span>张三</span>
+                <span style="float:right;">
+                    13388768745
+                </span>
+                <p><span>asdf@23.com</span></p>
+                <p><span>上海sd卡减肥拉斯看到烧烤、</span></p>
+            </div>
+            <div ng-click="resizeContent()" class="item item-divider">
+                <span>
+                <i  id="uselinkman" class="icon ion-android-radio-button-off placeholder-icon" style="color:#12f;"></i>添加新地址</span>
+            </div>
+        </div>
+        <div class="card linkmanfrom" style="display: none;">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <div style="padding:10px;">
+                        <p style="font-size: 18px;">
+                            联系人信息<span style="font-size: 13px;"> 一个订单一位联系人即可</span>
+                        </p>
+                    </div>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系人</span>
+                    <input type="text" placeholder="请输入联系人姓名">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系电话</span>
+                    <input type="text" placeholder="请输入联系人电话">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">联系人地址邮件</span>
+                    <input type="text" placeholder="请输入您的地址邮件">
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span class="input-label has-input">您的地址<span style="font-size: 70%;
+    color: #FF5F5F;">用于接收赠送礼盒</span></span>
+                    <input type="text" placeholder="请输入您的地址">
+                </label>
+            </div>
+        </div>
+        <div class="row" style="background:#fff ;font-size: 20px; ">
+            <div class="col col-67">
+                <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">价格&nbsp;¥&nbsp;<span>1520</span></p>
+            </div>
+            <div class="col col-33" style="background:#F77462; text-align: center;">
+          <a href="pay.html" style="display: block;    text-decoration: none;">
+                    <span style="margin: 0; line-height: 50px;color: #fff;">提交订单</span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+    <script>
+    $('.spinnerExample').spinner({});
+        var app = angular.module("myApp", ["ionic"]);
+
+    app.controller('scenicCtrl', ['$scope', '$ionicScrollDelegate', function($scope, $ionicScrollDelegate) {
+        $scope.resizeContent = function() {
+            $ionicScrollDelegate.resize();
+        };
+    }]);
+
+    $(".scenicShops button").click(function(event) {
+        $(".scenicShops .button-calm").addClass("button-outline");
+        $(".scenicShops .button-calm").removeClass("button-calm");
+        $(this).addClass("button-calm");
+        $(this).removeClass("button-outline");
+    });  
+    $(".scenictimes button").click(function(event) {
+        $(".scenictimes .button-calm").addClass("button-outline");
+        $(".scenictimes .button-calm").removeClass("button-calm");
+        $(this).addClass("button-calm");
+        $(this).removeClass("button-outline");
+    });  
+      $("#uselinkman").parent().click(function() {
+        if ($("#uselinkman").hasClass("ion-android-radio-button-off")) {
+            $("#uselinkman").addClass("ion-android-checkmark-circle");
+            $("#uselinkman").removeClass("ion-android-radio-button-off");
+            $(".linkmanfrom").show();
+            $(".defaultaddr").hide();
+        } else {
+            $("#uselinkman").addClass("ion-android-radio-button-off");
+            $("#uselinkman").removeClass("ion-android-checkmark-circle");
+            $(".linkmanfrom").hide();
+            $(".defaultaddr").show();
+        }
+    });
+    var selectedDate ;
+    $(".dateSelect").live("click", function() {
+        var todayDate = new Date($("#today").html().replace(/-/g, '/'));
+        var dateSelectDay = new Date($(this).children(".dateSelectDay").attr("id").replace(/-/g, '/'));
+        var time = dateSelectDay - todayDate.getTime() ; //日期的long型值之差
+        if(Math.floor(time/(24*60*60*1000)) >= 3){
+            $(".selected").removeClass("selected");
+            $(this).children(".dateSelectDay").addClass("selected");
+            selectedDate = dateSelectDay;
+        }
+        console.log(selectedDate.toLocaleString());
+    });
+
+    $(function() {
+
+    });
+    $.ajax({
+        url: "http://192.168.0.123/Api/Api/getDtp",
+        data: { drivesId: drivesId },
+        dataType: 'json',
+        type: 'POST',
+        success: function(data) {
+            dateServer = data;
+            getAllDays();
+            addMonths();
+            addAllDays();
+            addMonthsDateHTmls();
+        }
+        });
+
+    </script>
+</body>
+
+</html>

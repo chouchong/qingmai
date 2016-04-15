@@ -1,0 +1,35 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>我的账户</title>
+</block>
+<block name="main">
+<div ng-app="myApp" ng-controller="userCtrl">
+    <include file="tpl:nav" />
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
+       <div class="card" style="">
+           <div class="item item-text-wrap" >
+                <i class="iocn ion-android-happy" ></i>&nbsp;&nbsp;用户账号
+                <span style="float:right;">
+                    {$user.userPhone}
+                </span>
+            </div>
+           <div class="item item-text-wrap" >
+                <a href="{:U('Mobile/Users/reName')}"><i class="iocn ion-android-person" ></i>&nbsp;&nbsp;修改用户名
+                <span style="float:right;">
+                    {$user.userName}
+                </span></a>
+            </div>
+           <div class="item item-text-wrap">
+                <a href="{:U('Mobile/Users/addressList')}"><i class="iocn ion-android-people" ></i>&nbsp;&nbsp;联系人管理</a>
+            </div>
+       </div>
+    </ion-content>
+    <ion-footer-bar align-title="center" class="bar-assertive">
+        <h1 class="title"><a ng-click="logout()">退出登录</a></h1>
+    </ion-footer-bar>
+</div>
+</block>
+<block name="js">
+</block>
+

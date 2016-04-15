@@ -1,0 +1,33 @@
+<div class="bar bar-subheader ">
+  <a class="button button-clear" href="#main"><img src="img/ionic.png" height="32px" width="" 
+        style="    margin-left: 20px; color:#6CC5DC;" ></a>
+  <!-- <i class="ion-navicon-round"></i> -->
+  <h1 class="title"></h1>
+
+  .<a class="button button-clear icon ion-navicon-round" style="float:right;"></a>
+  <div class="" style="background:#F5F5F5;width: 80px;
+    text-align: center;margin-top: 44px;
+    height: 80px;float: right;" >
+      <div class="" style="line-height: 40px;color:#72C7DD;">
+          <a href="#">我的账户</a>
+      </div>
+      <div class="" style="line-height: 40px;color:#72C7DD;">
+        <a href="#order">我的订单</a>
+      </div>
+  </div>
+</div>
+<ion-view view-title="自驾游"  style="margin-top: 44px;">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-avatar item-icon-right" ng-repeat="zjy in zjys" type="item-text-wrap" href="#/zjyList/{{zjy.id}}">
+        <img ng-src="{{zjy.face}}">
+        <h2>{{zjy.name}}</h2>
+        <p>{{zjy.lastText}}</p>
+        <!--    <i class="icon ion-chevron-right icon-accessory"></i>
+       <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button> -->
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

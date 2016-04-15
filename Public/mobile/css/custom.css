@@ -1,0 +1,432 @@
+@charset "UTF-8";
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.4rem; }
+
+body,
+#menu,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+  font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", SimSun, "宋体", Heiti, "黑体", sans-serif !important; }
+
+p {
+  color: #777777; }
+
+a {
+  text-decoration: none;
+  color: #777777; }
+
+.pricecolor {
+  color: #F77563; }
+
+.manyps {
+  width: 100%; }
+  .manyps p {
+    line-height: 130%; }
+    .manyps p span {
+      float: right; }
+
+.spinnerExample {
+  margin: 10px 0; }
+
+#myuser {
+  background: #F5F5F5;
+  width: 80px;
+  text-align: center;
+  height: 80px;
+  float: right;
+  right: 0px;
+  margin-top: 40px;
+  position: fixed; }
+  #myuser div {
+    line-height: 40px;
+    color: #72C7DD; }
+
+.footermessage {
+  background: #F5F5F5;
+  font-size: 14px;
+  line-height: 120%; }
+  .footermessage div {
+    text-align: center;
+    width: 100%;
+    padding: 5%; }
+
+#content-index {
+  padding: 0 8px; }
+  #content-index .row {
+    margin: 5px 0; }
+
+.zjylist .zjy {
+  background: #f5f5f5;
+  padding: 0;
+  margin-bottom: 8px; }
+  .zjylist .zjy .row .ionstar i {
+    font-size: 20px;
+    color: #FFD679; }
+  .zjylist .zjy .row .price {
+    text-align: center;
+    vertical-align: middle; }
+    .zjylist .zjy .row .price p {
+      font-size: 17px;
+      line-height: 300%;
+      color: #F77563; }
+
+.selectus {
+  text-align: center; }
+  .selectus .col {
+    padding: 10px; }
+    .selectus .col img {
+      width: 60%; }
+    .selectus .col p {
+      line-height: 130%;
+      font-size: 70%; }
+
+.contents {
+  text-align: center; }
+  .contents .col {
+    padding: 0 3%; }
+    .contents .col .contentsdiv {
+      border: 1px solid #9D9D9D;
+      padding: 8px;
+      height: 60px; }
+      .contents .col .contentsdiv a {
+        color: #9D9D9D;
+        font-size: 12px; }
+      .contents .col .contentsdiv .oneline {
+        line-height: 44px; }
+
+.col-14 {
+  float: left;
+  padding: 0;
+  margin: 5px 0;
+  font-size: 12px;
+  line-height: 120%;
+  padding: 5px 0;
+  width: 14%;
+  min-height: 64px; }
+  .col-14 .dd {
+    font-size: 19px;
+    line-height: 140%; }
+  .col-14 .timeId {
+    display: none; }
+
+.dateday {
+  padding: 8px;
+  min-height: 0px;
+  margin: 0; }
+
+.today {
+  background: #A6E7F9; }
+
+.selected {
+  background: #FF6B57; }
+  .selected p {
+    color: #fff; }
+
+.disabled p {
+  color: #B5B5B5; }
+
+.xcapmsg .xcapgright {
+  float: right; }
+
+.cardPS .ion-chevron-down {
+  color: #12f;
+  float: right;
+  font-size: 18px; }
+.cardPS .ion-chevron-up {
+  color: #12f;
+  float: right;
+  font-size: 18px; }
+.cardPS p {
+  line-height: 130%; }
+  .cardPS p a {
+    float: right;
+    color: #7C86FF; }
+
+.zjytjjdp {
+  padding: 0 5px; }
+
+.hotelshow .hotelshows {
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 8px;
+  line-height: 150%; }
+  .hotelshow .hotelshows img {
+    width: 100%; }
+  .hotelshow .hotelshows .passhoteltitle {
+    font-size: 18px; }
+  .hotelshow .hotelshows .ion-star {
+    font-size: 18px;
+    color: #FFD679; }
+  .hotelshow .hotelshows .detail {
+    text-align: right; }
+    .hotelshow .hotelshows .detail a {
+      color: #1F7EDC; }
+  .hotelshow .hotelshows .hotelshowcon {
+    font-size: 14px; }
+
+.passhotel {
+  background: #f5f5f5; }
+  .passhotel .passhotelsm {
+    font-size: 15px;
+    color: #9A7011;
+    line-height: 130%; }
+    .passhotel .passhotelsm span {
+      color: #555;
+      font-size: 20px; }
+
+.passhotellist .passhotelitem {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 8px;
+  line-height: 150%; }
+  .passhotellist .passhotelitem img {
+    width: 100%; }
+  .passhotellist .passhotelitem .passhoteltitle {
+    font-size: 20px; }
+  .passhotellist .passhotelitem p {
+    font-size: 14px; }
+
+.xcjsList .xcmessage .xcmessageTit {
+  background: #6CC5DC;
+  display: block;
+  padding: 8px; }
+.xcjsList .xcmessage .xcmessageP {
+  padding: 8px; }
+  .xcjsList .xcmessage .xcmessageP p {
+    line-height: 150%;
+    font-size: 14px; }
+  .xcjsList .xcmessage .xcmessageP img {
+    width: 100%; }
+
+#visacard p {
+  line-height: 150%; }
+
+.myscenic {
+  background: #6CC5DC; }
+
+.baoming .item-divider {
+  background: #AED5FB; }
+.baoming .item-text-wrap h1 {
+  width: 80%; }
+
+.zjywarm .item-divider {
+  background: #FFD679;
+  text-align: center; }
+  .zjywarm .item-divider h2 {
+    color: #fff; }
+.zjywarm .item-text-wrap {
+  line-height: 130%; }
+  .zjywarm .item-text-wrap p {
+    color: #FFD679; }
+
+.zjytjjd .jdtag {
+  border-radius: 5px;
+  border: 1px solid #ffc900;
+  padding: 2px;
+  color: #ffc900;
+  margin: 0 5px; }
+.zjytjjd .jdprice {
+  float: right;
+  color: #E63535;
+  font-size: 18px; }
+.zjytjjd img {
+  width: 100%; }
+
+.usercomment .commentnum {
+  line-height: 120%;
+  color: #ffc900; }
+.usercomment .commentmsg {
+  margin: 3px; }
+  .usercomment .commentmsg .commentscore {
+    float: right;
+    font-size: 16px; }
+  .usercomment .commentmsg .commentstarts {
+    float: right;
+    font-size: 16px;
+    color: #FFD679; }
+.usercomment .commenttime {
+  margin: 0; }
+  .usercomment .commenttime span {
+    float: right;
+    margin: 5px; }
+.usercomment .commentcon {
+  clear: both; }
+
+.hotelmsg {
+  color: #222;
+  font-size: 14px;
+  line-height: 140%; }
+  .hotelmsg .hotelh4 {
+    margin: 5px;
+    color: #000;
+    font-size: 18px; }
+
+.aZcodePrice {
+  color: #F77462; }
+
+#allZcodePrice {
+  float: right;
+  color: #F77462; }
+
+.orderMessage span {
+  float: right; }
+
+.gopay .item-divider {
+  background: #FFD3D3; }
+  .gopay .item-divider .textright {
+    float: right;
+    padding: 5px;
+    margin: 0 5px;
+    background: #F77563; }
+    .gopay .item-divider .textright a {
+      font-size: 80%;
+      color: #fff; }
+
+.gostay .item-divider {
+  background: #FFD3D3; }
+  .gostay .item-divider .textright {
+    float: right;
+    padding: 5px;
+    margin: 0 5px;
+    background: #7990E1; }
+    .gostay .item-divider .textright a {
+      font-size: 80%;
+      color: #fff; }
+
+.gocomment .item-divider {
+  background: #C481FF; }
+  .gocomment .item-divider .textright {
+    float: right;
+    padding: 5px;
+    margin: 0 5px;
+    background: #4E90FF; }
+    .gocomment .item-divider .textright a {
+      font-size: 80%;
+      color: #fff; }
+
+.insurance .insurancepeo span {
+  margin: 0 5px; }
+
+.loginre {
+  background: #f5f5f5;
+  padding-top: 40px; }
+  .loginre .loginrei {
+    padding: 4px 8px 0 8px; }
+  .loginre .loginreii {
+    padding: 4px 15px 0 10px; }
+  .loginre .loginrepi {
+    padding: 4px 15px 0 6px; }
+  .loginre .loginbutton button {
+    background: #6cc5dc;
+    color: #fff;
+    font-size: 18px; }
+  .loginre .loginbutton span {
+    margin: 5px; }
+  .loginre .loginbutton .registerbutton {
+    float: right; }
+  .loginre .loginread {
+    text-align: center;
+    font-size: 14px; }
+    .loginre .loginread i {
+      color: #12f; }
+    .loginre .loginread a {
+      color: #12f; }
+    .loginre .loginread .loginreads {
+      color: #333; }
+  .loginre .sendmessage {
+    width: 100%;
+    text-align: center; }
+    .loginre .sendmessage .messagetext {
+      background: #6cc5dc;
+      padding: 5px 20px;
+      color: #fff; }
+    .loginre .sendmessage .messagepstext {
+      background: #6cc5dc;
+      /* padding: 0px 0px; */
+      color: #fff; }
+    .loginre .sendmessage .messagetextnum {
+      background: #9C9C9C;
+      padding: 5px 20px;
+      color: #fff; }
+      .loginre .sendmessage .messagepstextnum {
+      background: #9C9C9C;
+     /*  padding: 0px 0px; */
+      color: #fff; }
+
+.scenicShop .scenicShops {
+  padding: 5px;
+  width: 50%;
+  float: left;
+  text-align: center; }
+  .scenicShop .scenicShops button {
+    line-height: 150%; }
+
+.scenictime .scenictimes {
+  padding: 5px;
+  width: 50%;
+  float: left;
+  text-align: center; }
+  .scenictime .scenictimes button {
+    line-height: 150%; }
+
+.dateSelect {
+  float: left;
+  padding: 0;
+  height: 40px;
+  font-size: 12px;
+  line-height: 120%;
+  padding: 5px;
+  width: 14%; }
+  .dateSelect .dateSelectDay {
+    margin: 0 auto;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 30px; }
+  .dateSelect .selected {
+    background: #FF5C5C; }
+  .dateSelect .today {
+    background: #acf; }
+
+.content-result {
+  background: #f5f5f5; }
+  .content-result .card {
+    padding: 10px; }
+    .content-result .card .successHint {
+      margin: 8px; }
+      .content-result .card .successHint p {
+        text-align: center; }
+        .content-result .card .successHint p a {
+          color: #676767;
+          font-size: 20px; }
+    .content-result .card .successImg {
+      text-align: center; }
+      .content-result .card .successImg img {
+        width: 80px;
+        height: 80px; }
+    .content-result .card .successMsg {
+      padding: 10px; }
+      .content-result .card .successMsg p {
+        margin: 8px; }
+        .content-result .card .successMsg p span {
+          float: right; }
+    .content-result .card .successOrder {
+      margin: 8px; }
+      .content-result .card .successOrder p {
+        text-align: center; }
+        .content-result .card .successOrder p a {
+          color: #58B4CC; }
+
+/*# sourceMappingURL=custom.css.map */

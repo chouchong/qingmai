@@ -1,0 +1,44 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>确认支付</title>
+</block>
+<block name="main">
+<div ng-app="myApp">
+<include file="tpl:nav" />
+    <!-- content -->
+    <ion-content id="" class="content-result scroll-content has-header">
+          <div class="card">
+            <div class="successImg" >
+                <empty name="isNo">
+                    <img src="__PUBLIC__/Mobile/img/success.png" >
+                <else />
+                    <img src="__PUBLIC__/Mobile/img/failed.png" >
+                </empty>
+            </div>
+            <div class="successHint">
+                <empty name="isNo">
+                    <p><a>支付成功</a></p>
+                <else />
+                    <p><a>支付成功</a></p>
+                </empty>
+            </div>
+            <div class="successMsg">
+                  <p>订单编号<span>{$row.orderNo}</span></p>
+                  <p>支付方式<span>{$row.payType}</span></p>
+                  <p>支付金额<span>￥&nbsp;{$row.totalMoney}&nbsp;元</span></p>
+            </div>
+            <div class="successOrder">
+                <empty name="isNo">
+                    <p><a href="myorder.html">我的订单</a></p>
+                <else />
+                    <p><a href="myorder.html" style="color:#D22;">再试一次</a>&nbsp;&nbsp;&nbsp;<a href="myorder.html">返回我的订单</a></p>
+                </empty>
+            </div>
+          </div>
+    </ion-content>
+</div>
+</block>
+<block name="js">
+<script>
+</script>
+</block>

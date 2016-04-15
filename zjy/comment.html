@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>我的订单</title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.spinner.js"></script>
+    <script src="js/script.js"></script>
+    <script src="lib/ionic/js/ionic-ratings.js"></script>
+    <script>
+    </script>
+    <style type="text/css">
+    .spinnerExample {
+        margin: 10px 0;
+    }
+    </style>
+</head>
+
+<body ng-app="myApp">
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" class="" style="background:#F5F5F5;width: 80px;
+      text-align: center; display:  none;
+      height: 80px;float: right;    right: 0px;    margin-top: 40px;
+      position: fixed;">
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" onclick="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="    background: #f5f5f5;">
+    
+        <div class="card gocomment">
+            <div class="item item-divider" style="">
+                <span>待评论</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>订单号</span>
+                <span style="float:right;">123456</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>订单号</span>
+                <span style="float:right;">123456</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>订单号</span>
+                <span style="float:right;">123456</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>订单号</span>
+                <span style="float:right;">123456</span>
+            </div>
+            <div class="item item-text-wrap">
+                <span>合计价格</span>
+                <span class="pricecolor" style="float:right;">123456</span>
+            </div>
+        </div>
+         <div class="card" style="padding:16px;">
+             <div class="item item-text-wrap">
+                        在此评论
+             </div>
+             <div class="item item-text-wrap">
+                      <textarea style="width:100%;height:100px;"  placeholder="亲如有特殊要求，请在此处留言，我们会尽快与您联系"></textarea>
+             </div>
+              <div class="item item-text-wrap">
+                      请给我们打个分吧!<span  id="myratings"  style="float:right;color:#F53C10;font-size: 130%">5分</span>
+             </div>
+             <div class="item item-text-wrap" ng-controller="ControllerName">
+                      <ionic-ratings style="font-size: 30px;" controller="ControllerName" ratingsobj='ratingsObject'></ionic-ratings>
+             </div>
+        </div>
+            <div class="row">
+            <div style="width:100%;">
+                <a href="myorder.html">
+                    <button class="button button-block " style="background:#F77462;color:#fff;">提交评论</button>
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+    <script>
+    angular.module("myApp", ["ionic", 'ionic-ratings'])
+    .controller('ControllerName', ['$scope', function($scope) {
+
+      $scope.ratingsObject = {
+        iconOn : 'ion-ios-star',
+        iconOff : 'ion-ios-star-outline',
+        iconOnColor: 'rgb(200, 200, 100)',
+        iconOffColor:  'rgb(200, 100, 100)',
+        rating:  5,
+        minRating:1,
+        callback: function(rating) {
+          $scope.ratingsCallback(rating);
+        }
+      };
+
+      $scope.ratingsCallback = function(rating) {
+        console.log('Selected rating is : ', rating);
+        //   var num = rating;
+             $("#myratings").html(rating+"分");
+      };
+
+}])
+
+    $('.spinnerExample').spinner({});
+    // $("#roomNum").val();
+   
+    </script>
+
+</body>
+
+</html>

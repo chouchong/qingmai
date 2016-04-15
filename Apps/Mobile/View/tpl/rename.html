@@ -1,0 +1,47 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>修改用户名</title>
+</block>
+<block name="css">
+    <style>
+    .button {
+        line-height: 35px;
+        float: right;
+        background: #6dc5cc;
+        min-height: 4px;
+        color: #fff;
+    }
+    </style>
+</block>
+<block name="main">
+<div ng-app="myApp">
+    <include file="tpl:nav" />
+    <ion-content  class="scroll-content has-header" style="background: #f5f5f5;">
+    <form ng-controller="userNmCtrl">
+        <div class="card">
+            <div class="list">
+                <label class="item item-input">
+                     <i class="iocn ion-android-happy" ></i>&nbsp;&nbsp;用户名&nbsp;&nbsp;
+                    <input type="text" placeholder="输入新的用户名" ng-model="username" name="username" id="username">
+                </label>
+                <div class="item item-text">
+                    <button ng-click="doreName()" class="button">保存</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </ion-content>
+   <a href="{:U('Mobile/Users/index')}">
+    <ion-footer-bar align-title="center" class="bar-assertive">
+        <h1  class="title">返回</h1>
+    </ion-footer-bar>
+   </a>
+</div>
+</block>
+<block name="js">
+<script>
+    $(function(){
+        $('#username').val('{$username}');
+    })
+</script>
+</block>

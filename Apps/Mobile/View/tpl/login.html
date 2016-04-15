@@ -1,0 +1,43 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>登录</title>
+</block>
+<block name="main">
+<div ng-app="myApp">
+<ion-content  class=" scroll-content loginre">
+    <form ng-controller="logCtrl" name="myForm" novalidate>
+    <input type="hidden" id="togoUrl" value="{$url}"/>
+        <div class="card">
+            <div class="list">
+                <label class="item item-input">
+                    <i class="icon ion-android-phone-portrait placeholder-icon loginrei"></i>
+                    <input type="tel" placeholder="请输入手机号" ng-model="user.phone" required name="phone" ng-pattern="/^1\d{10}$/">
+                    <span ng-show="myForm.phone.$dirty && myForm.phone.$invalid">
+                    <i ng-show="myForm.phone.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    <i ng-show="myForm.phone.$error.pattern" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    </span>
+                </label>
+                <label class="item item-input">
+                    <i class="icon ion-locked placeholder-icon loginrei"></i>
+                    <input type="password" placeholder="请输入6到12位的密码" ng-minlength="6" ng-maxlength="12" ng-model="user.password" required name="password">
+                    <span ng-show="myForm.password.$dirty && myForm.password.$invalid">
+                    <i ng-show="myForm.password.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    <i ng-show="myForm.password.$error.minlength" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;" ></i>
+                    <i ng-show="myForm.password.$error.maxlength" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;" ></i>
+                    </span>
+                </label>
+                <div class="item item-text loginbutton">
+                    <a>
+                        <button ng-click="dologin()" ng-disabled="myForm.$invalid" class="button button-block">登&nbsp;&nbsp;录</button>
+                    </a>
+                    <a href="{:U('Mobile/Users/psw')}"><span>忘记密码</span></a>
+                    <a href="{:U('Mobile/Users/register',array('url'=>$url))}"><span class="registerbutton">注册账号</span></a>
+                </div>
+            </div>
+        </div>
+    </form>
+    </ion-content>
+</div>
+</block>
+<block name="js">
+</block>

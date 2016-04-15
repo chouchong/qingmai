@@ -1,0 +1,14 @@
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <div class="" style="">
+            <a href="{:U('Mobile/Users/index')}">我的账户</a>
+        </div>
+        <div class="" style="line-height: 40px;color:#72C7DD;">
+            <a href="{:U('Mobile/Orders/index')}">我的订单</a>
+        </div>
+    </div>
+    <a class="button button-clear" href="{:U('Mobile/Index/index')}">
+        <img src="/{$CONF['mallLogo']}" height="32px" style="  color:#6CC5DC;">
+    </a>
+    <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
+</ion-header-bar>

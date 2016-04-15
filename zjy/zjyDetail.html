@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="lib/ionic/js/ionic.bundle.min.js"></script>
+    <link rel="stylesheet" href="css/jquery.spinner.css" />
+    <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.spinner.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/datePrice.js"></script>
+</head>
+
+<body ng-app="myApp" >
+    <ion-header-bar class="bar bar-light">
+        <div id="myuser" style="display: none;">
+            <div class="" style="">
+                <a href="user.html">我的账户</a>
+            </div>
+            <div class="" style="line-height: 40px;color:#72C7DD;">
+                <a href="myorder.html">我的订单</a>
+            </div>
+        </div>
+        <a class="button button-clear" href="index.html">
+            <img src="img/ionic.png" height="32px" style="  color:#6CC5DC;">
+        </a>
+        <a class="button button-clear icon ion-navicon-round" ng-click="user()"></a>
+    </ion-header-bar>
+    <!-- content -->
+    <ion-content id="content-index" class=" scroll-content has-header" style="    background: #f5f5f5;">
+        <input type="hidden" id="drivesId" value="2" />
+        <input type="hidden" id="daytime" value="2016-03-29" />
+        <div class="row" style="background: #f5f5f5; padding: 8px;margin-bottom: 8px;">
+            <a href="#footerme">
+                <img src="img/zjy1.png" alt="" width="100%">
+                <div class="" style="float:left; line-height: 180%;width: 100%;">
+                    <p>年轻人的第一次的跨境自驾旅行</p>
+                    <p>
+                        <span style="">昆明——清迈</span>
+                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">6晚7夜跨境自驾自由行</span>
+                    </p>
+                    <p style="clear:both;"><span style="color:#F77766; ">青新版&nbsp;9999元/人</span>
+                        <span style="float:right;color:#38B8EF;"><span>895</span>人已购买</span>
+                    </p>
+                </div>
+            </a>
+        </div>
+        <!-- 日历 -->
+        <div class="card" id="" style="margin: 0;">
+            <div class="item item-divider " style="background-color: #11c1f3;">
+                <div class="row" style="text-align: center;    margin: 0;">
+                    <div class="col col-25" onclick="preMonth()"><i class="ion-chevron-left"></i></div>
+                    <div class="col col-50"><span id="currentMonth">2016-03</span></div>
+                    <div class="col col-25" onclick="nextMonth()"><i class="ion-chevron-right"></i></div>
+                </div>
+            </div>
+            <div class="" style="text-align: center;  font-size: 20px;  color: #11c1f3;">
+                <div class=" col-14 dateday">日</div>
+                <div class=" col-14 dateday">一</div>
+                <div class=" col-14 dateday">二</div>
+                <div class=" col-14 dateday">三</div>
+                <div class=" col-14 dateday">四</div>
+                <div class=" col-14 dateday">五</div>
+                <div class=" col-14 dateday">六</div>
+            </div>
+            <div id="calendarprice" class=" responsive-break" style="text-align: center;">
+                <!-- 日期价格表 -->
+            </div>
+            <div class="row" style="text-align: center;">
+                <div class="item item-text-wrap">
+                    <p>本起价是按2位成人参加2016-06-06出发的产品，并入住同一间房间的单人价格。</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="customDateCtrl">
+            <div style="width:100%;">
+                <a href="#order">
+                    <button ng-click="openPopover()" class="button button-block button-calm">没有合适日期或需定制</button>
+                </a>
+            </div>
+        </div>
+        <div class="row" ng-controller="myCtrl">
+            <div style="width:100%;padding:5px; border:1px solid #D6D6D6;">
+                <p style="text-align: center;">资讯热线0871-65096417/65096418</p>
+                <p>
+                    <a href="#order">
+                        <button ng-click="openPopover()" class="button button-block button-calm">用户如需前往本部报名 点击这里</button>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="list xcapmsg">
+            <div class="item item-text-wrap">
+                <p style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>出发日期:<span>2016-06-09</span>&nbsp;&nbsp;<span>18:00</span><span class="xcapgright">磨憨口岸</span></p>
+            </div>
+            <div class="item item-text-wrap">
+                <p>出发日期:<span>2016-06-09</span>&nbsp;&nbsp;<span>18:00</span><span class="xcapgright">磨憨口岸</span></p>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span class="xcapgright">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span class="xcapgright">2016-06-09</span><span class="xcapgright">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span class="xcapgright">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span class="xcapgright">2016-06-09</span><span class="xcapgright">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+            <div class="xingchengPlan">
+                <div class="item item-text-wrap">
+                    <p><span>磨憨</span>&nbsp;&nbsp;<span>萨顶顶的酒店</span><span class="xcapgright">jinlan Hotel</span></p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>入住&nbsp;&nbsp;<span>2016-06-09</span><span class="xcapgright">2016-06-09</span><span class="xcapgright">离店&nbsp;&nbsp;</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- 选择人数 -->
+        <ion-list class="list list-inset" style="width:100%;">
+            <ion-item class="">
+                <div class="" style="width:33%; float:left;">
+                    成人
+                </div>
+                <div class=" " style="width:33%; float:left;">
+                    <input id="manNum" type="text" class="spinnerExample" />
+                </div>
+                <div class="" style="width:33%; float:left; text-align: right;">
+                    <span id="manPrice" value="123"></span>元/人
+                </div>
+            </ion-item>
+            <ion-item style="    ">
+                <div class="" style="width:33%; float:left;">
+                    儿童
+                </div>
+                <div class=" " style="width:33%; float:left;">
+                    <input id="childNum" type="text" class="spinnerExample" />
+                </div>
+                <div class="" style="width:33%; float:left; text-align: right;">
+                    <span id="childPrice">9999</span>元/人
+                </div>
+                <p style="font-size: 10px; margin-top: 35px;     clear: both;">12岁以下，不占床，不含早餐</p>
+            </ion-item>
+            <ion-item>
+                <div class="" style="width:33%; float:left;">
+                    房间数
+                </div>
+                <div class=" " style="width:33%; float:left;">
+                    <input id="roomNum" type="text" class="spinnerExample" />
+                </div>
+                <div class="" style="width:33%; float:left;text-align: right;">
+                    <span id="roomPrice">9999</span>元/人
+                </div>
+            </ion-item>
+            <ion-item style="font-size: 20px;">
+                总价格 <span style="float:right;color: #EC5037;">¥<span id="totalPrice">9999</span>元</span>
+            </ion-item>
+        </ion-list>
+        <div class="list card cardPS">
+            <div class="item">
+                <span>价格说明</span>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div class="item item-body">
+                <p>
+                    成人价格：按照2位成人参加所选日期发出产品，并入住同一间房间价格所核算的单人价格。
+                    <br/>
+                    <br/> 儿童价格：12岁以下儿童仅包含行程中流浪项目，不占床位，不提供加床，不含酒店早餐的价格。（就当早餐产生费用家长自理）
+                </p>
+            </div>
+        </div>
+        <div class="list card cardPS">
+            <div class="item">
+                <span>费用包含</span>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div class="item item-body">
+                <p>
+                    行程所列6晚酒店住宿（含早餐）
+                    <br/>
+                    <br/> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                    <br/> 票）
+                    <br/>拜县一日游（巴士、中文向导、中餐、景点门票）
+                    <br/>磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                    <br/>7X24小时在线旅行顾问服务
+                </p>
+            </div>
+        </div>
+        <div class="list card cardPS">
+            <div class="item">
+                <span>费用不含</span>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div class="item item-body">
+                <p>
+                    人员及车辆出过境费用（路书中有详细指引）
+                    <br/> 个人消费：行程包含项目外的个人消费
+                </p>
+            </div>
+        </div>
+        <div class="list card cardPS">
+            <div class="item ">
+                <span>赠送项目</span>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div class="item item-body">
+                <p>
+                    电话卡：每间房赠送泰国HAPPY电话卡一张（7天无限上网及 国内通话，100分钟国际通话）
+                </p>
+                <p>
+                    保险：出国人员旅游意外伤害险<a>详情</a>
+                </p>
+                <p>
+                    路书：详细的清迈自驾游路书、详细过境指引<a style="float:right;color:#7C86FF;">详情</a>
+                </p>
+                <p>
+                    专属礼盒：精美护照票据夹及车贴纸
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="img/qz.png" alt="" width="100%">
+            </div>
+            <div class="col col-80">
+                <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好泰国老挝两国签证。或在出行前15日交由我社代办、详见下方惠享代办所需资料说明！</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="img/tg.png" alt="" width="100%">
+            </div>
+            <div class="col col-80">
+                <p style="font-size: 15px;">产品数量有限、一经确认不接受任何退改！</p>
+            </div>
+        </div>
+        <div class="row">
+            <div style="width:100%;padding:5px; border:1px solid #C4DCE2;">
+                <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
+    margin: 0 20px;color: #000;">所需资料</span>护照及签证：有效期内护照及泰国老挝两国签证</p>
+                <p>
+                    <a href="visa.html">
+                        <button class="button button-block button-calm">惠享400元代办两国签证 点击这里</button>
+                    </a>
+                </p>
+                <p style="text-align: center;font-size: 14px;">
+                    代办签证限报名用户 昆明三环内提供上门取件
+                </p>
+            </div>
+        </div>
+        <div class="row ">
+            <span style="color: #555;font-size: 20px;">酒店信息</span>
+        </div>
+        <ion-list class="hotelshow" type="list-inset" style="">
+            <div class="hotelshows" style="">
+                <ion-slide-box does-continue=true auto-play=true>
+                    <ion-slide><img src="img/zjy2.png"></ion-slide>
+                    <ion-slide><img src="img/zjy1.png"></ion-slide>
+                    <ion-slide><img src="img/zjy2.png"></ion-slide>
+                    <ion-slide><img src="img/zjy1.png"></ion-slide>
+                </ion-slide-box>
+                <p class="passhoteltitle">洒家大酒店</p>
+                <p style=""><i class="iocn ion-star"></i><i class="iocn ion-star"></i><i class="iocn ion-star"></i><i class="iocn ion-star"></i>
+                    <span style="color:#000;">评分5</span></p>
+                <p class="hotelshowcon" style="">9999元/人阿斯
+                    <br/>顿发的说法是打发收到法师打发斯蒂芬是打发第三方大厦的司法斯蒂芬第三方阿斯蒂芬俺的沙发第三方阿斯蒂芬阿斯蒂芬阿斯蒂芬阿斯顿发生地方阿斯顿发送到发送到发送到发噶松德股份让给</p>
+                <p ng-controller="hotelmsgCtrl" class="detail"><a ng-click="openPopover()">查看详情</a></p>
+            </div>
+        </ion-list>
+        <div class="row passhotel">
+            <p class="passhotelsm" style="    "><span style="">途中酒店信息</span>
+                <br/> 本行程亮点为清迈、途中仅提供经济型酒店
+            </p>
+        </div>
+        <ion-list class="passhotellist" style="">
+            <div class="passhotelitem" style="">
+                <img src="img/hotel1.png" alt="">
+                <p class="passhoteltitle" style="">洒家大酒店</p>
+                <p style="">9999元/人阿斯
+                    <br/> 顿发的说法是打发收到法师打发斯蒂芬是打发第三方大厦的司法斯蒂芬第三方阿斯蒂芬俺的沙发第三方阿斯蒂芬阿斯蒂芬
+                    <br>阿斯蒂芬阿斯顿发生地方阿斯顿发送到发送到发送到发噶松德股份让给</p>
+            </div>
+            <div class="passhotelitem" style="">
+                <img src="img/hotel1.png" alt="">
+                <p class="passhoteltitle" style="">洒家大酒店</p>
+                <p style="">9999元/人阿斯
+                    <br/> 顿发的说法是打发收到法师打发斯蒂芬是打发第三方大厦的司法斯蒂芬第三方阿斯蒂芬俺的沙发第三方阿斯蒂芬阿斯蒂芬
+                    <br>阿斯蒂芬阿斯顿发生地方阿斯顿发送到发送到发送到发噶松德股份让给</p>
+            </div>
+        </ion-list>
+        <div class="list xcjsList">
+            <div class="item cardPS">行程介绍
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div>
+                <div class="item item-text-wrap" ng-controller="mapCtrl">
+                    <h2>行车地图</h2>
+                    <img ng-click="openPopover()" src="http://192.168.0.120/Upload/drives/2016-03/56f501eb88c16.png" alt="" width="100%">
+                    <p>以下行程已部分包含及推荐清迈必游的TOP10景点</p>
+                </div>
+                <div class="xcmessage">
+                    <span class="xcmessageTit" style="">Day1&nbsp;昆明--丽江酒店</span>
+                    <div class="xcmessageP">
+                        <p>
+                            18:00到达。。。。。。
+                        </p>
+                        <p>
+                            18:00收到法师打发斯蒂芬的发生的。
+                        </p>
+                        <p>
+                            阿斯顿发生地方撒第三段发生的很多人会突然怀念发生的。
+                        </p>
+                    </div>
+                </div>
+                <div class="xcmessage">
+                    <span class="xcmessageTit" style="">Day1&nbsp;昆明--丽江酒店</span>
+                    <div class="xcmessageP">
+                        <p>
+                            18:00到达。。。。。。
+                        </p>
+                        <img src="img/jd1.png">
+                        <p>
+                            18:00收到法师打发斯蒂芬的发生的。
+                        </p>
+                        <p>
+                            阿斯顿发生地方撒第三段发生的很多人会突然怀念发生的。
+                        </p>
+                    </div>
+                    <span class="xcmessageTit" style="">Day1&nbsp;昆明--丽江酒店</span>
+                    <div class="xcmessageP">
+                        <p>
+                            18:00到达。。。。。。
+                        </p>
+                        <p>
+                            18:00收到法师打发斯蒂芬的发生的。
+                        </p>
+                        <p>
+                            阿斯顿发生地方撒第三段发生的很多人会突然怀念发生的。
+                        </p>
+                    </div>
+                    <span class="xcmessageTit" style="">Day1&nbsp;昆明--丽江酒店</span>
+                    <div class="xcmessageP">
+                        <p>
+                            18:00到达。。。。。。
+                        </p>
+                        <p>
+                            18:00收到法师打发斯蒂芬的发生的。
+                        </p>
+                        <p>
+                            阿斯顿发生地方撒第三段发生的很多人会突然怀念发生的。
+                        </p>
+                    </div>
+                    <span class="xcmessageTit" style="">Day1&nbsp;昆明--丽江酒店</span>
+                    <div class="xcmessageP">
+                        <p>
+                            18:00到达。。。。。。
+                        </p>
+                        <p>
+                            18:00收到法师打发斯蒂芬的发生的。
+                        </p>
+                        <p>
+                            阿斯顿发生地方撒第三段发生的很多人会突然怀念发生的。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item">
+                <h1>自驾游出游提示</h1>
+            </div>
+            <div class="item item-body" style="    line-height: 130%;">
+                <p>
+                    成人价格：按照2位成人参加所选日期发出产品，并入住同一间房间价格所核算的单人价格。
+                    <br/>
+                    <br/> 儿童价格：12岁以下儿童仅包含行程中流浪项目，不占床位，不提供加床，不含酒店早餐的价格。（就当早餐产生费用家长自理）
+                </p>
+            </div>
+        </div>
+        <div class="card zjywarm">
+            <div class="item item-divider" style="">
+                <h2 style="">温馨提示</h2>
+            </div>
+            <div class="item item-text-wrap" style="    ">
+                <p style="">温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示</p>
+            </div>
+        </div>
+        <div class="list card zjytjjd">
+            <div class="item item-icon-right cardPS">
+                <h1>清迈产品景点推荐</h1>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div>
+                <div class="item item-body">
+                    <p>
+                        Flying 丛林飞跃（半日 含中餐及接送）
+                    </p>
+                    <p><span class="jdtag" style="">自费游览</span>
+                        <span class="jdtag">刺激</span>
+                        <span class="jdprice" style="">￥150-200</span></p>
+                    <a href="scenic.html"><img src="img/jd1.png"></a>
+                </div>
+                <div class="item item-body">
+                    <p>
+                        Flying 丛林飞跃（半日 含中餐及接送）
+                    </p>
+                    <p><span class="jdtag" style="">自费游览</span>
+                        <span class="jdtag">刺激</span>
+                        <span class="jdprice" style="">￥150-200</span></p>
+                    <a href="scenic.html"><img src="img/jd1.png"></a>
+                </div>
+            </div>
+        </div>
+        <!-- 用户评论 -->
+        <div class="list card cardPS usercomment">
+            <div class="item">
+                <h1>用户评论</h1>
+                <span class="commentnum">33条用户评论</span>
+                <i class="icon  ion-chevron-up placeholder-icon"></i>
+            </div>
+            <div>
+                <div class="item item-body">
+                    <p class="commentmsg">
+                        <span>黄某某</span>
+                        <span class="commentscore">5分</span>
+                        <span class="commentstarts"><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i></span>
+                    </p>
+                    <p class="commenttime">
+                        <span>2016-01-01&nbsp;15:30</span>
+                    </p>
+                    <p class="commentcon">
+                        很好 很好玩很好 很好玩很好 很好玩很好 很好玩很好 很好玩很好 很好玩
+                    </p>
+                </div>
+                <div class="item item-body">
+                    <p class="commentmsg">
+                        <span>黄某某</span>
+                        <span class="commentscore">5分</span>
+                        <span class="commentstarts"><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i><i class="iocn ion-star" ></i></span>
+                    </p>
+                    <p class="commenttime">
+                        <span>2016-01-01&nbsp;15:30</span>
+                    </p>
+                    <p class="commentcon">
+                        很好 很好玩很好 很好玩很好 很好玩很好 很好玩很好 很好玩很好 很好玩
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div style="width:100%;">
+                <a href="orderConfirm.html">
+                    <button class="button button-block button-calm">立即预定</button>
+                </a>
+            </div>
+        </div>
+        <div name="footerme" class="row footermessage " style="">
+            <div style="">
+                <p>版权所有 昆明春秋国际旅行社有限公司</p>
+                <p>滇ICP证 16097834</p>
+                <p>2015 All copyrights by Kunming spring tour CO，ITd</p>
+            </div>
+        </div>
+    </ion-content>
+    <script id="map.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">详细地图</h1>
+                <a class="button" style="background:#ADADAD" ng-click="closePopover();">关闭</a>
+            </ion-header-bar>
+            <ion-content style="with:500px;">
+                <ion-view title="Home" hide-nav-bar="true">
+                    <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 100%">
+                        <div style="width: 1000px; height: 1000px; background: url('http://192.168.0.120/Upload/drives/2016-03/56f501eb88c16.png') no-repeat"></div>
+                    </ion-scroll>
+                </ion-view>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="customDate.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">待出发日期</h1>
+                <a class="button" style="background:#ADADAD" ng-click="closePopover();">关闭</a>
+            </ion-header-bar>
+            <ion-content>
+                <div class="card">
+                    <div class="item item-input">
+                        <input type="text" placeholder="请输入出发日期"></input>
+                    </div>
+                    <div class="item item-input">
+                        <input type="text" placeholder="请输入出发人数"></input>
+                    </div>
+                    <div class="item item-input">
+                        <input type="text" placeholder="请输入联系人姓名"></input>
+                    </div>
+                    <div class="item item-input">
+                        <input type="text" placeholder="请输入联系人手机号"></input>
+                    </div>
+                    <div class="item item-text-wrap" style="text-align: center; ">
+                        <button type="" class="button" style="width:50%;background:#F77462;">提交</button>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="my-popover.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">前往报名</h1>
+                <a class="button" style="background:#ADADAD" ng-click="closePopover();">关闭</a>
+            </ion-header-bar>
+            <ion-content>
+                <div class="card baoming">
+                    <div class="item item-divider" style="text-align: center;">
+                        <h1>亲们，可以就近报名哦！</h1>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <h1 class="">昆明市穿金路白字路白字路白字小区11-3栋</h1>
+                        <p style="text-align: right;">0871-65096386</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <h1>昆明市穿金路白字路白字路白字小区11-3栋</h1>
+                        <p style="text-align: right;">0871-65096386</p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <h1>昆明市穿金路白字路白字路白字小区11-3栋</h1>
+                        <p style="text-align: right;">0871-65096386</p>
+                    </div>
+                    <div class="item item-text-wrap" style="text-align: center;">
+                        <p>报名时间：周一至周五09:00——17:00</p>
+                        <p>如需本部代办签证、请阅读惠享代办签证所需资料</p>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="hotelmsg.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <h1 class="title">酒店信息</h1>
+                <a class="button" style="background:#ADADAD" ng-click="closePopover();">关闭</a>
+            </ion-header-bar>
+            <ion-content class=" scroll-content has-header hotelmsg" style="    background: #f5f5f5;">
+                <div class="row">
+                    <div class="col-33">酒店英文名</div>
+                    <div class="col-67">Hearton HotelKita Umeda</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">房型</div>
+                    <div class="col-67">标准双人间</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">地址</div>
+                    <div class="col-67">昆明市穿金路白字路白字路白字小区11-3栋</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">电话</div>
+                    <div class="col-67">08711564546</div>
+                </div>
+                <div class="row">
+                    <p style="color:#000;">万里长城是世界奇迹。山海关是长城的起点，而山海关又有"天下第一关"之称,是中国名胜古迹荟萃风光椅旋、气候宜人的历史文化古城和旅游避暑胜地。主要景区有长寿山景区、鳄鱼湖、角山长城、老龙头、孟姜女庙、孟姜女苑、悬阳洞、燕塞湖。令人豪气顿生。楼西面上层檐下，悬有“天下第一关”匾额，是明代书法家肖显所写，笔划遒劲雄厚，与城楼规制浑然一体。在山海关城楼附近，还建有长城博物馆，展出与山海关长城有关的人文历史，军事活动情况和文物等。
+                    </p>
+                </div>
+                <p class="hotelh4"><b>酒店设施</b></p>
+                <div class="row">
+                    <div class="col-33">综合设施</div>
+                    <div class="col-67">在山海关城楼附近，还建有长城博物馆，展出与</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">服务项目</div>
+                    <div class="col-67">古城和旅游避暑胜地。主要景区有长寿山景区、鳄鱼湖、角山长城、老龙</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">网络</div>
+                    <div class="col-67">古城和旅游避长城、老龙</div>
+                </div>
+                <h4></h4>
+                <p class="hotelh4"><b>房型信息</b></p>
+                <div class="row">
+                    <div class="col-33">客房面积</div>
+                    <div class="col-67">18平米</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">床铺尺寸</div>
+                    <div class="col-67">古城和旅游避暑胜地。主要景区有长寿山景区、鳄鱼湖、角山长城、老龙</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">客房设施</div>
+                    <div class="col-67">古城和旅游避长城和、旅游避、暑胜地和旅游、避暑胜地和旅、游避暑胜地和、旅游避暑胜地</div>
+                </div>
+                <p class="hotelh4"><b>入住须知</b></p>
+                <div class="row">
+                    <div class="col-33">床型说明</div>
+                    <div class="col-67">在山海关城楼附近，还建有长城博物馆，展出与</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">儿童和加床</div>
+                    <div class="col-67">古城和旅游避暑胜地。主要景区有长寿山景区、鳄鱼湖、角山长城、老龙</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">退房时间</div>
+                    <div class="col-67">15:00</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">入住时间</div>
+                    <div class="col-67">17:56</div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+</body>
+<script>
+
+// $("img").click(function(){
+//     alert( $(document).scrollTop() );
+// });
+
+var app = angular.module("myApp", ["ionic"]);
+app.controller("mapCtrl", function($scope, $ionicModal, $ionicPopover) {
+    $ionicPopover.fromTemplateUrl('map.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+    // 显示定制弹出框
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
+    };
+});
+app.controller("myCtrl", function($scope, $ionicModal, $ionicPopover) {
+    $ionicPopover.fromTemplateUrl('my-popover.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+    // 显示定制弹出框
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
+    };
+});
+app.controller("customDateCtrl", function($scope, $ionicModal, $ionicPopover) {
+    $ionicPopover.fromTemplateUrl('customDate.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+    // 显示定制弹出框
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
+    };
+});
+app.controller("hotelmsgCtrl", function($scope, $ionicModal, $ionicPopover) {
+    $ionicPopover.fromTemplateUrl('hotelmsg.html', {
+        scope: $scope
+    }).then(function(popover) {
+        $scope.popover = popover;
+    });
+    // 显示定制弹出框
+    $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+        $scope.popover.hide();
+    };
+});
+
+$('.spinnerExample').spinner({});
+
+var selectedID = "";
+$("#calendarprice div").live("click", function() {
+    if (!$(this).hasClass("disabled")) {
+        $(".selected").removeClass('selected');
+        $(this).addClass("selected");
+        selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find("#dd").html());
+        selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find("#dd").html());
+    }
+});
+// 显示 隐藏卡片内容
+$(".ion-chevron-down").live("click", (function(event) {
+    $(this).removeClass('ion-chevron-down');
+    $(this).addClass('ion-chevron-up');
+    $(this).parent().next().show();
+    // $(this).parent().find(".item-body").show();
+}));
+$(".ion-chevron-up").live("click", (function(event) {
+    $(this).removeClass('ion-chevron-up');
+    $(this).addClass('ion-chevron-down');
+    $(this).parent().next().hide();
+    // $(this).parent().find(".item-body").hide();
+}));
+</script>
+
+</html>

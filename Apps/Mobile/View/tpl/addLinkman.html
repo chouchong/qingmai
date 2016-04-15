@@ -1,0 +1,63 @@
+<extend name="tpl:base" />
+<block name="title">
+<title>联系人添加</title>
+</block>
+<block name="css">
+    <style>
+    .button {
+        line-height: 35px;
+        float: right;
+        background: #6dc5cc;
+        min-height: 4px;
+        color: #fff;
+    }
+    </style>
+</block>
+<block name="main">
+<div ng-app="myApp" ng-controller="aLmctrl">
+    <include file="tpl:nav" />
+    <!-- content -->
+    <div class="scroll-content has-header" style="background: #f5f5f5;">
+        <form name="myNameForm" novalidate>
+            <div class="card">
+            <div class="list">
+                <label class="item item-input item-floating-label">
+                    <span>联系人</span>
+                    <input type="text" placeholder="请输入(只能中文)联系人姓名" ng-model="user.name" required name="name" ng-pattern="/[\u4e00-\u9fa5]/">
+                    <span ng-show="myNameForm.name.$dirty && myNameForm.name.$invalid">
+                        <i ng-show="myNameForm.name.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                        <i ng-show="myNameForm.name.$error.pattern" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    </span>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span>联系电话</span>
+                    <input type="tel" placeholder="请输入联系人电话" ng-model="user.phone" required name="phone" ng-pattern="/^1\d{10}$/">
+                    <span ng-show="myNameForm.phone.$dirty && myNameForm.phone.$invalid">
+                        <i ng-show="myNameForm.phone.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                        <i ng-show="myNameForm.phone.$error.pattern" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    </span>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span>联系人邮件</span>
+                    <input type="email" placeholder="请输入您的邮件" ng-model="user.email" required name="email" >
+                    <span ng-show="myNameForm.email.$dirty && myNameForm.email.$invalid">
+                        <i ng-show="myNameForm.email.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                        <i ng-show="myNameForm.email.$error.email" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    </span>
+                </label>
+                <label class="item item-input item-floating-label">
+                    <span>您的地址&nbsp;&nbsp;<span style="font-size: 70%;color: #FF5F5F;">用于接收赠送礼盒</span></span>
+                    <input type="text" placeholder="请输入您的地址"  ng-model="user.address" required name="address">
+                    <span ng-show="myNameForm.address.$dirty && myNameForm.address.$invalid">
+                        <i ng-show="myNameForm.address.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
+                    </span>
+                </label>
+            </div>
+            </div>
+            <button ng-click="addAddress()" ng-disabled="myNameForm.$invalid" class="button button-block button-positive">保&nbsp;&nbsp;存</button>
+        </form>
+    </div>
+</div>
+</block>
+<block name="js">
+</block>
