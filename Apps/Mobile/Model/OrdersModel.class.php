@@ -164,5 +164,52 @@ class OrdersModel extends BaseModel {
     }
     return $rd;
   }
+  /**
+  *自驾出保险人信息
+  **/
+  public function getUserIn()
+  {
+    return M('order_insureds')->where(array('orderId' =>I('orderId')))->select();
+  }
+  /**
+  *自驾出添加保险人信息
+  **/
+  public function addUserIn()
+  {
+    $rd = array('status' => -1);
+    $data['orderId'] = I('orderId');
+    $data['userName'] = I('userName');
+    $data['userCard'] = I('userCard');
+    $data['sex'] = I('sex');
+    $data['userId'] = session('Users')['userId'];
+    if(I('insuredId')>0){
+      $ed = M('order_insureds')->where(array('insuredId' =>I('insuredId')))->save($data);
+      if($ed !== false){
+        $rd['status'] = 1;
+      }
+    }else{
+      $ed = M('order_insureds')->add($data);
+      if($ed !== false){
+        $rd['status'] = 1;
+      }
+    }
+    return $rd;
+  }
+  /**
+  *订单添加保险人完成来修改订单状态
+  **/
+  public function addOUserIn()
+  {
+    $rd = array('status' => -1);
+    $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>I('orderId')))->find();
+    if($o['isCar']>0){
+      M('orders')->where(array('orderId'=>I('orderId')))->save(array('orderStatus' =>2 , 'isGo'=>1));
+      $rd['status'] = 1;
+    }else{
+      M('orders')->where(array('orderId'=>I('orderId')))->save(array('isGo'=>1));
+      $rd['status'] = 1;
+    }
+    return $rd;
+  }
 }
 ?>

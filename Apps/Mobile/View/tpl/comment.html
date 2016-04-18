@@ -24,7 +24,7 @@
             </div>
             <div class="item item-text-wrap">
                 <span>房间</span>
-                <span style="float:right;">{$Orders.roomNum}房 x {$Orders.roomPrice}房/元</span>
+                <span style="float:right;">{$Orders.roomNum}房 <if condition="$Orders['roomPrice'] gt 0">x {$Orders.roomPrice}房/元</if></span>
             </div>
             <if condition="$Orders['zMoney'] gt 0 ">
             <div class="item item-text-wrap">
@@ -38,11 +38,12 @@
             </div>
         </div>
          <div class="card" style="padding:16px;">
+              <input type="hidden" id="cOrderId" value="{$Orders['orderId']}" />
              <div class="item item-text-wrap">
                         在此评论
              </div>
              <div class="item item-text-wrap">
-                      <textarea style="width:100%;height:100px;"  placeholder="亲如有特殊要求，请在此处留言，我们会尽快与您联系"></textarea>
+                      <textarea style="width:100%;height:100px;" ng-model="con.conT" placeholder="对于这次旅行您想说点什么呢！"></textarea>
              </div>
               <div class="item item-text-wrap">
                       请给我们打个分吧!<span  id="myratings"  style="float:right;color:#F53C10;font-size: 130%"></span>
@@ -53,7 +54,7 @@
         </div>
             <div class="row">
             <div style="width:100%;">
-                <a >
+                <a ng-click="addComment()">
                     <button class="button button-block " style="background:#F77462;color:#fff;">提交评论</button>
                 </a>
             </div>

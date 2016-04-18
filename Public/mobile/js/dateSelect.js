@@ -11,7 +11,6 @@ $(function() {
     }else{
         $("#currentMonth").html(currY+"-"+(currM+1));
     }
-    // $("#today").html(new Date().getFullYear()+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate());
 });
 
 

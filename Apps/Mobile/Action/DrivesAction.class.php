@@ -61,7 +61,16 @@ class DrivesAction extends BaseAction {
   */
   public function dComment(){
     $this->isLogin();
-    $this->Orders = D('Mobile/Orders')->OrdersDetail()[0];
+    $Pay = D('Mobile/Pays');
+    $this->Orders = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/comment');
+  }
+  /**
+  * 自驾添加评论
+  */
+  public function addComment(){
+    $data = D('Mobile/Drives')->addComment();
+    echo json_encode($data);
+    die();
   }
 }

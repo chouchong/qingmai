@@ -180,3 +180,7 @@ git push -u origin master
 git add .
 git commit -m "我的订单完成1"
 git push -u origin master
+
+git add .
+git commit -m "完成1"
+git push -u origin master

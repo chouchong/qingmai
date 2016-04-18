@@ -11,7 +11,7 @@ class OrdersAction extends BaseAction {
   public function confirmDrives(){
     $this->isLogin();
     $this->obj = D('Mobile/Orders')->confirmDrives()[0];
-    $this->orderId = I('orderId',2);
+    $this->orderId = I('orderId');
     $this->view->display('/tpl/ConfirmDrives');
   }
   /**
@@ -47,6 +47,27 @@ class OrdersAction extends BaseAction {
    */
   public function OrdersList(){
     $data = D('Mobile/Orders')->OrdersList();
+    $this->ajaxReturn($data);
+  }
+  /**
+   * 订单保险人
+   */
+  public function getUserIn(){
+    $data = D('Mobile/Orders')->getUserIn();
+    $this->ajaxReturn($data);
+  }
+  /**
+   * 订单添加保险人
+   */
+  public function addUserIn(){
+    $data = D('Mobile/Orders')->addUserIn();
+    $this->ajaxReturn($data);
+  }
+  /**
+   * 订单添加保险人完成来修改订单状态
+   */
+  public function addOUserIn(){
+    $data = D('Mobile/Orders')->addOUserIn();
     $this->ajaxReturn($data);
   }
 }

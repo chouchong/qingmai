@@ -7,7 +7,8 @@ class YunpianSms
 {
 
 
-    public $apikey = "ded0e4e750f2aba42b4350ffdb861d32";
+    // public $apikey = "ded0e4e750f2aba42b4350ffdb861d32"; 测试
+    public $apikey = "bb8513915d7f030d7eb798960182f0fc";
     // $apikey = "xxxxxxxxxxx"; //
     // $mobile = "xxxxxxxxxxx"; //请用自己的手机号代替
     // $text="【云片网】您的验证码是1234";
@@ -25,7 +26,7 @@ class YunpianSms
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         // 发送模板短信
         // 需要对value进行编码
-        $dataSms = array('apikey'=>"ded0e4e750f2aba42b4350ffdb861d32");
+        $dataSms = array('apikey'=>"bb8513915d7f030d7eb798960182f0fc");
         $dataSms = array_merge($dataSms,$data);
         $json_data = $this->send($ch,$dataSms);
         $array = json_decode($json_data,true);
@@ -46,7 +47,7 @@ class YunpianSms
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         // 发送模板短信
         // 需要对value进行编码
-        $dataSms = array('apikey'=>"ded0e4e750f2aba42b4350ffdb861d32");
+        $dataSms = array('apikey'=>"bb8513915d7f030d7eb798960182f0fc");
         $dataSms = array_merge($dataSms,$data);
         $json_data = $this->tpl_send($ch,$dataSms);
         $array = json_decode($json_data,true);

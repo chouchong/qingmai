@@ -20,23 +20,26 @@
                 <span>被保险人信息要填下&nbsp;<em style="color: red;">{$row.adultNum}</em>&nbsp;个人（请按护照信息录入）</span>
             </div>
         </div>
-        <div class="card">
-            <label class="item item-input">
-                <span class="input-label">&nbsp;姓  &nbsp;名：<span>试试</span></span>
-            </label>
-            <label class="item item-input">
-                <span class="input-label">护照号码：<span>试试</span></span>
-            </label>
-            <label class="item item-input" style="padding:0 0 0 16px;">
-                <span class="input-label">&nbsp;性  &nbsp;别：<span id="sex">男</span></span>
-            </label>
-            <label class="item item-button-right" >
-                <!-- <span class="" style="float: right;">修改</span> -->
-                <button type="button button-">修改</button>
-            </label>
+        <div ng-show="inUser">
+            <div class="card" ng-repeat="vo in inUser">
+                <label class="item item-divider">
+                    <span class="">姓名：<span>{{vo.userName}}</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="">性别：
+                    <span ng-if="vo.sex == 1 ">男</span>
+                    <span ng-if="vo.sex == 2 ">女</span>
+                    </span>
+                </label>
+                <label class="item item-divider">
+                    <span class="input-label">护照号码：{{vo.userCard}}</span>
+                </label>
+                <label class="item item-divider" style="padding:0;">
+                    <button ng-click="inEdit(vo)" class="button" style="float: right;color: #FB6B9C;"><i class=" ion-edit"></i>修改</button>
+                </label>
+            </div>
         </div>
         <div class="card">
             <label class="item item-input">
+                <input type="hidden" id="iOrderId" value="{$row['orderId']}" />
                 <span class="input-label">&nbsp;姓  &nbsp;名：</span>
                 <input type="text" ng-model="oUser.userName">
             </label>
@@ -53,7 +56,7 @@
         </div>
         <div class="row">
             <div style="width:100%;">
-                <a ng-click="userIn()">
+                <a ng-click="addUserIn()">
                     <button class="button button-block " style="background:#F77462;color:#fff;">提交资料</button>
                 </a>
             </div>

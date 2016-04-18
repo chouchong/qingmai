@@ -81,7 +81,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       }
       //短信发送倒计时
       $scope.timeSms = function(){
-          var iNow = 5;
+          var iNow = 60;
           var fash = false;
           if (fash == false) {
               $scope.text = iNow + '秒后重新发送';
@@ -95,7 +95,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
                       $scope.text = '重新发送';
                       fash = false;
                       $scope.smsClass = 'messagetext';
-                      iNow = 5;
+                      iNow = 60;
                   }
               }, 1000);
           }
@@ -142,6 +142,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     $scope.smsPws = function(phone) {
       serviceHttp.smsSend(phone)
       .success(function(data){
+        console.log(data);
           if(data.code==0){
               $scope.timeSms();
           }else{
@@ -718,7 +719,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     });
   };
 }])
-.controller("userInCtrl",['$scope','serviceHttp',function($scope,serviceHttp) {
+.controller("userInCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
   $scope.sexlist = [{
       text: "男",
       value: "1"
@@ -729,13 +730,49 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   $scope.oUser = {
       sex: '1'
   };
+  var iOrderId = $('#iOrderId').val();
+  var numIn =  $('#adultNum').html();
+  var cIn = 0;
+  serviceHttp.getUserIn({orderId:iOrderId}).success(function(data){
+    $scope.inUser = data;
+    if(data){
+      cIn = $scope.inUser.length;
+    }
+  });
+  $scope.inEdit = function(voIn){
+    $scope.oUser = voIn;
+  }
   $scope.serverSideChange = function(item) {
     $scope.oUser.sex = item.value;
   };
-  console.log($('#adultNum').html());
-  $scope.u
+  $scope.addUserIn = function(){
+    $scope.oUser.orderId = iOrderId;
+    serviceHttp.addUserIn($scope.oUser).success(function(data){
+      if(data.status>0){
+        $rootScope.msg('添加成功');
+        serviceHttp.getUserIn({orderId:iOrderId}).success(function(data){
+          $scope.inUser = data;
+          cIn = $scope.inUser.length;
+          if(cIn ==numIn){
+            serviceHttp.addOUserIn({orderId:iOrderId}).success(function(data){
+              if(data.status>0){
+                window.location.href = '/Mobile/Orders/index';
+              }else{
+                $rootScope.msg('添加失败');
+              }
+            })
+          }
+        });
+      }else{
+        $rootScope.msg('添加失败');
+      }
+      $scope.oUser.insuredId = 0;
+      $scope.oUser.userName = '';
+      $scope.oUser.userCard = '';
+    })
+  }
 }])
-.controller("dCommentCtrl",['$scope','serviceHttp',function($scope,serviceHttp) {
+.controller("dCommentCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
    $scope.ratingsObject = {
     iconOn : 'ion-ios-star',
     iconOff : 'ion-ios-star-outline',
@@ -747,15 +784,58 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.ratingsCallback(rating);
     }
   };
-
+  var cstar = 1;
   $scope.ratingsCallback = function(rating) {
-    console.log('Selected rating is : ', rating);
-    //   var num = rating;
-         $("#myratings").html(rating+"分");
+    cstar = rating;
+    $("#myratings").html(rating+"分");
   };
-
+  $scope.con = {};
+  $scope.addComment = function(){
+    if(cstar == 1){
+      $rootScope.msg('请评分');
+    }else{
+      $scope.con.drivesScore = cstar;
+      $scope.con.orderId = $('#cOrderId').val();
+      serviceHttp.addComment($scope.con).success(function(data){
+        if(data.status>0){
+          $rootScope.msg('评分成功');
+          window.location.href = '/Mobile/Orders/index';
+        }else{
+          $rootScope.msg('评分失败,请重新填写评分');
+        }
+      });
+    }
+  }
 }])
 .service('serviceHttp',['$http',function($http){
+  this.addOUserIn=function(data){
+     return $http({
+        url:'/Mobile/Orders/addOUserIn',
+        method:"POST",
+        data:data
+    });
+  };
+  this.getUserIn=function(data){
+     return $http({
+        url:'/Mobile/Orders/getUserIn',
+        method:"POST",
+        data:data
+    });
+  };
+  this.addUserIn=function(data){
+     return $http({
+          url:'/Mobile/Orders/addUserIn',
+          method:"POST",
+          data:data
+      });
+  };
+  this.addComment=function(data){
+     return $http({
+          url:'/Mobile/Drives/addComment',
+          method:"POST",
+          data:data
+      });
+  };
   this.addCarLic=function(data){
      return $http({
           url:'/Mobile/Users/addCarLic',

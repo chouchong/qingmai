@@ -1,36 +1,55 @@
-<extend name="tpl:base" />
-<block name="title">
-<title>{$drive.drivesName}</title>
-<meta name="keywords" content="{$drive['drivesKeywords']}" />
-<meta name="description" content="{$drive['drivesSpec']}" />
-</block>
-<block name="css">
-    <link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
-</block>
-<block name="main">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+<title><?php echo ($drive["drivesName"]); ?></title>
+<meta name="keywords" content="<?php echo ($drive['drivesKeywords']); ?>" />
+<meta name="description" content="<?php echo ($drive['drivesSpec']); ?>" />
+
+<link href="/Public/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="/Public/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="/Public/Mobile/css/jquery.spinner.css" />
+
+</head>
+<body>
+
 <div ng-app="myApp" ng-controller="drvCtrl">
-    <include file="tpl:nav" />
+    <ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <div class="" style="">
+            <a href="<?php echo U('Mobile/Users/index');?>">我的账户</a>
+        </div>
+        <div class="" style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Orders/index');?>">我的订单</a>
+        </div>
+    </div>
+    <a class="button button-clear" href="<?php echo U('Mobile/Index/index');?>">
+        <img src="/<?php echo ($CONF['mallLogo']); ?>" height="32px" style="  color:#6CC5DC;">
+    </a>
+    <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
+</ion-header-bar>
     <!-- content -->
     <ion-content id="content-index" class="scroll-content has-header" style="background: #f5f5f5;" delegate-handle="drivesScroll">
-        <input type="hidden" id="drivesId" value="{$drivesId}" />
-        <input type="hidden" id="daytime" value="{$daytime}" />
+        <input type="hidden" id="drivesId" value="<?php echo ($drivesId); ?>" />
+        <input type="hidden" id="daytime" value="<?php echo ($daytime); ?>" />
         <input type="hidden" id="selectedDay" />
         <div class="row" style="background: #f5f5f5; padding: 8px;margin-bottom: 8px;">
             <a>
-                <img src="/{$drive.drivesImg}" alt="" width="100%">
+                <img src="/<?php echo ($drive["drivesImg"]); ?>" alt="" width="100%">
                 <div class="" style="float:left; line-height: 180%;width: 100%;">
-                    <p>{$drive.drivesName}</p>
+                    <p><?php echo ($drive["drivesName"]); ?></p>
                     <p>
-                        <span>{$drive.drivesFrom}</span>
-                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$drive['drivesDay']-1}晚<span>{$drive['drivesDay']}</span>夜跨境自驾自由行</span>
+                        <span><?php echo ($drive["drivesFrom"]); ?></span>
+                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;"><?php echo ($drive['drivesDay']-1); ?>晚<span><?php echo ($drive['drivesDay']); ?></span>夜跨境自驾自由行</span>
                     </p>
                     <p style="clear:both;">
-                    <empty name="drive.tp">
-                    <span style="color:#F77766; "><span id="drivesType">{$drive['tp']['drivesType']}</span>&nbsp;<span id="tpadultPrice">{$drive['adultPrice']}</span>&nbsp;元/人</span>
-                    <else />
-                    <span style="color:#F77766;"><span id="drivesType">{$drive['tp']['drivesType']}</span>&nbsp;<span id="tpadultPrice">{$drive['tp']['adultPrice']}</span>&nbsp;元/人</span>
-                    </empty>
-                        <span style="float:right;color:#38B8EF;"><span>{$drive.solaCount}</span>人已购买</span>
+                    <?php if(empty($drive["tp"])): ?><span style="color:#F77766; "><span id="drivesType"><?php echo ($drive['tp']['drivesType']); ?></span>&nbsp;<span id="tpadultPrice"><?php echo ($drive['adultPrice']); ?></span>&nbsp;元/人</span>
+                    <?php else: ?>
+                    <span style="color:#F77766;"><span id="drivesType"><?php echo ($drive['tp']['drivesType']); ?></span>&nbsp;<span id="tpadultPrice"><?php echo ($drive['tp']['adultPrice']); ?></span>&nbsp;元/人</span><?php endif; ?>
+                        <span style="float:right;color:#38B8EF;"><span><?php echo ($drive["solaCount"]); ?></span>人已购买</span>
                     </p>
                 </div>
             </a>
@@ -84,7 +103,7 @@
                 <p style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</p>
             </div>
             <div id="timeDesc">
-             {$drive.tp.timeDesc|htmlspecialchars_decode}
+             <?php echo (htmlspecialchars_decode($drive["tp"]["timeDesc"])); ?>
             </div>
         </div>
         <!-- 选择人数 -->
@@ -98,11 +117,9 @@
                     <input id="timeId" type="hidden" />
                 </div>
                 <div style="width:33%; float:left; text-align: right;">
-                    <empty name="drive.tp">
-                    <span id="manPrice">{$drive.adultPrice}</span>
-                    <else />
-                    <span id="manPrice">{$drive.tp.adultPrice}</span>
-                    </empty>
+                    <?php if(empty($drive["tp"])): ?><span id="manPrice"><?php echo ($drive["adultPrice"]); ?></span>
+                    <?php else: ?>
+                    <span id="manPrice"><?php echo ($drive["tp"]["adultPrice"]); ?></span><?php endif; ?>
                     元/人
                 </div>
             </ion-item>
@@ -114,7 +131,7 @@
                     <input id="childNum" type="text" readonly="true" class="spinnerExample" />
                 </div>
                 <div class="" style="width:33%; float:left; text-align: right;">
-                    <span id="childPrice">{$drive.childPrice}</span>&nbsp;元/人
+                    <span id="childPrice"><?php echo ($drive["childPrice"]); ?></span>&nbsp;元/人
                 </div>
                 <p style="font-size: 10px; margin-top: 35px;     clear: both;">12岁以下，不占床，不含早餐</p>
             </ion-item>
@@ -126,7 +143,7 @@
                     <input id="roomNum" type="text" readonly="true" class="spinnerExample" />
                 </div>
                 <div style="width:33%; float:left;text-align: right;color: red;display: none;">
-                    <span id="roomPrice" style="">{$drive.homePrice}</span>&nbsp;元/人
+                    <span id="roomPrice" style=""><?php echo ($drive["homePrice"]); ?></span>&nbsp;元/人
                 </div>
             </ion-item>
             <ion-item style="font-size: 20px;">
@@ -140,7 +157,7 @@
             </div>
             <div class="item item-body">
                 <div>
-                {$drive.priceDesc|htmlspecialchars_decode}
+                <?php echo (htmlspecialchars_decode($drive["priceDesc"])); ?>
                 </div>
             </div>
         </div>
@@ -151,7 +168,7 @@
             </div>
             <div class="item item-body">
                 <div>
-                {$drive.isFeeDesc|htmlspecialchars_decode}
+                <?php echo (htmlspecialchars_decode($drive["isFeeDesc"])); ?>
                 </div>
             </div>
         </div>
@@ -162,7 +179,7 @@
             </div>
             <div class="item item-body">
                <div>
-                {$drive.noFeeDesc|htmlspecialchars_decode}
+                <?php echo (htmlspecialchars_decode($drive["noFeeDesc"])); ?>
                 </div>
             </div>
         </div>
@@ -173,13 +190,13 @@
             </div>
             <div class="item item-body">
                 <div>
-               {$drive.presentProject|htmlspecialchars_decode}
+               <?php echo (htmlspecialchars_decode($drive["presentProject"])); ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="100%">
+                <img src="/Public/Mobile/img/qz.png" alt="" width="100%">
             </div>
             <div class="col col-80">
                 <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好泰国老挝两国签证。或在出行前15日交由我社代办、详见下方惠享代办所需资料说明！</p>
@@ -187,7 +204,7 @@
         </div>
         <div class="row">
             <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="100%">
+                <img src="/Public/Mobile/img/tg.png" alt="" width="100%">
             </div>
             <div class="col col-80">
                 <p style="font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
@@ -210,35 +227,29 @@
         <div class="row ">
             <span style="color: #555;font-size: 20px;">酒店信息</span>
         </div>
-        <volist name="drive['noWay']" id="ht">
-        <ion-list class="hotelshow" type="list-inset" >
+        <?php if(is_array($drive['noWay'])): $i = 0; $__LIST__ = $drive['noWay'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ht): $mod = ($i % 2 );++$i;?><ion-list class="hotelshow" type="list-inset" >
             <div class="hotelshows" >
                 <ion-slide-box does-continue=true auto-play=true>
-                    <volist name="ht['gallerys']" id="himg">
-                    <ion-slide><img src="/{$himg.hotelThumbs}"></ion-slide>
-                     </volist>
+                    <?php if(is_array($ht['gallerys'])): $i = 0; $__LIST__ = $ht['gallerys'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$himg): $mod = ($i % 2 );++$i;?><ion-slide><img src="/<?php echo ($himg["hotelThumbs"]); ?>"></ion-slide><?php endforeach; endif; else: echo "" ;endif; ?>
                 </ion-slide-box>
-                <p class="passhoteltitle">{$ht.hotelName}</p>
-                <p ><for start="0" end="$ht['hotelStar']"><i class="iocn ion-star"></i></for>
-                    <span style="color:#000;">评分{$ht.hotelStar}</span></p>
-                <p class="hotelshowcon" >{$ht.hotelDesc|htmlspecialchars_decode}</p>
-                <p class="detail"><a ng-click="openPopover({$ht['hotelId']})">查看详情</a></p>
+                <p class="passhoteltitle"><?php echo ($ht["hotelName"]); ?></p>
+                <p ><?php $__FOR_START_9778__=0;$__FOR_END_9778__=$ht['hotelStar'];for($i=$__FOR_START_9778__;$i < $__FOR_END_9778__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?>
+                    <span style="color:#000;">评分<?php echo ($ht["hotelStar"]); ?></span></p>
+                <p class="hotelshowcon" ><?php echo (htmlspecialchars_decode($ht["hotelDesc"])); ?></p>
+                <p class="detail"><a ng-click="openPopover(<?php echo ($ht['hotelId']); ?>)">查看详情</a></p>
             </div>
-        </ion-list>
-        </volist>
+        </ion-list><?php endforeach; endif; else: echo "" ;endif; ?>
         <div class="row passhotel">
             <p class="passhotelsm"><span >途中酒店信息</span>
                 <br/> 本行程亮点为清迈、途中仅提供经济型酒店
             </p>
         </div>
         <ion-list class="passhotellist" >
-         <volist name="drive['isWay']" id="ht">
-            <div class="passhotelitem" >
-                <img src="/{$ht['hotelImg']}" alt="">
-                <p class="passhoteltitle" >{$ht.hotelName}</p>
-                <p >{$ht.hotelDesc|htmlspecialchars_decode}</p>
-            </div>
-        </volist>
+         <?php if(is_array($drive['isWay'])): $i = 0; $__LIST__ = $drive['isWay'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ht): $mod = ($i % 2 );++$i;?><div class="passhotelitem" >
+                <img src="/<?php echo ($ht['hotelImg']); ?>" alt="">
+                <p class="passhoteltitle" ><?php echo ($ht["hotelName"]); ?></p>
+                <p ><?php echo (htmlspecialchars_decode($ht["hotelDesc"])); ?></p>
+            </div><?php endforeach; endif; else: echo "" ;endif; ?>
         </ion-list>
         <div class="list xcjsList">
             <div class="item cardPS">行程介绍
@@ -247,17 +258,15 @@
             <div>
                 <div class="item item-text-wrap">
                     <h2>行车地图</h2>
-                    <img ng-click="openMPopover()" src="/{$drive['drivesMap']}" style="margin: 5px 0;" width="100%">
+                    <img ng-click="openMPopover()" src="/<?php echo ($drive['drivesMap']); ?>" style="margin: 5px 0;" width="100%">
                     <p style="margin: 5px 0;">以下行程已部分包含及推荐清迈必游的TOP10景点</p>
                 </div>
-                <volist name="drive['articles']" id="at">
-                    <div class="xcmessage">
-                        <span class="xcmessageTit">{$at.articleTitle}</span>
+                <?php if(is_array($drive['articles'])): $i = 0; $__LIST__ = $drive['articles'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$at): $mod = ($i % 2 );++$i;?><div class="xcmessage">
+                        <span class="xcmessageTit"><?php echo ($at["articleTitle"]); ?></span>
                         <div class="xcmessageP">
-                            {$at.articleContent|htmlspecialchars_decode}
+                            <?php echo (htmlspecialchars_decode($at["articleContent"])); ?>
                         </div>
-                    </div>
-                </volist>
+                    </div><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </div>
         <div class="list card">
@@ -286,51 +295,41 @@
                 <i class="icon  ion-chevron-up placeholder-icon"></i>
             </div>
             <div>
-            <volist name="drive['goods']" id="go">
-                <div class="item item-body" style="padding-top:0px;margin-top:0px">
+            <?php if(is_array($drive['goods'])): $i = 0; $__LIST__ = $drive['goods'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$go): $mod = ($i % 2 );++$i;?><div class="item item-body" style="padding-top:0px;margin-top:0px">
                     <p>
-                       {$go.goodsName}
+                       <?php echo ($go["goodsName"]); ?>
                     </p>
                     <p>
-                    <if condition="$go['isRecomm'] eq 1">
-                    <span class="jdtag">自驾游览</span>
-                    </if>
-                    <if condition="$go['isBest'] eq 1">
-                    <span class="jdtag">有趣</span>
-                    </if>
-                    <if condition="$go['isNew'] eq 1">
-                    <span class="jdtag">刺激</span>
-                    </if>
-                        <span class="jdprice">￥{$go.adultPrice}</span></p>
-                    <a href="{:U('Mobile/Goods/index',array('goodsId' =>$go['goodsId']))}"><img src="/{$go['goodsImg']}"></a>
-                </div>
-            </volist>
+                    <?php if($go['isRecomm'] == 1): ?><span class="jdtag">自驾游览</span><?php endif; ?>
+                    <?php if($go['isBest'] == 1): ?><span class="jdtag">有趣</span><?php endif; ?>
+                    <?php if($go['isNew'] == 1): ?><span class="jdtag">刺激</span><?php endif; ?>
+                        <span class="jdprice">￥<?php echo ($go["adultPrice"]); ?></span></p>
+                    <a href="<?php echo U('Mobile/Goods/index',array('goodsId' =>$go['goodsId']));?>"><img src="/<?php echo ($go['goodsImg']); ?>"></a>
+                </div><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </div>
         <!-- 用户评论 -->
         <div class="list card cardPS usercomment">
             <div class="item">
                 <h1>用户评论</h1>
-                <span class="commentnum">{$drive.apcount}条用户评论</span>
+                <span class="commentnum"><?php echo ($drive["apcount"]); ?>条用户评论</span>
                 <i class="icon  ion-chevron-up placeholder-icon"></i>
             </div>
             <div>
-            <volist name="drive['ap']" id="ap">
-                <div class="item item-body">
+            <?php if(is_array($drive['ap'])): $i = 0; $__LIST__ = $drive['ap'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$ap): $mod = ($i % 2 );++$i;?><div class="item item-body">
                     <p class="commentmsg">
-                        <span>{$ap.userName}</span>
-                        <span class="commentscore">{$ap.drivesScore}分</span>
+                        <span><?php echo ($ap["userName"]); ?></span>
+                        <span class="commentscore"><?php echo ($ap["drivesScore"]); ?>分</span>
                         <span class="commentstarts">
-                        <for start="0" end="$ap['drivesScore']"><i class="iocn ion-star"></i></for></span>
+                        <?php $__FOR_START_18865__=0;$__FOR_END_18865__=$ap['drivesScore'];for($i=$__FOR_START_18865__;$i < $__FOR_END_18865__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?></span>
                     </p>
                     <p class="commenttime">
-                        <span>{$ap.createTime}</span>
+                        <span><?php echo ($ap["createTime"]); ?></span>
                     </p>
                     <p class="commentcon">
-                        {$ap.content}
+                        <?php echo ($ap["content"]); ?>
                     </p>
-                </div>
-            </volist>
+                </div><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
         </div>
         <div class="row">
@@ -342,7 +341,7 @@
         </div>
         <div name="footerme" class="row footermessage " >
             <div >
-                {$CONF.mallFooter|htmlspecialchars_decode}
+                <?php echo (htmlspecialchars_decode($CONF["mallFooter"])); ?>
             </div>
         </div>
     </ion-content>
@@ -355,7 +354,7 @@
             <ion-content style="with:500px;">
                 <ion-view title="Home" hide-nav-bar="true">
                     <ion-scroll zooming="true" direction="xy" style="width: 100%; height: 100%">
-                        <div style="width: 1000px; height: 1000px; background: url(/{$drive['drivesMap']}) no-repeat"></div>
+                        <div style="width: 1000px; height: 1000px; background: url(/<?php echo ($drive['drivesMap']); ?>) no-repeat"></div>
                     </ion-scroll>
                 </ion-view>
             </ion-content>
@@ -512,9 +511,15 @@
         </ion-modal-view>
     </script>
 </div>
-</block>
-<block name="js">
-<script type="text/javascript" src="__PUBLIC__/Mobile/js/jquery.spinner.js"></script>
-<script src="__PUBLIC__/Mobile/js/datePrice.js"></script>
-<script src="__PUBLIC__/Mobile/js/drives.js" type="text/javascript"></script>
-</block>
+
+</body>
+<script src="/Public/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="/Public/Mobile/js/jquery-1.8.0.min.js"></script>
+<script src="/Public/Mobile/js/app.js" type="text/javascript"></script>
+<script src="/Public/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+
+<script type="text/javascript" src="/Public/Mobile/js/jquery.spinner.js"></script>
+<script src="/Public/Mobile/js/datePrice.js"></script>
+<script src="/Public/Mobile/js/drives.js" type="text/javascript"></script>
+
+</html>

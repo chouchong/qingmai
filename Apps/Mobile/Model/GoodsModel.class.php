@@ -10,9 +10,9 @@ class GoodsModel extends BaseModel {
    */
   public function goodsDetail(){
     $m = M('goods');
-    $data = $m->where(array('goodsId' => I('goodsId',6)))->find();
-    $data['attrPrice'] = M('goods_attributes')->field('attrVal,attrPrice')->where(array('goodsId' => I('goodsId',6),'attrId'=>1))->select();
-    $data['attrfd'] = M('goods_attributes')->field('attrVal')->where(array('goodsId' => I('goodsId',6),'attrId'=>2))->select();
+    $data = $m->where(array('goodsId' => I('goodsId')))->find();
+    $data['attrPrice'] = M('goods_attributes')->field('attrVal,attrPrice')->where(array('goodsId' => I('goodsId'),'attrId'=>1))->select();
+    $data['attrfd'] = M('goods_attributes')->field('attrVal')->where(array('goodsId' => I('goodsId'),'attrId'=>2))->select();
     return $data;
   }
 }
