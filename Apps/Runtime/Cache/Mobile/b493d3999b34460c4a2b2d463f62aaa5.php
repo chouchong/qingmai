@@ -233,7 +233,7 @@
                     <?php if(is_array($ht['gallerys'])): $i = 0; $__LIST__ = $ht['gallerys'];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$himg): $mod = ($i % 2 );++$i;?><ion-slide><img src="/<?php echo ($himg["hotelThumbs"]); ?>"></ion-slide><?php endforeach; endif; else: echo "" ;endif; ?>
                 </ion-slide-box>
                 <p class="passhoteltitle"><?php echo ($ht["hotelName"]); ?></p>
-                <p ><?php $__FOR_START_9778__=0;$__FOR_END_9778__=$ht['hotelStar'];for($i=$__FOR_START_9778__;$i < $__FOR_END_9778__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?>
+                <p ><?php $__FOR_START_18699__=0;$__FOR_END_18699__=$ht['hotelStar'];for($i=$__FOR_START_18699__;$i < $__FOR_END_18699__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?>
                     <span style="color:#000;">评分<?php echo ($ht["hotelStar"]); ?></span></p>
                 <p class="hotelshowcon" ><?php echo (htmlspecialchars_decode($ht["hotelDesc"])); ?></p>
                 <p class="detail"><a ng-click="openPopover(<?php echo ($ht['hotelId']); ?>)">查看详情</a></p>
@@ -321,7 +321,7 @@
                         <span><?php echo ($ap["userName"]); ?></span>
                         <span class="commentscore"><?php echo ($ap["drivesScore"]); ?>分</span>
                         <span class="commentstarts">
-                        <?php $__FOR_START_18865__=0;$__FOR_END_18865__=$ap['drivesScore'];for($i=$__FOR_START_18865__;$i < $__FOR_END_18865__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?></span>
+                        <?php $__FOR_START_25281__=0;$__FOR_END_25281__=$ap['drivesScore'];for($i=$__FOR_START_25281__;$i < $__FOR_END_25281__;$i+=1){ ?><i class="iocn ion-star"></i><?php } ?></span>
                     </p>
                     <p class="commenttime">
                         <span><?php echo ($ap["createTime"]); ?></span>

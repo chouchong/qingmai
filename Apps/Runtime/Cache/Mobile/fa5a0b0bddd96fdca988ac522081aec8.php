@@ -40,7 +40,7 @@
                         <button ng-click="dologin()" ng-disabled="myForm.$invalid" class="button button-block">登&nbsp;&nbsp;录</button>
                     </a>
                     <a href="<?php echo U('Mobile/Users/psw');?>"><span>忘记密码</span></a>
-                    <a href="<?php echo U('Mobile/Users/register',array('url'=>$url));?>"><span class="registerbutton">注册账号</span></a>
+                    <a href="/Mobile/Users/register?url=<?php echo ($url); ?>"><span class="registerbutton">注册账号</span></a>
                 </div>
             </div>
         </div>

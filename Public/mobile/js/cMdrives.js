@@ -3,7 +3,7 @@ $(function(){
  $('#addZcode').live("click", function(event) {
     var men = parseInt($("#manNum").html());
      $("#allZcodePrice").parent().show();
-    if (men  > $('#Zcode input').size()) {
+    if (men+1  > $('#Zcode input').size()) {
         var myZcode = 'myZcode'+ (i++) ;
         $("#ZcodeAdd").after('<div class="item item-input padding "><input class="aZcode" type="text" placeholder="请输入您的Z码" id="'+myZcode+'"><span class="aZcodePrice"></span></div>');
     }

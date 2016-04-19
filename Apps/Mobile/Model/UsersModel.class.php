@@ -46,6 +46,8 @@ class UsersModel extends BaseModel {
     if($this->checkEmpty($data)){
       $rs = $m->add($data);
       if(false !== $rs){
+        $Usersdata = $m->where(array('userId'=>$rs))->find();
+        session('Users',$Usersdata);
         $rd['status']= 1;
         $data = array();
         $data['lastTime'] = date('Y-m-d H:i:s');

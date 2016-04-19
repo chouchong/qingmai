@@ -31,7 +31,7 @@
                 <empty name="isNo">
                     <p><a href="{:U('Mobile/Orders/index')}">我的订单</a></p>
                 <else />
-                    <p><a href="{:U('Mobile/Pays/payment',array('orderId'=>$row['orderId']))}" style="color:#D22;">再试一次</a>&nbsp;&nbsp;&nbsp;<a href="{:U('Mobile/Orders/index')}">返回我的订单</a></p>
+                    <p><a href="/Mobile/Pays/payment/orderId/{$row['orderId']}" style="color:#D22;">再试一次</a>&nbsp;&nbsp;&nbsp;<a href="{:U('Mobile/Orders/index')}">返回我的订单</a></p>
                 </empty>
             </div>
           </div>

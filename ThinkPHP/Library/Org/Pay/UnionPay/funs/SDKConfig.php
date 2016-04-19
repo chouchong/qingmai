@@ -47,9 +47,9 @@ const SDK_App_Request_Url = 'https://101.231.204.80:5000/gateway/api/appTransReq
 
 
 // 前台通知地址 (商户自行配置通知地址)
-const SDK_FRONT_NOTIFY_URL = 'http://dt.ngrok.4kb.cn/Mobile/Pays/UnionPayBack';
+const SDK_FRONT_NOTIFY_URL = 'http://lvyou.2blab.com/Mobile/Pays/UnionPayBack';
 // 后台通知地址 (商户自行配置通知地址)
-const SDK_BACK_NOTIFY_URL = 'http://dt.ngrok.4kb.cn/Mobile/Pays/UnionPayGo';
+const SDK_BACK_NOTIFY_URL = 'http://lvyou.2blab.com/Mobile/Pays/UnionPayGo';
 
 //文件下载目录
 const SDK_FILE_DOWN_PATH = 'ThinkPHP/Library/Org/Pay/UnionPay/file/';
