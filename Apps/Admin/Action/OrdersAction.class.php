@@ -49,7 +49,7 @@ class OrdersAction extends BaseAction{
     	$this->assign('areaId1',I('areaId1',0));
     	$this->assign('areaId2',I('areaId2',0));
     	$this->assign('areaId3',I('areaId3',0));
-        $this->display("/orders/list_refund");
+      $this->display("/orders/list_refund");
 	}
 	/**
 	 * 查看订单详情

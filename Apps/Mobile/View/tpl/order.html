@@ -87,15 +87,15 @@
             </div>
             <div class="item item-wrap orderMessage">
                 成人
-                <span>{{vo.adultNum}}人 x {{vo.adultPrice}}人/元</span>
+                <span>{{vo.adultNum}}人 x {{vo.adultPrice}}元/人</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.childNum > 0">
                 儿童
-                <span>{{vo.childNum}}人 x {{vo.childPrice}}人/元</span>
+                <span>{{vo.childNum}}人 x {{vo.childPrice}}元/人</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.roomNum > 0">
                 房间
-                <span>{{vo.roomNum}}房 x {{vo.roomPrice}}房/元</span>
+                <span>{{vo.roomNum}}房 x {{vo.roomPrice}}元/房</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.zMoney > 0">
                 优惠

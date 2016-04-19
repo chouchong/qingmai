@@ -16,15 +16,15 @@
             </div>
             <div class="item item-text-wrap">
                 <span>成人</span>
-                <span style="float:right;">{$Orders.adultNum}人 x {$Orders.adultPrice}人/元</span>
+                <span style="float:right;">{$Orders.adultNum}人 x {$Orders.adultPrice}元/人</span>
             </div>
             <div class="item item-text-wrap">
                 <span>儿童</span>
-                <span style="float:right;">{$Orders.childNum}人 x {$Orders.childPrice}人/元</span>
+                <span style="float:right;">{$Orders.childNum}人 x {$Orders.childPrice}元/人</span>
             </div>
             <div class="item item-text-wrap">
                 <span>房间</span>
-                <span style="float:right;">{$Orders.roomNum}房 <if condition="$Orders['roomPrice'] gt 0">x {$Orders.roomPrice}房/元</if></span>
+                <span style="float:right;">{$Orders.roomNum}房 <if condition="$Orders['roomPrice'] gt 0">x {$Orders.roomPrice}元/房</if></span>
             </div>
             <if condition="$Orders['zMoney'] gt 0 ">
             <div class="item item-text-wrap">
