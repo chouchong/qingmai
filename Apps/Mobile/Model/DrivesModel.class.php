@@ -78,6 +78,7 @@ class DrivesModel extends BaseModel {
       $data['userId'] = session('Users')['userId'];
       $data['drivesScore'] = I('drivesScore');
       $data['content'] = I('conT');
+      $data['orderNo'] = I('orderNo');
       $data["createTime"] = date('Y-m-d H:i:s');
       $data['isShow'] = 1;
       $rs = M('drives_appraises')->add($data);

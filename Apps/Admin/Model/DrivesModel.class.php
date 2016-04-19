@@ -68,14 +68,14 @@ class DrivesModel extends BaseModel {
             }
           }
           if($articlesIds!=''){
-            $strarticles = explode(',',$articlesIds);
-            foreach ($strarticles as $k => $v){
-              $articles['articlesId'] = $v;
-              $articles['drivesId'] = $drivesId;
-              $m = M('drives_articles');
-              $m->add($articles);
-              $rd['status']=1;
-            }
+           $m = M('articles');
+          $rs = $m->field('articleId')->where(array('catId'=>$articlesIds))->order('articleId asc')->select();
+          foreach ($rs as $v){
+            $articles['articlesId'] = $v['articleId'];
+            $articles['drivesId'] = $drivesId;
+            $m = M('drives_articles');
+            $m->add($articles);
+          }
           }
         }
       }
@@ -146,13 +146,13 @@ class DrivesModel extends BaseModel {
             }
           }
           if($articlesIds!=''){
-            $strarticles = explode(',',$articlesIds);
-            foreach ($strarticles as $k => $v){
-              $articles['articlesId'] = $v;
+            $m = M('articles');
+            $rs = $m->field('articleId')->where(array('catId'=>$articlesIds))->order('articleId asc')->select();
+            foreach ($rs as $v){
+              $articles['articlesId'] = $v['articleId'];
               $articles['drivesId'] = $drivesId;
               $m = M('drives_articles');
               $m->add($articles);
-              $rd['status']=1;
             }
           }
         }

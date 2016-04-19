@@ -1,24 +1,24 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="zh-cn">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>{$CONF['mallTitle']}后台管理中心</title>
-      <link href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="__ROOT__/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-      <link href="__ROOT__/Apps/Admin/View/css/upload.css" rel="stylesheet" type="text/css" />
+      <title><?php echo ($CONF['mallTitle']); ?>后台管理中心</title>
+      <link href="/Public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+      <link href="/Apps/Admin/View/css/upload.css" rel="stylesheet" type="text/css" />
       <!--[if lt IE 9]>
-      <script src="__PUBLIC__/js/html5shiv.min.js"></script>
-      <script src="__PUBLIC__/js/respond.min.js"></script>
+      <script src="/Public/js/html5shiv.min.js"></script>
+      <script src="/Public/js/respond.min.js"></script>
       <![endif]-->
-      <script src="__PUBLIC__/js/jquery.min.js"></script>
-      <script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
-      <script src="__PUBLIC__/js/common.js"></script>
-      <script src="__PUBLIC__/plugins/plugins/plugins.js"></script>
-      <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
-     <script type="text/javascript" src="__ROOT__/Apps/Admin/View/js/upload.js"></script>
-     <script src="__PUBLIC__/plugins/kindeditor/kindeditor.js"></script>
+      <script src="/Public/js/jquery.min.js"></script>
+      <script src="/Public/plugins/bootstrap/js/bootstrap.min.js"></script>
+      <script src="/Public/js/common.js"></script>
+      <script src="/Public/plugins/plugins/plugins.js"></script>
+      <script src="/Public/plugins/formValidator/formValidator-4.1.3.js"></script>
+     <script type="text/javascript" src="/Apps/Admin/View/js/upload.js"></script>
+     <script src="/Public/plugins/kindeditor/kindeditor.js"></script>
      <style>
         .checkbox{
           margin-left: 25px;
@@ -27,7 +27,7 @@
    </head>
    <script>
    var ThinkPHP = window.Think = {
-	        "ROOT"   : "__ROOT__"
+	        "ROOT"   : ""
 	}
    var filetypes = ["gif","jpg","png","jpeg"];
    $(function () {
@@ -61,9 +61,9 @@
    </script>
    <body class="wst-page">
    	   <iframe name="upload" style="display:none"></iframe>
-			<form id="uploadform_Filedata" autocomplete="off" style="position:absolute;top:48px;left:140px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="{:U('Home/Base/uploadPic')}" >
+			<form id="uploadform_Filedata" autocomplete="off" style="position:absolute;top:48px;left:140px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="<?php echo U('Home/Base/uploadPic');?>" >
 				<div style="position:relative;">
-				<input id="drivesImg" name="drivesImg" class="form-control wst-ipt" type="text" value="{$object.drivesImg}" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
+				<input id="drivesImg" name="drivesImg" class="form-control wst-ipt" type="text" value="<?php echo ($object["drivesImg"]); ?>" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
 				<div class="div1">
 					<div class="div2">浏览</div>
 					<input type="file" class="inputstyle" id="Filedata" name="Filedata" onchange="updfile('Filedata');" >
@@ -79,9 +79,9 @@
 				<input type="hidden" id="s_Filedata" name="s_Filedata" value="">
 				</div>
 		</form>
-		<form id="uploadform_Map" autocomplete="off" style="position:absolute;top:120px;left:140px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="{:U('Home/Base/uploadPic')}" >
+		<form id="uploadform_Map" autocomplete="off" style="position:absolute;top:120px;left:140px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="<?php echo U('Home/Base/uploadPic');?>" >
 				<div style="position:relative;">
-				<input id="drivesMap" name="drivesMap" class="form-control wst-ipt" type="text" value="{$object.drivesMap}" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
+				<input id="drivesMap" name="drivesMap" class="form-control wst-ipt" type="text" value="<?php echo ($object["drivesMap"]); ?>" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
 				<div class="div1">
 					<div class="div2">浏览</div>
 					<input type="file" class="inputstyle" id="Map" name="Map" onchange="updfile('Map');" >
@@ -98,13 +98,13 @@
 				</div>
 		</form>
        <form name="myform" method="post" id="myform" autocomplete="off">
-        <input type='hidden' id='id' value='{$object.drivesId}'/>
-        <input type='hidden' id='drivesImg' value='{$object.drivesImg}'/>
-        <input type='hidden' id='drivesMap' value='{$object.drivesMap}'/>
+        <input type='hidden' id='id' value='<?php echo ($object["drivesId"]); ?>'/>
+        <input type='hidden' id='drivesImg' value='<?php echo ($object["drivesImg"]); ?>'/>
+        <input type='hidden' id='drivesMap' value='<?php echo ($object["drivesMap"]); ?>'/>
         <table class="table table-hover table-striped table-bordered wst-form">
            <tr>
              <th width='140' align='right'>自驾名称<font color='red'>*</font>：</th>
-             <td><input type='text' id='drivesName' class="form-control wst-ipt" value='{$object.drivesName}' maxLength='25'/></td>
+             <td><input type='text' id='drivesName' class="form-control wst-ipt" value='<?php echo ($object["drivesName"]); ?>' maxLength='25'/></td>
            </tr>
            <tr style="height:70px;">
              <th align='right'>自驾图<font color='red'>*</font>：</th>
@@ -120,7 +120,7 @@
              <th align='right'>自驾预览图：</th>
              <td height='40'>
             	<div id="preview_drivesImg">
-               <img id='preview' src='__ROOT__/{$object.drivesImg}' height='152' <if condition="$object['drivesImg'] =='' ">style='display:none'</if>/>
+               <img id='preview' src='/<?php echo ($object["drivesImg"]); ?>' height='152' <?php if($object['drivesImg'] =='' ): ?>style='display:none'<?php endif; ?>/>
                </div>
              </td>
            </tr>
@@ -128,93 +128,93 @@
              <th align='right'>自驾行程预览图：</th>
              <td height='40'>
             	<div id="preview_drivesMap">
-               <img id='preview' src='__ROOT__/{$object.drivesMap}' <if condition="$object['drivesMap'] =='' ">style='display:none'</if>/>
+               <img id='preview' src='/<?php echo ($object["drivesMap"]); ?>' <?php if($object['drivesMap'] =='' ): ?>style='display:none'<?php endif; ?>/>
                </div>
              </td>
            </tr>
            <tr>
              <th width='140' align='right'>自驾目的地<font color='red'>*</font>：</th>
-             <td><input type='text' id='drivesFrom' class="form-control wst-ipt" value='{$object.drivesFrom}' maxLength='25'/></td>
+             <td><input type='text' id='drivesFrom' class="form-control wst-ipt" value='<?php echo ($object["drivesFrom"]); ?>' maxLength='25'/></td>
            </tr>
            <tr>
              <th width='140' align='right'>成人价格<font color='red'>*</font>：</th>
-             <td><input type='text' id='adultPrice' class="form-control wst-ipt" value='{$object.adultPrice}' maxLength='25'/></td>
+             <td><input type='text' id='adultPrice' class="form-control wst-ipt" value='<?php echo ($object["adultPrice"]); ?>' maxLength='25'/></td>
            </tr>
            <tr>
              <th width='140' align='right'>儿童价格<font color='red'>*</font>：</th>
-             <td><input type='text' id='childPrice' class="form-control wst-ipt" value='{$object.childPrice}' maxLength='25'/></td>
+             <td><input type='text' id='childPrice' class="form-control wst-ipt" value='<?php echo ($object["childPrice"]); ?>' maxLength='25'/></td>
            </tr>
            <tr>
              <th width='140' align='right'>房价差<font color='red'>*</font>：</th>
-             <td><input type='text' id='homePrice' class="form-control wst-ipt" value='{$object.homePrice}' maxLength='25'/></td>
+             <td><input type='text' id='homePrice' class="form-control wst-ipt" value='<?php echo ($object["homePrice"]); ?>' maxLength='25'/></td>
            </tr>
            <tr>
              <th width='140' align='right'>自驾天数<font color='red'>*</font>：</th>
-             <td><input type='text' id='drivesDay' class="form-control wst-ipt" value='{$object.drivesDay}' maxLength='25'/></td>
+             <td><input type='text' id='drivesDay' class="form-control wst-ipt" value='<?php echo ($object["drivesDay"]); ?>' maxLength='25'/></td>
            </tr>
            <tr>
              <th width='140' align='right'>酒店选择<font color='red'>*</font>：</th>
              <td>
-             <input type="hidden" id="zhuchuHotels" value="{$object.driveshotelsIds}" />
-             <input type="hidden" id="tuzhongHotels" value="{$object.driveswayhotelsIds}" />
+             <input type="hidden" id="zhuchuHotels" value="<?php echo ($object["driveshotelsIds"]); ?>" />
+             <input type="hidden" id="tuzhongHotels" value="<?php echo ($object["driveswayhotelsIds"]); ?>" />
              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myHotels">请选择酒店</button>
              </td>
            </tr>
            <tr>
              <th width='140' align='right'>景点推荐<font color='red'>*</font>：</th>
              <td>
-             <input type="hidden" id="goodsids" value="{$object.drivesgoodsIds}"/>
+             <input type="hidden" id="goodsids" value="<?php echo ($object["drivesgoodsIds"]); ?>"/>
              <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myGoods">请选择景点</button>
              </td>
            </tr>
            <tr>
              <th width='140' align='right'>行程内容<font color='red'>*</font>：</th>
              <td>
-             <input type="hidden" id="articlesIds" value="{$object.drivesarticlesIds}"/>
+             <input type="hidden" id="articlesIds" value="<?php echo ($object["drivesarticlesIds"]); ?>"/>
              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myWayDays">请选择行程</button></td>
            </tr>
            <tr>
              <th width='140' align='right'>SEO关键字<font color='red'>*</font>：</th>
-             <td><input style='width:40%;' type='text' id='drivesKeywords' class="form-control wst-ipt" value='{$object.drivesKeywords}' /></td>
+             <td><input style='width:40%;' type='text' id='drivesKeywords' class="form-control wst-ipt" value='<?php echo ($object["drivesKeywords"]); ?>' /></td>
            </tr>
            <tr>
              <th width='140' align='right'>SEO信息<font color='red'>*</font>：</th>
-             <td><input style='width:40%;' type='text' id='drivesSpec' class="form-control wst-ipt" value='{$object.drivesSpec}'/></td>
+             <td><input style='width:40%;' type='text' id='drivesSpec' class="form-control wst-ipt" value='<?php echo ($object["drivesSpec"]); ?>'/></td>
            </tr>
            <tr>
                <th width='140'>自驾描述<font color='red'>*</font>：</th>
                <td>
-               <textarea style='width:40%;height:200px;' id='drivesDesc' name='drivesDesc'>{$object.drivesDesc}</textarea>
+               <textarea style='width:40%;height:200px;' id='drivesDesc' name='drivesDesc'><?php echo ($object["drivesDesc"]); ?></textarea>
                </td>
              </tr>
            <tr>
 	             <th width='140'>价格说明<font color='red'>*</font>：</th>
 	             <td>
-	             <textarea style='width:40%;height:200px;' id='priceDesc' name='priceDesc'>{$object.priceDesc}</textarea>
+	             <textarea style='width:40%;height:200px;' id='priceDesc' name='priceDesc'><?php echo ($object["priceDesc"]); ?></textarea>
 	             </td>
 	           </tr>
            <tr>
 	             <th width='140'>费用包含<font color='red'>*</font>：</th>
 	             <td>
-	             <textarea style='width:40%;height:200px;' id='isFeeDesc' name='isFeeDesc'>{$object.isFeeDesc}</textarea>
+	             <textarea style='width:40%;height:200px;' id='isFeeDesc' name='isFeeDesc'><?php echo ($object["isFeeDesc"]); ?></textarea>
 	             </td>
 	           </tr>
            <tr>
 	             <th width='140'>费用不含<font color='red'>*</font>：</th>
 	             <td>
-	             <textarea style='width:40%;height:200px;' id='noFeeDesc' name='noFeeDesc'>{$object.noFeeDesc}</textarea>
+	             <textarea style='width:40%;height:200px;' id='noFeeDesc' name='noFeeDesc'><?php echo ($object["noFeeDesc"]); ?></textarea>
 	             </td>
 	           </tr>
            <tr>
 	             <th width='140'>赠送项目<font color='red'>*</font>：</th>
 	             <td>
-	             <textarea style='width:40%;height:200px;' id='presentProject' name='presentProject'>{$object.presentProject}</textarea>
+	             <textarea style='width:40%;height:200px;' id='presentProject' name='presentProject'><?php echo ($object["presentProject"]); ?></textarea>
 	             </td>
 	           </tr>
            <tr>
              <td colspan='2' style='padding-left:250px;'>
                  <button type="submit" class="btn btn-success">保&nbsp;存</button>
-                 <button type="button" class="btn btn-primary" onclick='javascript:location.href="{:U('Admin/Friendlinks/index')}"'>返&nbsp;回</button>
+                 <button type="button" class="btn btn-primary" onclick='javascript:location.href="<?php echo U('Admin/Friendlinks/index');?>"'>返&nbsp;回</button>
              </td>
            </tr>
         </table>
@@ -231,25 +231,21 @@
               <div class="panel panel-default">
                 <div class="panel-heading">住处酒店</div>
                 <div class="panel-body">
-                  <volist name="hotels" id="vo">
-                    <div class="col-md-3">
+                  <?php if(is_array($hotels)): $i = 0; $__LIST__ = $hotels;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="col-md-3">
                       <label class="checkbox">
-                        <input type="checkbox" id="dt_hotels_{$vo['hotelId']}" class="hotelzc" value="{$vo['hotelId']}"> {$vo['hotelName']}
+                        <input type="checkbox" id="dt_hotels_<?php echo ($vo['hotelId']); ?>" class="hotelzc" value="<?php echo ($vo['hotelId']); ?>"> <?php echo ($vo['hotelName']); ?>
                       </label>
-                    </div>
-                  </volist>
+                    </div><?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
               </div>
               <div class="panel panel-default">
                 <div class="panel-heading">途中酒店</div>
                 <div class="panel-body">
-                  <volist name="hotels" id="vo">
-                    <div class="col-md-3">
+                  <?php if(is_array($hotels)): $i = 0; $__LIST__ = $hotels;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="col-md-3">
                       <label class="checkbox">
-                        <input type="checkbox" id="dt_wayhotels_{$vo['hotelId']}" class="hoteltz" value="{$vo['hotelId']}"> {$vo['hotelName']}
+                        <input type="checkbox" id="dt_wayhotels_<?php echo ($vo['hotelId']); ?>" class="hoteltz" value="<?php echo ($vo['hotelId']); ?>"> <?php echo ($vo['hotelName']); ?>
                       </label>
-                    </div>
-                  </volist>
+                    </div><?php endforeach; endif; else: echo "" ;endif; ?>
                 </div>
               </div>
             </div>
@@ -270,13 +266,11 @@
             </div>
             <div class="modal-body">
               <div class="row">
-              <volist name="articles" id="vo" key='i'>
-                <div class="col-md-3" style="height: 50px;">
+              <?php if(is_array($articles)): $i = 0; $__LIST__ = $articles;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="col-md-3" style="height: 50px;">
                   <label class="checkbox">
-                    <input type="checkbox"  id="dt_articles_{$vo['catId']}" class="articlexz" value="{$vo['catId']}"> {$vo['catName']}
+                    <input type="checkbox"  id="dt_articles_<?php echo ($vo['catId']); ?>" class="articlexz" value="<?php echo ($vo['catId']); ?>"> <?php echo ($vo['catName']); ?>
                   </label>
-                </div>
-              </volist>
+                </div><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
             </div>
             <div class="modal-footer">
@@ -296,13 +290,11 @@
             </div>
             <div class="modal-body">
               <div class="row">
-              <volist name="goods" id="vo" key="i">
-                <div class="col-md-3">
+              <?php if(is_array($goods)): $i = 0; $__LIST__ = $goods;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="col-md-3">
                   <label class="checkbox">
-                    <input type="checkbox" id="dt_goods_{$vo['goodsId']}" class="goodsxz" value="{$vo['goodsId']}"> {$vo['goodsName']}
+                    <input type="checkbox" id="dt_goods_<?php echo ($vo['goodsId']); ?>" class="goodsxz" value="<?php echo ($vo['goodsId']); ?>"> <?php echo ($vo['goodsName']); ?>
                   </label>
-                </div>
-              </volist>
+                </div><?php endforeach; endif; else: echo "" ;endif; ?>
             </div>
             </div>
             <div class="modal-footer">
@@ -315,19 +307,19 @@
    </body>
    <script>
    $(function () {
-    var grant = '{$object["driveshotelsIds"]}'.split(',');
+    var grant = '<?php echo ($object["driveshotelsIds"]); ?>'.split(',');
      for(var i=0;i<grant.length;i++){
       $('#dt_hotels_'+grant[i]).prop('checked',true);
      }
-     var way = '{$object["driveswayhotelsIds"]}'.split(',');
+     var way = '<?php echo ($object["driveswayhotelsIds"]); ?>'.split(',');
      for(var i=0;i<way.length;i++){
       $('#dt_wayhotels_'+way[i]).prop('checked',true);
      }
-     var goods = '{$object["drivesgoodsIds"]}'.split(',');
+     var goods = '<?php echo ($object["drivesgoodsIds"]); ?>'.split(',');
      for(var i=0;i<goods.length;i++){
       $('#dt_goods_'+goods[i]).prop('checked',true);
      }
-     var articles = '{$object["drivesarticlesIds"]}'.split(',');
+     var articles = '<?php echo ($object["drivesarticlesIds"]); ?>'.split(',');
      for(var i=0;i<articles.length;i++){
       $('#dt_articles_'+articles[i]).prop('checked',true);
      }
@@ -495,11 +487,11 @@
      }
      Plugins.waitTips({title:'信息提示',content:'正在提交数据，请稍后...'});
      // console.log(params);
-    $.post("{:U('Admin/Drives/edit')}",params,function(data,textStatus){
+    $.post("<?php echo U('Admin/Drives/edit');?>",params,function(data,textStatus){
       var json = WST.toJson(data);
       if(json.status=='1'){
         Plugins.setWaitTipsMsg({ content:'操作成功',timeout:1000,callback:function(){
-           location.href='{:U("Admin/Drives/index")}';
+           location.href='<?php echo U("Admin/Drives/index");?>';
         }});
       }else{
         Plugins.closeWindow();

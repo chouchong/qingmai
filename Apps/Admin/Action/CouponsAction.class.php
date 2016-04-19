@@ -42,7 +42,7 @@ class CouponsAction extends BaseAction{
       $object['couponsCode'] = substr($str,0,1).time();
     }
     $this->assign('object',$object);
-    $this->view->display('/Coupons/edit');
+    $this->view->display('/coupons/edit');
   }
   /**
   *优惠码列表

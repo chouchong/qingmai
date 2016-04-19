@@ -41,12 +41,12 @@
      <form method='post' action='{:U("Admin/Users/queryAccountByPage")}'>
        <div class='wst-tbar'>
        会员账号：<input type='text' id='loginName' name='loginName' class='form-control wst-ipt-10' value='{$loginName}'/>
-       会员类型：<select id='userType' name='userType' class="form-control wst-ipt-10">
+      <!--  会员类型：<select id='userType' name='userType' class="form-control wst-ipt-10">
            <option value='-1' <if condition=" $userType eq -1 ">selected</if>>全部</option>
            <option value='0' <if condition=" $userType eq 0 ">selected</if>>普通会员</option>
            <option value='1' <if condition=" $userType eq 1 ">selected</if>>商家会员</option>
        </select>  
-         账号状态：<select id='userStatus' name='userStatus' class="form-control wst-ipt-10">
+ -->         账号状态：<select id='userStatus' name='userStatus' class="form-control wst-ipt-10">
            <option value='-1' <if condition=" $userStatus eq -1 ">selected</if>>全部</option>
            <option value='1' <if condition=" $userStatus eq 1 ">selected</if>>启用</option>
            <option value='0' <if condition=" $userStatus eq 0 ">selected</if>>停用</option>
@@ -60,10 +60,10 @@
              <tr>
                <th width='10'>&nbsp;</th>
                <th width='80'>账号</th>
-               <th width='30'>安全码</th>
+               <!-- <th width='30'>安全码</th> -->
                <th width='80'>用户名</th>
                <th width='90'>手机号码</th>
-               <th width='100'>电子邮箱</th> 
+               <!-- <th width='100'>电子邮箱</th> -->
                <th width='100'>最后登录时间</th>
                <th width='40'>状态</th>
                <th width='40'>操作</th>
@@ -74,10 +74,10 @@
              <tr>
                <td>{$i}</td>
                <td>{$vo['loginName']}</td>
-               <td>{$vo['loginSecret']}&nbsp;</td>
+               <!-- <td>{$vo['loginSecret']}&nbsp;</td> -->
                <td>{$vo['userName']}&nbsp;</td>
                <td>{$vo['userPhone']}&nbsp;</td>
-               <td>{$vo['userEmail']}&nbsp;</td>
+               <!-- <td>{$vo['userEmail']}&nbsp;</td> -->
                <td>{$vo['lastTime']}&nbsp;</td>
                <td>
                <div class="dropdown">

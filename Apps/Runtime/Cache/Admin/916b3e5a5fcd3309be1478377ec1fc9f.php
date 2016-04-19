@@ -255,7 +255,7 @@
                             </a>
                             <ul class="treeview-menu">
                                 <?php if(in_array('hydj_00',$WST_STAFF['grant'])){ ?>
-                                <li><a href="<?php echo U('Admin/UserRanks/index');?>" target='pageContent' >会员等级</a></li>
+                               <!--  <li><a href="<?php echo U('Admin/UserRanks/index');?>" target='pageContent' >会员等级</a></li> -->
                                 <?php } ?>
                                 <?php if(in_array('hylb_00',$WST_STAFF['grant'])){ ?>
 					            <li><a href="<?php echo U('Admin/Users/index');?>" target='pageContent' >会员列表</a></li>

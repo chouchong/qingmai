@@ -25,20 +25,50 @@
       <button type='submit' class='btn btn-primary glyphicon glyphicon-search'>查询</button>
        </div>
        </form>
-       <div class="wst-body"> 
+       <div class="wst-body">
         <table class="table table-hover table-striped table-bordered wst-list">
            <thead>
              <tr>
                <th width='40'>序号</th>
-               <th colspan='2'>门票</th>
+               <th colspan='2'>自驾</th>
                <th width='60'>状态</th>
-               <th>门票评分</th>
-               <th>时效评分</th>
-               <th>服务评分</th>
+               <th>自驾评分</th>
                <th width='150'>操作</th>
              </tr>
            </thead>
            <tbody>
+            <volist name="Page['root']" id="vo" key='i'>
+             <tr>
+               <td rowspan='2'>{$i}</td>
+               <td rowspan='2' width='50' style='border-right:0px;'>
+               <img src="__ROOT__/{$vo['drivesImg']}" width='50'/>
+               </td>
+               <td rowspan='2' width='140' style='border-left:0px;'>
+               <span style='font-weight:bold;'>{$vo['drivesName']}</span><br/>订单：{$vo['orderNo']}</td>
+               <td >
+               <if condition="$vo['isShow'] == 1 ">
+               <span class='label label-success'>显示</span>
+               <else/>
+               <span class='label label-warning'>隐藏</span>
+               </if>
+               </td>
+               <td>
+               <div>
+                  <for start="0" end="$vo['drivesScore']">
+                      <img src="__ROOT__/Apps/Admin/View/img/icon_score_yes.png"/>
+                  </for>&nbsp;{$vo['drivesScore']} 分
+                </div>
+                </td>
+               <td>
+               <php>if(in_array('dppl_02',$WST_STAFF['grant'])){</php>
+               <button type="button" class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo['id']})">刪除</button>
+               <php>}</php>
+               </td>
+             </tr>
+             <tr>
+               <td colspan='4' style='word-break:break-all;'>评价[{$vo['userName']}]：{$vo['content']}</td>
+             </tr>
+             </volist>
              <tr>
                 <td colspan='8' align='center'>{$Page['pager']}</td>
              </tr>
@@ -46,4 +76,23 @@
         </table>
        </div>
    </body>
+   <script>
+   function del(id){
+     Plugins.confirm({title:'信息提示',content:'您确定要删除该自驾评价吗?',okText:'确定',cancelText:'取消',okFun:function(){
+       Plugins.closeWindow();
+       Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
+       $.post("{:U('Admin/GoodsAppraises/del')}",{id:id},function(data,textStatus){
+          var json = WST.toJson(data);
+          if(json.status=='1'){
+            Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+            location.reload();
+            }});
+          }else{
+            Plugins.closeWindow();
+            Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+          }
+        });
+     }});
+   }
+   </script>
 </html>

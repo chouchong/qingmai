@@ -1,30 +1,30 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="zh-cn">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>{$CONF['shopTitle']['fieldValue']}后台管理中心</title>
-      <link href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="__ROOT__/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-      <link href="__ROOT__/Apps/Admin/View/css/upload.css" rel="stylesheet" type="text/css" />
+      <title><?php echo ($CONF['shopTitle']['fieldValue']); ?>后台管理中心</title>
+      <link href="/Public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+      <link href="/Apps/Admin/View/css/upload.css" rel="stylesheet" type="text/css" />
       
       <!--[if lt IE 9]>
-      <script src="__PUBLIC__/js/html5shiv.min.js"></script>
-      <script src="__PUBLIC__/js/respond.min.js"></script>
+      <script src="/Public/js/html5shiv.min.js"></script>
+      <script src="/Public/js/respond.min.js"></script>
       <![endif]-->
-      <script src="__PUBLIC__/js/jquery.min.js"></script>
-      <script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
-      <script src="__PUBLIC__/js/common.js"></script>
-      <script src="__PUBLIC__/plugins/plugins/plugins.js"></script>
+      <script src="/Public/js/jquery.min.js"></script>
+      <script src="/Public/plugins/bootstrap/js/bootstrap.min.js"></script>
+      <script src="/Public/js/common.js"></script>
+      <script src="/Public/plugins/plugins/plugins.js"></script>
       
-      <script src="__PUBLIC__/plugins/formValidator/formValidator-4.1.3.js"></script>
-      <script type="text/javascript" src="__ROOT__/Apps/Admin/View/js/upload.js"></script>
+      <script src="/Public/plugins/formValidator/formValidator-4.1.3.js"></script>
+      <script type="text/javascript" src="/Apps/Admin/View/js/upload.js"></script>
       
    </head>
    <script>
    var ThinkPHP = window.Think = {
-	        "ROOT"   : "__ROOT__"
+	        "ROOT"   : ""
 	}
    $(function () {
 	   $.formValidator.initConfig({
@@ -37,7 +37,7 @@
 			}).ajaxValidator({
 				dataType : "json",
 				async : true,
-				url : "{:U('Admin/Users/checkLoginKey')}",
+				url : "<?php echo U('Admin/Users/checkLoginKey');?>",
 				success : function(data){
 					var json = WST.toJson(data);
 		            if( json.status == "1" ) {
@@ -61,7 +61,7 @@
 		}).ajaxValidator({
 			dataType : "json",
 			async : true,
-			url : "{:U('Admin/Users/checkLoginKey')}",
+			url : "<?php echo U('Admin/Users/checkLoginKey');?>",
 			success : function(data){
 				var json = WST.toJson(data);
 	            if( json.status == "1" ) {
@@ -80,7 +80,7 @@
 			}).ajaxValidator({
 				dataType : "json",
 				async : true,
-				url : "{:U('Admin/Users/checkLoginKey')}",
+				url : "<?php echo U('Admin/Users/checkLoginKey');?>",
 				success : function(data){
 					var json = WST.toJson(data);
 		            if( json.status == "1" ) {
@@ -154,11 +154,11 @@
 	   params.userEmail = $.trim($('#userEmail').val());  
 	   params.id = $('#id').val();
 	   Plugins.waitTips({title:'信息提示',content:'正在提交数据，请稍后...'});
-		$.post("{:U('Admin/Users/edit')}",params,function(data,textStatus){
+		$.post("<?php echo U('Admin/Users/edit');?>",params,function(data,textStatus){
 			var json = WST.toJson(data);
 			if(json.status=='1'){
 				Plugins.setWaitTipsMsg({ content:'操作成功',timeout:1000,callback:function(){
-				   location.href='{:U("Admin/Users/index")}';
+				   location.href='<?php echo U("Admin/Users/index");?>';
 				}});
 			}else if(json.status=='-2'){
 				Plugins.setWaitTipsMsg({content:'用户手机号码或邮箱已存在!',timeout:1000});
@@ -172,9 +172,9 @@
    </script>
    <body class="wst-page">
    			<iframe name="upload" style="display:none"></iframe>
-			<form id="uploadform_Filedata" autocomplete="off" style="position:absolute;top:250px;left:120px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="{:U('Home/Base/uploadPic')}" >
+			<form id="uploadform_Filedata" autocomplete="off" style="position:absolute;top:250px;left:120px;z-index:10;" enctype="multipart/form-data" method="POST" target="upload" action="<?php echo U('Home/Base/uploadPic');?>" >
 				<div style="position:relative;">
-				<input id="userPhoto" name="userPhoto" class="form-control wst-ipt" type="text" value="{$object.userPhoto}" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
+				<input id="userPhoto" name="userPhoto" class="form-control wst-ipt" type="text" value="<?php echo ($object["userPhoto"]); ?>" readonly style="margin-right:4px;float:left;margin-left:8px;width:250px;"/>
 				<div class="div1">
 					<div class="div2">浏览</div>
 					<input type="file" class="inputstyle" id="Filedata" name="Filedata" onchange="updfile('Filedata');" >
@@ -191,28 +191,28 @@
 				</div>
 		</form>
        <form name="myform" method="post" id="myform" autocomplete="off">   
-        <input type='hidden' id='id' value='{$object.userId}'/>
+        <input type='hidden' id='id' value='<?php echo ($object["userId"]); ?>'/>
        
         <table class="table table-hover table-striped table-bordered wst-form">
            <tr>
              <th width='120' align='right'>账号<font color='red'>*</font>：</th>
-             <td><input type='text' id='loginName' name='loginName' class="form-control wst-ipt" value='{$object.loginName}' maxLength='20'/></td>
+             <td><input type='text' id='loginName' name='loginName' class="form-control wst-ipt" value='<?php echo ($object["loginName"]); ?>' maxLength='20'/></td>
              <td rowspan='6'>
              	<div id="preview_Filedata">
-                 <img id='userPhotoPreview' src='<if condition="$object['userPhoto'] =='' ">__ROOT__/Apps/Admin/View/img/staff.png<else/>__ROOT__/{$object['userPhoto']}</if>' height='152'/><br/>
+                 <img id='userPhotoPreview' src='<?php if($object['userPhoto'] =='' ): ?>/Apps/Admin/View/img/staff.png<?php else: ?>/<?php echo ($object['userPhoto']); endif; ?>' height='152'/><br/>
 	             </div>
              </td>
            </tr>
            <tr>
              <th width='120' align='right'>密码<font color='red'>*</font>：</th>
              <td>
-             <input type='password' id='loginPwd' class="form-control wst-ipt" value='{$object.loginPwd}' maxLength='20'/>
-             <if condition="$object['userId'] !=0 ">(为空则说明不修改密码)</if></td>
+             <input type='password' id='loginPwd' class="form-control wst-ipt" value='<?php echo ($object["loginPwd"]); ?>' maxLength='20'/>
+             <?php if($object['userId'] !=0 ): ?>(为空则说明不修改密码)<?php endif; ?></td>
            </tr>
            <tr>
              <th align='right'>用户名：</th>
              <td>
-             <input type='text' id='userName' class="form-control wst-ipt" value='{$object.userName}' maxLength='20'/>
+             <input type='text' id='userName' class="form-control wst-ipt" value='<?php echo ($object["userName"]); ?>' maxLength='20'/>
              </td>
            </tr>
            <tr>
@@ -232,31 +232,31 @@
            <tr>
              <th align='right'>手机号码：</th>
              <td>
-             <input type='text' id='userPhone' name='userPhone' class="form-control wst-ipt" value='{$object.userPhone}' maxLength='11'/>
+             <input type='text' id='userPhone' name='userPhone' class="form-control wst-ipt" value='<?php echo ($object["userPhone"]); ?>' maxLength='11'/>
              </td>
            </tr>
            <tr>
              <th align='right'>电子邮箱：</th>
              <td>
-             <input type='text' id='userEmail' name='userEmail' class="form-control wst-ipt"  value='{$object.userEmail}' maxLength='25'/>
+             <input type='text' id='userEmail' name='userEmail' class="form-control wst-ipt"  value='<?php echo ($object["userEmail"]); ?>' maxLength='25'/>
              </td>
            </tr>
            <!-- <tr>
              <th align='right'>会员积分<font color='red'>*</font>：</th>
              <td>
-             <input type='text' id='userScore' class="form-control wst-ipt-10"  value='{$object.userScore}' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='8'/>
+             <input type='text' id='userScore' class="form-control wst-ipt-10"  value='<?php echo ($object["userScore"]); ?>' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='8'/>
              </td>
            </tr> -->
            <!-- <tr>
              <th align='right'>会员历史积分<font color='red'>*</font>：</th>
              <td colspan='2'>
-             <input type='text' id='userTotalScore' class="form-control wst-ipt-10"  value='{$object.userTotalScore}' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='8'/>
+             <input type='text' id='userTotalScore' class="form-control wst-ipt-10"  value='<?php echo ($object["userTotalScore"]); ?>' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='8'/>
              </td>
            </tr> -->
            <tr>
              <th align='right'>QQ：</th>
              <td colspan='2'>
-             <input type='text' id='userQQ' class="form-control wst-ipt"  value='{$object.userQQ}' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='15'/>
+             <input type='text' id='userQQ' class="form-control wst-ipt"  value='<?php echo ($object["userQQ"]); ?>' onkeypress="return WST.isNumberKey(event)" onkeyup="javascript:WST.isChinese(this,1)" maxLength='15'/>
              </td>
            </tr>
             <tr style="height:80px;">
@@ -278,7 +278,7 @@
            <tr>
              <td colspan='3' style='padding-left:250px;'>
                  <button type="submit" class="btn btn-success">保&nbsp;存</button>
-                 <button type="button" class="btn btn-primary" onclick='javascript:location.href="{:U('Admin/Users/index')}"'>返&nbsp;回</button>
+                 <button type="button" class="btn btn-primary" onclick='javascript:location.href="<?php echo U('Admin/Users/index');?>"'>返&nbsp;回</button>
              </td>
            </tr>
         </table>

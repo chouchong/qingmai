@@ -796,6 +796,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     }else{
       $scope.con.drivesScore = cstar;
       $scope.con.orderId = $('#cOrderId').val();
+      $scope.con.orderNo = $('#cOrderNo').html();
       serviceHttp.addComment($scope.con).success(function(data){
         if(data.status>0){
           $rootScope.msg('评分成功');

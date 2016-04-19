@@ -35,7 +35,7 @@ class PlaceAction extends BaseAction{
       $object=null;
     }
     $this->assign('object',$object);
-    $this->view->display('/Place/edit');
+    $this->view->display('/place/edit');
   }
   /**
   *报名地点列表

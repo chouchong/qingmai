@@ -28,8 +28,6 @@
          <div class="col-xs-12 wstmall-login-tips">
              <p style='font-size:16px;'>您好，<?php echo session('WST_STAFF.staffName');?>，欢迎使用Mall商城管理。 您上次登录的时间是 <?php echo session('WST_STAFF.lastTime');?> ，IP 是 <?php echo session('WST_STAFF.lastIP');?></p>
          </div>
-         <!--<div class='col-xs-12 wstmall-version-tips'>您有新的版本(<span id='wstmall_version'>0.0.0</span>)可以下载啦~，<a id='wstmall_down' href='' target='_blank'>点击</a>下载</div>-->
-         <!--<div class='col-xs-12 wstmall-version-tips'>系统检测到您未获取授权，点此<a target='_blank' href='http://www.wstmall.com/index.php?m=Home&c=License&a=getLicense'>获取系统授权码</a></div>          -->
          <div class='row' style='padding-left:10px;margin-right:10px;'>
 	         <div class="col-md-9">
 	           <div class="box-header">
@@ -38,12 +36,8 @@
 	                <tr>
 	                   <td width="20%" align='right'>新增会员数：</td>
 	                   <td width="30%"><?php echo ($weekInfo["userNew"]); ?></td>
-	                   <td width="20%" align='right'>新增店铺数/申请数：</td>
-	                   <td width="30%"><?php echo ($weekInfo["shopNew"]); ?>/<?php echo ($weekInfo["shopApply"]); ?></td>
 	                </tr>
 	                <tr>
-	                   <td align='right'>新增门票数：</td>
-	                   <td><?php echo ($weekInfo["goodsNew"]); ?></td>
 	                   <td align='right'>新增订单数：</td>
 	                   <td><?php echo ($weekInfo["ordersNew"]); ?></td>
 	                </tr>
@@ -55,12 +49,8 @@
 	                <tr>
 	                   <td width="20%" align='right'>会员总数：</td>
 	                   <td width="30%"><?php echo ($sumInfo["userSum"]); ?></td>
-	                   <td width="20%" align='right'>店铺总数/申请总数：</td>
-	                   <td width="30%"><?php echo ($sumInfo["shopSum"]); ?>/<?php echo ($sumInfo["shopApplySum"]); ?></td>
 	                </tr>
 	                <tr>
-	                   <td align='right'>门票总数：</td>
-	                   <td><?php echo ($sumInfo["goodsSum"]); ?></td>
 	                   <td align='right'>订单总数：</td>
 	                   <td><?php echo ($sumInfo["ordersSum"]); ?></td>
 	                </tr>
@@ -71,33 +61,6 @@
 	             </table>
 	           </div>
 	           <div class="box-header">
-	             <!--<h4 class="text-blue">系统信息</h4>-->
-	             <!--<table class="table table-hover table-striped table-bordered wst-form">-->
-	                <!--<tr>-->
-	                   <!--<td width="20%" align='right'>软件版本号：</td>-->
-	                   <!--<td><?php echo C('WST_VERSION');?></td>-->
-	                   <!--<td align='right'>授权类型：</td>-->
-	                   <!--<td><div id='licenseStatus'></div></td>-->
-	                <!--</tr>-->
-	                <!--<tr>-->
-	                   <!--<td align='right'>问题反馈：</td>-->
-	                   <!--<td id='webUrl'><a href="<?php echo C('WST_FEEDBACK');?>" target='_blank'>点击反馈</a></td>-->
-	                   <!--<td align='right'>授权码：</td>-->
-	                   <!--<td><?php echo ($CONF['mallLicense']); ?></td>-->
-	                <!--</tr>-->
-	                <!--<tr>-->
-	                   <!--<td align='right'>服务器操作系统：</td>-->
-	                   <!--<td><?php echo (PHP_OS); ?></td>-->
-	                   <!--<td align='right'>WEB服务器：</td>-->
-	                   <!--<td ><?php echo ($_SERVER['SERVER_SOFTWARE']); ?></td>-->
-	                <!--</tr>-->
-	                <!--<tr>-->
-	                   <!--<td align='right'>PHP版本：</td>-->
-	                   <!--<td ><?php echo (PHP_VERSION); ?></td>-->
-	                   <!--<td align='right'>MYSQL版本：</td>-->
-	                   <!--<td ><?php echo mysql_get_server_info();?></td>-->
-	                <!--</tr>-->
-	             <!--</table>-->
 	           </div>
 	        </div>
 	        <div class="col-md-3">

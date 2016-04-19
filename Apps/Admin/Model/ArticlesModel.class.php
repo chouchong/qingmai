@@ -110,10 +110,19 @@ class ArticlesModel extends BaseModel {
 	  * 获取catId的文章列表
 	  */
 	  public function queryByCatId($catId){
-	    $m = M('articles');
-		 	$rs = $m->field('articleId,articleTitle')->where(array('catId'=>$catId))->order('articleId asc')->select();
-
+	    $m = M('article_cats');
+		 	$rs = $m->field('catId,catName')->where(array('parentId'=>$catId))->order('catId asc')->select();
 		 	return $rs;
+	  }
+	  public function queryaddA($catId,$drivesId){
+	    $m = M('articles');
+	    $rs = $m->field('articleId')->where(array('catId'=>9))->order('articleId asc')->select();
+	    foreach ($rs as $v){
+	      $articles['articlesId'] = $v['articleId'];
+	      $articles['drivesId'] = $drivesId;
+	      $m = M('drives_articles');
+	      $m->add($articles);
+	    }
 	  }
 };
 ?>
