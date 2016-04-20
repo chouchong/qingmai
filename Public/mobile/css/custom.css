@@ -25,6 +25,10 @@ a {
   text-decoration: none;
   color: #777777; }
 
+.cardPS {
+  padding: 0px 0;
+  margin: 12px 0; }
+
 .pricecolor {
   color: #F77563; }
 
@@ -197,17 +201,22 @@ a {
   .passhotellist .passhotelitem p {
     font-size: 14px; }
 
-.xcjsList .xcmessage .xcmessageTit {
-  background: #6CC5DC;
-  display: block;
-  padding: 8px; }
-.xcjsList .xcmessage .xcmessageP {
-  padding: 8px; }
-  .xcjsList .xcmessage .xcmessageP p {
-    line-height: 150%;
-    font-size: 14px; }
-  .xcjsList .xcmessage .xcmessageP img {
-    width: 100%; }
+.xcjsList {
+  padding: 0; }
+  .xcjsList .cardPS {
+    margin: 0;
+    padding: 12px; }
+  .xcjsList .xcmessage .xcmessageTit {
+    background: #6CC5DC;
+    display: block;
+    padding: 8px; }
+  .xcjsList .xcmessage .xcmessageP {
+    padding: 0px; }
+    .xcjsList .xcmessage .xcmessageP p {
+      line-height: 150%;
+      font-size: 14px; }
+    .xcjsList .xcmessage .xcmessageP img {
+      width: 100%; }
 
 #visacard p {
   line-height: 150%; }
@@ -230,18 +239,24 @@ a {
   .zjywarm .item-text-wrap p {
     color: #FFD679; }
 
-.zjytjjd .jdtag {
-  border-radius: 5px;
-  border: 1px solid #ffc900;
-  padding: 2px;
-  color: #ffc900;
-  margin: 0 5px; }
-.zjytjjd .jdprice {
-  float: right;
-  color: #E63535;
-  font-size: 18px; }
-.zjytjjd img {
-  width: 100%; }
+.zjytjjd {
+  margin: 0;
+  padding: 0; }
+  .zjytjjd .cardPS {
+    padding: 12px;
+    margin: 0; }
+  .zjytjjd .jdtag {
+    border-radius: 5px;
+    border: 1px solid #ffc900;
+    padding: 2px;
+    color: #ffc900;
+    margin: 0 5px; }
+  .zjytjjd .jdprice {
+    float: right;
+    color: #E63535;
+    font-size: 18px; }
+  .zjytjjd img {
+    width: 100%; }
 
 .usercomment .commentnum {
   line-height: 120%;
@@ -327,14 +342,16 @@ a {
     padding: 4px 15px 0 10px; }
   .loginre .loginrepi {
     padding: 4px 15px 0 6px; }
-  .loginre .loginbutton button {
-    background: #6cc5dc;
-    color: #fff;
-    font-size: 18px; }
-  .loginre .loginbutton span {
-    margin: 5px; }
-  .loginre .loginbutton .registerbutton {
-    float: right; }
+  .loginre .loginbutton {
+    font-size: 14px; }
+    .loginre .loginbutton button {
+      background: #6cc5dc;
+      color: #fff;
+      font-size: 14px; }
+    .loginre .loginbutton span {
+      margin: 5px; }
+    .loginre .loginbutton .registerbutton {
+      float: right; }
   .loginre .loginread {
     text-align: center;
     font-size: 14px; }
@@ -350,35 +367,33 @@ a {
     .loginre .sendmessage .messagetext {
       background: #6cc5dc;
       padding: 5px 20px;
-      color: #fff; }
-    .loginre .sendmessage .messagepstext {
-      background: #6cc5dc;
-      /* padding: 0px 0px; */
-      color: #fff; }
+      color: #fff;
+      font-size: 14px; }
     .loginre .sendmessage .messagetextnum {
       background: #9C9C9C;
       padding: 5px 20px;
-      color: #fff; }
-      .loginre .sendmessage .messagepstextnum {
-      background: #9C9C9C;
-     /*  padding: 0px 0px; */
-      color: #fff; }
+      color: #fff;
+      font-size: 14px; }
 
-.scenicShop .scenicShops {
-  padding: 5px;
-  width: 50%;
-  float: left;
-  text-align: center; }
-  .scenicShop .scenicShops button {
-    line-height: 150%; }
+.scenicShop {
+  padding: 3px; }
+  .scenicShop .scenicShops {
+    padding: 5px;
+    width: 50%;
+    float: left;
+    text-align: center; }
+    .scenicShop .scenicShops button {
+      line-height: 150%; }
 
-.scenictime .scenictimes {
-  padding: 5px;
-  width: 50%;
-  float: left;
-  text-align: center; }
-  .scenictime .scenictimes button {
-    line-height: 150%; }
+.scenictime {
+  padding: 3px; }
+  .scenictime .scenictimes {
+    padding: 5px;
+    width: 50%;
+    float: left;
+    text-align: center; }
+    .scenictime .scenictimes button {
+      line-height: 150%; }
 
 .dateSelect {
   float: left;

@@ -146,5 +146,22 @@ class OrdersModel extends BaseModel {
 	 	}
 	 	return $rd;
 	 }
+	 	 /**
+	  * 按条件查询订单
+	  */
+	  public function orderList(){
+		 	$m = M('orders');
+	   	$orderNo = I('orderNo');
+	   	$orderStatus = I('orderStatus','-9999');
+	   	$goodsType = I('goodsType','-9999');
+		 	$sql = "select o.*,u.userName from dt_orders as o left join dt_users as u on u.userId=o.userId  where o.totalMoney > 0";
+		 	if($orderNo)$sql.=" and orderNo like "."'%$orderNo%'";
+		 	if($orderStatus!='-9999')$sql.=" and orderStatus=".$orderStatus;
+		 	if($goodsType!='-9999')$sql.=" and goodsType=".$goodsType;
+		 	$sql.=" order by orderId desc";
+			$page = $m->pageQuery($sql);
+		 	return $page;
+	 }
+
 };
 ?>

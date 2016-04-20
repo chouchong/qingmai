@@ -102,17 +102,17 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       }
       $scope.doreg = function(){
         var url = $('#goUrl').val();
-          serviceHttp.UserAdd($scope.user).success(function(data){
-              if(data.status>0){
-                  if(url==''){
-                    window.location.href = '/Mobile/Users';
-                  }else{
-                    window.location.href = url;
-                  }
-              }else{
-                  $rootScope.msg(data.msg);
-              }
-          })
+        serviceHttp.UserAdd($scope.user).success(function(data){
+            if(data.status>0){
+                if(url==''){
+                  window.location.href = '/Mobile/Users';
+                }else{
+                  window.location.href = url;
+                }
+            }else{
+                $rootScope.msg(data.msg);
+            }
+        })
       }
   }])
 .controller('userCtrl', ['$scope','$ionicPopup','serviceHttp', function($scope,$ionicPopup,serviceHttp) {
@@ -179,7 +179,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
           });
           confirmPopup.then(function(res) {
               if(res){
-                  window.location.href = '/Mobile/login';
+                  window.location.href = '/Mobile/Users/login';
               }else{
                 window.location.href = '/Mobile';
               }
@@ -188,6 +188,55 @@ angular.module("myApp", ["ionic","ionic-ratings"])
           $rootScope.msg(data.msg);
         }
     })
+    }
+}])
+.controller('codeCtrl', ['$scope','$rootScope','serviceHttp', function($scope,$rootScope,serviceHttp) {
+  var iNow = 60;
+    $scope.text = '发送验证码';
+    $scope.smsClass = 'messagepstext';
+    var fash = false;
+    $scope.smsCode = function(phone) {
+      serviceHttp.smsSend(phone)
+      .success(function(data){
+        console.log(data);
+          if(data.code==0){
+              $scope.timeSms();
+          }else{
+              $rootScope.msg('短信发送失败');
+          }
+      });
+    }
+    $scope.timeSms = function() {
+        if (fash == false) {
+            $scope.text = iNow + '秒后重新发送';
+            $scope.smsClass = 'messagepstextnum';
+            fash = true;
+            var timer = $interval(function() {
+                iNow--;
+                $scope.text = iNow + '秒后重新发送';
+                if (iNow == 0) {
+                    $interval.cancel(timer);
+                    $scope.text = '重新发送';
+                    fash = false;
+                    $scope.smsClass = 'messagepstext';
+                    iNow = 60;
+                }
+            }, 1000);
+        }
+    }
+    $scope.dologincode = function(scode){
+      var url = $('#tocodeUrl').val();
+      serviceHttp.toCode(scode).success(function(data){
+          if(data.status==1){
+             if(url==''){
+                  window.location.href = '/Mobile/Users';
+                }else{
+                  window.location.href = url;
+                }
+          }else{
+            $rootScope.msg('登录失败');
+          }
+      });
     }
 }])
 .controller('userNmCtrl', ['$scope','$rootScope','serviceHttp', function($scope,$rootScope,serviceHttp) {
@@ -331,26 +380,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     })
   }
   $scope.visa = function(){
-    serviceHttp.isLogin().success(function(data){
-      var url = "/Mobile/Visas/index";
-      if(data.status>0){
-        window.location.href = url;
-      }else{
-        $ionicActionSheet.show({
-          buttons: [
-           { text: '<button>登录,办签证</button>' }
-          ],
-          cancelText: '再看看',
-          buttonClicked: function(index) {
-            switch (index){
-              case 0 :
-                window.location.href = '/Mobile/Users/login?url='+url;
-                return true;
-            }
-          }
-        });
-      }
-    })
+    window.location.href = '/Mobile/Visas/index';
   }
   $scope.drivesBuy = function(){
     var url = window.location.pathname;
@@ -368,7 +398,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
               if(data.status>0){
                   $rootScope.msg('你已经登录,请选择日期出发');
               }else{
-                window.location.href = '/Mobile/Users/login?url='+url;
+                window.location.href = '/Mobile/Users/gologin?url='+url;
               }
             })
             return true;
@@ -413,7 +443,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     });
   }
 }])
-.controller("visaCtrl",['$rootScope','$scope','$ionicScrollDelegate','serviceHttp',function($rootScope, $scope, $ionicScrollDelegate,serviceHttp) {
+.controller("visaCtrl",['$rootScope','$scope','$ionicPopup','$ionicScrollDelegate','serviceHttp',function($rootScope, $scope,$ionicPopup, $ionicScrollDelegate,serviceHttp) {
   $scope.showAddress = function(){
     $ionicScrollDelegate.resize();
     if($("#uselinkman").hasClass("ion-android-radio-button-off")){
@@ -430,25 +460,46 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   }
   serviceHttp.getUserAddress().success(function(data){
     $scope.addRess = data;
+    if($scope.addRess==null){
+      $("#uselinkman").addClass("ion-android-checkmark-circle");
+      $("#uselinkman").removeClass("ion-android-radio-button-off");
+      $(".linkmanfrom").show();
+      $(".defaultaddr").hide();
+    }
   });
   $scope.isVisa = {};
   $scope.addUserAddress = function(){
-    serviceHttp.addAddress($scope.isVisa).success(function(data){
-      if(data.status==1){
-        serviceHttp.getUserAddress().success(function(data){
-          $scope.addRess = data;
-          $(".linkmanfrom").hide();
-          $(".defaultaddr").show();
+    var url = window.location.pathname;
+    serviceHttp.isLogin().success(function(data){
+      if(data.status>0){
+          serviceHttp.addAddress($scope.isUser).success(function(data){
+          if(data.status==1){
+            serviceHttp.getUserAddress().success(function(data){
+              $scope.addRess = data;
+              $(".linkmanfrom").hide();
+              $(".defaultaddr").show();
+            });
+          }else{
+            $rootScope.msg(data.msg)
+          }
         });
       }else{
-        $rootScope.msg(data.msg)
+        var confirmPopup = $ionicPopup.confirm({
+          title: '你没有登录',
+          cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+          okText: '去登录', // String (默认: 'OK')。OK按钮的文字。
+        });
+        confirmPopup.then(function(res) {
+          if(res) {
+            window.location.href = '/Mobile/Users/gologin?url='+url;
+          }
+        });
       }
-    });
+    })
   }
   $scope.visaData = {};
   $scope.addVisa = function(){
     $scope.visaData.goodsName = "签证办理";
-
     $scope.visaData.manPrice = $('#visaPrice').html();
     $scope.visaData.manNum = $('#visaNum').val();
     $scope.visaData.totalPrice = $('#totalPrice').html();
@@ -551,6 +602,12 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   }
   serviceHttp.getUserAddress().success(function(data){
     $scope.addRess = data;
+    if($scope.addRess==null){
+      $("#uselinkman").addClass("ion-android-checkmark-circle");
+      $("#uselinkman").removeClass("ion-android-radio-button-off");
+      $(".linkmanfrom").show();
+      $(".defaultaddr").hide();
+    }
   });
   $scope.isUser = {};
   $scope.addUserAddress = function(){
@@ -576,7 +633,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
         });
         confirmPopup.then(function(res) {
           if(res) {
-            window.location.href = '/Mobile/Users/login?url='+url;
+            window.location.href = '/Mobile/Users/gologin?url='+url;
           }
         });
       }
@@ -858,13 +915,6 @@ angular.module("myApp", ["ionic","ionic-ratings"])
           data:data
       });
   };
-  this.wxPay=function(data){
-     return $http({
-          url:'/Mobile/Pays/wxPay',
-          method:"POST",
-          data:data
-      });
-  };
   this.isNoPay=function(data){
      return $http({
           url:'/Mobile/Orders/isNoPay',
@@ -973,6 +1023,13 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   this.UserLogin=function(data){
      return $http({
           url:'/Mobile/Users/UserLogin',
+          method:"POST",
+          data: data
+      });
+  };
+  this.toCode=function(data){
+     return $http({
+          url:'/Mobile/Users/toCode',
           method:"POST",
           data: data
       });

@@ -1,17 +1,24 @@
-<extend name="tpl:base" />
-<block name="title">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
 <title>密码找回</title>
-</block>
-<block name="css">
+
+<link href="/Public/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="/Public/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+
 <style>
     .loginre .sendmessage .messagepstext {
       background: #6cc5dc;
       /* padding: 0px 0px; */
-      color: #fff;
-      }
+      color: #fff; }
 </style>
-</block>
-<block name="main">
+
+</head>
+<body>
+
 <div ng-app="myApp" ng-controller="pswCtrl">
 <!-- content -->
 <ion-content class=" scroll-content loginre">
@@ -54,6 +61,12 @@
     </div>
 </ion-content>
 </div>
-</block>
-<block name="js">
-</block>
+
+</body>
+<script src="/Public/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="/Public/Mobile/js/jquery-1.8.0.min.js"></script>
+<script src="/Public/Mobile/js/app.js" type="text/javascript"></script>
+<script src="/Public/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+
+
+</html>

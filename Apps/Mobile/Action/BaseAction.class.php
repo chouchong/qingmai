@@ -19,7 +19,7 @@ class BaseAction extends Controller {
    */
   public function isLogin(){
     $s = session('Users');
-      if(empty($s))$this->redirect("Users/login");
+      if(empty($s))$this->redirect("Users/gologin");
   }
   /**
   *微信授权

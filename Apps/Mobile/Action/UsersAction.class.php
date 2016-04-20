@@ -17,6 +17,22 @@ class UsersAction extends BaseAction {
   /**
   *用户登录
   **/
+  public function gologin()
+  {
+    $this->url = I('url');
+    $this->view->display('/tpl/gologin');
+  }
+  /**
+  *用户登录
+  **/
+  public function logincode()
+  {
+    $this->url = I('url');
+    $this->view->display('/tpl/logincode');
+  }
+  /**
+  *用户登录
+  **/
   public function psw()
   {
     $this->view->display('/tpl/password');
@@ -86,6 +102,15 @@ class UsersAction extends BaseAction {
   {
     $m = D('Mobile/Users');
     $rs = $m->UserLogin();
+    $this->ajaxReturn($rs);
+  }
+  /**
+  *用户code登录操作
+  **/
+  public function toCode()
+  {
+    $m = D('Mobile/Users');
+    $rs = $m->toCode();
     $this->ajaxReturn($rs);
   }
   /**

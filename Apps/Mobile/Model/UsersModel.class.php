@@ -113,6 +113,28 @@ class UsersModel extends BaseModel {
     }
     return $rd;
   }
+  /**
+  *用户名修改
+  **/
+  public function toCode()
+  {
+    $m = M('users');
+    $rd = array('status' => -1,'msg'=>'修改错误');
+    if(I('smscode')!=session('smscode')){
+      $rd['status'] = -3;
+      $rd['msg'] = "输入验证码有误";
+      return $rd;
+    }
+    $data['userPhone'] = I('phone');
+    $user = $m->where(array('userPhone'=>$data['userPhone']))->find();
+    if($this->checkEmpty($data)){
+      if(false !== $user){
+        session('Users',$user);
+        $rd['status']= 1;
+      }
+    }
+    return $rd;
+  }
 
 }
 ?>

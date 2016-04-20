@@ -11,22 +11,14 @@ class OrdersAction extends BaseAction{
 	public function index(){
 		$this->isLogin();
 		$this->checkAjaxPrivelege('ddlb_00');
-		//获取地区信息
-		$m = D('Admin/Areas');
-		$this->assign('areaList',$m->queryShowByList(0));
-		
 		$m = D('Admin/Orders');
-    	$page = $m->queryByPage();
-    	$pager = new \Think\Page($page['total'],$page['pageSize']);
-    	$page['pager'] = $pager->show();
-    	$this->assign('Page',$page);
-    	$this->assign('shopName',I('shopName'));
-    	$this->assign('orderNo',I('orderNo'));
-    	$this->assign('areaId1',I('areaId1',0));
-    	$this->assign('areaId2',I('areaId2',0));
-    	$this->assign('areaId3',I('areaId3',0));
-    	$this->assign('orderStatus',I('orderStatus',-9999));
-        $this->display("/orders/list");
+    $page=$m->orderList();
+    $pager = new \Think\Page($page['total'],$page['pageSize']);
+    $page['pager'] = $pager->show();
+    $this->assign('page',$page);
+    $this->display("/orders/list");
+
+
 	}
     /**
 	 * 退款分页查询
