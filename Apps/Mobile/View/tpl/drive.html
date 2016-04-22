@@ -6,23 +6,28 @@
 </block>
 <block name="css">
     <link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
+    <style type="text/css" media="screen">
+        .cardPS{
+            margin: 16px 0;
+        }    
+    </style>
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="drvCtrl">
     <include file="tpl:nav" />
     <!-- content -->
-    <ion-content id="content-index" class="scroll-content has-header" style="background: #f5f5f5;" delegate-handle="drivesScroll">
+    <ion-content id="content-index" class="scroll-content has-header" style="background: #f5f5f5;padding:8px;" delegate-handle="drivesScroll">
         <input type="hidden" id="drivesId" value="{$drivesId}" />
         <input type="hidden" id="daytime" value="{$daytime}" />
         <input type="hidden" id="selectedDay" />
-        <div class="row" style="background: #f5f5f5; padding: 8px;margin-bottom: 8px;">
-            <a>
-                <img src="/{$drive.drivesImg}" alt="" width="100%">
-                <div class="" style="float:left; line-height: 180%;width: 100%;">
-                    <p>{$drive.drivesName}</p>
+        <div class="row" style="background: #f5f5f5; padding: 0; margin-bottom: 8px;">
+            <div style="margin: -8px;">
+                <img src="/{$drive.drivesImg}" alt="" width="100%" id="drivesImg">
+                <div class="" style="float:left; padding:8px; line-height: 180%;width: 100%;">
+                    <p id="drivesName">{$drive.drivesName}</p>
                     <p>
-                        <span>{$drive.drivesFrom}</span>
-                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$drive['drivesDay']-1}晚<span>{$drive['drivesDay']}</span>夜跨境自驾自由行</span>
+                        <span id="drivesFrom">{$drive.drivesFrom}</span>
+                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$drive['drivesDay']-1}晚<span id="drivesDay">{$drive['drivesDay']}</span>夜跨境自驾自由行</span>
                     </p>
                     <p style="clear:both;">
                     <empty name="drive.tp">
@@ -33,7 +38,7 @@
                         <span style="float:right;color:#38B8EF;"><span>{$drive.solaCount}</span>人已购买</span>
                     </p>
                 </div>
-            </a>
+            </div>
         </div>
         <!-- 日历 -->
         <div class="card" id="" style="margin: 0;">
@@ -210,8 +215,8 @@
         <div class="row ">
             <span style="color: #555;font-size: 20px;">酒店信息</span>
         </div>
-        <volist name="drive['noWay']" id="ht">
-        <ion-list class="hotelshow" type="list-inset" >
+        <volist name="drive['noWay']" id="ht" >
+        <ion-list class="hotelshow"  style="margin: -8px;" >
             <div class="hotelshows" >
                 <ion-slide-box does-continue=true auto-play=true>
                     <volist name="ht['gallerys']" id="himg">

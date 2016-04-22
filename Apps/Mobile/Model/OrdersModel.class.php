@@ -30,9 +30,13 @@ class OrdersModel extends BaseModel {
   {
     $rd = array('status' => -1,'msg'=>'添加失败');
     $data['payType'] = I('payment');
+    $data['userId'] = (int)session('Users.userId');
+    $address = M('orders')->field('addressId')->where(array('orderId'=>I('orderId')))->find();
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
     if(false !== $rs){
       $rd['status']=1;
+      M('user_address')->where("addressId=".$address['addressId'])->save(array('isDefault'=>1,'userId'=>$data['userId']));
+      M('user_address')->where('userId='.$data['userId']." and addressId!=".$address['addressId'])->save(array('isDefault'=>0));
     }
     return $rd;
   }
@@ -41,11 +45,36 @@ class OrdersModel extends BaseModel {
   **/
   public function editOrder()
   {
+    $data['addressId'] = I('addressId');
     $rd = array('status' => -1,'msg'=>'添加失败');
+    if(session('Users')['userId']!=null){
+      $data['userId'] = session('Users')['userId'];
+    }
+    if(I('isUser')!=null){
+      $m = M('user_address');
+      $userA['userName'] = I('isUser')['name'];
+      $userA['userPhone'] =I('isUser')['phone'];
+      $userA['userEmail'] = I('isUser')['email'];
+      $userA['address'] = I('isUser')['address'];
+      if($this->checkEmpty($userA)){
+        $userA['createTime'] = date('Y-m-d H:i:s');
+        if($data['userId']){
+          $userA['userId'] = $data['userId'];
+          $userA['isDefault'] = 1;
+        }
+        $rs = $m->add($userA);
+        if(false !== $rs){
+          //修改所有的地址为非默认
+          $m->isDefault = 0;
+          $m->where('userId='.(int)session('Users.userId')." and addressId!=".$rs)->save();
+          $rd['status']= 1;
+          $data['addressId'] =$rs;
+        }
+      }
+    }
     $data['isRread'] = I('isRread')?1:0;
     $data['totalMoney'] = I('totalPrice');
     $data['zMoney'] = I('zMoney');
-    $data['addressId'] = I('addressId');
     $data['isBigber'] = I('isBigber')?1:0;
     $data['orderDesc'] = I('Desc');
     $zcode = I("zcode");
@@ -84,16 +113,14 @@ class OrdersModel extends BaseModel {
     $data= $this->query($Sql);
     return $data;
   }
-    /**
+  /**
    * 添加订单
    */
   public function addOrder(){
     $m = M('orders');
+    $data['totalMoney'] = I('totalPrice');  //1
     $daytime =I('selectday');
     $day =I('drivesDay',0);
-
-    $data['totalMoney'] = I('totalPrice');  //1
-
     $data['childNum'] = I('childNum');
     $data['childPrice'] = I('childPrice');
     $data['roomNum'] = I('roomNum');
@@ -108,9 +135,11 @@ class OrdersModel extends BaseModel {
     $data['toTime'] = $daytime;
     $data['endTime'] = date("Y-m-d",strtotime("$daytime+$day day"));
     $data['orderStatus'] = 0;
-    $data['userId'] = session('Users')['userId'];
+    if(session('Users')['userId']!=null){
+      $data['userId'] = session('Users')['userId'];
+    }
+    $rd = array('status' => -1,'msg'=>'添加失败');
     $data['addressId'] = I('addressId');//1
-
     $good['drivesId'] = I('drivesId');
     $good['goodsId'] = I('goodsId');
     $good['drivesType'] = I('drivesType');
@@ -122,13 +151,35 @@ class OrdersModel extends BaseModel {
     $good['goodsName'] = I('goodsName');
     $good['goodsDrvivesTime'] = I('goodsDrvivesTime','',false);
     $good['drivestimeId'] = I('timeId');
-    $rd = array('status' => -1,'msg'=>'添加失败');
+    if(I('isUser')!=null){
+      $userA['userName'] = I('isUser')['name'];
+      $userA['userPhone'] =I('isUser')['phone'];
+      $userA['userEmail'] = I('isUser')['email'];
+      $userA['address'] = I('isUser')['address'];
+      if($this->checkEmpty($userA)){
+        $userA['createTime'] = date('Y-m-d H:i:s');
+        if($data['userId']){
+          $userA['userId'] = $data['userId'];
+        }
+        $userA['isDefault'] = 1;
+        $address = M('user_address')->add($userA);
+        if(false !== $address){
+          //修改所有的地址为非默认
+          M('user_address')->isDefault = 0;
+          M('user_address')->where('userId='.(int)session('Users.userId')." and addressId!=".$address)->save();
+          $rd['status']= 3;
+          $data['addressId'] =$address;
+        }
+      }
+    }
     $rs = $m->add($data);
     if(false !== $rs){
       $good['orderId'] = $rs;
       M('order_goods')->add($good);
       $rd['status'] = 1;
       $rd['orderId'] = $rs;
+      $data = null;
+      $good = null;
     }
     return $rd;
   }

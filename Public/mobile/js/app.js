@@ -39,6 +39,28 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   });
 }])
 .controller("Ixctrl",['$scope',function($scope,serviceHttp) {
+  // $(".item").remove("item");
+}])
+.controller("goLogCtrl",['$rootScope','$scope','serviceHttp', 'Storage',function($rootScope,$scope,serviceHttp,Storage) {
+  $scope.dogologin = function(phone){
+    var url = $('#totoUrl').val();
+    Storage.set('phone',phone);
+    serviceHttp.getPhone(phone.phone).success(function(data){
+        if(data.status>0){
+          serviceHttp.smsSend(phone.phone)
+          .success(function(data){
+              if(data.code==0){
+                  window.location.href = '/Mobile/Users/logincode?url='+url;
+              }else{
+                  $rootScope.msg('短信发送失败');
+                  window.location.href = '/Mobile/Users/logincode?url='+url;
+              }
+          });
+        }else{
+          $rootScope.msg("你不是会员,点击立即注册");
+        }
+    })
+  }
 }])
 .controller('logCtrl', ['$scope','$rootScope','serviceHttp', function($scope,$rootScope,serviceHttp) {
       $scope.dologin = function(){
@@ -190,9 +212,12 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     })
     }
 }])
-.controller('codeCtrl', ['$scope','$rootScope','serviceHttp', function($scope,$rootScope,serviceHttp) {
+.controller('codeCtrl', ['$scope','$rootScope','serviceHttp','Storage', function($scope,$rootScope,serviceHttp,Storage) {
+  $scope.scode = {
+    phone:Storage.get('phone').phone
+  };
   var iNow = 60;
-    $scope.text = '发送验证码';
+    $scope.text = '重新发送验证码';
     $scope.smsClass = 'messagepstext';
     var fash = false;
     $scope.smsCode = function(phone) {
@@ -382,65 +407,39 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   $scope.visa = function(){
     window.location.href = '/Mobile/Visas/index';
   }
+  $scope.drive = {};
   $scope.drivesBuy = function(){
-    var url = window.location.pathname;
-    var goTo = '500px';
-    $ionicActionSheet.show({
-      buttons: [
-       { text: '<button>我已经是会员,马上登录</button>' },
-       { text: '<button>我要直接购买</button>' }
-      ],
-      cancelText: '再看看',
-      buttonClicked: function(index) {
-        switch (index){
-          case 0 :
-            serviceHttp.isLogin().success(function(data){
-              if(data.status>0){
-                  $rootScope.msg('你已经登录,请选择日期出发');
-              }else{
-                window.location.href = '/Mobile/Users/gologin?url='+url;
-              }
-            })
-            return true;
-          case 1 :
-            if(parseInt($('#totalPrice').html())==0){
-              $ionicScrollDelegate.$getByHandle('drivesScroll').scrollTo(0,360);
-            }else{
-              serviceHttp.isLogin().success(function(dataisLogin){
-                if(dataisLogin.status>0){
-                    serviceHttp.getDrivesfield($('#drivesId').val()).success(function(data){
-                    $scope.drive = data;
-                    $scope.drive.goodsThums = data.drivesImg;
-                    $scope.drive.drivesTo = data.drivesFrom;
-                    $scope.drive.goodsName = data.drivesName;
-                    $scope.drive.drivesType = $('#drivesType').html();
-                    $scope.drive.timeDesc = $('#timeDesc').html();
-                    $scope.drive.manPrice = $('#manPrice').html();
-                    $scope.drive.roomNum = $("#roomNum").val();
-                    $scope.drive.manNum = $('#manNum').val();
-                    $scope.drive.childNum = $('#childNum').val();
-                    $scope.drive.totalPrice = $('#totalPrice').html();
-                    $scope.drive.orderType = 1;
-                    $scope.drive.goodsDrvivesTime = $('#timeDesc').html();
-                    $scope.drive.selectday = $('#selectedDay').val();
-                    $scope.drive.timeId = $('#timeId').val();
-                    serviceHttp.addOrder($scope.drive).success(function(data){
-                      if(data.status>0){
-                        window.location.href="/Mobile/Orders/confirmDrives/orderId/"+data.orderId;
-                      }else{
-                        $rootScope.msg('请重新填写');
-                      }
-                    });
-                  });
-                }else{
-                  $rootScope.msg('你没有登录');
-                }
-              })
-            }
-            return true;
+    if(parseInt($('#totalPrice').html())==0){
+      $ionicScrollDelegate.$getByHandle('drivesScroll').scrollTo(0,360);
+    }else{
+      $scope.drive.drivesId = $('#drivesId').val();
+      $scope.drive.drivesDay = $('#drivesDay').html();
+      $scope.drive.childPrice = $('#childPrice').html();
+      $scope.drive.homePrice = $('#roomPrice').html();
+      //drivesImg,drivesName,drivesFrom,drivesDay,childPrice,homePrice
+      $scope.drive.goodsThums = $('#drivesImg').attr('src');
+      $scope.drive.drivesTo =  $('#drivesFrom').html();
+      $scope.drive.drivesName = $('#drivesName').html();
+      $scope.drive.drivesType = $('#drivesType').html();
+      $scope.drive.timeDesc = $('#timeDesc').html();
+      $scope.drive.manPrice = $('#manPrice').html();
+      $scope.drive.roomNum = $("#roomNum").val();
+      $scope.drive.manNum = $('#manNum').val();
+      $scope.drive.childNum = $('#childNum').val();
+      $scope.drive.totalPrice = $('#totalPrice').html();
+      $scope.drive.orderType = 1;
+      $scope.drive.goodsDrvivesTime = $('#timeDesc').html();
+      $scope.drive.selectday = $('#selectedDay').val();
+      $scope.drive.timeId = $('#timeId').val();
+      serviceHttp.addOrder($scope.drive).success(function(data){
+        if(data.status>0){
+          window.location.href="/Mobile/Orders/confirmDrives/orderId/"+data.orderId;
+          $scope.drive = {};
+        }else{
+          $rootScope.msg('请重新填写');
         }
-      }
-    });
+      });
+    }
   }
 }])
 .controller("visaCtrl",['$rootScope','$scope','$ionicPopup','$ionicScrollDelegate','serviceHttp',function($rootScope, $scope,$ionicPopup, $ionicScrollDelegate,serviceHttp) {
@@ -468,35 +467,6 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     }
   });
   $scope.isVisa = {};
-  $scope.addUserAddress = function(){
-    var url = window.location.pathname;
-    serviceHttp.isLogin().success(function(data){
-      if(data.status>0){
-          serviceHttp.addAddress($scope.isUser).success(function(data){
-          if(data.status==1){
-            serviceHttp.getUserAddress().success(function(data){
-              $scope.addRess = data;
-              $(".linkmanfrom").hide();
-              $(".defaultaddr").show();
-            });
-          }else{
-            $rootScope.msg(data.msg)
-          }
-        });
-      }else{
-        var confirmPopup = $ionicPopup.confirm({
-          title: '你没有登录',
-          cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
-          okText: '去登录', // String (默认: 'OK')。OK按钮的文字。
-        });
-        confirmPopup.then(function(res) {
-          if(res) {
-            window.location.href = '/Mobile/Users/gologin?url='+url;
-          }
-        });
-      }
-    })
-  }
   $scope.visaData = {};
   $scope.addVisa = function(){
     $scope.visaData.goodsName = "签证办理";
@@ -505,24 +475,29 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     $scope.visaData.totalPrice = $('#totalPrice').html();
     $scope.visaData.orderType = 3;
     $scope.visaData.addressId = $('#addressId').val();
+    $scope.visaData.isUser = $scope.isVisa;
     if($scope.visaData.totalPrice==0){
       $rootScope.msg("请选择人数办理");
     }else{
-      if($scope.visaData.addressId==''){
-        $rootScope.msg("请到我的账户或添加新地址");
-      }else{
-        serviceHttp.addOrder($scope.visaData).success(function(data){
-          if(data.status>0){
-            window.location.href = '/Mobile/Pays/payment/orderId/'+data.orderId;
-          }else{
-            $rootScope.msg('出发日期没有选择');
-          }
-        })
-      }
+      serviceHttp.addOrder($scope.visaData).success(function(data){
+        if(data.status>0){
+          var orderId = data.orderId;
+          serviceHttp.isLogin().success(function(data){
+            if(data.status>0){
+              window.location.href = '/Mobile/Pays/payment/orderId/'+orderId;
+            }else{
+              window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+orderId;
+            }
+          })
+        }else{
+          $rootScope.msg('出发日期没有选择');
+        }
+      })
     }
   }
 }])
 .controller("OrderDrvCtrl",['$rootScope','$scope','$ionicScrollDelegate','serviceHttp',function($rootScope,$scope, $ionicScrollDelegate,serviceHttp) {
+  $scope.isUser= {};
   $scope.showAddress = function(){
     $ionicScrollDelegate.resize();
     if($("#uselinkman").hasClass("ion-android-radio-button-off")){
@@ -542,21 +517,13 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   }
   serviceHttp.getUserAddress().success(function(data){
     $scope.addRess = data;
+    if($scope.addRess == null){
+      $("#uselinkman").addClass("ion-android-checkmark-circle");
+      $("#uselinkman").removeClass("ion-android-radio-button-off");
+      $(".linkmanfrom").show();
+      $(".defaultaddr").hide();
+    }
   });
-  $scope.isUser = {};
-  $scope.addUserAddress = function(){
-    serviceHttp.addAddress($scope.isUser).success(function(data){
-      if(data.status==1){
-        serviceHttp.getUserAddress().success(function(data){
-          $scope.addRess = data;
-          $(".linkmanfrom").hide();
-          $(".defaultaddr").show();
-        });
-      }else{
-        $rootScope.msg(data.msg)
-      }
-    });
-  }
   $scope.order = {Desc:''};
   $scope.isChecked = { checked: true };
   $scope.isReadMe = { checked: true };
@@ -571,17 +538,20 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.order.orderId = $('#orderId').val();
       $scope.order.addressId = $('#addressId').val();
       $scope.order.isBigber = $scope.isChecked.checked;
-      if($scope.order.addressId==''){
-        $rootScope.msg("请到我的账户或添加新地址");
-      }else{
-        serviceHttp.editOrder($scope.order).success(function(data){
+      $scope.order.isUser = $scope.isUser;
+      serviceHttp.editOrder($scope.order).success(function(data){
         if(data.status>0){
-          window.location.href = '/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
+          serviceHttp.isLogin().success(function(data){
+            if(data.status>0){
+              window.location.href = '/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
+            }else{
+              window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
+            }
+          })
         }else{
           $rootScope.msg('信息填写错误');
         }
       });
-      }
     }
   }
 }])
@@ -610,35 +580,6 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     }
   });
   $scope.isUser = {};
-  $scope.addUserAddress = function(){
-    var url = window.location.pathname;
-    serviceHttp.isLogin().success(function(data){
-      if(data.status>0){
-          serviceHttp.addAddress($scope.isUser).success(function(data){
-          if(data.status==1){
-            serviceHttp.getUserAddress().success(function(data){
-              $scope.addRess = data;
-              $(".linkmanfrom").hide();
-              $(".defaultaddr").show();
-            });
-          }else{
-            $rootScope.msg(data.msg)
-          }
-        });
-      }else{
-        var confirmPopup = $ionicPopup.confirm({
-          title: '你没有登录',
-          cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
-          okText: '去登录', // String (默认: 'OK')。OK按钮的文字。
-        });
-        confirmPopup.then(function(res) {
-          if(res) {
-            window.location.href = '/Mobile/Users/gologin?url='+url;
-          }
-        });
-      }
-    })
-  }
   $scope.good = {};
   $scope.goodOrAdd = function(){
     $scope.good.goodsId = $('#goodsId').val();
@@ -656,23 +597,27 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     $scope.good.orderType = 2;
     $scope.good.selectday = $('#selectedDay').val();
     $scope.good.addressId = $('#addressId').val();
+    $scope.good.isUser = $scope.isUser;
     if($scope.good.selectday==''){
       $rootScope.msg("请选择订票日期");
     }else{
       if($scope.good.totalPrice==0){
         $rootScope.msg("请添加出发人数");
       }else{
-        if($scope.good.addressId==''){
-          $rootScope.msg("请到我的账户或添加新地址");
-        }else{
-          serviceHttp.addOrder($scope.good).success(function(data){
-            if(data.status>0){
-              window.location.href = '/Mobile/Pays/payment/orderId/'+data.orderId;
-            }else{
-              $rootScope.msg('出发日期没有选择');
-            }
-          })
-        }
+        serviceHttp.addOrder($scope.good).success(function(data){
+          if(data.status>0){
+            var orderId = data.orderId;
+            serviceHttp.isLogin().success(function(data){
+              if(data.status>0){
+                window.location.href = '/Mobile/Pays/payment/orderId/'+orderId;
+              }else{
+                window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+orderId;
+              }
+            })
+          }else{
+            $rootScope.msg('出发日期没有选择');
+          }
+        })
       }
     }
   }
@@ -686,7 +631,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       ];
     } else {
       $scope.serverSideList = [
-        { text: "支付宝",imgsrc:"img/zhifubao.png",desc:"推荐支付宝的用户",value: "1" },
+        // { text: "支付宝",imgsrc:"img/zhifubao.png",desc:"推荐支付宝的用户",value: "1" },
         { text: "银联",imgsrc:"img/yinlian.png",desc:"信用卡、网银、储蓄卡", value: "3" }
       ];
     }
@@ -943,9 +888,11 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       });
   };
   this.addOrder=function(data){
-     return $http({
+     return $.ajax({
           url:'/Mobile/Orders/addOrder',
-          method:"POST",
+          type:"POST",
+          dataType:"json",
+          async:false,
           data:data
       });
   };
@@ -1110,6 +1057,19 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       return $sce.trustAsHtml((text-1)+"晚"+text+"夜跨境自驾自由行");
   };
 }])
+.factory('Storage', function() {
+  return {
+    set: function(key, data) {
+        return window.localStorage.setItem(key, window.JSON.stringify(data));
+    },
+    get: function(key) {
+        return window.JSON.parse(window.localStorage.getItem(key));
+    },
+    remove: function(key) {
+        return window.localStorage.removeItem(key);
+    }
+  };
+})
 // .directive('hotlesStar', function () {
 //   return {
 //     restrict:'AE',

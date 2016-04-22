@@ -9,6 +9,7 @@
 <div ng-app="myApp" ng-controller="visaCtrl">
 <include file="tpl:nav" />
 <!-- content -->
+<form name="visaAddress" novalidate>
 <ion-content id="content-index" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
     <div class="card">
         <div class="item item-text-wrap" style="background:#6CC5DC;color:#fff;">
@@ -130,7 +131,6 @@
         </div>
     </div>
     <div class="card linkmanfrom" style="display: none;">
-    <form name="visaAddress" novalidate>
         <div class="list">
             <label class="item item-input item-floating-label">
                 <div style="padding:10px;">
@@ -170,11 +170,7 @@
                         <i ng-show="visaAddress.address.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
                     </span>
                 </label>
-            <label class="item item-input item-floating-label">
-                <button ng-click="addUserAddress()" ng-disabled="visaAddress.$invalid" class="button button-positive">添加</button>
-            </label>
         </div>
-        </form>
     </div>
         <label class="item item-input item-floating-label" style="text-align: center;">
             <p>付款后请将所需资料仔细检查备齐后寄送至：</p>
@@ -188,12 +184,14 @@
     </div>
       <div class="row">
         <div style="width:100%;">
-            <a ng-click="addVisa()">
-                <button class="button button-block " style="background:#F77462;color:#fff;">下一步</button>
+            <a>
+                <button ng-show="!addRess" ng-click="addVisa()" ng-disabled="visaAddress.$invalid" class="button button-block " style="background:#F77462;color:#fff;">下一步</button>
+                <button ng-show="addRess" ng-click="addVisa()" class="button button-block " style="background:#F77462;color:#fff;">下一步</button>
             </a>
         </div>
     </div>
 </ion-content>
+</form>
 </div>
 </block>
 <block name="js">

@@ -9,7 +9,7 @@ class OrdersAction extends BaseAction {
    * 自驾订单确定
    */
   public function confirmDrives(){
-    $this->isLogin();
+    // $this->isLogin();
     $this->obj = D('Mobile/Orders')->confirmDrives()[0];
     $this->orderId = I('orderId');
     $this->view->display('/tpl/ConfirmDrives');

@@ -191,12 +191,9 @@ class DrivesModel extends BaseModel {
         $drivesgoodsIds[]=$drivesgoods[$i]['goodsId'];
       }
       $drives['drivesgoodsIds']=implode(",", $drivesgoodsIds);
-      $drivesarticlesIds = array();
       $drivesarticles = M('drives_articles')->where(array('drivesId'=>I('drivesId')))->select();
-      for ($i=0; $i <count($drivesarticles); $i++) {
-        $drivesarticlesIds[]=$drivesarticles[$i]['articlesId'];
-      }
-      $drives['drivesarticlesIds']=implode(",", $drivesarticlesIds);
+      $drivesarticlesIds=M('articles')->field('catId')->where(array('articleId'=>$drivesarticles[0]['articlesId']))->find();
+      $drives['drivesarticlesIds']=$drivesarticlesIds['catId'];
       return $drives;
    }
    /**

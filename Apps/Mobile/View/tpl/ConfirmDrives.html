@@ -6,6 +6,7 @@
 <div ng-app="myApp" ng-controller="OrderDrvCtrl">
 <include file="tpl:nav" />
 <!-- content -->
+<form name="myAddress" novalidate>
 <ion-content overflow-scroll="false" id="content-index" class="scroll-content has-header" style="    background: #f5f5f5;">
 <input type="hidden" id="orderId" value="{$orderId}" />
     <div class="row" style=" padding: 8px;margin-bottom: 8px;">
@@ -23,7 +24,7 @@
             </p>
         </div>
     </div>
-    <div class="list">
+    <div class="list" style="padding:8px;">
         <div class="item item-text-wrap">
             <p style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</p>
         </div>
@@ -73,9 +74,7 @@
             <i  id="uselinkman" class="icon ion-android-radio-button-off placeholder-icon" style="color:#12f;"></i>添加新地址</span>
         </div>
     </div>
-
     <div class="card linkmanfrom" style="display: none;" >
-        <form name="myAddress" novalidate>
         <div class="list">
             <label class="item item-input item-floating-label">
                 <div style="padding:10px;">
@@ -115,11 +114,7 @@
                         <i ng-show="myAddress.address.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>
                     </span>
                 </label>
-            <label class="item item-input item-floating-label">
-                <button ng-click="addUserAddress()" ng-disabled="myAddress.$invalid" class="button button-positive">添加</button>
-            </label>
         </div>
-        </form>
     </div>
     <div class="card item-input" style="padding:16px;">
         <textarea ng-model="order.Desc" id="orderddd" placeholder="亲如有特殊要求，请在此处留言，我们会尽快与您联系"></textarea>
@@ -135,7 +130,7 @@
         </div>
     </div>
     <div class="card">
-        <ion-checkbox id="bigRoom" ng-model="isReadMe.checked" ng-checked="isReadMe.checked">本人及订单包含人员已阅读并同意<a href="#" style="color: blue;">《产品订购协议》</a></ion-checkbox>
+        <ion-checkbox id="bigRoom" ng-model="isReadMe.checked" ng-checked="isReadMe.checked">已阅读并同意<a href="#" style="color: blue;">《产品订购协议》</a></ion-checkbox>
     </div>
     <div class="row footermessage ">
         <div>
@@ -146,12 +141,10 @@
         <div class="col col-67">
             <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">应付&nbsp;¥&nbsp;<span id="totalPrice">{$obj['totalMoney']}</span>元</p>
         </div>
-        <div class="col col-33" style="background:#F77462; text-align: center;">
-            <a ng-click="odcf()" style="display: block;    text-decoration: none;">
-                <span style="margin: 0; line-height: 50px;color: #fff;">立即支付</span>
-            </a>
-        </div>
+        <button ng-show="!addRess" ng-click="odcf()" ng-disabled="myAddress.$invalid" class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 20px">立即支付</button>
+        <button ng-show="addRess" ng-click="odcf()"  class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 20px">立即支付</button>
     </div>
+</form>
 </ion-content>
 </div>
 </block>

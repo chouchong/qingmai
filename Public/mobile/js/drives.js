@@ -18,7 +18,7 @@ $(function(){
                 url:'/Mobile/Drives/getTp',
                 type:"post",
                 dataType:"json",
-                async:false,
+                async:true,
                 data:{
                     timeId:$('.selected').find("span").html()
                 },

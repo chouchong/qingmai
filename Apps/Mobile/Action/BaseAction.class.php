@@ -12,6 +12,7 @@ class BaseAction extends Controller {
     $m = D('Mobile/System');
     $GLOBALS['CONFIG'] = $m->loadConfigs();
     $this->assign('CONF',$GLOBALS['CONFIG']);
+    $this->assign('Users',session('Users'));
     $this->getOpenid();
 	}
   /**

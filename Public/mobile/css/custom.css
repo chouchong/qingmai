@@ -27,7 +27,8 @@ a {
 
 .cardPS {
   padding: 0px 0;
-  margin: 12px 0; }
+  /* margin: 12px 0; */
+}
 
 .pricecolor {
   color: #F77563; }
@@ -65,24 +66,26 @@ a {
     padding: 5%; }
 
 #content-index {
-  padding: 0 8px; }
+  padding: 0 0px; }
   #content-index .row {
     margin: 5px 0; }
 
-.zjylist .zjy {
-  background: #f5f5f5;
-  padding: 0;
-  margin-bottom: 8px; }
-  .zjylist .zjy .row .ionstar i {
-    font-size: 20px;
-    color: #FFD679; }
-  .zjylist .zjy .row .price {
-    text-align: center;
-    vertical-align: middle; }
-    .zjylist .zjy .row .price p {
-      font-size: 17px;
-      line-height: 300%;
-      color: #F77563; }
+.zjylist {
+  margin: 0px; }
+  .zjylist .zjy {
+    background: #f5f5f5;
+    padding: 0;
+    margin-bottom: 8px; }
+    .zjylist .zjy .row .ionstar i {
+      font-size: 20px;
+      color: #FFD679; }
+    .zjylist .zjy .row .price {
+      text-align: center;
+      vertical-align: middle; }
+      .zjylist .zjy .row .price p {
+        font-size: 17px;
+        line-height: 300%;
+        color: #F77563; }
 
 .selectus {
   text-align: center; }
