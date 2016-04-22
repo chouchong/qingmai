@@ -31,12 +31,14 @@ class OrdersModel extends BaseModel {
     $rd = array('status' => -1,'msg'=>'添加失败');
     $data['payType'] = I('payment');
     $data['userId'] = (int)session('Users.userId');
-    $address = M('orders')->field('addressId')->where(array('orderId'=>I('orderId')))->find();
+    $address = M('orders')->field('addressId,userId')->where(array('orderId'=>I('orderId')))->find();
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
-    if(false !== $rs){
-      $rd['status']=1;
+    if($address['userId']==null){
       M('user_address')->where("addressId=".$address['addressId'])->save(array('isDefault'=>1,'userId'=>$data['userId']));
       M('user_address')->where('userId='.$data['userId']." and addressId!=".$address['addressId'])->save(array('isDefault'=>0));
+    }
+    if(false !== $rs){
+      $rd['status']=1;
     }
     return $rd;
   }

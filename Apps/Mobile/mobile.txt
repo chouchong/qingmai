@@ -1,0 +1,6 @@
+mobile 
+common/conf.php  数据库
+mobile/action/basaAction.class.php 微信code
+mobile/action/paysAction.class.php 微信支付
+mobile/config/config.php 微信
+tkinkphp/wx 微信

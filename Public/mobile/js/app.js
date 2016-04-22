@@ -755,7 +755,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
         serviceHttp.getUserIn({orderId:iOrderId}).success(function(data){
           $scope.inUser = data;
           cIn = $scope.inUser.length;
-          if(cIn ==numIn){
+          if(cIn == numIn){
             serviceHttp.addOUserIn({orderId:iOrderId}).success(function(data){
               if(data.status>0){
                 window.location.href = '/Mobile/Orders/index';

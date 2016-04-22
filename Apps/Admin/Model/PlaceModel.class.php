@@ -47,7 +47,7 @@ class PlaceModel extends BaseModel {
     **/
     public function queryByPage(){
         $m = M('Place');
-                $sql = "select * FROM __PREFIX__Place order by PlaceId desc";
+                $sql = "select * FROM __PREFIX__place order by PlaceId desc";
             return $m->pageQuery($sql);
     }
 };
