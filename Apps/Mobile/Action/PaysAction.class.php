@@ -14,6 +14,7 @@ class PaysAction extends BaseAction {
    */
   public function payment(){
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->order = D('Mobile/Orders')->OrdersDetail()[0];
     $this->view->display('/tpl/pay');
   }
@@ -57,10 +58,12 @@ class PaysAction extends BaseAction {
     $Pay = D('Mobile/Pays');
     if($Uniopay->Check($_POST)){    //验证
         $this->row = $Pay->getInfoNo($_POST['orderNo']);
+        C('TOKEN_ON',false);
         $this->view->display('/tpl/paySu');
     }else{
         $this->row = $Pay->getInfoNo($_POST['orderNo']);
         $this->isNo = 1;
+        C('TOKEN_ON',false);
         $this->view->display('/tpl/paySu');
     }
   }
@@ -93,6 +96,7 @@ class PaysAction extends BaseAction {
   }
   //微信
   public function wxPaySu(){
+    C('TOKEN_ON',false);
     $Pay = D('Mobile/Pays');
     $this->row = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/paySu');
@@ -102,6 +106,7 @@ class PaysAction extends BaseAction {
     $Pay = D('Mobile/Pays');
     $this->row = $Pay->getInfo(I('orderId'));
     $this->isNo = 1;
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/paySu');
   }
   //微信

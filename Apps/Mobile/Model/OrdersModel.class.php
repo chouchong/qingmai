@@ -77,7 +77,7 @@ class OrdersModel extends BaseModel {
     $data['isRread'] = I('isRread')?1:0;
     $data['totalMoney'] = I('totalPrice');
     $data['zMoney'] = I('zMoney');
-    $data['isBigber'] = I('isBigber')?1:0;
+    $data['isBigber'] = I('isBigber')?0:1;
     $data['orderDesc'] = I('Desc');
     $zcode = I("zcode");
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
@@ -198,7 +198,7 @@ class OrdersModel extends BaseModel {
   /**
   *自驾出被保险人
   **/
-  public function addCarLic()
+   public function addCarLic()
   {
     $m = M('order_drivinglicences');
     $rd = array('status' => -1);
@@ -211,9 +211,11 @@ class OrdersModel extends BaseModel {
       $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>$data['orderId']))->find();
       if($o['isGo']>0){
         M('orders')->where(array('orderId'=>$data['orderId']))->save(array('orderStatus' =>2 , 'isCar'=>1));
+        $rd['status'] = 1;
+      }else{
+        M('orders')->where(array('orderId'=>$data['orderId']))->save(array('isCar'=>1));
+        $rd['status'] = 1;
       }
-      M('orders')->where(array('orderId'=>$data['orderId']))->save(array('isCar'=>1));
-      $rd['status'] = 1;
     }
     return $rd;
   }
@@ -260,6 +262,21 @@ class OrdersModel extends BaseModel {
       $rd['status'] = 1;
     }else{
       M('orders')->where(array('orderId'=>I('orderId')))->save(array('isGo'=>1));
+      $rd['status'] = 1;
+    }
+    return $rd;
+  }
+  /**
+  *订单取消
+  **/
+  public function orDel()
+  {
+    $rd = array('status' => -1);
+    $ed = M('orders')->where(array('orderId'=>I('orderId')))->delete();
+    if($ed !== false){
+      M('orders')->where(array('orderId'=>I('orderId')))->delete();
+      M('order_coupons')->where(array('orderId'=>I('orderId')))->delete();
+      M('order_goods')->where(array('orderId'=>I('orderId')))->delete();
       $rd['status'] = 1;
     }
     return $rd;

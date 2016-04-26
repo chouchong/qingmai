@@ -59,7 +59,11 @@
                 </element>
                 <element ng-switch="vo.orderStatus">
                   <element ng-switch-when="0">
-                    <span>待付款</span><span class="textright " ><a  href="/Mobile/Pays/payment/orderId/{{vo.orderId}}">去付款</a></span></element>
+                    <span class="textright">
+                        <a href="/Mobile/Pays/payment/orderId/{{vo.orderId}}">去付款</a>
+                    </span>
+                    <span class="textright" style="color:#f32;background:#fff;" ng-click="orDel(vo,$index)">订单取消</span>
+                  </element>
                   <element ng-switch-when="1">
                     <span>待出发</span>
                     <p ng-if="vo.goodsType==1"><span ng-if="vo.isGo==0" class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>

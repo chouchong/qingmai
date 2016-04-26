@@ -1,26 +1,55 @@
-<extend name="tpl:base" />
-<block name="title">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
 <title>订单确认</title>
-</block>
-<block name="main">
+
+<link href="/Public/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="/Public/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+<body>
+
 <div ng-app="myApp" ng-controller="OrderDrvCtrl">
-<include file="tpl:nav" />
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <?php if(empty($Users)): ?><div>
+            <a href="<?php echo U('Mobile/Users/gologin');?>">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Users/register');?>">注册</a>
+        </div>
+        <?php else: ?>
+        <div>
+            <a href="<?php echo U('Mobile/Users/index');?>">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Orders/index');?>">我的订单</a>
+        </div><?php endif; ?>
+    </div>
+    <a class="button button-clear" href="<?php echo U('Mobile/Index/index');?>">
+        <img src="/<?php echo ($CONF['mallLogo']); ?>" height="32px" style="  color:#6CC5DC;">
+    </a>
+    <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
+</ion-header-bar>
 <!-- content -->
 <form name="myAddress" novalidate>
 <ion-content overflow-scroll="false" id="content-index" class="scroll-content has-header" style="    background: #f5f5f5;">
-<input type="hidden" id="orderId" value="{$orderId}" />
+<input type="hidden" id="orderId" value="<?php echo ($orderId); ?>" />
     <div class="row" style=" padding: 8px;margin-bottom: 8px;">
         <div class="" style=" line-height: 180%;width: 100%;    background: #fff; padding:8px;">
-            <p><span><strong><b>{$obj.goodsName}</b></strong></span><span style="color:#F77766;float:right;">{$obj.drivesType}&nbsp;{$obj.adultPrice}元/人</span></p>
+            <p><span><strong><b><?php echo ($obj["goodsName"]); ?></b></strong></span><span style="color:#F77766;float:right;"><?php echo ($obj["drivesType"]); ?>&nbsp;<?php echo ($obj["adultPrice"]); ?>元/人</span></p>
             <p style="    clear: both;">
-                <span style="">{$obj.drivesTo}</span>
-                <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$obj['drivesDay']-1}晚{$obj['drivesDay']}夜跨境自驾自由行</span>
+                <span style=""><?php echo ($obj["drivesTo"]); ?></span>
+                <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;"><?php echo ($obj['drivesDay']-1); ?>晚<?php echo ($obj['drivesDay']); ?>夜跨境自驾自由行</span>
             </p>
             <p  style="    clear: both;">
-                出发时间： <span>{$obj.toTime}</span>
+                出发时间： <span><?php echo ($obj["toTime"]); ?></span>
             </p>
             <p>
-                结束时间： <span>{$obj.endTime}</span>
+                结束时间： <span><?php echo ($obj["endTime"]); ?></span>
             </p>
         </div>
     </div>
@@ -29,17 +58,17 @@
             <p style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</p>
         </div>
         <div>
-            {$obj.goodsDrvivesTime|htmlspecialchars_decode}
+            <?php echo (htmlspecialchars_decode($obj["goodsDrvivesTime"])); ?>
         </div>
     </div>
     <div class="card">
         <div class="item item-text-wrap">
             成人
-            <span style="float:right;"><span id="manNum">{$obj.adultNum}</span>人x <span>{$obj.adultPrice}</span>元/人</span>
+            <span style="float:right;"><span id="manNum"><?php echo ($obj["adultNum"]); ?></span>人x <span><?php echo ($obj["adultPrice"]); ?></span>元/人</span>
         </div>
         <div class="item item-text-wrap">
             儿童
-            <span style="float:right;"><span id="childNum">{$obj.childNum}</span>人x <span>{$obj.childPrice}</span>元/人</span>
+            <span style="float:right;"><span id="childNum"><?php echo ($obj["childNum"]); ?></span>人x <span><?php echo ($obj["childPrice"]); ?></span>元/人</span>
         </div>
         <div class="item item-text-wrap">
             用房数
@@ -47,11 +76,11 @@
         </div>
         <div class="item item-text-wrap">
             单房差
-            <span style="float:right;">￥<span>{$obj['roomNum']*$obj['roomPrice']}</span>元</span>
+            <span style="float:right;">￥<span><?php echo ($obj['roomNum']*$obj['roomPrice']); ?></span>元</span>
         </div>
         <div class="item item-text-wrap" style="color:#F88B7D;">
             合计总价
-            <span style="float:right;">￥<span id="totalMoney">{$obj.totalMoney}</span>元</span>
+            <span style="float:right;">￥<span id="totalMoney"><?php echo ($obj["totalMoney"]); ?></span>元</span>
         </div>
     </div>
     <div class="card">
@@ -134,19 +163,25 @@
     </div>
     <div class="row footermessage ">
         <div>
-            {$CONF.mallFooter|htmlspecialchars_decode}
+            <?php echo (htmlspecialchars_decode($CONF["mallFooter"])); ?>
         </div>
     </div>
     <div class="row" style="background:#fff ;    font-size: 20px; ">
         <div class="col col-67">
-            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">应付&nbsp;¥&nbsp;<span id="totalPrice">{$obj['totalMoney']}</span>元</p>
+            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">应付&nbsp;¥&nbsp;<span id="totalPrice"><?php echo ($obj['totalMoney']); ?></span>元</p>
         </div>
         <button ng-click="odcf()"  class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 20px">立即支付</button>
     </div>
 </form>
 </ion-content>
 </div>
-</block>
-<block name="js">
-<script src="__PUBLIC__/Mobile/js/cMdrives.js" type="text/javascript"></script>
-</block>
+
+</body>
+<script src="/Public/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="/Public/Mobile/js/jquery-1.8.0.min.js"></script>
+<script src="/Public/Mobile/js/app.js" type="text/javascript"></script>
+<script src="/Public/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+
+<script src="/Public/Mobile/js/cMdrives.js" type="text/javascript"></script>
+
+</html>

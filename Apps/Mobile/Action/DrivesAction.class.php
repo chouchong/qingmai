@@ -12,7 +12,6 @@ class DrivesAction extends BaseAction {
     $this->drivesId =I('drivesId');
     $this->daytime = date('Y-m-d', time());
     $this->drive=D('Mobile/Drives')->drivesDetail();
-    // var_dump($this->drive['tp']);
     $this->view->display('/tpl/drive');
   }
   /**
@@ -62,6 +61,7 @@ class DrivesAction extends BaseAction {
   public function dComment(){
     $this->isLogin();
     $Pay = D('Mobile/Pays');
+    C('TOKEN_ON',false);
     $this->Orders = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/comment');
   }

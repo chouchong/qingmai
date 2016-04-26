@@ -74,4 +74,29 @@ class BaseAction extends Controller {
 			}
 		}
     }
+      /**
+	 * 多个上传图片
+	 */
+    public function uploadPics(){
+	   $config = array(
+		        'maxSize'       =>  0, //上传的文件大小限制 (0-不做限制)
+		        'exts'          =>  array('jpg','png','gif','jpeg'), //允许上传的文件后缀
+		        'rootPath'      =>  './Upload/', //保存根路径
+		        'driver'        =>  'LOCAL', // 文件上传驱动
+		        'subName'       =>  array('date', 'Y-m'),
+		        'savePath'      =>  'carLicense/'
+		);
+		$upload = new \Think\Upload($config);
+		$rs = $upload->upload($_FILES);
+		$sfilename=$rs['Filedata']['savename'];
+		$srcpath=$rs['Filedata']['savepath'];
+        $len=I('len');
+        $type=I('type');
+		if ($rs) {
+			echo "<script>parent.getUploadFilenames('$sfilename','$srcpath','$len','$type');</script>";
+		}
+		else{
+			$this->error($upload->getError());
+		}
+    }
 }

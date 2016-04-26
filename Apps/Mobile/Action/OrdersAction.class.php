@@ -10,6 +10,7 @@ class OrdersAction extends BaseAction {
    */
   public function confirmDrives(){
     // $this->isLogin();
+    C('TOKEN_ON',false);
     $this->obj = D('Mobile/Orders')->confirmDrives()[0];
     $this->orderId = I('orderId');
     $this->view->display('/tpl/ConfirmDrives');
@@ -40,6 +41,7 @@ class OrdersAction extends BaseAction {
    */
   public function index(){
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/order');
   }
   /**
@@ -68,6 +70,13 @@ class OrdersAction extends BaseAction {
    */
   public function addOUserIn(){
     $data = D('Mobile/Orders')->addOUserIn();
+    $this->ajaxReturn($data);
+  }
+  /**
+   * 订单取消
+   */
+  public function orDel(){
+    $data = D('Mobile/Orders')->orDel();
     $this->ajaxReturn($data);
   }
 }

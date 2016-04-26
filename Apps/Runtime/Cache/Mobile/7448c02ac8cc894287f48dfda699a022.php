@@ -1,13 +1,41 @@
-<extend name="tpl:base" />
-<block name="title">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
 <title>两国签证</title>
-</block>
-<block name="css">
-<link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
-</block>
-<block name="main">
+
+<link href="/Public/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="/Public/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+
+<link rel="stylesheet" href="/Public/Mobile/css/jquery.spinner.css" />
+
+</head>
+<body>
+
 <div ng-app="myApp" ng-controller="visaCtrl">
-<include file="tpl:nav" />
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <?php if(empty($Users)): ?><div>
+            <a href="<?php echo U('Mobile/Users/gologin');?>">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Users/register');?>">注册</a>
+        </div>
+        <?php else: ?>
+        <div>
+            <a href="<?php echo U('Mobile/Users/index');?>">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Orders/index');?>">我的订单</a>
+        </div><?php endif; ?>
+    </div>
+    <a class="button button-clear" href="<?php echo U('Mobile/Index/index');?>">
+        <img src="/<?php echo ($CONF['mallLogo']); ?>" height="32px" style="  color:#6CC5DC;">
+    </a>
+    <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
+</ion-header-bar>
 <!-- content -->
 <form name="visaAddress" novalidate>
 <ion-content id="content-index" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
@@ -200,9 +228,14 @@
 </ion-content>
 </form>
 </div>
-</block>
-<block name="js">
-<script type="text/javascript" src="__PUBLIC__/Mobile/js/jquery.spinner.js"></script>
+
+</body>
+<script src="/Public/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="/Public/Mobile/js/jquery-1.8.0.min.js"></script>
+<script src="/Public/Mobile/js/app.js" type="text/javascript"></script>
+<script src="/Public/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+
+<script type="text/javascript" src="/Public/Mobile/js/jquery.spinner.js"></script>
 <script>
     $('.spinnerExample').spinner({});
     $("#visaNum").parent().click(function(){
@@ -210,4 +243,5 @@
         $('#totalPrice').html(totalPrice);
     });
 </script>
-</block>
+
+</html>

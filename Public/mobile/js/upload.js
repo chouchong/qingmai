@@ -37,3 +37,28 @@ function updfile(filename){
 		return;
 	}
 }
+function updfiles(filename,formname){
+	var filetypes = ["gif","jpg","png","jpeg"];
+	var patharr=$(".inputstyle"+formname+filename).val().split('\\');
+	var fnames=patharr[patharr.length-1].split(".");
+	var ext=fnames[fnames.length-1];
+	    ext = ext.toLocaleLowerCase();
+	var flag = false;
+	for (var i=0;i<filetypes.length;i++) {
+		if (filetypes[i]==ext) {
+           flag = true;
+           break;
+		}	
+	}
+	if(flag){
+		$("#uploadform_"+formname+filename).submit();
+	}else{
+		alert("上传文件类型错误 (文档支持格式："+filetypes.join(",")+")");
+		jQuery('#uploadform_'+formname)[0].reset();
+		return;
+	}
+}
+function getUploadFilenames(savename,savepath,len,type){
+	$("#preview_"+type+len).html('<img src="/Upload/'+savepath+'/'+savename+'" width="100%" height="240px"/>');
+    $("#pic"+type+len).val('Upload'+'/'+savepath+savename);
+}

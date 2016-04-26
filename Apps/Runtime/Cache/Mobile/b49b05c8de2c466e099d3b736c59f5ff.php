@@ -1,28 +1,56 @@
-<extend name="tpl:base" />
-<block name="title">
-<title>{$good.goodsName}</title>
-<meta name="keywords" content="{$good['goodsKeywords']}" />
-<meta name="description" content="{$good['goodsSpec']}" />
-</block>
-<block name="css">
-    <link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
-</block>
-<block name="main">
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+<title><?php echo ($good["goodsName"]); ?></title>
+<meta name="keywords" content="<?php echo ($good['goodsKeywords']); ?>" />
+<meta name="description" content="<?php echo ($good['goodsSpec']); ?>" />
+
+<link href="/Public/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="/Public/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="/Public/Mobile/css/jquery.spinner.css" />
+
+</head>
+<body>
+
 <div ng-app="myApp" ng-controller="goodCtrl">
-<include file="tpl:nav" /> >
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <?php if(empty($Users)): ?><div>
+            <a href="<?php echo U('Mobile/Users/gologin');?>">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Users/register');?>">注册</a>
+        </div>
+        <?php else: ?>
+        <div>
+            <a href="<?php echo U('Mobile/Users/index');?>">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="<?php echo U('Mobile/Orders/index');?>">我的订单</a>
+        </div><?php endif; ?>
+    </div>
+    <a class="button button-clear" href="<?php echo U('Mobile/Index/index');?>">
+        <img src="/<?php echo ($CONF['mallLogo']); ?>" height="32px" style="  color:#6CC5DC;">
+    </a>
+    <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
+</ion-header-bar> >
 <!-- content -->
 <form name="myAddress" novalidate>
 <ion-content overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
     <div class="card">
         <div class="item item-divider">
-            <input type="hidden" id="goodsId" value="{$goodsId}" />
-            <p style="font-size: 18px;margin:10px;"><span id="goodsName">{$good.goodsName}</span></p>
-            <img src="/{$good['goodsImg']}" alt="" width="100%">
-            <p style="color:#F77A69;padding:10px; font-size: 16px;">￥<span>{$good['adultPrice']}</span>&nbsp;元/人</p>
+            <input type="hidden" id="goodsId" value="<?php echo ($goodsId); ?>" />
+            <p style="font-size: 18px;margin:10px;"><span id="goodsName"><?php echo ($good["goodsName"]); ?></span></p>
+            <img src="/<?php echo ($good['goodsImg']); ?>" alt="" width="100%">
+            <p style="color:#F77A69;padding:10px; font-size: 16px;">￥<span><?php echo ($good['adultPrice']); ?></span>&nbsp;元/人</p>
         </div>
         <div class="item item-text-wrap">
             <p>
-                {$good['goodsDesc']|htmlspecialchars_decode}
+                <?php echo (htmlspecialchars_decode($good['goodsDesc'])); ?>
             </p>
         </div>
     </div>
@@ -48,7 +76,7 @@
         </div>
         <div class="row" style="text-align: center;">
             <div class="item item-text-wrap">
-                <p>选择日期需从今日<span id="today" style="color:#c00;">{$datetime}</span>后三天起开始选择</p>
+                <p>选择日期需从今日<span id="today" style="color:#c00;"><?php echo ($datetime); ?></span>后三天起开始选择</p>
             </div>
         </div>
     </div>
@@ -57,11 +85,9 @@
             选择套餐
         </div>
         <div class="item item-text-wrap scenictime">
-            <volist name="good.attrPrice" id="vo">
-            <div class="scenictimes" >
-                <button class="button button-outline button-stable"><span>{$vo.attrVal}</span><input type="hidden" value="{$vo['attrPrice']}" /></button>
-            </div>
-            </volist>
+            <?php if(is_array($good["attrPrice"])): $i = 0; $__LIST__ = $good["attrPrice"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="scenictimes" >
+                <button class="button button-outline button-stable"><span><?php echo ($vo["attrVal"]); ?></span><input type="hidden" value="<?php echo ($vo['attrPrice']); ?>" /></button>
+            </div><?php endforeach; endif; else: echo "" ;endif; ?>
         </div>
     </div>
     <div class="card">
@@ -69,11 +95,9 @@
             选择分店
         </div>
         <div class="item item-text-wrap scenicShop">
-        <volist name="good.attrPrice" id="vo">
-            <div class="scenicShops" >
-                <button class="button button-outline button-stable">{$vo.attrVal}</button>
-            </div>
-        </volist>
+        <?php if(is_array($good["attrPrice"])): $i = 0; $__LIST__ = $good["attrPrice"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><div class="scenicShops" >
+                <button class="button button-outline button-stable"><?php echo ($vo["attrVal"]); ?></button>
+            </div><?php endforeach; endif; else: echo "" ;endif; ?>
         </div>
     </div>
     <div class="card">
@@ -86,7 +110,7 @@
                 <input id="manNum" type="text" class="spinnerExample" />
             </div>
             <div  style="width:33%; float:left; text-align: right;">
-                <span id="manPrice">{$good['adultPrice']}</span>元/人
+                <span id="manPrice"><?php echo ($good['adultPrice']); ?></span>元/人
             </div>
         </ion-item>
         <ion-item >
@@ -97,7 +121,7 @@
                 <input id="childNum" type="text" class="spinnerExample" />
             </div>
             <div  style="width:33%; float:left; text-align: right;">
-                <span id="childPrice">{$good['childPrice']}</span>元/人
+                <span id="childPrice"><?php echo ($good['childPrice']); ?></span>元/人
             </div>
         </ion-item>
     </div>
@@ -162,7 +186,7 @@
     </div>
     <div class="row footermessage ">
         <div>
-            {$CONF.mallFooter|htmlspecialchars_decode}
+            <?php echo (htmlspecialchars_decode($CONF["mallFooter"])); ?>
         </div>
     </div>
     <div class="row" style="background:#fff ;font-size: 20px; ">
@@ -174,9 +198,15 @@
     </div>
 </ion-content>
 </div>
-</block>
-<block name="js">
-<script type="text/javascript" src="__PUBLIC__/Mobile/js/jquery.spinner.js"></script>
-<script src="__PUBLIC__/Mobile/js/dateSelect.js"></script>
-<script src="__PUBLIC__/Mobile/js/goods.js" type="text/javascript"></script>
-</block>
+
+</body>
+<script src="/Public/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="/Public/Mobile/js/jquery-1.8.0.min.js"></script>
+<script src="/Public/Mobile/js/app.js" type="text/javascript"></script>
+<script src="/Public/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+
+<script type="text/javascript" src="/Public/Mobile/js/jquery.spinner.js"></script>
+<script src="/Public/Mobile/js/dateSelect.js"></script>
+<script src="/Public/Mobile/js/goods.js" type="text/javascript"></script>
+
+</html>

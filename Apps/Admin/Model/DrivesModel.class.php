@@ -21,6 +21,7 @@ class DrivesModel extends BaseModel {
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
       if($this->checkEmpty($data,true)){
+        $data["drivesVisa"] = I("drivesVisa");
         $data["drivesSpec"] = I("drivesSpec",'',false);
         $data["drivesKeywords"] = I("drivesKeywords",'',false);
         $data["priceDesc"] = I("priceDesc",'',false);
@@ -96,6 +97,7 @@ class DrivesModel extends BaseModel {
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
       if($this->checkEmpty($data,true)){
+        $data["drivesVisa"] = I("drivesVisa");
         $data["drivesSpec"] = I("drivesSpec",'',false);
         $data["drivesKeywords"] = I("drivesKeywords",'',false);
         $data["priceDesc"] = I("priceDesc",'',false);

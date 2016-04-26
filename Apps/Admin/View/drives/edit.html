@@ -133,6 +133,15 @@
              </td>
            </tr>
            <tr>
+             <th width='140' align='right'>两国签证<font color='red'>*</font>：</th>
+             <td>
+               <select name="drivesVisa" id="drivesVisa">
+               <option value="1" <if condition="$object['drivesVisa'] eq 1">selected ='selected'</if>>是</option>
+                 <option value="0" <if condition="$object['drivesVisa'] eq 0">selected ='selected'</if>>否</option>
+               </select>
+             </td>
+           </tr>
+           <tr>
              <th width='140' align='right'>自驾目的地<font color='red'>*</font>：</th>
              <td><input type='text' id='drivesFrom' class="form-control wst-ipt" value='{$object.drivesFrom}' maxLength='25'/></td>
            </tr>
@@ -415,7 +424,7 @@
      params.tuzhongHotels = $('#tuzhongHotels').val();
      params.goodsids = $('#goodsids').val();
      params.articlesIds = $('#articlesIds').val();
-
+     params.drivesVisa = $('#drivesVisa').val();
       params.drivesDesc = $('#drivesDesc').val();
      if(params.drivesName==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾不能为空!',timeout:1000});
@@ -494,7 +503,7 @@
        return;
      }
      Plugins.waitTips({title:'信息提示',content:'正在提交数据，请稍后...'});
-     // console.log(params);
+     // console.log(params.drivesVisa);
     $.post("{:U('Admin/Drives/edit')}",params,function(data,textStatus){
       var json = WST.toJson(data);
       if(json.status=='1'){

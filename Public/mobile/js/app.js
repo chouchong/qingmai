@@ -418,8 +418,8 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.drive.homePrice = $('#roomPrice').html();
       //drivesImg,drivesName,drivesFrom,drivesDay,childPrice,homePrice
       $scope.drive.goodsThums = $('#drivesImg').attr('src');
-      $scope.drive.drivesTo =  $('#drivesFrom').html();
-      $scope.drive.drivesName = $('#drivesName').html();
+      $scope.drive.drivesFrom =  $('#drivesFrom').html();
+      $scope.drive.goodsName = $('#drivesName').html();
       $scope.drive.drivesType = $('#drivesType').html();
       $scope.drive.timeDesc = $('#timeDesc').html();
       $scope.drive.manPrice = $('#manPrice').html();
@@ -431,6 +431,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.drive.goodsDrvivesTime = $('#timeDesc').html();
       $scope.drive.selectday = $('#selectedDay').val();
       $scope.drive.timeId = $('#timeId').val();
+      $scope.drive.TOKEN_NAME = $('#TOKEN_NAME').val();
       serviceHttp.addOrder($scope.drive).success(function(data){
         if(data.status>0){
           window.location.href="/Mobile/Orders/confirmDrives/orderId/"+data.orderId;
@@ -476,7 +477,12 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     $scope.visaData.orderType = 3;
     $scope.visaData.addressId = $('#addressId').val();
     $scope.visaData.isUser = $scope.isVisa;
-    if($scope.visaData.totalPrice==0){
+    if($scope.visaData.addressId>0){
+      $scope.visaAddress.$invalid = false;
+    }
+    if($scope.visaAddress.$invalid == true){
+      $rootScope.msg('请完整填写联系人信息');
+    }else if($scope.visaData.totalPrice==0){
       $rootScope.msg("请选择人数办理");
     }else{
       serviceHttp.addOrder($scope.visaData).success(function(data){
@@ -525,7 +531,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     }
   });
   $scope.order = {Desc:''};
-  $scope.isChecked = { checked: true };
+  $scope.isChecked = { checked: false };
   $scope.isReadMe = { checked: true };
   $scope.odcf = function(){
     if(!$scope.isReadMe.checked){
@@ -539,19 +545,26 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.order.addressId = $('#addressId').val();
       $scope.order.isBigber = $scope.isChecked.checked;
       $scope.order.isUser = $scope.isUser;
-      serviceHttp.editOrder($scope.order).success(function(data){
-        if(data.status>0){
-          serviceHttp.isLogin().success(function(data){
-            if(data.status>0){
-              window.location.href = '/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
-            }else{
-              window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
-            }
-          })
-        }else{
-          $rootScope.msg('信息填写错误');
-        }
-      });
+      if($scope.order.addressId>0){
+        $scope.myAddress.$invalid = false;
+      }
+      if($scope.myAddress.$invalid == true){
+        $rootScope.msg('请完整填写联系人信息');
+      }else{
+        serviceHttp.editOrder($scope.order).success(function(data){
+          if(data.status>0){
+            serviceHttp.isLogin().success(function(data){
+              if(data.status>0){
+                window.location.href = '/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
+              }else{
+                window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+$scope.order.orderId;
+              }
+            })
+          }else{
+            $rootScope.msg('信息填写错误');
+          }
+        });
+      }
     }
   }
 }])
@@ -598,27 +611,30 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     $scope.good.selectday = $('#selectedDay').val();
     $scope.good.addressId = $('#addressId').val();
     $scope.good.isUser = $scope.isUser;
-    if($scope.good.selectday==''){
+    if($scope.good.addressId>0){
+      $scope.myAddress.$invalid = false;
+    }
+    if($scope.myAddress.$invalid == true){
+      $rootScope.msg('请完整填写联系人信息');
+    }else if($scope.good.selectday==''){
       $rootScope.msg("请选择订票日期");
+    }else if($scope.good.totalPrice==0){
+      $rootScope.msg("请添加出发人数");
     }else{
-      if($scope.good.totalPrice==0){
-        $rootScope.msg("请添加出发人数");
-      }else{
-        serviceHttp.addOrder($scope.good).success(function(data){
-          if(data.status>0){
-            var orderId = data.orderId;
-            serviceHttp.isLogin().success(function(data){
-              if(data.status>0){
-                window.location.href = '/Mobile/Pays/payment/orderId/'+orderId;
-              }else{
-                window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+orderId;
-              }
-            })
-          }else{
-            $rootScope.msg('出发日期没有选择');
-          }
-        })
-      }
+      serviceHttp.addOrder($scope.good).success(function(data){
+        if(data.status>0){
+          var orderId = data.orderId;
+          serviceHttp.isLogin().success(function(data){
+            if(data.status>0){
+              window.location.href = '/Mobile/Pays/payment/orderId/'+orderId;
+            }else{
+              window.location.href = '/Mobile/Users/gologin?url=/Mobile/Pays/payment/orderId/'+orderId;
+            }
+          })
+        }else{
+          $rootScope.msg('出发日期没有选择');
+        }
+      })
     }
   }
 }])
@@ -689,7 +705,7 @@ angular.module("myApp", ["ionic","ionic-ratings"])
     }
   }
 }])
-.controller("orCtrl",['$scope','serviceHttp',function($scope,serviceHttp) {
+.controller("orCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
   $scope.page=0;
   $scope.isfresh = false;
   $scope.oList = [];
@@ -703,24 +719,59 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.$broadcast('scroll.infiniteScrollComplete');
     });
   };
+  $scope.orDel = function(vo,index){
+    serviceHttp.orDel({orderId:vo.orderId}).success(function(data) {
+      if(data.status>0){
+        $rootScope.msg('取消成功');
+        $scope.oList.splice(index, 1);
+      }
+    });
+  };
 }])
 .controller("carCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
-  $scope.carLic = function() {
-    var car = {
-      carzImg:$('#carzImg').val(),
-      carfImg:$('#carfImg').val(),
+  $scope.carLic = function() { 
+    var len = $("#len").val();
+    var picZ = new Array()
+   $('.picZ').each(function(){
+        picZ = picZ.concat($(this).val());
+      });
+    var picF = new Array()
+   $('.picF').each(function(){
+        picF=picF.concat($(this).val());
+      });
+   for (var i = 0; i <= picZ.length; i++) {
+     if(!picZ[i]){
+       picZ.splice(i,1);
+       break;  
+     }
+   }
+   for (var i = 0; i <= picF.length; i++) {
+     if(!picF[i]){
+       picF.splice(i,1);
+       break;  
+     }
+   }
+   if(picZ.length<len||picF.length<len){
+    $rootScope.msg('三个成人需上传一份驾驶证，含正反面，以此类推');
+    return false;
+   }else{
+       var car = {
+      carzImg:picZ.join(","),
+      carfImg:picF.join(","),
       orderId:$('#orderId').val()
     }
     serviceHttp.addCarLic(car).success(function(data) {
       if(data.status>0){
         $rootScope.msg('上传成功');
-        window.location.href = '/Mobile/Users/Index';
+        window.location.href = '/Mobile/Orders/index';
       }else{
         $rootScope.msg('上传失败');
       }
     });
+   }
   };
 }])
+
 .controller("userInCtrl",['$rootScope','$scope','serviceHttp',function($rootScope,$scope,serviceHttp) {
   $scope.sexlist = [{
       text: "男",
@@ -811,6 +862,13 @@ angular.module("myApp", ["ionic","ionic-ratings"])
   }
 }])
 .service('serviceHttp',['$http',function($http){
+  this.orDel=function(data){
+     return $http({
+        url:'/Mobile/Orders/orDel',
+        method:"POST",
+        data:data
+    });
+  };
   this.addOUserIn=function(data){
      return $http({
         url:'/Mobile/Orders/addOUserIn',
@@ -892,7 +950,6 @@ angular.module("myApp", ["ionic","ionic-ratings"])
           url:'/Mobile/Orders/addOrder',
           type:"POST",
           dataType:"json",
-          async:false,
           data:data
       });
   };

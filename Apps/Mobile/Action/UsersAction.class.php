@@ -12,6 +12,7 @@ class UsersAction extends BaseAction {
   public function login()
   {
     $this->url = I('url');
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/login');
   }
   /**
@@ -20,6 +21,7 @@ class UsersAction extends BaseAction {
   public function gologin()
   {
     $this->url = I('url');
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/gologin');
   }
   /**
@@ -28,6 +30,7 @@ class UsersAction extends BaseAction {
   public function logincode()
   {
     $this->url = I('url');
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/logincode');
   }
   /**
@@ -35,6 +38,7 @@ class UsersAction extends BaseAction {
   **/
   public function psw()
   {
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/password');
   }
   /**
@@ -42,6 +46,7 @@ class UsersAction extends BaseAction {
   **/
   public function register(){
     $this->url = I('url');
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/register');
   }
   /**
@@ -50,6 +55,7 @@ class UsersAction extends BaseAction {
   public function index()
   {
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->user = session('Users');
     $this->view->display('/tpl/user');
   }
@@ -59,6 +65,7 @@ class UsersAction extends BaseAction {
   public function userAddAddress()
   {
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/addLinkman');
   }
   /**
@@ -67,6 +74,7 @@ class UsersAction extends BaseAction {
   public function addressList()
   {
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->view->display('/tpl/linkman');
   }
   /**
@@ -75,6 +83,7 @@ class UsersAction extends BaseAction {
   public function reName()
   {
     $this->isLogin();
+    C('TOKEN_ON',false);
     $this->username = empty(session('Users')['userName'])?'':session('Users')['userName'];
     $this->view->display('/tpl/rename');
   }
@@ -203,6 +212,7 @@ class UsersAction extends BaseAction {
   {
     $this->isLogin();
     $Pay = D('Mobile/Pays');
+    C('TOKEN_ON',false);
     $this->row = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/userIn');
   }
@@ -213,6 +223,7 @@ class UsersAction extends BaseAction {
   {
     $this->isLogin();
     $Pay = D('Mobile/Pays');
+    C('TOKEN_ON',false);
     $this->row = $Pay->getInfo(I('orderId'));
     $this->view->display('/tpl/userCar');
   }
