@@ -34,7 +34,14 @@
 	   var params = {};
 	   params.id = $('#id').val();
 	   params.couponsPrice = $('#couponsPrice').val();	
-     params.couponsCode = $('#couponsCode').val()
+     params.couponsCode = $('#couponsCode').val();
+     params.isUse='';
+     if ($('#isUse').prop("checked")==true) {
+      params.isUse = $('#isUse').val();
+     }
+     if ($('#notUse').prop("checked")==true) {
+      params.isUse = $('#notUse').val();
+     }
 	   if(params.couponsPrice==''){
 		   Plugins.Tips({title:'信息提示',icon:'error',content:'请输入优惠价格!',timeout:1000});
 		   return;
@@ -69,6 +76,16 @@
              <input type='text' id='couponsPrice' class="form-control wst-ipt" value='{$object.couponsPrice}' maxLength='80'/>
              </td>
            </tr>
+            <if condition="$object.couponsId gt 0">
+             <tr> 
+             <th width='100' align='right'>是否使用<font color='red'>*</font>：</th>
+             <td>
+             <if condition="$object['isUse'] eq 1">是<input type="radio" name="isUse" id="isUse" value="1" checked="true"><else/>
+              是<input type="radio" name="isUse" id="isUse" value="1"></if>
+             <if condition="$object['isUse'] eq -1">否<input type="radio" name="isUse" id="notUse" value="-1" checked="true"><else/>
+              否<input type="radio" name="isUse" id="notUse" value="-1"></if>   
+                 </td></tr>
+          </if> 
            <tr>
              <td colspan='2' style='padding-left:250px;'>
                  <button type="submit" class="btn btn-success">保&nbsp;存</button>

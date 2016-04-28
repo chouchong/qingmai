@@ -37,18 +37,22 @@
             成人
             <span style="float:right;"><span id="manNum">{$obj.adultNum}</span>人x <span>{$obj.adultPrice}</span>元/人</span>
         </div>
+        <notempty name="obj.childNum">
         <div class="item item-text-wrap">
             儿童
             <span style="float:right;"><span id="childNum">{$obj.childNum}</span>人x <span>{$obj.childPrice}</span>元/人</span>
         </div>
+        </notempty>
         <div class="item item-text-wrap">
             用房数
-            <span style="float:right;">1标准双床房</span>
+            <span style="float:right;">{$obj['roomNum']}间标准双床房</span>
         </div>
-        <div class="item item-text-wrap">
-            单房差
-            <span style="float:right;">￥<span>{$obj['roomNum']*$obj['roomPrice']}</span>元</span>
-        </div>
+        <if condition="$obj['roomPrice'] gt 0 ">
+            <div class="item item-text-wrap">
+                单房差
+                <span style="float:right;">￥<span>{$obj['roomNum']*2*$obj['roomPrice']-$obj['adultNum']*$obj['roomPrice']}</span>元</span>
+            </div>
+        </if>
         <div class="item item-text-wrap" style="color:#F88B7D;">
             合计总价
             <span style="float:right;">￥<span id="totalMoney">{$obj.totalMoney}</span>元</span>

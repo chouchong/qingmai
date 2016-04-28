@@ -415,7 +415,6 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.drive.drivesId = $('#drivesId').val();
       $scope.drive.drivesDay = $('#drivesDay').html();
       $scope.drive.childPrice = $('#childPrice').html();
-      $scope.drive.homePrice = $('#roomPrice').html();
       //drivesImg,drivesName,drivesFrom,drivesDay,childPrice,homePrice
       $scope.drive.goodsThums = $('#drivesImg').attr('src');
       $scope.drive.drivesFrom =  $('#drivesFrom').html();
@@ -425,6 +424,9 @@ angular.module("myApp", ["ionic","ionic-ratings"])
       $scope.drive.manPrice = $('#manPrice').html();
       $scope.drive.roomNum = $("#roomNum").val();
       $scope.drive.manNum = $('#manNum').val();
+      if(($scope.drive.roomNum*2-$scope.drive.manNum)>0){
+        $scope.drive.homePrice = $('#roomPrice').html();
+      }
       $scope.drive.childNum = $('#childNum').val();
       $scope.drive.totalPrice = $('#totalPrice').html();
       $scope.drive.orderType = 1;

@@ -71,7 +71,7 @@
                <td>{$vo['couponsCode']}</td>
                <td>{$vo['couponsPrice']}</td>
                <td>
-               <if condition="$vo['isUse'] eq 0">
+               <if condition="$vo['isUse'] eq -1">
                  否
                  <else />
                  是

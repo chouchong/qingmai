@@ -2,7 +2,6 @@
 namespace Home\Action;
 /**
  * ============================================================================
- * ============================================================================
  * 基础控制器
  */
 use Think\Controller;
@@ -98,5 +97,12 @@ class BaseAction extends Controller {
 		else{
 			$this->error($upload->getError());
 		}
-    }
+	}
+	/**
+   * 登录操作验证
+   */
+  public function isLogin(){
+    $s = session('Users');
+      if(empty($s))$this->redirect("Users/gologin");
+  }
 }

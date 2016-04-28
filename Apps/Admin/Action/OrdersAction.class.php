@@ -17,9 +17,28 @@ class OrdersAction extends BaseAction{
     $page['pager'] = $pager->show();
     $this->assign('page',$page);
     $this->display("/orders/list");
-
-
 	}
+	/**
+	  * 获取订单驾驶证照片
+	  */
+     public function getCarPic(){
+     	$m=D('Admin/Orders');
+        $this->ajaxReturn($m->getCarPic());
+     }
+     /**
+	  * 获取被保险人详情
+	 */
+     public function getInsureds(){
+        $m=D('Admin/Orders');
+        $this->ajaxReturn($m->getInsureds());
+     }
+    /**
+	  * 获取定单详情
+	 */
+     public function getDetailModel(){
+        $m=D('Admin/Orders');
+        $this->ajaxReturn($m->getDetailModel());
+     }
     /**
 	 * 退款分页查询
 	 */

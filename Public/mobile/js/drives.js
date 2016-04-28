@@ -6,6 +6,7 @@ $(function(){
     _0('manNum');_0('childNum');_0('roomNum');
     //点击时间列表来选择时间
     $("#calendarprice div").live("click",function () {
+        $('#manPrice').html(0);
         if (!$(this).hasClass("disabled")) {
             $(".selected").removeClass('selected');
             $(this).addClass("selected");

@@ -87,6 +87,33 @@ class OrdersModel extends BaseModel {
 		return $page;
 	 }
 	 /**
+	  * 获取订单驾驶证照片
+	  */
+     public function getCarPic(){
+     	$orderId=I('orderId');
+        $sql="select carzImg,carfImg from dt_order_drivinglicences where orderId=".$orderId;
+        $data=$this->query($sql);
+     	return $data;
+     }
+      /**
+	  * 获取被保险人详情
+	  */
+     public function getInsureds(){
+     	$orderId=I('orderId');
+        $sql="select userName,userCard,sex from dt_order_insureds where orderId=".$orderId;
+        $data=$this->query($sql);
+     	return $data;
+     }
+     /**
+	  * 获取订单详情
+	  */
+     public function getDetailModel(){
+     	$orderId=I('orderId');
+        $sql="select totalMoney,zMoney,adultNum,childNum,roomNum,toTime,endTime,orderNo,adultPrice,childPrice,roomPrice from dt_orders where orderId=".$orderId;
+        $data=$this->query($sql);
+     	return $data;
+     }
+	 /**
 	  * 获取退款列表
 	  */
      public function queryRefundByPage(){

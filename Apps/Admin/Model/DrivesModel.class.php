@@ -17,10 +17,11 @@ class DrivesModel extends BaseModel {
       $data["adultPrice"] = (int)I("adultPrice");
       $data["drivesDay"] = (int)I("drivesDay");
       $data["homePrice"] = (int)I("homePrice");
-      $data["drivesImg"] = I("drivesImg");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
       if($this->checkEmpty($data,true)){
+        $data["drivesImg"] = I("drivesImg");
+        $data["pcDrivesImg"] = I("pcDrivesImg");
         $data["drivesVisa"] = I("drivesVisa");
         $data["drivesSpec"] = I("drivesSpec",'',false);
         $data["drivesKeywords"] = I("drivesKeywords",'',false);
@@ -93,10 +94,11 @@ class DrivesModel extends BaseModel {
       $data["adultPrice"] = (int)I("adultPrice");
       $data["drivesDay"] = (int)I("drivesDay");
       $data["homePrice"] = (int)I("homePrice");
-      $data["drivesImg"] = I("drivesImg");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
       if($this->checkEmpty($data,true)){
+        $data["drivesImg"] = I("drivesImg");
+        $data["pcDrivesImg"] = I("pcDrivesImg");
         $data["drivesVisa"] = I("drivesVisa");
         $data["drivesSpec"] = I("drivesSpec",'',false);
         $data["drivesKeywords"] = I("drivesKeywords",'',false);

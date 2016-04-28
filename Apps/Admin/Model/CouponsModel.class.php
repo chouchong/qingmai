@@ -13,7 +13,6 @@ class CouponsModel extends BaseModel {
     	$data=array();
     	$data["couponsPrice"] = I("couponsPrice");
     	$data["couponsCode"] = I("couponsCode");
-    	$data["isUse"] = 0;
     	if($this->checkEmpty($data,true)){
             $m = M('coupons');
     		 $couponsId = $m->add($data);
@@ -30,6 +29,7 @@ class CouponsModel extends BaseModel {
         $rd=array('status'=>-1);
     	$data=array();
     	$data["couponsPrice"]=I("couponsPrice");
+        $data["isUse"] = I("isUse");
     	if($this->checkEmpty($data,true)){
     		 M('coupons')->where(array('couponsId'=>I("id")))->save($data);
     		 $rd['status']=1;
