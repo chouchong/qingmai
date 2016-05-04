@@ -111,7 +111,7 @@ class OrdersModel extends BaseModel {
   **/
   public function confirmDrives()
   {
-    $Sql = "SELECT o.*,g.goodsName,g.drivesTo,g.goodsDrvivesTime,g.drivesType FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS g ON o.orderId = g.orderId WHERE o.isPay = 0 AND o.goodsType = 1 AND o.orderId =".I('orderId',2);
+    $Sql = "SELECT o.*,g.drivesDay,g.goodsName,g.drivesTo,g.goodsDrvivesTime,g.drivesType FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS g ON o.orderId = g.orderId WHERE o.isPay = 0 AND o.goodsType = 1 AND o.orderId =".I('orderId',2);
     $data= $this->query($Sql);
     return $data;
   }
@@ -122,7 +122,7 @@ class OrdersModel extends BaseModel {
     $m = M('orders');
     $data['totalMoney'] = I('totalPrice');  //1
     $daytime =I('selectday');
-    $day =I('drivesDay',0);
+    $day =I('drivesDay');
     $data['childNum'] = I('childNum');
     $data['childPrice'] = I('childPrice');
     $data['roomNum'] = I('roomNum');
@@ -133,9 +133,9 @@ class OrdersModel extends BaseModel {
     $data['orderNo'] = 'E'.time();
     $data['goodsType'] = I('orderType');
     $data["createTime"] = date('Y-m-d H:i:s');
-    $data['drivesDay'] = $day;
+    
     $data['toTime'] = $daytime;
-    $data['endTime'] = date("Y-m-d",strtotime("$daytime+$day day"));
+    $data['endTime'] = $daytime;
     $data['orderStatus'] = 0;
     if(session('Users')['userId']!=null){
       $data['userId'] = session('Users')['userId'];
@@ -145,6 +145,7 @@ class OrdersModel extends BaseModel {
     $good['drivesId'] = I('drivesId');
     $good['goodsId'] = I('goodsId');
     $good['drivesType'] = I('drivesType');
+    $good['drivesDay'] = $day;
     $good['drivesTo'] = I('drivesFrom','');
     $good['goodsAttrName'] = I('goodsAttrName');
     $good['goodsAttrPrice'] = I('goodsAttrPrice');

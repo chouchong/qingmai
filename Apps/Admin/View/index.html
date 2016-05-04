@@ -180,6 +180,22 @@
                             </ul>
                         </li>
                         <php>}</php>
+                        <php>if(in_array('dpqz_00',$WST_STAFF['grant'])){</php>
+                        <li class="treeview">
+                            <a href="#">
+                                <span>签证管理</span>
+                                <small id='hotelsTips' style='display:none' class="badge pull-right bg-green">3</small>
+                            </a>
+                            <ul class="treeview-menu">
+                                <php>if(in_array('dpqz_02',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Visas/toView')}" target='pageContent' >添加签证</a></li>
+                                <php>}</php>
+                                <php>if(in_array('dpqz_01',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/Visas/index')}" target='pageContent' >签证列表</a></li>
+                                <php>}</php>
+                            </ul>
+                        </li>
+                        <php>}</php>
                         <php>if(in_array('dpgl_00',$WST_STAFF['grant'])){</php>
                         <li class="treeview">
                             <a href="#">

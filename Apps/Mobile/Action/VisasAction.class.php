@@ -9,6 +9,7 @@ class VisasAction extends BaseAction {
    * 报名时间添加
    */
   public function index(){
+  	$this->visa = D('Mobile/Visas')->getVisa();
     $this->view->display('/tpl/visa');
   }
 }

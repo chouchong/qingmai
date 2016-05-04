@@ -17,6 +17,8 @@ class DrivesAction extends BaseAction{
     $this->articles = D('Admin/Articles')->queryByCatId(8);
     //获取景点信息
     $this->goods = D('Admin/Goods')->queryByAll();
+    //获取签证信息
+    $this->visas = D('Admin/Visas')->queryByAll();
     if(I('drivesId',0)>0){
       $this->object = D('Admin/Drives')->queryById();
     }

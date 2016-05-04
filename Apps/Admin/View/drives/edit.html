@@ -165,15 +165,6 @@
              </td>
            </tr>
            <tr>
-             <th width='140' align='right'>两国签证<font color='red'>*</font>：</th>
-             <td>
-               <select name="drivesVisa" id="drivesVisa">
-               <option value="1" <if condition="$object['drivesVisa'] eq 1">selected ='selected'</if>>是</option>
-                 <option value="0" <if condition="$object['drivesVisa'] eq 0">selected ='selected'</if>>否</option>
-               </select>
-             </td>
-           </tr>
-           <tr>
              <th width='140' align='right'>自驾目的地<font color='red'>*</font>：</th>
              <td><input type='text' id='drivesFrom' class="form-control wst-ipt" value='{$object.drivesFrom}' maxLength='25'/></td>
            </tr>
@@ -191,7 +182,14 @@
            </tr>
            <tr>
              <th width='140' align='right'>自驾天数<font color='red'>*</font>：</th>
-             <td><input type='text' id='drivesDay' class="form-control wst-ipt" value='{$object.drivesDay}' maxLength='25'/></td>
+             <td><input type='text' id='drivesDay' class="form-control wst-ipt" value='{$object.drivesDay}' maxLength='225'/></td>
+           </tr>
+           <tr>
+             <th width='140' align='right'>签证选择<font color='red'>*</font>：</th>
+             <td>
+             <input type="hidden" id="visa" value="{$object.drivesVisa}" />
+             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myVisas">请选择签证</button>
+             </td>
            </tr>
            <tr>
              <th width='140' align='right'>酒店选择<font color='red'>*</font>：</th>
@@ -302,6 +300,32 @@
         </div>
       </div>
       <!-- Modal -->
+      <div class="modal fade" id="myVisas" tabindex="-1" role="dialog" aria-labelledby="myVisasLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 1000px">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myVisasLabel">签证办理</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+              <volist name="visas" id="vo" key='i'>
+                <div class="col-md-3" style="height: 50px;">
+                  <label class="checkbox">
+                    <input type="checkbox"  id="dt_visas_{$vo['visaId']}" class="visaxz" value="{$vo['visaId']}"> {$vo['visaName']}
+                  </label>
+                </div>
+              </volist>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-primary" onclick="VisasSelect()">选择保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
       <div class="modal fade" id="myWayDays" tabindex="-1" role="dialog" aria-labelledby="myWayDaysLabel">
         <div class="modal-dialog" role="document" style="margin-left: 20%">
           <div class="modal-content" style="width: 1000px">
@@ -372,6 +396,10 @@
      for(var i=0;i<articles.length;i++){
       $('#dt_articles_'+articles[i]).prop('checked',true);
      }
+     var visa = '{$object["drivesVisa"]}'.split(',');
+     for(var i=0;i<visa.length;i++){
+      $('#dt_visas_'+visa[i]).prop('checked',true);
+     }
    });
    function HotelsSelect(){
     var zc = [];
@@ -401,6 +429,23 @@
       $('#myHotels').modal('hide');
      }
    };
+   function VisasSelect(){
+    var visaIds = [];
+    var num = true;
+     $('.visaxz').each(function(){
+        if($(this).prop('checked'))visaIds.push($(this).val());
+      });
+     visaIds.join(',');
+     if(visaIds.length == 0){
+       Plugins.Tips({title:'信息提示',icon:'error',content:'至少选择一个景点!',timeout:1000});
+       num = false;
+       return;
+     }
+     if(num == true){
+       $('#visa').val(visaIds);
+      $('#myVisas').modal('hide');
+     }
+   }
    function GoodsSelect(){
     var goodsIds = [];
     var num = true;
@@ -457,7 +502,7 @@
      params.tuzhongHotels = $('#tuzhongHotels').val();
      params.goodsids = $('#goodsids').val();
      params.articlesIds = $('#articlesIds').val();
-     params.drivesVisa = $('#drivesVisa').val();
+     params.drivesVisa = $('#visa').val();
       params.drivesDesc = $('#drivesDesc').val();
      if(params.drivesName==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾不能为空!',timeout:1000});

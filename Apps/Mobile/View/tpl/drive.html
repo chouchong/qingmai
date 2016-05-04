@@ -49,7 +49,7 @@
                     <p id="drivesName">{$drive.drivesName}</p>
                     <p>
                         <span id="drivesFrom">{$drive.drivesFrom}</span>
-                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$drive['drivesDay']-1}晚<span id="drivesDay">{$drive['drivesDay']}</span>夜跨境自驾自由行</span>
+                        <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;"><span id="drivesDay">{$drive['drivesDay']}</span></span>
                     </p>
                     <p style="clear:both;">
                     <empty name="drive.tp">
@@ -204,7 +204,7 @@
                 </div>
             </div>
         </div>
-        <if condition="$drive['drivesVisa'] eq 1">
+        <if condition="$drive['drivesVisa'] gt 0">
         <div class="row">
             <div class="col col-20" style="text-align: right;">
                 <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="100%">
@@ -222,13 +222,13 @@
                 <p style="font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
             </div>
         </div>
-        <if condition="$drive['drivesVisa'] eq 1">
+        <if condition="$drive['drivesVisa'] gt 0">
         <div class="row" style="padding: 0;margin: 20px 0 30px 0;">
             <div style="width:100%;padding: 0;">
                 <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
     margin: 0 20px;color: #000;">所需资料</span>护照及签证：有效期内护照及泰国老挝两国签证</p>
                 <p>
-                    <a ng-click="visa()">
+                    <a ng-click="visa({$drive['drivesVisa']})">
                         <button class="button button-block button-calm">惠享400元代办两国签证 点击这里</button>
                     </a>
                 </p>

@@ -15,7 +15,7 @@ class DrivesModel extends BaseModel {
       $data["drivesFrom"] = I("drivesFrom");
       $data["childPrice"] = (int)I("childPrice");
       $data["adultPrice"] = (int)I("adultPrice");
-      $data["drivesDay"] = (int)I("drivesDay");
+      $data["drivesDay"] = I("drivesDay");
       $data["homePrice"] = (int)I("homePrice");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
@@ -92,7 +92,7 @@ class DrivesModel extends BaseModel {
       $data["drivesFrom"] = I("drivesFrom");
       $data["childPrice"] = (int)I("childPrice");
       $data["adultPrice"] = (int)I("adultPrice");
-      $data["drivesDay"] = (int)I("drivesDay");
+      $data["drivesDay"] = I("drivesDay");
       $data["homePrice"] = (int)I("homePrice");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');

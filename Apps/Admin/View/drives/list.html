@@ -64,7 +64,7 @@
               <tr>
                 <td>{$i}</td>
                 <td>{$vo.drivesName}</td>
-                <td>{$vo['drivesDay']-1}晚{$vo['drivesDay']}天自驾游</td>
+                <td>{$vo['drivesDay']}</td>
                 <td>
                 <button id="calendar" name="calendar" readonly="readonly" onclick="AjaxTime({$vo[drivesId]});">查看价格榜</button>
                 <button type="button" id="calendar" name="calendar" class="btn btn-info" onclick="addDrivesTimePrice({$vo[drivesId]})">价格添加</button>

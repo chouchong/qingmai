@@ -13,24 +13,24 @@
 <ion-content id="content-index" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
     <div class="card">
         <div class="item item-text-wrap" style="background:#6CC5DC;color:#fff;">
-            泰国老挝签证基本信息说明
+            {$visa.visaName}基本信息说明
         </div>
         <div class="item item-text-wrap">
             签证类型
-            <span style="float:right;">旅游签</span>
+            <span style="float:right;">{$visa.visaType}</span>
         </div>
         <div class="item item-text-wrap">
             有效期
-            <span style="float:right;">停留期30-60天</span>
+            <span style="float:right;">{$visa.visaValidity}</span>
         </div>
         <div class="item item-text-wrap">
             入境次数
-            <span style="float:right;">单次</span>
+            <span style="float:right;">{$visa.visaCount}</span>
         </div>
     </div>
     <div class="card">
     <div class="item item-text-wrap" style="background:#6CC5DC;color:#fff;">
-            办理泰国老挝签证所需资料
+            办理{$visa.visaName}所需资料
         </div>
          <div style="padding:10px;">
                 <p>您只需准备1.【护照原件】2.【照片四张】3.【身份证】</p><br/>
@@ -114,7 +114,7 @@
                             <input id="visaNum" type="text" class="spinnerExample" />
                         </div>
                         <div  style="width:33%;  text-align: right;">
-                            <span id="visaPrice" style="color:#F88B7D">400</span>元/份
+                            <span id="visaPrice" style="color:#F88B7D">{$visa.visaPrice}</span>元/份
                         </div>
                     </div>
                 <label class="item item-input item-floating-label">
