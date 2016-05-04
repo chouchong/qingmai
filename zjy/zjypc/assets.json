@@ -1,0 +1,27 @@
+{
+	"assetsJs": [
+		"./libs/jquery/dist/jquery.min.js",
+		"./libs/bootstrap/dist/js/bootstrap.min.js",
+		"./libs/angular/angular.min.js",
+		"./libs/angular-route/angular-route.min.js",
+		"./libs/angular-resource/angular-resource.min.js"
+	],
+	"assetsCss": [
+		"./libs/bootstrap/dist/css/bootstrap.css"
+	],
+	"assetsFonts": [
+		"./libs/bootstrap/fonts/*.*"
+	],
+	"appJs": [
+		"./src/app/app.js",
+		"./src/app/controller/*.js",
+		"./src/app/config/*.js",
+		"./src/app/plugins/*.js",
+		"./src/app/service/*.js",
+		"./src/app/directive/*.js",
+		"./src/public/style/*.js"
+	],
+	"appCss": [
+		"./src/public/css/*.css"
+	]
+}

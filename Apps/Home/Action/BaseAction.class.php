@@ -105,4 +105,12 @@ class BaseAction extends Controller {
     $s = session('Users');
       if(empty($s))$this->redirect("Users/gologin");
   }
+  /*
+  商城信息
+  */
+  public function Config(){
+   	$m = D('Mobile/System');
+    $Config = $m->loadConfigs();
+    echo json_encode($Config);
+  }
 }
