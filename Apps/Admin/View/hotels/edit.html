@@ -139,16 +139,16 @@ function delImg(obj){
              <tr>
                <th width='120'>酒店名称<font color='red'>*</font>：</th>
                <td width='350'><input type='text' id='hotelName' name='hotelName' class="form-control wst-ipt" value='{$object.hotelName}' maxLength='100'/></td>
-               <td rowspan='8' valign='top'>
+               <td rowspan='7' valign='top'>
                  <div id="preview_Filedata">
                <img id='hotelImgPreview' src='<if condition="$object['hotelImg'] =='' ">__ROOT__/{$CONF['goodsImg']}<else/>__ROOT__/{$object['hotelImg']}</if>' height='152'/><br/>
                  </div>
                </td>
              </tr>
-              <tr>
+              <!-- <tr>
                <th width='120'>酒店英文<font color='red'>*</font>：</th>
                <td width='350'><input type='text' id='hotelEnglishName' name='hotelEnglishName' class="form-control wst-ipt" value='{$object.hotelEnglishName}'></td>
-             </tr>
+             </tr> -->
              <tr>
                <th width='120'>酒店电话<font color='red'>*</font>：</th>
                <td width='350'>
@@ -180,9 +180,9 @@ function delImg(obj){
                </td>
              </tr>
              <tr>
-               <th width='120'>床铺尺寸<font color='red'>*</font>：</th>
+               <th width='120'>停车场<font color='red'>*</font>：</th>
                <td width='350'>
-                <input type='text' id='hotelBedSize' name='hotelBedSize' class="form-control wst-ipt" value='{$object.hotelBedSize}'/>
+                <input type='text' id='hotelpark' name='hotelpark' value='{$object.hotelpark}' class="form-control wst-ipt" />
                </td>
              </tr>
              <tr>
@@ -191,16 +191,16 @@ function delImg(obj){
                <input type='text' style="width:788px" id='hotelAddress' name='hotelAddress' value='{$object.hotelAddress}' maxlength="200">
                </td>
              </tr>
-             <tr>
+            <!--  <tr>
                <th width='120'>酒店地址英文<font color='red'>*</font>：</th>
                <td colspan='3'>
                <input type='text' style="width:788px" id='hotelEnglishAddress' name='hotelEnglishAddress' value='{$object.hotelEnglishAddress}' maxlength="200">
                </td>
-             </tr>
+             </tr> -->
              <tr>
-               <th width='120'>停车场<font color='red'>*</font>：</th>
+               <th width='120'>床铺尺寸<font color='red'>*</font>：</th>
                <td colspan='3'>
-               <input type='text' style="width:788px" id='hotelpark' name='hotelpark' value='{$object.hotelpark}' maxlength="200">
+               <input type='text' style="width:788px" id='hotelBedSize' name='hotelBedSize' value='{$object.hotelBedSize}'  maxlength="200">
                </td>
              </tr>
              <tr>
@@ -221,12 +221,12 @@ function delImg(obj){
                </td>
              </tr>
              <tr>
-               <th width='120'>酒店活动<font color='red'>*</font>：</th>
+               <th width='120'>酒店政策<font color='red'>*</font>：</th>
                <td colspan='3'>
                <textarea style='width:80%;height:250px;' id='hotelActivity' name='hotelActivity'>{$object.hotelActivity}</textarea>
                </td>
              </tr>
-             <tr>
+             <!-- <tr>
                <th width='120'>综合设施<font color='red'>*</font>：</th>
                <td colspan='3'>
                <textarea style='width:80%;height:250px;' id='hotelService' name='hotelService'>{$object.hotelService}</textarea>
@@ -248,7 +248,7 @@ function delImg(obj){
                <td colspan='3'>
                <textarea style='width:80%;height:500px;' id='hotelContent' name='hotelContent'>{$object.hotelContent}</textarea>
                </td>
-             </tr>
+             </tr> -->
              <tr>
                <td colspan='3' style='padding-left:320px;'>
                    <button class='wst-btn-query' type="submit">保&nbsp;存</button>
@@ -355,10 +355,6 @@ function delImg(obj){
          WST.msg('请输入酒店名称!', {icon: 5});
          return;
        }
-    if(params.hotelEnglishName==''){
-         WST.msg('请输入酒店英文!', {icon: 5});
-         return;
-       }
     if(params.hotelPhone==''){
          WST.msg('请输入酒店电话!', {icon: 5});
          return;
@@ -387,10 +383,6 @@ function delImg(obj){
          WST.msg('请输入酒店地址!', {icon: 5});
          return;
        }
-    if(params.hotelEnglishAddress==''){
-         WST.msg('请输入酒店地址英文!', {icon: 5});
-         return;
-       }
     if(params.hotelpark==''){
          WST.msg('请输入停车场!', {icon: 5});
          return;
@@ -403,28 +395,12 @@ function delImg(obj){
          WST.msg('请输入退房时间!', {icon: 5});
          return;
        }
-       if(params.hotelService==''){
+       if(params.hotelActivity==''){
          WST.msg('请输入综合设施!', {icon: 5});
-         return;
-       }
-       if(params.hotelcomplex==''){
-         WST.msg('请输入服务项目!', {icon: 5});
-         return;
-       }
-       if(params.hotelRoomfacilities==''){
-         WST.msg('请输入客房设施!', {icon: 5});
          return;
        }
        if(params.hotelDesc==''){
          WST.msg('请输入酒店描述!', {icon: 5});
-         return;
-       }
-       if(params.hotelContent==''){
-         WST.msg('请输入酒店内容!', {icon: 5});
-         return;
-       }
-       if(params.hotelActivity==''){
-         WST.msg('请输入酒店活动!', {icon: 5});
          return;
        }
        if(params.hotelImg==''){

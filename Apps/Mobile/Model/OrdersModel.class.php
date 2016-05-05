@@ -11,9 +11,9 @@ class OrdersModel extends BaseModel {
   public function isNoPay()
   {
     $rd = array('status' => -1);
-    $rs = M('order_goods')->field('drivestimeId')->where(array('orderId'=>I('orderId')))->find();
-    $tp = M('drives_timeprice')->field('drivesStock')->where(array('timeId'=>$rs['drivestimeId']))->find();
-    if($rs['drivestimeId'] >0){
+    $ris = M('order_goods')->field('drivestimeId')->where(array('orderId'=>I('orderId')))->find();
+    $tp = M('drives_timeprice')->field('drivesStock')->where(array('timeId'=>$ris['drivestimeId']))->find();
+    if($ris['drivestimeId'] >0){
       if($tp['drivesStock']<I('adultNum')){
         $rd['num'] = $tp['drivesStock'];
         $rd['status']=2;
@@ -30,15 +30,16 @@ class OrdersModel extends BaseModel {
   {
     $rd = array('status' => -1,'msg'=>'添加失败');
     $data['payType'] = I('payment');
-    $data['userId'] = (int)session('Users.userId');
-    $address = M('orders')->field('addressId,userId')->where(array('orderId'=>I('orderId')))->find();
+    $address = M('order_goods')->field('drivestimeId')->where(array('orderId'=>I('orderId')))->find();
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
-    if($address['userId']==null){
-      M('user_address')->where("addressId=".$address['addressId'])->save(array('isDefault'=>1,'userId'=>$data['userId']));
-      M('user_address')->where('userId='.$data['userId']." and addressId!=".$address['addressId'])->save(array('isDefault'=>0));
-    }
-    if(false !== $rs){
-      $rd['status']=1;
+    $tp = M('drives_timeprice')->field('drivesStock')->where(array('timeId'=>$address['drivestimeId']))->find();
+    if($address['drivestimeId'] >0){
+      if($tp['drivesStock']<I('adultNum')){
+        $rd['num'] = $tp['drivesStock'];
+        $rd['status']=2;
+      }else{
+        $rd['status']=1;
+      }
     }
     return $rd;
   }
@@ -103,8 +104,15 @@ class OrdersModel extends BaseModel {
   public function OrdersDetail()
   {
     $Sql = "SELECT o.orderId,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.createTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.isPay = 0 AND o.orderId = ".I('orderId',3);
-    $data= $this->query($Sql);
-    return $data;
+    $dataO= $this->query($Sql);
+    $data['userId'] = (int)session('Users.userId');
+    $address = M('orders')->field('addressId,userId')->where(array('orderId'=>I('orderId')))->find();
+    $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
+    if($address['userId']==null){
+      M('user_address')->where("addressId=".$address['addressId'])->save(array('isDefault'=>1,'userId'=>$data['userId']));
+      M('user_address')->where('userId='.$data['userId']." and addressId!=".$address['addressId'])->save(array('isDefault'=>0));
+    }
+    return $dataO;
   }
   /**
   *自驾订单确定
@@ -192,7 +200,7 @@ class OrdersModel extends BaseModel {
   public function OrdersList()
   {
     $pagesize = 5;
-    $Sql = "SELECT o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,o.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo,o.createTime FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
+    $Sql = "SELECT o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,og.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo,o.createTime FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
     $data= $this->query($Sql);
     return $data;
   }

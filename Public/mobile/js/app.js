@@ -681,18 +681,12 @@
         if (payments == undefined) {
           $rootScope.msg('请选择支付方式');
         } else {
-          serviceHttp.isNoPay({
-            orderId: orderId,
-            adultNum: $('#adultNum').html()
-          }).success(function(data) {
-            if (data.status == 2) {
-              $rootScope.msg('自驾旅游,你只能' + data.num + '人');
-            } else {
-              serviceHttp.editPayment({
-                orderId: orderId,
-                payment: payments
-              }).success(function(data) {
-                if (data.status > 0) {
+            serviceHttp.editPayment({
+              orderId: orderId,
+              payment: payments,
+              adultNum: $('#adultNum').html()
+            }).success(function(data) {
+              if (data.status == 1) {
                   if (values == 2) {
                     if (ua.match(/MicroMessenger/i) == "micromessenger") {
                       serviceHttp.wxPay({
@@ -720,15 +714,16 @@
                         }
                       });
                     }
-                  } else {
+                  }
+                  }else if (data.status == 2){
+                    $rootScope.msg('库存只有'+data.num);
+                  }
+                  else {
                     window.location.href = '/Mobile/Pays/goPay/orderId/' + $('#orderId').val() + '/values/' + values;
                   }
-                }
-              });
-            }
-          })
+            })
+          }
         }
-      }
     }])
     .controller("orCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
       $scope.page = 0;
@@ -895,6 +890,11 @@
           });
         }
       }
+    }])
+    .controller("articleCtrl",['$scope','$ionicScrollDelegate',function($scope,$ionicScrollDelegate){
+        $scope.totop = function(){
+            $ionicScrollDelegate.scrollTop(true);
+        };
     }])
     .service('serviceHttp', ['$http', function($http) {
       this.orDel = function(data) {

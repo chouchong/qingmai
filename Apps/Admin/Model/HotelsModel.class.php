@@ -14,7 +14,7 @@ class HotelsModel extends BaseModel {
 		$data["hotelName"] = I("hotelName");
 		$data["hotelImg"] = I("hotelImg");
 		// $data["hotelThumbs"] = I("hotelThumbs");
-		$data["hotelEnglishName"] = I("hotelEnglishName");
+		// $data["hotelEnglishName"] = I("hotelEnglishName");
 		$data["hotelPhone"] = I("hotelPhone");
 		$data["hotelStar"] = (int)I("hotelStar");
 		$data["hotelType"] = I("hotelType");
@@ -22,7 +22,7 @@ class HotelsModel extends BaseModel {
 		$data["hotelRoomArea"] = I("hotelRoomArea");
 		$data["hotelBedSize"] = I("hotelBedSize");
 		$data["hotelAddress"] = I("hotelAddress");
-		$data["hotelEnglishAddress"] = I("hotelEnglishAddress");
+		// $data["hotelEnglishAddress"] = I("hotelEnglishAddress");
 		$data["hotelpark"] = I("hotelpark");
 		$data["hotelTntime"] = I("hotelTntime");
 		$data["hotelFromtime"] = I("hotelFromtime");
@@ -67,7 +67,7 @@ class HotelsModel extends BaseModel {
 		$data["hotelName"] = I("hotelName");
 		$data["hotelImg"] = I("hotelImg");
 		// $data["hotelThumbs"] = I("hotelThumbs");
-		$data["hotelEnglishName"] = I("hotelEnglishName");
+		// $data["hotelEnglishName"] = I("hotelEnglishName");
 		$data["hotelPhone"] = I("hotelPhone");
 		$data["hotelStar"] = (int)I("hotelStar");
 		$data["hotelType"] = I("hotelType");
@@ -75,7 +75,7 @@ class HotelsModel extends BaseModel {
 		$data["hotelRoomArea"] = I("hotelRoomArea");
 		$data["hotelBedSize"] = I("hotelBedSize");
 		$data["hotelAddress"] = I("hotelAddress");
-		$data["hotelEnglishAddress"] = I("hotelEnglishAddress");
+		// $data["hotelEnglishAddress"] = I("hotelEnglishAddress");
 		$data["hotelpark"] = I("hotelpark");
 		$data["hotelTntime"] = I("hotelTntime");
 		$data["hotelFromtime"] = I("hotelFromtime");

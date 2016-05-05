@@ -27,8 +27,7 @@ a {
 
 .cardPS {
   padding: 0px 0;
-  /* margin: 12px 0; */
-}
+  margin: 12px 0; }
 
 .pricecolor {
   color: #F77563; }
@@ -66,7 +65,7 @@ a {
     padding: 5%; }
 
 #content-index {
-  padding: 0 0px; }
+  padding: 0 5px; }
   #content-index .row {
     margin: 5px 0; }
 
@@ -446,5 +445,35 @@ a {
         text-align: center; }
         .content-result .card .successOrder p a {
           color: #58B4CC; }
+
+.zjycontop {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10;
+  font-size: 16px;
+  padding: 10px;
+  color: #185694; }
+  .zjycontop i {
+    font-size: 25px; }
+
+.zjyconcatetitle {
+  margin: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #0381FF; }
+
+.zjyconcatelist {
+  padding: 8px; }
+  .zjyconcatelist .zjycontent {
+    margin: 18px 0; }
+    .zjyconcatelist .zjycontent .zjycontenttitle {
+      font-size: 16px;
+      color: #7DA9E1;
+      margin: 5px 0; }
+    .zjyconcatelist .zjycontent .zjycontentmsg {
+      padding: 5px;
+      color: #888;
+      line-height: 23px; }
 
 /*# sourceMappingURL=custom.css.map */

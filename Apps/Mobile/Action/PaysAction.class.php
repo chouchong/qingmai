@@ -8,6 +8,7 @@ import("secureUtil",dirname(__FILE__),".php");
 use Org\Pay\UnionPay;
 use Org\Pay\AliPay;
 use Org\Pay\WxPay;
+use Tools\YunpianSms;
 class PaysAction extends BaseAction {
   /**
    * 支付选择
@@ -16,6 +17,14 @@ class PaysAction extends BaseAction {
     $this->isLogin();
     C('TOKEN_ON',false);
     $this->order = D('Mobile/Orders')->OrdersDetail()[0];
+    $sms = new YunpianSms();
+
+    $data=array(
+      'tpl_id'=>'1357521',
+      'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+      'mobile'=>session('Users')['userPhone']
+    );
+    $object = $sms->yp_send_tpl($data);
     $this->view->display('/tpl/pay');
   }
   /**
@@ -71,6 +80,14 @@ class PaysAction extends BaseAction {
   public function UnionPayGo(){
     $Uniopay = new \Org\Pay\UnionPay();
     if($Uniopay->Check($_POST)){    //验证
+      $sms = new YunpianSms();
+
+      $data=array(
+        'tpl_id'=>'1357523',
+        'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+        'mobile'=>session('Users')['userPhone']
+      );
+      $sms->yp_send_tpl($data);
       D('Mobile/Pays')->editOrder($_POST['orderId']);
     }else{
       echo "失败";
@@ -180,6 +197,14 @@ class PaysAction extends BaseAction {
       } else {
         // 此处应该更新一下订单状态，商户自行增删操作
         $order = $notify->getData();
+        $sms = new YunpianSms();
+
+        $data=array(
+          'tpl_id'=>'1357523',
+          'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+          'mobile'=>session('Users')['userPhone']
+        );
+        $sms->yp_send_tpl($data);
         D('Mobile/Pays')->editOrder($order["out_trade_no"]);
       }
     }

@@ -69,7 +69,9 @@
                           <?php if($vo["goodsType"] == 1): if($vo["orderStatus"] == 2): ?>待评论<?php endif; endif; ?>
                           <?php if($vo["orderStatus"] == 3): ?>已完成<?php endif; ?>
                       </td>
-                      <td><button class="btn btn-primary" onclick="getdetail(<?php echo ($vo[orderId]); ?>)">订单详情</button>
+                      <td>
+                        <button class="btn btn-primary" onclick="addresDetail(<?php echo ($vo[orderId]); ?>)">地址详情</button>
+                        <button class="btn btn-primary" onclick="getdetail(<?php echo ($vo[orderId]); ?>)">订单详情</button>
                      <?php if($vo["goodsType"] == 1): if($vo["orderStatus"] > 1): ?><button class="btn btn-primary" onclick="getCar(<?php echo ($vo[orderId]); ?>)">驾驶证</button> <button class="btn btn-primary" onclick="getinsureds(<?php echo ($vo[orderId]); ?>)">被保险人</button></td><?php endif; endif; ?>
                     </tr><?php endforeach; endif; else: echo "" ;endif; ?>
            </tbody>
@@ -126,6 +128,19 @@
               </table>
             </div>
               <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 94%;margin-bottom: 10px">关闭</button>
+          </div>
+        </div>
+      </div>
+       <!-- 送货地址详情模态框 -->
+       <div class="modal fade" id="addresDetail" tabindex="-1" role="dialog" aria-labelledby="drivesTimePriceLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 1000px">
+              <h4 class="modal-title" id="drivesTimePriceLabel" style="margin-left: 45%;margin-top: 10px">地址详情</h4>
+            <div class="modal-body">
+              <table class="table table-hover addresDetail">
+              </table>
+            </div>
+            <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 94%;margin-bottom: 10px">关闭</button>
           </div>
         </div>
       </div>
@@ -221,6 +236,34 @@
           }
         });
       }
+        // 地址详情模态框弹出显示
+     function addresDetail(orderId){
+       $('#addresDetail').modal('show');
+       $.ajax({
+          url: "<?php echo U('Admin/Orders/addresDetail');?>",
+          type: "POST",
+          async:false,
+          data:{orderId:orderId},
+          success: function(data){
+            console.log(data);
+           var html = "<tr><td>&nbsp;订单号：</td><td>"+data[0]['orderNo']+"</td></tr>";
+           if(data[0]['userName']!=''){
+            html +='<tr><td>用户姓名：</td><td>'+data[0]['userName']+'</td></tr>'
+           }
+           if(data[0]['userPhone']!=''){
+            html +='<tr><td>用户电话：</td><td>'+data[0]['userPhone']+'</td></tr>'
+           }
+           if(data[0]['address']!=''){
+            html +='<tr><td>用户地址：</td><td>'+data[0]['address']+'</td></tr>'
+           }
+           $(".addresDetail").html(html);
+          } ,
+          error: function(){
+            Plugins.Tips({title:'信息提示',icon:'error',content:'订单地址详情加载失败!',timeout:2000});
+          }
+        });
+      }
+
     </script>
    </body>
 </html>

@@ -113,6 +113,16 @@ class OrdersModel extends BaseModel {
         $data=$this->query($sql);
      	return $data;
      }
+      /**
+	  * 获取地址详情
+	 */
+     public function addresDetail(){
+        $orderId=I('orderId');
+        $sql="select dt_orders.addressId,dt_orders.orderId,dt_orders.orderNo,dt_user_address.userName,dt_user_address.userPhone,dt_user_address.address from dt_orders left join dt_user_address  on  dt_orders.addressId=dt_user_address.addressId where orderId=".$orderId;
+        $data=$this->query($sql);
+     	 return $data;
+     }
+
 	 /**
 	  * 获取退款列表
 	  */
@@ -181,7 +191,7 @@ class OrdersModel extends BaseModel {
 	   	$orderNo = I('orderNo');
 	   	$orderStatus = I('orderStatus','-9999');
 	   	$goodsType = I('goodsType','-9999');
-		 	$sql = "select o.*,u.userName from dt_orders as o left join dt_users as u on u.userId=o.userId  where o.totalMoney > 0";
+		 	$sql = "select o.*,u.userName from dt_orders as o left join dt_users as u on u.userId=o.userId  where o.totalMoney > 0 and addressId>0";
 		 	if($orderNo)$sql.=" and orderNo like "."'%$orderNo%'";
 		 	if($orderStatus!='-9999')$sql.=" and orderStatus=".$orderStatus;
 		 	if($goodsType!='-9999')$sql.=" and goodsType=".$goodsType;
