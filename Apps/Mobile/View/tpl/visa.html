@@ -34,44 +34,16 @@
             办理{$visa.visaName}所需资料
         </div>
          <div style="padding:10px;">
-                <p>您只需准备1.【护照原件】2.【照片四张】3.【身份证】</p><br/>
-                <p>
-                【身份证 正反面复印件一份】
-                护照完整无损、无水渍（请去掉护照套）
-                </p><br/>
-                <p>
-                【护照原件】
-                护照有效期大于6个月、成人儿童一样
-                至少需有4页完整的空白签证页（不包含备注页）
-                </p><br/>
-                <p>
-                【照片】
-                证件照两张 规格35MMX45MM
-                本人近6个月内彩色白底照片4张
-                五官端正清晰、耳朵外露、不露肩膀、不能戴配饰
-                请用圆珠笔在照片背面写上您的名字
-                </p><br/>
-                <p>
-                建议：在送交或邮寄出护照前请复印或拍摄护照重要
-                页面、以备不时之需！
-                </p><br/>
-                <p>
-                以下情况不可办理：
-                由于客人自身原因护照有DT记录/两次或多次借证记
-                录/境外延期被罚款/假签证等（需要退回订单并且邮
-                费自理、敬请谅解！）
-                </p>
+                <{$visa.visaDesc|htmlspecialchars_decode}
             </div>
     </div>
     <div class="card">
         <span style="background:#FFD679;width:100%;display:block; padding:3px 0 0 10px;height: 35px;line-height: 30px;">办理时段</span>
             <div style="padding:10px;">
-                <p style="color:#FFD679;">
-                    特别提示：由于两国签证需分别办理，请于出发日期前15天递交或邮寄所需资料
-                </p>
+                {$visa.visaTimeManagent|htmlspecialchars_decode}
             </div>
     </div>
-    <div class="card">
+    <!-- <div class="card">
     <div class="item item-text-wrap" style="padding:0;">
             <span style="background:#6CC5DC;width:100%;display:block; padding:3px 0 0 10px;height: 40px;line-height: 35px;">您可以选择以下三种方式办理：</span>
             <div class="list">
@@ -82,7 +54,6 @@
                         </p>
                     </div>
                 </label>
-                <!-- <hr> -->
                 <label class="item item-input item-floating-label">
                     <div style="padding:10px;">
                         <p style="">
@@ -90,7 +61,6 @@
                         </p>
                     </div>
                 </label>
-                <!-- <hr> -->
                 <label class="item item-input item-floating-label">
                     <div style="padding:10px;">
                         <p style="">
@@ -99,7 +69,7 @@
                     </div>
                 </label>
             </div></div>
-    </div>
+    </div> -->
     <div class="card" id="visacard" style="">
         <div class="item item-text-wrap" style="padding:0;">
             <span style="background:#6CC5DC;width:100%;display:block; padding:3px 0 0 10px;height: 40px;line-height: 35px;">填写信息</span>
@@ -184,8 +154,8 @@
         <label class="item item-input item-floating-label" style="text-align: center;">
             <p>付款后请将所需资料仔细检查备齐后寄送至：</p>
             <p>昆明市穿金路白汁小区11-3栋</p>
-            <p>昆明春秋国际旅行社有限公司 泰老签（收）</p>
-            <p>13888222888 0871-65096386</p>
+            <p>昆明春秋国际旅行社有限公司 签证中心（收）</p>
+            <p>13888425668 0871-65096386</p>
             <p>邮费自理</p>
         </label>
         </div>

@@ -17,6 +17,7 @@ $(function() {
                 dataday = '0' + dataday;
             }
             $('#selectedDay').val($("#currentMonth").html() + '-' + dataday);
+            $('#goTimeday').html($("#currentMonth").html() + '-' + dataday);
             $.ajax({
                 url: '/Mobile/Drives/getTp',
                 type: "post",

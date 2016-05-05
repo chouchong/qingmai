@@ -85,7 +85,7 @@
             </div>
             <div class="row" style="text-align: center;">
                 <div class="item item-text-wrap">
-                    <p>本起价是按2位成人参加{$daytime}出发的产品，并入住同一间房间的单人价格。</p>
+                    <p>本起价是按2位成人参加<span id="goTimeday">{$daytime}</span>出发的产品，并入住同一间房间的单人价格。</p>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="row" style="padding: 0;">
             <div style="width:100%;padding:5px; padding: 0;">
-                <p style="text-align: center;">资讯热线0871-65096417/65096418</p>
+                <p style="text-align: center;">资讯热线{$CONF.phoneNo}</p>
                 <p>
                     <a href="#order">
                         <button ng-click="openDPopover()" class="button button-block button-calm">用户如需前往本部报名 点击这里</button>
@@ -153,7 +153,7 @@
                     <input id="roomNum" type="text" readonly="true" class="spinnerExample" />
                 </div>
                 <div style="width:33%; float:left;text-align: right;color: red;display: none;">
-                    <span id="roomPrice" style="">{$drive.homePrice}</span>&nbsp;元/人
+                    <span id="roomPrice" style="">{$drive.homePrice}</span>&nbsp;单房差
                 </div>
             </ion-item>
             <ion-item style="font-size: 20px;">
@@ -205,39 +205,36 @@
             </div>
         </div>
         <if condition="$drive['drivesVisa'] gt 0">
-        <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="100%">
-            </div>
-            <div class="col col-80">
-                <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好泰国老挝两国签证。或在出行前15日交由我社代办、详见下方惠享代办所需资料说明！</p>
-            </div>
-        </div>
-        </if>
-        <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="100%">
-            </div>
-            <div class="col col-80">
-                <p style="font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
-            </div>
-        </div>
-        <if condition="$drive['drivesVisa'] gt 0">
+        <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
+    margin: 0 20px;color: #000;">报名所需资料</span>护照及签证：有效期内护照及目的地签证</p>
+                <p>
         <div class="row" style="padding: 0;margin: 20px 0 30px 0;">
             <div style="width:100%;padding: 0;">
-                <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
-    margin: 0 20px;color: #000;">所需资料</span>护照及签证：有效期内护照及泰国老挝两国签证</p>
-                <p>
                     <a ng-click="visa({$drive['drivesVisa']})">
-                        <button class="button button-block button-calm">惠享400元代办两国签证 点击这里</button>
+                        <button class="button button-block button-calm">签证服务</button>
                     </a>
-                </p>
-                <p style="text-align: center;font-size: 14px;">
-                    代办签证限报名用户 昆明三环内提供上门取件
                 </p>
             </div>
         </div>
         </if>
+        <if condition="$drive['drivesVisa'] gt 0">
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="75px">
+            </div>
+            <div class="col col-80">
+                <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
+            </div>
+        </div>
+        </if>
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="75px">
+            </div>
+            <div class="col col-80">
+                <p style="line-height:70px;font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
+            </div>
+        </div>
         <div class="row ">
             <span style="color: #555;font-size: 20px;">酒店信息</span>
         </div>
@@ -279,7 +276,7 @@
                 <div class="item item-text-wrap">
                     <h2>行车地图</h2>
                     <img ng-click="openMPopover()" src="/{$drive['drivesMap']}" style="margin: 5px 0;" width="100%">
-                    <p style="margin: 5px 0;">以下行程已部分包含及推荐清迈必游的TOP10景点</p>
+                    <!-- <p style="margin: 5px 0;">以下行程已部分包含及推荐清迈必游的TOP10景点</p> -->
                 </div>
                 <volist name="drive['articles']" id="at">
                     <div class="xcmessage">
@@ -449,10 +446,10 @@
                         <p>{{go.placeName}}</<p>
                         <p style="text-align: right;">{{go.placePhone}}</p>
                     </div>
-                    <div class="item item-text-wrap" style="text-align: center;">
+                    <!-- <div class="item item-text-wrap" style="text-align: center;">
                         <p>报名时间：周一至周五09:00——17:00</p>
                         <p>如需本部代办签证、请阅读惠享代办签证所需资料</p>
-                    </div>
+                    </div> -->
                 </div>
             </ion-content>
         </ion-modal-view>
