@@ -10,10 +10,11 @@
 <include file="tpl:nav" />
 <!-- content -->
 <form name="visaAddress" novalidate>
+<input type="hidden" value="{$visa['visaId']}" id="dvisaId">
 <ion-content id="content-index" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
     <div class="card">
         <div class="item item-text-wrap" style="background:#6CC5DC;color:#fff;">
-            {$visa.visaName}基本信息说明
+            <span id="dvisaName">{$visa.visaName}</span>基本信息说明
         </div>
         <div class="item item-text-wrap">
             签证类型

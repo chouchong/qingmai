@@ -471,10 +471,11 @@
       $scope.isVisa = {};
       $scope.visaData = {};
       $scope.addVisa = function() {
-        $scope.visaData.goodsName = "签证办理";
+        $scope.visaData.goodsName = $('#dvisaName').html();
         $scope.visaData.manPrice = $('#visaPrice').html();
         $scope.visaData.manNum = $('#visaNum').val();
         $scope.visaData.totalPrice = $('#totalPrice').html();
+        $scope.visaData.visaId = $('#dvisaId').val();
         $scope.visaData.orderType = 3;
         $scope.visaData.addressId = $('#addressId').val();
         $scope.visaData.isUser = $scope.isVisa;

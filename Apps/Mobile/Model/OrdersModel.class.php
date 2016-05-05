@@ -141,7 +141,7 @@ class OrdersModel extends BaseModel {
     $data['orderNo'] = 'E'.time();
     $data['goodsType'] = I('orderType');
     $data["createTime"] = date('Y-m-d H:i:s');
-    
+
     $data['toTime'] = $daytime;
     $data['endTime'] = $daytime;
     $data['orderStatus'] = 0;
@@ -152,6 +152,7 @@ class OrdersModel extends BaseModel {
     $data['addressId'] = I('addressId');//1
     $good['drivesId'] = I('drivesId');
     $good['goodsId'] = I('goodsId');
+    $good['visaId'] = I('visaId');
     $good['drivesType'] = I('drivesType');
     $good['drivesDay'] = $day;
     $good['drivesTo'] = I('drivesFrom','');
