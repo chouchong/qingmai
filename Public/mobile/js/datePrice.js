@@ -7,7 +7,7 @@ var allMonths = [{ "n": "1", "dateY": "2016","dateM":"3","alldays": "35", "days"
 var isbgeinSell = true;
 
 var today = new Date();
-
+var drivesdayNum = 2;
 var drivesId;
 var bgeinSellday;
 var dateServer = [];
@@ -38,7 +38,7 @@ $(function() {
 function init(){
     drivesId = $('#drivesId').val();
     today = new Date($('#daytime').val().replace(/-/g, '/'));
-    bgeinSellday = new Date(today.getFullYear(),today.getMonth(),today.getDate()+14);
+    bgeinSellday = new Date(today.getFullYear(),today.getMonth(),today.getDate()+drivesdayNum);
     // console.log(today.toLocaleString());
 }
 
@@ -108,7 +108,7 @@ function addDay(date, price, tickets, id) {
     } else if(isbgeinSell){
                 htmls = htmls + '<div class="col col-14"><p class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +
-            '</p><p class="ticket">已售</p><span class="timeId">'+id+'</span></div>';
+            '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else {
         htmls = htmls + '<div class="col col-14"><p  class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +

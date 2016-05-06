@@ -7,7 +7,7 @@
 <include file="tpl:nav" />
 <!-- content -->
 <form name="myAddress" novalidate>
-<ion-content overflow-scroll="false" id="content-index" class="scroll-content has-header" style="    background: #f5f5f5;">
+<ion-content on-scroll="hiDiv()" overflow-scroll="false" id="content-index" class="scroll-content has-header" style="    background: #f5f5f5;">
 <input type="hidden" id="orderId" value="{$orderId}" />
     <div class="row" style=" padding: 8px;margin-bottom: 8px;">
         <div class="" style=" line-height: 180%;width: 100%;    background: #fff; padding:8px;">
@@ -49,7 +49,7 @@
         </div>
         <if condition="$obj['roomPrice'] gt 0 ">
             <div class="item item-text-wrap">
-                单房差
+                总单房差
                 <span style="float:right;">￥<span>{$obj['roomNum']*2*$obj['roomPrice']-$obj['adultNum']*$obj['roomPrice']}</span>元</span>
             </div>
         </if>
@@ -112,7 +112,7 @@
                     </span>
                 </label>
                 <label class="item item-input item-floating-label">
-                    <span>您的地址&nbsp;&nbsp;<span style="font-size: 70%;color: #FF5F5F;">用于接收赠送礼盒</span></span>
+                    <span>您的地址&nbsp;&nbsp;</span>
                     <input type="text" placeholder="请输入您的地址"  ng-model="isUser.address" id="userisAddress" required name="address">
                     <span ng-show="myAddress.address.$dirty && myAddress.address.$invalid">
                         <i ng-show="myAddress.address.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>

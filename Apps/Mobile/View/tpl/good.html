@@ -12,7 +12,7 @@
 <include file="tpl:nav" /> >
 <!-- content -->
 <form name="myAddress" novalidate>
-<ion-content overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
+<ion-content on-scroll="hiDiv()" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
     <div class="card">
         <div class="item item-divider">
             <input type="hidden" id="goodsId" value="{$goodsId}" />
@@ -48,10 +48,11 @@
         </div>
         <div class="row" style="text-align: center;">
             <div class="item item-text-wrap">
-                <p>选择日期需从今日<span id="today" style="color:#c00;">{$datetime}</span>后三天起开始选择</p>
+                <p>选择日期需从今日<span id="today" style="color:#c00;">{$datetime}</span>后一天起开始选择</p>
             </div>
         </div>
     </div>
+    <notempty name="good.attrPrice">
     <div class="card">
         <div class="item item-divider">
             选择套餐
@@ -64,18 +65,21 @@
             </volist>
         </div>
     </div>
+    </notempty>
+    <notempty name="good.attrfd">
     <div class="card">
         <div class="item item-divider">
             选择分店
         </div>
         <div class="item item-text-wrap scenicShop">
-        <volist name="good.attrPrice" id="vo">
+        <volist name="good.attrfd" id="vo">
             <div class="scenicShops" >
                 <button class="button button-outline button-stable">{$vo.attrVal}</button>
             </div>
         </volist>
         </div>
     </div>
+    </notempty>
     <div class="card">
         <ion-item >
         <input type="hidden" id="selectedDay" />
@@ -151,7 +155,7 @@
                     </span>
                 </label>
                 <label class="item item-input item-floating-label">
-                    <span>您的地址&nbsp;&nbsp;<span style="font-size: 70%;color: #FF5F5F;">用于接收赠送礼盒</span></span>
+                    <span>您的地址&nbsp;&nbsp;</span>
                     <input type="text" placeholder="请输入您的地址"  ng-model="isUser.address" id="userisAddress" required name="address">
                     <span ng-show="myAddress.address.$dirty && myAddress.address.$invalid">
                         <i ng-show="myAddress.address.$error.required" class="icon ion-android-alert placeholder-icon loginrei" style="color: red;"></i>

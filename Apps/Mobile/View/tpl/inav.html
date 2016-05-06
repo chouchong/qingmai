@@ -21,3 +21,13 @@
     </a>
     <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
 </ion-header-bar>
+<script>
+    $(function(){
+        $("ion-content").click(function(event) {
+            var traget = document.getElementById("myuser");
+              if(traget.style.display == ""){
+                 traget.style.display = "none";
+             }
+        });
+    })
+</script>

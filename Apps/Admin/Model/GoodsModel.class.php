@@ -5,7 +5,6 @@
  * 门票服务类
  */
 class GoodsModel extends BaseModel {
-    
 	/**
 	 * 获取门票信息
 	 */
@@ -16,45 +15,12 @@ class GoodsModel extends BaseModel {
 		//相册
 		$m = M('goods_gallerys');
 		$goods['gallery'] = $m->where('goodsId='.$id)->select();
-		//商城分类
-		$sql = "select c1.catName goodsName1,c2.catName goodsName2,c3.catName goodsName3
-		        from __PREFIX__goods_cats c3 , __PREFIX__goods_cats c2,__PREFIX__goods_cats c1
-		        where c3.parentId=c2.catId and c2.parentId=c1.catId and c3.catId=".$goods['goodsCatId3'];
-		$rs = $this->query($sql);
-		$goods['goodsCats'] = $rs[0];
-		//店铺分类
-		$sql = "select c1.catName goodsName1,c2.catName goodsName2
-		        from __PREFIX__shops_cats c2 ,__PREFIX__shops_cats c1
-		        where c2.parentId=c1.catId and c2.catId=".$goods['shopCatId2'];
-		$rs = $this->query($sql);
-		$goods['shopCats'] = $rs[0];
-		//属性
-		if($goods['attrCatId']>0){
-			$sql = "select catName from __PREFIX__attribute_cats where catId=".$goods['attrCatId'];
-			$rs = $this->query($sql);
-		    $goods['attrCatName'] = $rs[0]['catName'];
-			//获取规格属性
-			$sql = "select ga.attrVal,ga.attrPrice,ga.attrStock,a.attrId,a.attrName,a.isPriceAttr,ga.isRecomm
-			            ,ga.isRecomm from __PREFIX__attributes a 
-			            left join __PREFIX__goods_attributes ga on ga.attrId=a.attrId and ga.goodsId=".$id." where  
-						a.attrFlag=1 and a.catId=".$goods['attrCatId']." and a.shopId=".$goods['shopId'];
-			$attrRs = $m->query($sql);
-			if(!empty($attrRs)){
-				$priceAttr = array();
-				$attrs = array();
-				foreach ($attrRs as $key =>$v){
-					if($v['isPriceAttr']==1){
-						$goods['priceAttrName'] = $v['attrName'];
-						$priceAttr[] = $v;
-					}else{
-						$v['attrContent'] = $v['attrVal'];
-						$attrs[] = $v;
-					}
-				}
-				$goods['priceAttrs'] = $priceAttr;
-				$goods['attrs'] = $attrs;
-			}
-		}
+		$labelsIds = array();
+    $labelsgoods = M('goods_labels')->where(array('goodsId'=>$id))->select();
+      for ($i=0; $i <count($labelsgoods); $i++) {
+        $labelsIds[]=$labelsgoods[$i]['labelsId'];
+      }
+    $goods['labelsIds']=implode(",", $labelsIds);
 		return $goods;
 	 }
 	 /**
@@ -210,12 +176,23 @@ class GoodsModel extends BaseModel {
 		$data["goodsStatus"] = ($GLOBALS['CONFIG']['isGoodsVerify']==1)?0:1;
 		$data["goodsFlag"] = 1;
 		$data["createTime"] = date('Y-m-d H:i:s');
+		$labelsIds = I("labelsIds");
 		if($this->checkEmpty($data,true)){
 			$data["goodsSpec"] = I("goodsSpec",'',false);
 			$data["goodsKeywords"] = I("goodsKeywords",'',false);
 			$m = M('goods');
 			$goodsId = $m->add($data);
 			if(false !== $goodsId){
+				if($labelsIds!=''){
+            $strway = explode(',',$labelsIds);
+            foreach ($strway as $k => $v){
+              $label['labelsId'] = $v;
+              $label['goodsId'] = $goodsId;
+              $m = M('goods_labels');
+              $m->add($label);
+              $rd['status']=1;
+            }
+          }
 				//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){
@@ -265,12 +242,24 @@ class GoodsModel extends BaseModel {
 		$data["goodsStatus"] = ($GLOBALS['CONFIG']['isGoodsVerify']==1)?0:1;
 		$data["goodsFlag"] = 1;
 		$data["createTime"] = date('Y-m-d H:i:s');
+		$labelsIds = I("labelsIds");
 		if($this->checkEmpty($data,true)){
 			$data["goodsSpec"] = I("goodsSpec");
 			$data["goodsKeywords"] = I("goodsKeywords");
 			$m = M('goods');
 			$rs = $m->where('goodsId='.$goodsId)->save($data);
 			if(false !== $rs){
+				M('goods_labels')->where('goodsId='.$goodsId)->delete();
+				if($labelsIds!=''){
+            $strway = explode(',',$labelsIds);
+            foreach ($strway as $k => $v){
+              $label['labelsId'] = $v;
+              $label['goodsId'] = $goodsId;
+              $m = M('goods_labels');
+              $m->add($label);
+              $rd['status']=1;
+            }
+          }
 				//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){

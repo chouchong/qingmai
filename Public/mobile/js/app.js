@@ -29,6 +29,10 @@
           traget.style.display = "none";
         }
       }
+      $rootScope.hiDiv = function() {
+        var traget = document.getElementById("myuser");
+        traget.style.display = "none";
+      }
       $ionicPlatform.ready(function() {
         if (window.cordova && window.cordova.plugins.Keyboard) {
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -68,7 +72,7 @@
         serviceHttp.UserLogin($scope.user).success(function(data) {
           if (data.status > 0) {
             if (url == '') {
-              window.location.href = '/Mobile/Users';
+              window.location.href = '/Mobile';
             } else {
               window.location.href = url;
             }
@@ -126,7 +130,7 @@
         serviceHttp.UserAdd($scope.user).success(function(data) {
           if (data.status > 0) {
             if (url == '') {
-              window.location.href = '/Mobile/Users';
+              window.location.href = '/Mobile';
             } else {
               window.location.href = url;
             }
@@ -652,7 +656,7 @@
         $scope.serverSideList = [{
           text: "微信",
           imgsrc: "img/weixin.png",
-          desc: "推荐支付宝的用户",
+          desc: "推荐微信的用户",
           value: "2"
         }, {
           text: "银联",
@@ -726,7 +730,7 @@
           }
         }
     }])
-    .controller("orCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+    .controller("orCtrl", ['$rootScope', '$scope','$ionicPopup', 'serviceHttp', function($rootScope, $scope, $ionicPopup, serviceHttp) {
       $scope.page = 0;
       $scope.isfresh = false;
       $scope.oList = [];
@@ -743,12 +747,22 @@
         });
       };
       $scope.orDel = function(vo, index) {
-        serviceHttp.orDel({
-          orderId: vo.orderId
-        }).success(function(data) {
-          if (data.status > 0) {
-            $rootScope.msg('取消成功');
-            $scope.oList.splice(index, 1);
+        var confirmPopup = $ionicPopup.confirm({
+          title: '确认是否取消订单',
+          cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+          okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+        });
+        confirmPopup.then(function(res) {
+          if (res) {
+            serviceHttp.orDel({
+              orderId: vo.orderId
+            }).success(function(data) {
+              if (data.status > 0) {
+                $scope.oList.splice(index, 1);
+              }else{
+                $rootScope.msg('取消失败');
+              }
+            });
           }
         });
       };

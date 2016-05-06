@@ -20,7 +20,7 @@ $(function(){
        var todayDate = new Date($("#today").html().replace(/-/g, '/'));
         var dateSelectDay = new Date($(this).children(".dateSelectDay").attr("id").replace(/-/g, '/'));
         var time = dateSelectDay - todayDate.getTime() ; //日期的long型值之差
-        if(Math.floor(time/(24*60*60*1000)) >= 3){
+        if(Math.floor(time/(24*60*60*1000)) >= 1){
             $(".selected").removeClass("selected");
             $(this).children(".dateSelectDay").addClass("selected");
             selectedDate = dateSelectDay;
@@ -30,6 +30,7 @@ $(function(){
             dataday = '0'+dataday;
         }
         $('#selectedDay').val($("#currentMonth").html()+'-'+dataday);
+        $('#today').html($("#currentMonth").html()+'-'+dataday);
     });
     _click('manNum');_click('childNum');
     //点击时间列表 点击函数

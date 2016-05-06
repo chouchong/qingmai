@@ -16,7 +16,7 @@
 <block name="main">
 <div ng-app="myApp">
     <include file="tpl:nav" />
-    <ion-content  class="scroll-content has-header" style="background: #f5f5f5;">
+    <ion-content on-scroll="hiDiv()"  class="scroll-content has-header" style="background: #f5f5f5;">
     <form ng-controller="userNmCtrl">
         <div class="card">
             <div class="list">

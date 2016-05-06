@@ -14,7 +14,7 @@ class DrivesModel extends BaseModel {
       $m = M('drives');
       $data = $m->field('drivesId,drivesImg,adultPrice,drivesDesc')->where('isSola=1')->order('drivesId desc')->limit(3)->select();
       for ($i=0; $i < count($data); $i++) {
-        $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (10 * 24 * 60 * 60))))->find();
+        $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();
       }
       return $data;
     }
@@ -25,7 +25,7 @@ class DrivesModel extends BaseModel {
     {
       $m = M('drives');
       $data =  $m->where('drivesId='.I('drivesId'))->find();
-      $data['tp'] = M('drives_timeprice')->where(array('drivesId' => I('drivesId'),'daydata'=> date('Y-m-d', time() + (10 * 24 * 60 * 60))))->find();
+      $data['tp'] = M('drives_timeprice')->where(array('drivesId' => I('drivesId'),'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();
       $isWaySql = "SELECT h.hotelId,h.hotelDesc,h.hotelImg from __PREFIX__drives_hotels AS dh RIGHT JOIN __PREFIX__hotel AS h on dh.hotelsId=h.hotelId WHERE dh.drivesId=".I('drivesId')." AND dh.isWay=1";
       $data['isWay'] = $this->query($isWaySql);
       $noWaySql = "SELECT h.hotelId,h.hotelDesc,h.hotelStar,h.hotelName from __PREFIX__drives_hotels AS dh RIGHT JOIN __PREFIX__hotel AS h on dh.hotelsId=h.hotelId WHERE dh.drivesId=".I('drivesId')." AND dh.isWay=0";
@@ -37,6 +37,10 @@ class DrivesModel extends BaseModel {
       $data['articles'] = $this->query($atSQl);
       $goodsSQl = "SELECT g.goodsId,g.goodsImg,g.goodsName,g.adultPrice,g.isRecomm,g.isBest,g.isNew FROM __PREFIX__drives_goods AS dg RIGHT JOIN __PREFIX__goods AS g on dg.goodsId = g.goodsId WHERE dg.drivesId = ".I('drivesId');
       $data['goods'] = $this->query($goodsSQl);
+      for ($i=0; $i <count($data['goods']); $i++) {
+        $goodsLaSql = 'SELECT l.name FROM __PREFIX__goods_labels AS gl LEFT JOIN __PREFIX__labels AS l ON gl.labelsId = l.id WHERE gl.goodsId = '.$data['goods'][$i]['goodsId'];
+        $data['goods'][$i]['labels'] = $this->query($goodsLaSql);
+      }
       $apSQL = "SELECT a.*,u.userName FROM __PREFIX__drives_appraises AS a LEFT JOIN __PREFIX__users AS u ON a.userId = u.userId WHERE a.drivesId = ".I('drivesId')." ORDER BY a.drivesScore LIMIT 3";
       $data['ap'] = $this->query($apSQL);
       $data['apcount'] = M('drives_appraises')->where(array('drivesId' => I('drivesId')))->count();

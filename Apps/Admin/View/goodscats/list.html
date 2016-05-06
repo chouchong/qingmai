@@ -120,13 +120,13 @@
                </td>
                <td>
                <php>if(in_array('spfl_01',$WST_STAFF['grant'])){</php>
-               <a class="btn btn-default glyphicon glyphicon-plus" href="{:U('Admin/GoodsCats/toEdit',array('parentId'=>$vo['catId']))}"">新增子分类</a>&nbsp;
+               <a class="btn btn-default glyphicon glyphicon-plus" href="{:U('Admin/GoodsCats/toEdit',array('parentId'=>$vo['catId']))}">新增子分类</a>&nbsp;
                <php>}</php>
                <php>if(in_array('spfl_02',$WST_STAFF['grant'])){</php>
                <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/GoodsCats/toEdit',array('id'=>$vo['catId']))}">修改</a>&nbsp;
                <php>}</php>
                <php>if(in_array('spfl_03',$WST_STAFF['grant'])){</php>
-               <a class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo['catId']},0)"">刪除</a>
+               <a class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo['catId']},0)">刪除</a>
                <php>}</php>
                </td>
              </tr>
@@ -165,7 +165,7 @@
 	               <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/GoodsCats/toEdit',array('id'=>$vo2['catId']))}">修改</a>&nbsp;
 	               <php>}</php>
 	               <php>if(in_array('spfl_03',$WST_STAFF['grant'])){</php>
-	               <a class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo2['catId']},0)"">刪除</a>
+	               <a class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo2['catId']},0)">刪除</a>
 	               <php>}</php>
 	               </td>
 	             </tr>
@@ -198,10 +198,10 @@
 		               </td>
 		               <td>
 		               <php>if(in_array('spfl_02',$WST_STAFF['grant'])){</php>
-		               <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/GoodsCats/toEdit',array('id'=>$vo3['catId']))}"">修改</a>&nbsp;
+		               <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/GoodsCats/toEdit',array('id'=>$vo3['catId']))}">修改</a>&nbsp;
 		               <php>}</php>
 		               <php>if(in_array('spfl_03',$WST_STAFF['grant'])){</php>
-		               <a class="btn btn-default glyphicon glyphicon-trash" href="javascript:del({$vo3['catId']},0)"">刪除</a>
+		               <a class="btn btn-default glyphicon glyphicon-trash" href="javascript:del({$vo3['catId']},0)">刪除</a>
 		               <php>}</php>
 		               </td>
 		             </tr>

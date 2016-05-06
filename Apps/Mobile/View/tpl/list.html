@@ -12,7 +12,7 @@
 </style>
 <div ng-app="myApp"  ng-controller="Ixctrl">
     <include file="tpl:inav" />
-    <ion-content overflow-scroll="false" id="content-index"class="scroll-content has-header " style="padding:0;" >
+    <ion-content on-scroll="hiDiv()" overflow-scroll="false" id="content-index"class="scroll-content has-header " style="padding:0;" >
     <!-- 首图 -->
         <div>
              <volist name="Ads" id="item">
@@ -84,7 +84,7 @@
         <div class="row contents" >
             <div class="col col-33" >
                 <div class="contentsdiv" >
-                    <a href="/Mobile/Articles/index/id/1"  >为什么选择<br/>发现旅行</a>
+                    <a href="/Mobile/Articles/index/id/1">为什么选择<br/>发现旅行</a>
                 </div>
             </div>
             <div class="col col-33" >
@@ -118,10 +118,10 @@
 
         <div class="row">
             <div class="col col-50" style="    padding: 10px;">
-                <img src="__PUBLIC__/Mobile/img/erweima.png" alt="" width="100%">
+                <img src="__PUBLIC__/Mobile/img/erweima.jpg" alt="" width="100%">
             </div>
             <div class="col col-50" style="    padding: 10px;">
-                <p>关注微信号 fanxianlvxing</p>
+                <p>关注微信号 gozztrip</p>
                 <p>也可以长按二维码保存图片</p>
                 <p>在微信“扫一扫”中打开图片关注</p>
             </div>

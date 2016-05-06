@@ -18,10 +18,10 @@ class GoodsAction extends BaseAction{
     $this->isLogin();
     $this->checkPrivelege('splb_01');
     $m = D('Admin/GoodsCats');
+    $this->labels=D('Admin/GoodsLabels')->queryByList();
     $this->assign('goodsCatsList',$m->queryByList());
     if(I('id')>0){
      $object = D('Admin/Goods')->get();
-     // var_dump($object);
      $this->assign('object',$object);
    }else{
      $this->checkPrivelege('splb_00');

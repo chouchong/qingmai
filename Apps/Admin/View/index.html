@@ -169,6 +169,9 @@
                                 <php>if(in_array('spfl_00',$WST_STAFF['grant'])){</php>
                                 <li><a href="{:U('Admin/GoodsCats/index')}" target='pageContent'>门票分类</a></li>
                                 <php>}</php>
+                                <php>if(in_array('spbq_00',$WST_STAFF['grant'])){</php>
+                                <li><a href="{:U('Admin/GoodsLabels/index')}" target='pageContent'>门票标签</a></li>
+                                <php>}</php>
                                 <php>if(in_array('splb_00',$WST_STAFF['grant'])){</php>
 					            <li><a href="{:U('Admin/Goods/index')}" target='pageContent'>门票列表</a></li>
 					            <php>}</php>

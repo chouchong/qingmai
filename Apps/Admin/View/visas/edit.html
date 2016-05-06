@@ -117,12 +117,12 @@
                <textarea style='width:80%;height:250px;' id='visaTimeManagent' name='visaTimeManagent'>{$object.visaTimeManagent}</textarea>
                </td>
              </tr>
-             <tr>
+             <!-- <tr>
                <th width='120'>签证办理方式<font color='red'>*</font>：</th>
                <td colspan='3'>
                <textarea style='width:80%;height:250px;' id='visaWay' name='visaWay'>{$object.visaWay}</textarea>
                </td>
-             </tr>
+             </tr> -->
              <tr>
                <td colspan='3' style='padding-left:320px;'>
                    <button class='wst-btn-query' type="submit">保&nbsp;存</button>
@@ -167,10 +167,10 @@
          WST.msg('请输入签证办理时间!', {icon: 5});
          return;
        }
-    if(params.visaWay==''){
-         WST.msg('请输入签证办理方式!', {icon: 5});
-         return;
-       }
+    // if(params.visaWay==''){
+    //      WST.msg('请输入签证办理方式!', {icon: 5});
+    //      return;
+    //    }
        if(params.visaDesc==''){
          WST.msg('请输入签证所需资料!', {icon: 5});
          return;

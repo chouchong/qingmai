@@ -37,7 +37,7 @@
 <div ng-app="myApp" ng-controller="drvCtrl">
     <include file="tpl:nav" />
     <!-- content -->
-    <ion-content id="content-index" class="scroll-content has-header" style="background: #f5f5f5;padding:8px;" delegate-handle="drivesScroll">
+    <ion-content on-scroll="hiDiv()" id="content-index" class="scroll-content has-header" style="background: #f5f5f5;padding:8px;" delegate-handle="drivesScroll">
         <!-- {__TOKEN__} -->
         <input type="hidden" id="drivesId" value="{$drivesId}" />
         <input type="hidden" id="daytime" value="{$daytime}" />
@@ -67,7 +67,7 @@
             <div class="item item-divider " style="background-color: #11c1f3;">
                 <div class="row" style="text-align: center;    margin: 0;">
                     <div class="col col-25" onclick="preMonth()"><i class="ion-chevron-left"></i></div>
-                    <div class="col col-50"><span id="currentMonth">2016-03</span></div>
+                    <div class="col col-50"><span id="currentMonth">{$daymtime}</span></div>
                     <div class="col col-25" onclick="nextMonth()"><i class="ion-chevron-right"></i></div>
                 </div>
             </div>
@@ -205,6 +205,24 @@
             </div>
         </div>
         <if condition="$drive['drivesVisa'] gt 0">
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="75px">
+            </div>
+            <div class="col col-80">
+                <p style="font-size: 15px;padding-top: 15px">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
+            </div>
+        </div>
+        </if>
+        <div class="row">
+            <div class="col col-20" style="text-align: right;">
+                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="75px">
+            </div>
+            <div class="col col-80">
+                <p style="line-height:70px;font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
+            </div>
+        </div>
+        <if condition="$drive['drivesVisa'] gt 0">
         <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
     margin: 0 20px;color: #000;">报名所需资料</span>护照及签证：有效期内护照及目的地签证</p>
                 <p>
@@ -217,24 +235,6 @@
             </div>
         </div>
         </if>
-        <if condition="$drive['drivesVisa'] gt 0">
-        <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="75px">
-            </div>
-            <div class="col col-80">
-                <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
-            </div>
-        </div>
-        </if>
-        <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="75px">
-            </div>
-            <div class="col col-80">
-                <p style="line-height:70px;font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
-            </div>
-        </div>
         <div class="row ">
             <span style="color: #555;font-size: 20px;">酒店信息</span>
         </div>
@@ -320,15 +320,9 @@
                        {$go.goodsName}
                     </p>
                     <p>
-                    <if condition="$go['isRecomm'] eq 1">
-                    <span class="jdtag">自驾游览</span>
-                    </if>
-                    <if condition="$go['isBest'] eq 1">
-                    <span class="jdtag">有趣</span>
-                    </if>
-                    <if condition="$go['isNew'] eq 1">
-                    <span class="jdtag">刺激</span>
-                    </if>
+                    <volist name="go.labels" id="gl">
+                        <span class="jdtag">{$gl.name}</span>
+                    </volist>
                         <span class="jdprice">￥{$go.adultPrice}</span></p>
                     <a href="{:U('Mobile/Goods/index',array('goodsId' =>$go['goodsId']))}"><img src="/{$go['goodsImg']}"></a>
                 </div>

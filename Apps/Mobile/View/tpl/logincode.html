@@ -13,7 +13,7 @@
 <block name="main">
 <div ng-app="myApp" ng-controller="codeCtrl">
 <!-- content -->
-<ion-content class=" scroll-content loginre">
+<ion-content on-scroll="hiDiv()" class=" scroll-content loginre">
     <div class="card">
     <input type="hidden" id="tocodeUrl" value="{$url}"/>
     <form name="mycodeForm" novalidate>

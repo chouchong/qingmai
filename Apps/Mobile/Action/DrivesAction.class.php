@@ -11,6 +11,7 @@ class DrivesAction extends BaseAction {
   public function index(){
     $this->drivesId =I('drivesId');
     $this->daytime = date('Y-m-d', time());
+    $this->daymtime = date('Y-m', time());
     $this->drive=D('Mobile/Drives')->drivesDetail();
     $this->view->display('/tpl/drive');
   }

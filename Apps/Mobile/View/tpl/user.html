@@ -6,7 +6,7 @@
 <div ng-app="myApp" ng-controller="userCtrl">
     <include file="tpl:nav" />
     <!-- content -->
-    <ion-content id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
+    <ion-content on-scroll="hiDiv()" id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
        <div class="card" style="">
            <div class="item item-text-wrap" >
                 <i class="iocn ion-android-happy" ></i>&nbsp;&nbsp;用户账号

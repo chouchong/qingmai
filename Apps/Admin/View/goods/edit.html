@@ -27,7 +27,11 @@
        <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/style.css" />
         <link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/webuploader/webuploader.css" />
         <script type="text/javascript" src="__PUBLIC__/plugins/webuploader/webuploader.js"></script>
-   
+       <style>
+        .checkbox{
+          margin-left: 25px;
+        }
+     </style>
    </head>
    <style>
     .wst-tab-box{width:100%; height:auto; margin:0px auto;}
@@ -46,7 +50,6 @@
        }
    var filetypes = ["gif","jpg","png","jpeg"];
    var UploadUrl = "{:U('Home/Base/uploadPic')}";
-   console.log(UploadUrl);
    function imglimouseover(obj){
   if(!$(obj).find('.file-panel').html()){
     $(obj).find('.setdel').addClass('trconb');
@@ -181,20 +184,10 @@ function delImg(obj){
                </td>
              </tr>
              <tr>
-               <th width='120'>门票属性：</th>
+               <th width='120'>门票标签：</th>
                <td height="50">
-               <label>
-               <input type='checkbox' id='isRecomm' name='isRecomm' <if condition="$object['isRecomm'] ==1 ">checked</if> value='1'/>自驾游览
-               </label>
-               <label>
-               <input type='checkbox' id='isBest' name='isBest' <if condition="$object['isBest'] ==1 ">checked</if> value='1'/>有趣
-               </label>
-               <label>
-               <input type='checkbox' id='isNew' name='isNew' <if condition="$object['isNew'] ==1 ">checked</if> value='1'/>刺激
-               </label>
-               <!-- <label> -->
-               <!-- <input type='checkbox' id='isHot' name='isHot' <if condition="$object['isHot'] ==1 ">checked</if> value='1'/>热销
-               </label> -->
+               <input type="hidden" id="labelsIds" value="">
+               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myLabels">请选择标签</button>
                </td>
              </tr>
 	           <tr>
@@ -389,8 +382,40 @@ function delImg(obj){
 	      </div>
        </div>
        </div>
+       <!-- Modal -->
+      <div class="modal fade" id="myLabels" tabindex="-1" role="dialog" aria-labelledby="myLabelsLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 1000px">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myLabelsLabel">标签内容</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+              <volist name="labels" id="vo" key='i'>
+                <div class="col-md-3" style="height: 50px;">
+                  <label class="checkbox">
+                    <input type="checkbox"  id="dt_labels_{$vo['id']}" class="labelsxz" value="{$vo['id']}"> {$vo['name']}
+                  </label>
+                </div>
+              </volist>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-primary" onclick="glSelect()">选择保存</button>
+            </div>
+          </div>
+        </div>
+      </div>
    </body>
    <script>
+   $(function () {
+    var grant = '{$object["labelsIds"]}'.split(',');
+     for(var i=0;i<grant.length;i++){
+      $('#dt_labels_'+grant[i]).prop('checked',true);
+     }
+   });
    function getCatListForEdit(objId,parentId,t,id){
      var params = {};
      params.id = parentId;
@@ -413,6 +438,23 @@ function delImg(obj){
       $('#'+objId).html(html.join(''));
      });
 }
+function glSelect(){
+    var labelsIds = [];
+    var num = true;
+     $('.labelsxz').each(function(){
+        if($(this).prop('checked'))labelsIds.push($(this).val());
+      });
+     labelsIds.join(',');
+     if(labelsIds.length > 3){
+       Plugins.Tips({title:'信息提示',icon:'error',content:'至多选择一个标签!',timeout:1000});
+       num = false;
+       return;
+     }
+     if(num == true){
+       $('#labelsIds').val(labelsIds);
+      $('#myLabels').modal('hide');
+     }
+   }
      function editGoods(menuId){
      var params = {};
      params.id = $('#id').val();
@@ -428,10 +470,8 @@ function delImg(obj){
      params.goodsCatId3 = $('#goodsCatId3').val();
      params.goodsArea = $('#goodsArea').val();
      params.isSale = $('input[name="isSale"]:checked').val();
-     params.isNew = $('input[name="isNew"]:checked').val();;
-     params.isBest = $('input[name="isBest"]:checked').val();;
-     params.isHot = $('input[name="isHot"]:checked').val();;
-     params.isRecomm = $('input[name="isRecomm"]:checked').val();;
+      params.labelsIds = $('#labelsIds').val();
+     params.isRecomm = $('input[name="isRecomm"]:checked').val();
      params.goodsDesc = $('#goodsDesc').val();
      params.goodsKeywords = $('#goodsKeywords').val();
      var gallery = [];
