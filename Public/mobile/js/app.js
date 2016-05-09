@@ -82,7 +82,7 @@
         })
       }
     }])
-    .controller('regCtrl', ['$scope', '$interval', '$rootScope', 'serviceHttp', function($scope, $interval, $rootScope, serviceHttp) {
+    .controller('regCtrl', ['$scope', '$interval', '$rootScope','$ionicPopover', 'serviceHttp', function($scope, $interval, $rootScope,$ionicPopover, serviceHttp) {
       $scope.text = '发送验证码';
       $scope.smsClass = 'messagetext';
       //短信发送
@@ -139,6 +139,22 @@
           }
         })
       }
+      //用户服务条款
+      $ionicPopover.fromTemplateUrl('mySer.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.Spopover = popover;
+      });
+      // 显示定制弹出框
+      $scope.openSPopover = function($event) {
+        serviceHttp.getArticle({articleId:33}).success(function(data){
+          $scope.articles = data;
+        });
+        $scope.Spopover.show($event);
+      };
+      $scope.closeSPopover = function() {
+        $scope.Spopover.hide();
+      };
     }])
     .controller('userCtrl', ['$scope', '$ionicPopup', 'serviceHttp', function($scope, $ionicPopup, serviceHttp) {
       //确认是否删除
@@ -257,7 +273,7 @@
         serviceHttp.toCode(scode).success(function(data) {
           if (data.status == 1) {
             if (url == '') {
-              window.location.href = '/Mobile/Users';
+              window.location.href = '/Mobile';
             } else {
               window.location.href = url;
             }
@@ -508,7 +524,23 @@
         }
       }
     }])
-    .controller("OrderDrvCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicScrollDelegate, serviceHttp) {
+    .controller("OrderDrvCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate','$ionicPopover', 'serviceHttp', function($rootScope, $scope, $ionicScrollDelegate,$ionicPopover, serviceHttp) {
+
+      $ionicPopover.fromTemplateUrl('Amsg.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.Apopover = popover;
+      });
+      // 显示定制弹出框
+      $scope.openAPopover = function($event) {
+        serviceHttp.getArticle({articleId:32}).success(function(data){
+          $scope.articles = data;
+        });
+        $scope.Apopover.show($event);
+      };
+      $scope.closeAPopover = function() {
+        $scope.Apopover.hide();
+      };
       $scope.isUser = {};
       $scope.showAddress = function() {
         $ionicScrollDelegate.resize();
@@ -912,6 +944,13 @@
         };
     }])
     .service('serviceHttp', ['$http', function($http) {
+      this.getArticle = function(data) {
+        return $http({
+          url: '/Mobile/Articles/getArticle',
+          method: "POST",
+          data: data
+        });
+      };
       this.orDel = function(data) {
         return $http({
           url: '/Mobile/Orders/orDel',

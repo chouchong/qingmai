@@ -13,5 +13,13 @@ class ArticlesModel extends BaseModel {
     $data['articles'] = M('articles')->where("catId=".(int)I('id',1))->select();
     return $data;
   }
+  /**
+   * 获取文章
+   */
+  public function getArticlesById(){
+    $data = M('articles')->where("articleId=".(int)I('articleId',1))->find();
+    return $data;
+  }
+
 }
 ?>

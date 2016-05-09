@@ -12,5 +12,12 @@ class ArticlesAction extends BaseAction{
     $this->data = D('Mobile/Articles')->getArticles();
     $this->display("/tpl/articles");
 	}
+  /**
+   * 查询文章
+   */
+  public function getArticle(){
+    $data = D('Mobile/Articles')->getArticlesById();
+    $this->ajaxReturn($data);
+  }
 };
 ?>

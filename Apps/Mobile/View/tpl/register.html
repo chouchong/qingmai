@@ -55,7 +55,7 @@
                             <input type="checkbox" ng-model="user.readMe" name="readMe" required style="width: 18px;height: 18px">
                         </label>
                         <span class="loginreads" >我已经阅读并同意</span>
-                    <a href="">《用户服务条款》</a>
+                        <a ng-click="openSPopover()">《用户服务条款》</a>
                     </span>
                 </div>
                 <div class="item item-text-wrap">
@@ -66,6 +66,22 @@
             </div>
         </div>
         </form>
+        <script id="mySer.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <a class="button" style="background:#fff" ng-click="closeSPopover();"><i class="ion-chevron-left  button-light" style="font-size: 18px;width:80px;">&nbsp;返回</i></a>
+            </ion-header-bar>
+            <ion-content>
+                <div class="card baoming">
+                    <div class="item item-divider" style="text-align: center;">
+                        <h3 ng-bind="articles.articleTitle"></h3>
+                    </div>
+                    <div class="item item-text-wrap" ng-bind-html="articles.articleContent">
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
     </div>
 </div>
 </block>

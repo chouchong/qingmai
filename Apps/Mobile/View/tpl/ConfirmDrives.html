@@ -134,14 +134,14 @@
         </div>
     </div>
     <div class="card">
-        <ion-checkbox id="bigRoom" ng-model="isReadMe.checked" ng-checked="isReadMe.checked">已阅读并同意<a href="#" style="color: blue;">《产品订购协议》</a></ion-checkbox>
+        <ion-checkbox id="bigRoom" ng-model="isReadMe.checked" ng-checked="isReadMe.checked" style="float: left;">已阅读并同意</ion-checkbox><a ng-click="openAPopover();" style="color: blue;margin-top: 15px;float: left;">《用户服务条款》</a>
     </div>
     <div class="row footermessage ">
         <div>
             {$CONF.mallFooter|htmlspecialchars_decode}
         </div>
     </div>
-    <div class="row" style="background:#fff ;    font-size: 20px; ">
+    <div class="row" style="background:#fff font-size: 20px; ">
         <div class="col col-67">
             <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">应付&nbsp;¥&nbsp;<span id="totalPrice">{$obj['totalMoney']}</span>元</p>
         </div>
@@ -149,6 +149,22 @@
     </div>
 </form>
 </ion-content>
+<script id="Amsg.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar>
+                <a class="button" style="background:#fff" ng-click="closeAPopover();"><i class="ion-chevron-left  button-light" style="font-size: 18px;width:80px;">&nbsp;返回</i></a>
+            </ion-header-bar>
+            <ion-content>
+                <div class="card baoming">
+                    <div class="item item-divider" style="text-align: center;">
+                        <h3 ng-bind="articles.articleTitle"></h3>
+                    </div>
+                    <div class="item item-text-wrap" ng-bind-html="articles.articleContent">
+                    </div>
+                </div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
 </div>
 </block>
 <block name="js">
