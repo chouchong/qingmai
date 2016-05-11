@@ -248,6 +248,7 @@ class GoodsModel extends BaseModel {
 			$data["goodsKeywords"] = I("goodsKeywords");
 			$m = M('goods');
 			$rs = $m->where('goodsId='.$goodsId)->save($data);
+			M('goods_gallerys')->where(array('goodsId' => $goodsId))->delete();
 			if(false !== $rs){
 				M('goods_labels')->where('goodsId='.$goodsId)->delete();
 				if($labelsIds!=''){

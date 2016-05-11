@@ -2,17 +2,18 @@
 namespace Home\Model;
 /**
  * ============================================================================
- * 商品服务类
+ * 自驾服务类
  */
 class DrivesModel extends BaseModel {
 	/**
-	 * 商品列表
+	 * 自驾列表
 	 */
 	public function getDrivesList(){
     $m = M('drives');
-    $data = $m->field('drivesId,drivesDay,solaCount,pcDrivesImg,adultPrice,drivesDesc')->where('isSola=1')->order('drivesId desc')->limit(3)->select();
+    $pageSize = 1;
+    $data = $m->field('drivesId,drivesDay,solaCount,pcDrivesImg,adultPrice,drivesDesc,drivesName,drivesFrom')->where('isSola=1')->order('drivesId desc')->limit($pageSize*I('page',0),$pageSize)->select();
     for ($i=0; $i < count($data); $i++) {
-      $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (10 * 24 * 60 * 60))))->find();
+      $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();
     }
     return $data;
 	}

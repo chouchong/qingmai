@@ -3,7 +3,6 @@ function uploadAblumInit() {
 
             // 图片容器
             $queue = $( '.filelist' ),
-                
 
             // 状态栏，包括进度和控制按钮
             $statusBar = $wrap.find( '.statusBar' ),
@@ -143,8 +142,8 @@ function uploadAblumInit() {
             },
             formData: {
                 dir: "hotels",
-            	width:152,
-            	height:152
+            	width:750,
+            	height:400
             },
           
             paste: '#uploader',

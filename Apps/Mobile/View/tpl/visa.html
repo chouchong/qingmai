@@ -34,42 +34,15 @@
             办理{$visa.visaName}所需资料
         </div>
          <div style="padding:10px;">
-                <{$visa.visaDesc|htmlspecialchars_decode}
+                {$visa.visaDesc|htmlspecialchars_decode}
             </div>
     </div>
     <div class="card">
-        <span style="background:#FFD679;width:100%;display:block; padding:3px 0 0 10px;height: 35px;line-height: 30px;">办理实效</span>
+        <span style="background:#FFD679;width:100%;display:block; padding:3px 0 0 10px;height: 35px;line-height: 30px;">办理时效</span>
             <div style="padding:10px;">
                 {$visa.visaTimeManagent|htmlspecialchars_decode}
             </div>
     </div>
-    <!-- <div class="card">
-    <div class="item item-text-wrap" style="padding:0;">
-            <span style="background:#6CC5DC;width:100%;display:block; padding:3px 0 0 10px;height: 40px;line-height: 35px;">您可以选择以下三种方式办理：</span>
-            <div class="list">
-        <label class="item item-input item-floating-label">
-                    <div style="padding:10px;">
-                        <p style="">
-                            1.特别提示：由于两国签证需分别办理，请于出发日期前15天递交或邮寄所需资料
-                        </p>
-                    </div>
-                </label>
-                <label class="item item-input item-floating-label">
-                    <div style="padding:10px;">
-                        <p style="">
-                            2.特别提示：由于两国签证需分别办理，请于出发日期前15天递交或邮寄所需资料
-                        </p>
-                    </div>
-                </label>
-                <label class="item item-input item-floating-label">
-                    <div style="padding:10px;">
-                        <p style="">
-                            3.特别提示：由于两国签证需分别办理，请于出发日期前15天递交或邮寄所需资料
-                        </p>
-                    </div>
-                </label>
-            </div></div>
-    </div> -->
     <div class="card" id="visacard" style="">
         <div class="item item-text-wrap" style="padding:0;">
             <span style="background:#6CC5DC;width:100%;display:block; padding:3px 0 0 10px;height: 40px;line-height: 35px;">填写信息</span>

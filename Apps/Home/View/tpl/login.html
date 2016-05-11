@@ -1,0 +1,83 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>登录</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="login_c" ng-app="myapp">
+        <div class="login_co">
+            <div class="loginleft">
+                <img src="__PUBLIC__/home/img/login.png" alt="" width="100%">
+            </div>
+            <div class="loginright">
+                <div class="logintab">
+                    <ul id="myTab" class="nav nav-tabs">
+                        <li class="active"><a href="#home" data-toggle="tab">密码登陆</a>
+                        </li>
+                        <li><a href="#ios" data-toggle="tab">验证码登陆</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade in active" id="home">
+                            <div class="inputpw">
+                                <form ng-controller="loginCtrl" name="pwdLogin">
+                                      <div class="form-group has-success has-feedback" ng-class="{'has-error':pwdLogin.phone.$dirty && pwdLogin.phone.$invalid}">
+                                      <label class="control-label" for="inputSuccess1">手机号</label>
+                                      <input type="tel" class="form-control" id="inputSuccess1" aria-describedby="inputSuccess1Status" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
+                                      <input type="hidden" ng-model="user.loginType" name="loginType" ng-init="user.loginType=1">
+                                      <span ng-show="!pwdLogin.phone.$error.pattern&&!pwdLogin.phone.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                      <span ng-show="pwdLogin.phone.$error.pattern||pwdLogin.phone.$error.required" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>   
+                                    </div>
+                                    <div class="form-group has-success has-feedback" ng-class="{'has-error':pwdLogin.password.$dirty && pwdLogin.password.$invalid}">
+                                      <label class="control-label" for="inputSuccess2">密码</label>
+                                      <input type="password" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status" ng-model="user.password"  name="password" placeholder="请输入密码" required minlength="6" ng-maxlength="12">
+                                      <span ng-show="!pwdLogin.password.$error.required&&!pwdLogin.password.$error.minlength&&!pwdLogin.password.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> 
+                                      <span ng-show="pwdLogin.password.$error.required||pwdLogin.password.$error.minlength||pwdLogin.password.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>   
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block" ng-click="userLogin()" ng-disabled="pwdLogin.phone.$error.pattern||pwdLogin.phone.$error.required||pwdLogin.password.$error.required||pwdLogin.password.$error.minlength||pwdLogin.password.$error.minlength">登陆</button>
+                                    <p><a href="{:U('Home/Users/lostpassword')}">忘记密码</a><a href="" style="float: right;">注册</a></p>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="ios">
+                            <div class="inputpw">
+                                <form ng-controller="loginCtrl" name="codeLogin">
+                                     <div class="form-group has-success has-feedback" ng-class="{'has-error':codeLogin.phone.$dirty && codeLogin.phone.$invalid}">
+                                      <label class="control-label" for="inputSuccess1">手机号</label>
+                                      <input type="text" class="form-control" id="inputSuccess1" aria-describedby="inputSuccess1Status" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
+                                      <input type="hidden" ng-model="user.loginType" name="loginType" ng-init="user.loginType=0">
+                                       <span ng-show="!codeLogin.phone.$error.pattern&&!codeLogin.phone.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                      <span ng-show="codeLogin.phone.$error.pattern||codeLogin.phone.$error.required" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>   
+                                    </div>
+                                    <div class="form-group has-success has-feedback" ng-class="{'has-error':codeLogin.password.$dirty && codeLogin.password.$invalid}">
+                                      <label class="control-label" for="inputSuccess2">手机验证码</label>
+                                      <input type="text" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status" ng-model="user.password"  name="password" placeholder="请输入验证码"  minlength="6" maxlength="6" required>
+                                      <span ng-show="!codeLogin.password.$error.minlength&&!codeLogin.password.$error.maxlength&&!codeLogin.password.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                      <span ng-show="codeLogin.password.$error.minlength||codeLogin.password.$error.maxlength||codeLogin.password.$error.required" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>  
+                                    </div>
+                                    
+                                    <p style="text-align: right;">
+                                    <button type="submit" class="btn btn-info" ng-click="sms()" ng-disabled=" codeLogin.phone.$invalid">发送验证码</button></p>
+
+                                    <button type="submit" class="btn btn-primary btn-block" ng-click="userLogin()" ng-disabled="codeLogin.phone.$error.pattern||codeLogin.phone.$error.required||codeLogin.password.$error.minlength||codeLogin.password.$error.maxlength||codeLogin.password.$pristine">登陆</button>
+                                    <p><a href="{:U('Home/Users/lostpassword')}">忘记密码</a><a href="{:U('Home/Users/register')}" style="float: right;">注册</a></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div
+            </div>
+        </div>
+    </div>
+<include file="tpl:footer"/>
+        </block>
+<block name="js">
+    <script type="text/javascript">
+    $(function() {
+        $('#myTab li:eq(1) a').tab('show');
+    });
+    </script>
+</block>

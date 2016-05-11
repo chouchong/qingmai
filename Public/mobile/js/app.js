@@ -344,13 +344,13 @@
     }])
     .controller("drvCtrl", ['$rootScope', '$scope', '$ionicLoading', '$ionicScrollDelegate', '$timeout', '$ionicPopover', '$ionicActionSheet', 'serviceHttp', function($rootScope, $scope, $ionicLoading, $ionicScrollDelegate, $timeout, $ionicPopover, $ionicActionSheet, serviceHttp) {
       //jiazai
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
+      // $ionicLoading.show({
+      //   content: 'Loading',
+      //   animation: 'fade-in',
+      //   showBackdrop: true,
+      //   maxWidth: 200,
+      //   showDelay: 0
+      // });
       //时间报名
       $ionicPopover.fromTemplateUrl('customDate.html', {
         scope: $scope
@@ -409,10 +409,10 @@
       $scope.closePopover = function() {
         $scope.popover.hide();
       };
-      $timeout(function() {
-        $ionicLoading.hide();
-        $ionicScrollDelegate.resize();
-      }, 3000);
+      // $timeout(function() {
+      //   $ionicLoading.hide();
+      //   $ionicScrollDelegate.resize();
+      // }, 3000);
       $scope.gotime = function(obj) {
         serviceHttp.goTime(obj).success(function(data) {
           if (data.status > 0) {

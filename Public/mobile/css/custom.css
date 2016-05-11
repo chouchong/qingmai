@@ -145,11 +145,11 @@ a {
   float: right; }
 
 .cardPS .ion-chevron-down {
-  color: #12f;
+  color: #66BDE0;
   float: right;
   font-size: 18px; }
 .cardPS .ion-chevron-up {
-  color: #12f;
+  color: #66BDE0;
   float: right;
   font-size: 18px; }
 .cardPS p {
@@ -209,9 +209,19 @@ a {
     margin: 0;
     padding: 12px; }
   .xcjsList .xcmessage .xcmessageTit {
-    background: #6CC5DC;
+    /* background: #6CC5DC;
     display: block;
-    padding: 8px; }
+    padding: 8px;
+    color: #fff; */
+    display: block;
+    padding: 8px;
+    width: 100%;
+    height: 35px;
+    color: #48ADD3;
+    border-left: 6px solid #48ADD3;
+    line-height: 20px;
+    background-color: #fff;
+  }
   .xcjsList .xcmessage .xcmessageP {
     padding: 0px; }
     .xcjsList .xcmessage .xcmessageP p {

@@ -8,6 +8,8 @@ use Think\Controller;
 class BaseAction extends Controller {
 	public function __construct(){
 		parent::__construct();
+		$this->foot=D('Home/Articles')->getArticles();
+		$this->userSession=session('Users');
 	}
 	/**
 	 * 生成URL

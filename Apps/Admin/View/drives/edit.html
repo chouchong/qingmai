@@ -250,6 +250,12 @@
 	             <textarea style='width:40%;height:200px;' id='presentProject' name='presentProject'>{$object.presentProject}</textarea>
 	             </td>
 	           </tr>
+             <tr>
+               <th width='140'>自驾游温馨提示<font color='red'>*</font>：</th>
+               <td>
+               <textarea style='width:40%;height:200px;' id='prompt' name='prompt'>{$object.prompt}</textarea>
+               </td>
+             </tr>
            <tr>
              <td colspan='2' style='padding-left:250px;'>
                  <button type="submit" class="btn btn-success">保&nbsp;存</button>
@@ -504,6 +510,7 @@
      params.articlesIds = $('#articlesIds').val();
      params.drivesVisa = $('#visa').val();
       params.drivesDesc = $('#drivesDesc').val();
+      params.prompt = $('#prompt').val();
      if(params.drivesName==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾不能为空!',timeout:1000});
        return;
@@ -582,6 +589,10 @@
      }
      if(params.presentProject==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾赠送项目不能为空!',timeout:1000});
+       return;
+     }
+     if(params.prompt==''){
+       Plugins.Tips({title:'信息提示',icon:'error',content:'自驾游温馨提示不能为空!',timeout:1000});
        return;
      }
      Plugins.waitTips({title:'信息提示',content:'正在提交数据，请稍后...'});

@@ -12,6 +12,11 @@
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="codeCtrl">
+<ion-header-bar class="bar bar-light">
+    <a class="button button-clear" href="javascript:history.back(-1)">
+        <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
+    </a>
+</ion-header-bar>
 <!-- content -->
 <ion-content on-scroll="hiDiv()" class=" scroll-content loginre">
     <div class="card">

@@ -10,8 +10,7 @@ class IndexAction extends BaseAction {
    * 跳到首页面
    */
   public function index(){
-    $d = D('Home/Drives');
-    $data = $d->getDrivesList();
-    $this->ajaxReturn($data);
+   $this->drives=D('Home/Drives')->getDrivesList();
+   $this->display('tpl/index');
   }
 }

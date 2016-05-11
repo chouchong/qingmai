@@ -30,6 +30,7 @@ class DrivesModel extends BaseModel {
         $data["noFeeDesc"] = I("noFeeDesc",'',false);
         $data["presentProject"] = I("presentProject",'',false);
         $data["drivesDesc"] = I("drivesDesc",'',false);
+        $data["prompt"] = I("prompt",'',false);
         $Hotel = I("zhuchuHotels");
         $way = I("tuzhongHotels");
         $goodsids = I("goodsids");
@@ -107,6 +108,7 @@ class DrivesModel extends BaseModel {
         $data["noFeeDesc"] = I("noFeeDesc",'',false);
         $data["drivesDesc"] = I("drivesDesc",'',false);
         $data["presentProject"] = I("presentProject",'',false);
+        $data["prompt"] = I("prompt",'',false);
         $Hotel = I("zhuchuHotels");
         $way = I("tuzhongHotels");
         $goodsids = I("goodsids");

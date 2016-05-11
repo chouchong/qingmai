@@ -1,0 +1,48 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>文章</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_subpage">
+       <include file="tpl:comnav"/>
+    </nav>
+    <div class="c_content">
+        <div class="cc_list">
+        <volist name="foot.art" id="vo">
+            <div class="cc_listc">
+                <a href="{:U('Home/Articles/getContent',array('catId'=>$vo['catId']))}"><span>{$vo.catName}</span></a>
+            </div>
+        </volist>
+        </div>
+        <div class="cc_content">
+            <div class="cc_contentcate">
+                <h2>{$content[0]['catName']}</h2>
+                <hr style="clear:both;" size="20">
+            </div>
+            <volist name="content" id="vo">
+            <div class="cc_cc">
+                <div class="cc_ccicon">
+                    <span class="demoSpan1"></span>
+                </div>
+                <div class="cc_ccs">
+                    <h3 class="cc_ctitle">{$vo.articleTitle}</h3>
+                    <div class="cc_ccon">
+                    {$vo.articleContent|htmlspecialchars_decode}
+                    </div>
+                </div>
+            </div>
+            </volist>
+            <div class="">
+            </div>
+        </div>
+    </div>
+  <include file="tpl:footer"/>
+</block>
+<block name="js">
+    <script type="text/javascript">
+    $(function() {
+        $('#myTab li:eq(1) a').tab('show');
+    });
+    </script>
+</block>

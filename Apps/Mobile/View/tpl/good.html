@@ -16,6 +16,7 @@
     <div class="card">
         <div class="item item-divider">
             <input type="hidden" id="goodsId" value="{$goodsId}" />
+            <input type="hidden" id="goodtoday" value="{$datetime}" />
             <p style="font-size: 18px;margin:10px;"><span id="goodsName">{$good.goodsName}</span></p>
             <img src="/{$good['goodsImg']}" alt="" width="100%">
             <p style="color:#F77A69;padding:10px; font-size: 16px;">￥<span>{$good['adultPrice']}</span>&nbsp;元/人</p>
@@ -47,8 +48,8 @@
         <div id="calendarSelect" class="responsive-break" style="text-align: center;">
         </div>
         <div class="row" style="text-align: center;">
-            <div class="item item-text-wrap">
-                <p>选择日期需从今日<span id="today" style="color:#c00;">{$datetime}</span>后一天起开始选择</p>
+            <div class="item item-text-wrap" style="margin: auto;">
+                <p align="center">当前日不可选,您选择了<span id="today" style="color:#c00;">{$datetime}</span>的产品</p>
             </div>
         </div>
     </div>

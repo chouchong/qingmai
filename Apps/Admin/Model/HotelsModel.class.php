@@ -16,7 +16,7 @@ class HotelsModel extends BaseModel {
 		// $data["hotelThumbs"] = I("hotelThumbs");
 		// $data["hotelEnglishName"] = I("hotelEnglishName");
 		$data["hotelPhone"] = I("hotelPhone");
-		$data["hotelStar"] = (int)I("hotelStar");
+		$data["hotelStar"] = I("hotelStar");
 		$data["hotelType"] = I("hotelType");
 		$data["hotelnetwork"] = I("hotelnetwork");
 		$data["hotelRoomArea"] = I("hotelRoomArea");
@@ -37,6 +37,7 @@ class HotelsModel extends BaseModel {
 			$m = M('hotel');
 			$hotelId = $m->add($data);
 			if(false !== $hotelId){
+				M('hotel_gallerys')->where(array('hid' => $hotelId))->delete();
 				//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){
@@ -69,7 +70,7 @@ class HotelsModel extends BaseModel {
 		// $data["hotelThumbs"] = I("hotelThumbs");
 		// $data["hotelEnglishName"] = I("hotelEnglishName");
 		$data["hotelPhone"] = I("hotelPhone");
-		$data["hotelStar"] = (int)I("hotelStar");
+		$data["hotelStar"] = I("hotelStar");
 		$data["hotelType"] = I("hotelType");
 		$data["hotelnetwork"] = I("hotelnetwork");
 		$data["hotelRoomArea"] = I("hotelRoomArea");
@@ -90,6 +91,7 @@ class HotelsModel extends BaseModel {
 			$data["hotelActivity"] = I("hotelActivity",'',false);
 			$rs = $m->where('hotelId='.$hotelId)->save($data);
 			if(false !== $rs){
+				M('hotel_gallerys')->where(array('hid' => $hotelId))->delete();
 				//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){

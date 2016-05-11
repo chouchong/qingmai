@@ -156,7 +156,7 @@ function delImg(obj){
                </td>
              </tr>
              <tr>
-               <th width='120'>酒店星数<font color='red'>*</font>：</th>
+               <th width='120'>酒店评分<font color='red'>*</font>：</th>
                <td width='350'>
                 <input type='text' id='hotelStar' name='hotelStar' class="form-control wst-ipt" value='{$object.hotelStar}'/>
                </td>
@@ -208,22 +208,23 @@ function delImg(obj){
                <td colspan='3'>
                <input type='text' style="width:788px" id='hotelTntime' name='hotelTntime' value='{$object.hotelTntime}' maxlength="200">
                </td>
-             </tr><tr>
+             </tr>
+             <tr>
                <th width='120'>退房时间<font color='red'>*</font>：</th>
                <td colspan='3'>
                <input type='text' style="width:788px" id='hotelFromtime' name='hotelFromtime' value='{$object.hotelFromtime}' maxlength="200">
                </td>
              </tr>
              <tr>
-               <th width='120'>酒店描述<font color='red'>*</font>：</th>
+               <th width='120'>酒店配套<font color='red'>*</font>：</th>
                <td colspan='3'>
-               <textarea style='width:80%;height:250px;' id='hotelDesc' name='hotelDesc'>{$object.hotelDesc}</textarea>
+               <input type='text' style="width:788px" id='hotelActivity' name='hotelActivity' value='{$object.hotelActivity}'>
                </td>
              </tr>
              <tr>
-               <th width='120'>酒店政策<font color='red'>*</font>：</th>
+               <th width='120'>酒店描述<font color='red'>*</font>：</th>
                <td colspan='3'>
-               <textarea style='width:80%;height:250px;' id='hotelActivity' name='hotelActivity'>{$object.hotelActivity}</textarea>
+               <textarea style='width:80%;height:250px;' id='hotelDesc' name='hotelDesc'>{$object.hotelDesc}</textarea>
                </td>
              </tr>
              <!-- <tr>
@@ -243,12 +244,13 @@ function delImg(obj){
                <textarea style='width:80%;height:250px;' id='hotelRoomfacilities' name='hotelRoomfacilities'>{$object.hotelRoomfacilities}</textarea>
                </td>
              </tr>
+             -->
              <tr>
-               <th width='120'>酒店内容<font color='red'>*</font>：</th>
+               <th width='120'>酒店政策<font color='red'>*</font>：</th>
                <td colspan='3'>
                <textarea style='width:80%;height:500px;' id='hotelContent' name='hotelContent'>{$object.hotelContent}</textarea>
                </td>
-             </tr> -->
+             </tr>
              <tr>
                <td colspan='3' style='padding-left:320px;'>
                    <button class='wst-btn-query' type="submit">保&nbsp;存</button>
@@ -401,6 +403,10 @@ function delImg(obj){
        }
        if(params.hotelDesc==''){
          WST.msg('请输入酒店描述!', {icon: 5});
+         return;
+       }
+       if(params.hotelContent==''){
+         WST.msg('请输入酒店政策!', {icon: 5});
          return;
        }
        if(params.hotelImg==''){

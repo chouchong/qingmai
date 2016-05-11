@@ -1,0 +1,91 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>自驾游</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_index">
+        <div class="containe bg_index">
+            <img src="__PUBLIC__/home/img/bg1.jpg" alt="" width="500px">
+        </div>
+        <div class="container-fluid channel">
+            <include file="tpl:nav" />
+            <div class="channel_title">
+                <h2>5月一日准时开售6月产品</h2>
+                <p>自在的旅游</p>
+            </div>
+        </div>
+    </nav>
+   
+    <div class="searchfor">
+        <div class="searchforname">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="搜索">
+              <span class="input-group-btn">
+                <button class="btn btn-default " type="button">
+                <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </span>
+            </div>
+        </div>
+    </div>
+
+    <div class=" content">
+        <div class="zjy_list">
+        <volist name="drives" id="vo">
+             <div class="zjy">
+                 <div class="imgplace">
+                    <a href="{:U('Home/Drives/diverDetail',array('drivesId'=>$vo['drivesId']))}"><img src="/{$vo['pcDrivesImg']}" alt="" width="300px" height="1110px"></a>
+                     <div class="countlove"><i class="glyphicon glyphicon-star"></i>&nbsp;<span>{$vo.solaCount}</span></div>
+                     <div class="zjy_desc">
+                         <p id="zjy_desc1">{$vo.drivesFrom}</p>
+                         <p id="zjy_desc3">{$vo.drivesName}</p>
+                     </div>
+                 </div>
+                 <div class="row descplace">
+                     <div class="col-md-8 descplaceleft">
+                            {$vo.drivesDesc}
+                     </div>
+                     <div class="col-md-4 descplaceright">
+                         <div class="descplacerightcon">
+                             <div class="condesc"><span>{$vo.drivesDay}</span></div>
+                             <span class="conprivce">{$vo.adultPrice}</span>元/人
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             </volist>
+        </div>
+    </div>
+    <div class="container searchmore">
+        <div class="searchmoreb">
+            <span class="searchmoret"><a href="">搜索更多</a></span>
+        </div>
+    </div>
+    <include file="tpl:footer"/>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $("#erweimaqq").hover(function() {
+            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
+            $("#erweima").show();
+        },
+            function(){
+            $("#erweima").hide();
+        });
+        $("#erweimawx").hover(function() {
+            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
+            $("#erweima").show();
+        },
+            function(){
+            $("#erweima").hide();
+        });
+        $("#erweimawb").hover(function() {
+            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
+            $("#erweima").show();
+        },
+            function(){
+            $("#erweima").hide();
+        });
+    </script>   
+</block>

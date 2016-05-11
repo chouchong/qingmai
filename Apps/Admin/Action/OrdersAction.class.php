@@ -113,14 +113,24 @@ class OrdersAction extends BaseAction{
 		$this->display("/orders/refund");
 	}
 	/**
-	 * 退款
+	 * 报名
 	 */
-    public function refund(){
+    public function goTime(){
 		$this->isLogin();
-		$this->checkAjaxPrivelege('tk_04');
-		$m = D('Admin/Orders');
-		$rs = $m->refund();
-		$this->ajaxReturn($rs);
+		$this->checkPrivelege('ddlb_00');
+		$m = D('Admin/Gos');
+    	$page = $m->queryByPage();
+    	$pager = new \Think\Page($page['total'],$page['pageSize']);
+    	$page['pager'] = $pager->show();
+    	$this->assign('Page',$page);
+		$this->display("/go/list");
+	}
+	/**
+	 * 联系报名
+	 */
+    public function goContact(){
+    	$m=D('Admin/Gos');
+        $this->ajaxReturn($m->goContact());
 	}
 };
 ?>

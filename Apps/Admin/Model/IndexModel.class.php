@@ -34,7 +34,7 @@ class IndexModel extends BaseModel {
 		if(!empty($rs)){
 			$m = M('sys_configs');
 			foreach ($rs as $key => $v){
-				$result = $m-> where('fieldCode="'.$v['fieldCode'].'"')->setField('fieldValue',I($v['fieldCode']));
+				$result = $m-> where('fieldCode="'.$v['fieldCode'].'"')->setField('fieldValue',I($v['fieldCode'],'',false));
 				if(false === $result){
 				    $rd['status']= -1;
 				}

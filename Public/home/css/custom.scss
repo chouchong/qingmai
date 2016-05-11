@@ -1,0 +1,741 @@
+@import 'C://Users//chouchong//bourbon//bourbon';
+//@import '../../bourbon-master/bourbon-master/app/assets/stylesheets/bourbon';
+@import 'partials/variables'; // colors, fonts etc...
+@import 'partials/mixins'; // custom mixins
+@import 'partials/layout'; // responsive grid and media queries
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: $font-size;
+    // overflow-x: hidden;
+}
+
+body,
+#menu,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a {
+    font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", STXihei, SimSun, Heiti, sans-serif !important;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    background: #eee;
+}
+
+// index.html
+.header_index {
+    padding: 0;
+    margin: 0;
+    height: 500px;
+    width: 100%;
+    position: relative;
+    min-width: $page-size;
+    .channel {
+        width: 100%;
+        margin: 0 auto;
+        height: 100px;
+        position: absolute;
+        .navbar-header {
+            margin: 0 auto;
+            width: $page-size;
+            float: none;
+            img {
+                width: 200px;
+            }
+            ul {
+                margin: 25px;
+                a {
+                    color: #fff;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    .bg_index {
+        width: 100%;
+        position: absolute;
+        img {
+            height: 500px;
+            width: 100%;
+        }
+    }
+    .channel_title {
+        text-align: center;
+        color: #fff;
+        // height:500px;    
+        position: absolute;
+        width: 100%;
+        margin-top: 100px;
+        h2 {
+            font-size: 50px;
+        }
+        p {
+            font-size: 40px;
+        }
+    }
+}
+
+.header_subpage {
+    height: 105px;
+    width: 100%;
+    background: #6DC5DB;
+    margin: 0;
+    padding: 0;
+    .channel {
+        width: $page-size;
+        margin: 0 auto;
+        height: 100px;
+        background: #6DC5DB;
+        width: $page-size;
+        img {
+            width: 200px;
+        }
+        ul {
+            margin: 20px;
+            a {
+                color: #fff;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+.searchfor {
+    width: 100%;
+    height: 80px;
+    background: #fff;
+    .searchforname {
+        margin: 0 auto;
+        width: $page-size;
+        .input-group {
+            float: right;
+            width: 250px;
+            // margin:auto;
+            margin-top: 20px;
+        }
+    }
+}
+
+.content {
+    padding: 0;
+    margin: 0 auto;
+    width: $page-size;
+    min-height: 200px;
+    // padding:50px;
+    .zjy_list {
+        // min-height: 500px;
+        padding: 0;
+        margin: 0;
+        .zjy {
+            border-radius: 8px;
+            margin: 50px;
+            padding: 0;
+            // width:1010px;
+            // width:100%;
+            height: 400px;
+            background: #FFD16A;
+            .imgplace {
+                position: relative;
+                height: 300px;
+                clear: both;
+                img {
+                    border-radius: 8px 8px 0 0;
+                    width: 100%;
+                    height: 300px;
+                    position: absolute;
+                }
+                .countlove {
+                    position: absolute;
+                    margin: 10px;
+                    padding: 8px;
+                    background: #68C7DB;
+                    color: #fff;
+                    font-size: 18px;
+                }
+                .zjy_desc {
+                    padding: 10px;
+                    right: 10px;
+                    bottom: 10px;
+                    position: absolute;
+                    background: rgba(97, 97, 97, 0.1);
+                    p {
+                        text-align: right;
+                        color: #fff;
+                        font-size: 18px;
+                    }
+                }
+            }
+            .descplace {
+                width: 1110px;
+                margin-top: 10px;
+                margin-right: 0;
+                margin-left: 0;
+                height: 90px;
+                background: #fff;
+                border-radius: 0 0 8px 8px;
+                .descplaceleft {
+                    height: 90px;
+                    padding: 1px 50px;
+                    font-size: 16px;
+                    i {
+                        color: #FFD16A;
+                    }
+                }
+                .descplaceright {
+                    height: 90px;
+                    .descplacerightcon {
+                        // margin-top: 20px;
+                        text-align: center;
+                        .condesc {
+                            margin: 15px 0;
+                            span {
+                                background: #FFD16A;
+                                padding: 8px;
+                                color: #fff;
+                                font-size: 17px;
+                            }
+                        }
+                        .conprivce {
+                            color: #FA6F61;
+                            font-size: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.searchmore {
+    width: 100%;
+    text-align: center;
+    .searchmoreb {
+        margin: 20px auto;
+        margin-bottom: 50px;
+        padding: 10px;
+        border: solid 3px #ddd;
+        width: 150px;
+        .searchmoret {
+            font-size: 20px;
+        }
+    }
+}
+
+footer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 500px;
+    position: relative;
+    min-width: $page-size;
+    .foot_bg {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 500px;
+        min-width: $page-size;
+        position: absolute;
+        img {
+            width: 100%;
+            height: 500px;
+        }
+    }
+    .foot_con {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(5, 5, 5, 0.7);
+        .row {
+            margin: auto;
+            width: $page-size;
+            margin-top: 150px;
+            h4 {
+                text-decoration: underline;
+            }
+            .col-md-2 {
+                color: #fff;
+                h4 {}
+                ul {
+                    padding: 5px;
+                    li {
+                        margin: 7px 5px;
+                    }
+                }
+            }
+            .col-md-4 {
+                .qqwxwb {
+                    padding: 8px;
+                    img {
+                        margin: 0 8px;
+                    }
+                }
+                color:#fff;
+                ul {
+                    padding: 5px;
+                    li {
+                        margin: 7px 5px;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//login.html
+.login_c {
+    width: $page-size;
+    height: 600px;
+    margin: auto;
+    padding: 50px 0;
+    background: #fff;
+    .login_co {
+        padding: 0;
+        width: 1000px;
+        height: 500px;
+        background: #fff;
+        margin: 0 auto;
+        .loginleft {
+            float: left;
+            height: 500px;
+            width: 500px;
+            background: #fff;
+            background-image: url("../img/login.png");
+        }
+        .loginright {
+            float: left;
+            height: 500px;
+            width: 500px;
+            background: #fff;
+            .logintab {
+                margin: 50px;
+                padding: 0px;
+                background: #fff;
+                // width:400px;
+                height: 400px;
+                border: 1px solid #ddd;
+                #myTab {
+                    li {
+                        width: 50%;
+                        text-align: center;
+                    }
+                }
+                #myTabContent {
+                    .inputpw {
+                        padding: 25px;
+                        margin: 30px;
+                        p {
+                            line-height: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//register.html
+.register_c {
+    width: $page-size;
+    height: 600px;
+    margin: auto;
+    padding: 50px 0;
+    background: #fff;
+    .register_co {
+        padding: 0;
+        width: 1000px;
+        height: 500px;
+        // background:#aaa;
+        margin: 0 auto;
+        .registerleft {
+            float: left;
+            height: 500px;
+            width: 500px;
+            background: #fff;
+            .registerform {
+                border: 1px solid #ddd;
+                margin: 50px;
+                padding: 30px;
+            }
+        }
+        .registerright {
+            float: left;
+            height: 500px;
+            width: 500px;
+            // background:#fff;
+            background-image: url("../img/login.png");
+        }
+    }
+}
+
+//diver.html
+.d_content {
+    width: $page-size;
+    min-height: 2000px;
+    margin: 5px auto;
+    padding: 20px 50px;
+    background: #cde;
+        overflow:hidden;
+    .d_head {
+        text-align: center;
+        .d_title {
+            h1 {
+                font-size: 30px;
+            }
+            p {
+                font-size: 20px;
+            }
+        }
+        .d_intro {
+            width: 1110px;
+            height: 420px;
+            .d_img {
+                width: 1110px;
+                height: 300px;
+            }
+            .d_introduce {
+                width: 1110px;
+                height: 120px;
+                background: #fff;
+                .d_intrl {
+                    width: 70%;
+                    float: left;
+                    text-align: left;
+                    line-height: 50px;
+                    padding-left: 50px;
+                    p {
+                        font-size: 18px;
+                    }
+                    .d_intrlt {}
+                    .d_intrld {
+                        color: #fff;
+                        background: #FFD574;
+                        padding: 3px;
+                        margin: 5px;
+                    }
+                    .d_place {
+                        color: #888;
+                    }
+                }
+                .d_intrr {
+                    width: 30%;
+                    float: left;
+                    line-height: 120px;
+                    p {
+                        color: #F66652;
+                        font-size: 25px;
+                    }
+                }
+            }
+        }
+    }
+    .d_form {
+        margin: 10px 0;
+        padding: 10px 0;
+        min-height: 620px;
+        // background: #0ff;
+        overflow:hidden;
+        .selectdate {
+            width: 539px;
+            float: left;
+            background: #fff;
+            min-height: 530px;
+            .datemonth {
+                height: 60px;
+                background: #6DC5DB;
+                text-align: center;
+                font-size: 25px;
+                color: #fff;
+                line-height: 60px;
+                .monthlast {
+                    width: 25%;
+                    float: left;
+                }
+                .selectyear {
+                    width: 50%;
+                    float: left;
+                }
+                .monthnext {
+                    width: 25%;
+                    // float:right;
+                    float: left;
+                }
+            }
+            .dateday {
+                // background:#EFE4B0;
+                text-align: center;
+                height: 40px;
+                .dateweek {
+                    float: left;
+                    width: 77px;
+                    color: #0085BF;
+                    font-size: 18px;
+                    line-height: 40px;
+                }
+            }
+            .calendarprice {
+                // background:#EFE4B0;
+                text-align: center;
+                min-height: 430px;
+                .dateprice {
+                    float: left;
+                    width: 77px;
+                    height: 86px;
+                    background: #99D9EA;
+                    p {
+                        padding: 0;
+                        margin: 0;
+                        color: #444;
+                    }
+                    .dd {
+                        font-size: 23px;
+                        font-weight: bold;
+                    }
+                    .price {
+                        font-size: 21px;
+                        // color:#F77462;
+                    }
+                    .ticket {
+                        font-size: 18px;
+                    }
+                }
+            }
+            .calendarpricedesc {
+                clear: both;
+                padding: 10px;
+                margin: 10px;
+            }
+        }
+        .diverform {
+            float: right;
+            width: 540px;
+            background: #fff;
+            min-height: 600px;
+            background: #fff;
+            .diverformlist {
+                background: #fff;
+                width: 100%;
+                padding: 10px;
+                height: 60px;
+                div {
+                    float: left;
+                    line-height: 40px;
+                    text-align: center;
+                    color: #444;
+                }
+                .df_left {
+                    width: 25%;
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+                .df_center {
+                    width: 35%;
+                    font-size: 17px;
+                    .input-group {
+                        margin-left: 40px;
+                        width: 105px;
+                        input {
+                            margin-top: 3px;
+                        }
+                    }
+                }
+                .df_right {
+                    width: 40%;
+                    font-size: 17px;
+                    color: #F66652;
+                }
+                #df_days {
+                    color: #35DDE8;
+                }
+                #df_buys {
+                    color: #F66652;
+                }
+                #df_seldate {
+                    color: #F66652;
+                }
+            }
+            .diverformlist_sub {
+                margin: 10px;
+                text-align: center;
+                #df_price {
+                    font-size: 30px;
+                    margin: 20px;
+                    #df_totelprice {
+                        color: #d00;
+                    }
+                }
+                #df_submit {
+                    margin: 0 auto;
+                    width: 200px;
+                    font-size: 28px;
+                    padding: 20px;
+                    color: #fff;
+                    background: #6DC5DB;
+                }
+            }
+        }
+    }
+    .d_explain {
+        margin: 10px 0;
+        padding: 10px 0;
+        min-height: 650px;
+        background: #fff;
+        .de_left {
+            width: 50%;
+            float: left;
+            // margin:20px;
+            .explaina {
+                clear: both;
+                padding: 5px 20px;
+                .ex_title {
+                    span {
+                        font-size: 20px;
+                    }
+                    .ex_title1 {
+                        width: 30px;
+                        height: 5px;
+                        background: #6DC5DB;
+                    }
+                }
+                .ex_contentvisa {
+                    .ex_visa {
+                        width: 100%;
+                        .ex_visaimg {
+                            float: left;
+                            width: 60px;
+                            height: 60px;
+                            margin: 10px;
+                            img {
+                                width: 100%;
+                            }
+                        }
+                        .ex_visacon {
+                            width: 400px;
+                            margin: 10px;
+                            float: left;
+                        }
+                    }
+                }
+                .ex_content {
+                    margin: 10px;
+                    padding: 10px;
+                    // border: 1px solid #44BDBD;
+                    .ex_hrefvisa {
+                        color: #fff;
+                        margin: 8px 0;
+                        width: 100%;
+                        background: #798FE2;
+                        padding: 15px;
+                        font-size: 18px;
+                        font-weight: bold;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+        .de_right {
+            width: 50%;
+            float: right;
+            // margin:20px;
+        }
+    }
+    .d_hotel {
+        margin: 20px 0;
+        padding: 10px 0;
+        min-height: 200px;
+        width:100%;
+        background:#fff;
+        overflow:hidden;
+
+        .dh_list{
+            padding:10px;
+            // background:#568;
+            .dh_img{
+                float:left;
+                padding:10px;
+                width:60%;
+
+                min-height:500px;
+                .dh_imgb{
+                    width:100%;
+                    height:350px;
+                    margin:10px 0;
+                    padding:5px;
+                    img{
+                        width:100%;
+                    }
+                }
+                .dh_imgss{
+                    padding:10px 5px;
+                    float:left;
+                    height:80px;
+                    width:25%;
+                    img{
+                        width:100%;
+                    }
+                }
+            }
+            .dh_desc{
+                // background:#999;
+                padding:10px;
+                width:40%;
+                float:left;
+                .dh_desccon{
+                    height:350px;
+                    margin:10px 0;
+                    padding:5px;
+                }
+                .dh_descbtn{
+                        margin-top: 40px;
+                    // height:80px;
+                    // margin:20;
+                    line-height: 40px;
+                    text-align: center;
+                    font-size: 18px;
+                    color:#27CDF3;
+                    div{
+
+                        border: 1px solid #27CDF3;
+    margin: 15px 40px;
+                    }
+                }
+            }
+        }
+    }
+    .d_passhotel{
+        padding: 10px 0;
+        min-height: 200px;
+        width:100%;
+        background:#fff;
+        overflow:hidden;
+        .dph_list{
+        margin: 20px 0 40px 0;
+            padding:20px;
+        }
+    }
+    .d_desc {
+        margin:20px 0;
+        overflow:hidden;
+        min-height: 200px;
+        background:#fff;
+        .ddchannel{
+            width:100%;
+            height:70px;
+        }
+    }
+    .d_scenic {}
+}

@@ -37,7 +37,7 @@
 <div ng-app="myApp" ng-controller="drvCtrl">
     <include file="tpl:nav" />
     <!-- content -->
-    <ion-content on-scroll="hiDiv()" id="content-index" class="scroll-content has-header" style="background: #f5f5f5;padding:8px;" delegate-handle="drivesScroll">
+    <ion-content on-scroll="hiDiv()" id="content-index" class="scroll-content has-header" style="background: #f5f5f5;padding:8px;padding-top: 0;" delegate-handle="drivesScroll">
         <!-- {__TOKEN__} -->
         <input type="hidden" id="drivesId" value="{$drivesId}" />
         <input type="hidden" id="daytime" value="{$daytime}" />
@@ -98,7 +98,7 @@
         </div>
         <div class="row" style="padding: 0;">
             <div style="width:100%;padding:5px; padding: 0;">
-                <p style="text-align: center;">资讯热线{$CONF.phoneNo}</p>
+                <p style="text-align: center;">咨询热线&nbsp;&nbsp;&nbsp;{$CONF.phoneNo}</p>
                 <p>
                     <a href="#order">
                         <button ng-click="openDPopover()" class="button button-block button-calm">用户如需前往本部报名 点击这里</button>
@@ -206,27 +206,33 @@
         </div>
         <if condition="$drive['drivesVisa'] gt 0">
         <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="75px">
+            <div class="col col-25" style="">
+                报名所需资料
             </div>
-            <div class="col col-80">
-                <p style="font-size: 15px;padding-top: 10px;margin-left: 10px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
+            <div class="col col-75">
+                <p style="font-size: 14px;padding-top: 5px;margin-left: 10px;">有效期内护照及目的地签证</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-25" style="text-align: center;">
+                <img src="__PUBLIC__/Mobile/img/qz.png" alt="" width="100%" style="max-width:65px;" >
+            </div>
+            <div class="col col-75">
+                <p style="font-size: 14px;padding-top: 10px;margin-left: 10px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
             </div>
         </div>
         </if>
         <div class="row">
-            <div class="col col-20" style="text-align: right;">
-                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="75px">
+            <div class="col col-25" style="text-align: center;">
+                <img src="__PUBLIC__/Mobile/img/tg.png" alt="" width="100%" style="max-width:65px;" >
             </div>
-            <div class="col col-80">
-                <p style="font-size: 15px;padding-top: 15px;margin-left: 10px;">产品数量有限、一经确认不接受任何退改！</p>
+            <div class="col col-75">
+                <p style="font-size: 14px;padding-top: 15px;margin-left: 10px;">产品数量有限、一经确认不接受任何退改！</p>
             </div>
         </div>
         <if condition="$drive['drivesVisa'] gt 0">
-        <p style="text-align: center; font-size: 14px;"><span style="font-size: 18px;
-    margin: 0 20px;color: #000;">报名所需资料</span>护照及签证：有效期内护照及目的地签证</p>
-                <p>
-        <div class="row" style="padding: 0;margin: 20px 0 30px 0;">
+        <p>
+        <div class="row" style="padding: 0;">
             <div style="width:100%;padding: 0;">
                     <a ng-click="visa({$drive['drivesVisa']})">
                         <button class="button button-block button-calm">签证服务</button>
@@ -243,12 +249,12 @@
             <div class="hotelshows" >
                 <ion-slide-box does-continue=true auto-play=true>
                     <volist name="ht['gallerys']" id="himg">
-                    <ion-slide><img src="/{$himg.hotelThumbs}"></ion-slide>
+                    <ion-slide><img src="/{$himg.hotelImg}"></ion-slide>
                      </volist>
                 </ion-slide-box>
                 <p class="passhoteltitle">{$ht.hotelName}</p>
-                <p ><for start="0" end="$ht['hotelStar']"><i class="iocn ion-star"></i></for>
-                    <span style="color:#000;">评分{$ht.hotelStar}</span></p>
+                <p>
+                    <span style="color:#f17a3a;">{$ht.hotelStar}</span></p>
                 <p class="hotelshowcon" >{$ht.hotelDesc|htmlspecialchars_decode}</p>
                 <p class="detail"><a ng-click="openPopover({$ht['hotelId']})">查看详情</a></p>
             </div>
@@ -264,6 +270,7 @@
             <div class="passhotelitem" >
                 <img src="/{$ht['hotelImg']}" alt="">
                 <p class="passhoteltitle" >{$ht.hotelName}</p>
+                <p><span style="color:#f17a3a;">{$ht.hotelStar}</span></p>
                 <p >{$ht.hotelDesc|htmlspecialchars_decode}</p>
             </div>
         </volist>
@@ -290,14 +297,10 @@
         </div>
         <div class="list card" style="margin:12px 0;">
             <div class="item">
-                <h1>自驾游出游提示</h1>
+                <h1>自驾游温馨提示</h1>
             </div>
             <div class="item item-body" style="line-height: 130%;">
-                <p>
-                    成人价格：按照2位成人参加所选日期发出产品，并入住同一间房间价格所核算的单人价格。
-                    <br/>
-                    <br/> 儿童价格：12岁以下儿童仅包含行程中流浪项目，不占床位，不提供加床，不含酒店早餐的价格。（就当早餐产生费用家长自理）
-                </p>
+                {$drive.prompt|htmlspecialchars_decode}
             </div>
         </div>
         <div class="card zjywarm" style="margin:12px 0;">
@@ -456,7 +459,7 @@
             </ion-header-bar>
             <ion-content class=" scroll-content has-header hotelmsg" style="    background: #f5f5f5;">
                 <div class="row">
-                    <div class="col-33">酒&nbsp;店：</div>
+                    <div class="col-33">酒&nbsp;&nbsp;店：</div>
                     <div class="col-67">{{hotel.hotelName}}</div>
                 </div>
                 <!-- <div class="row">
@@ -464,7 +467,7 @@
                     <div class="col-67">{{hotel.hotelEnglishName}}</div>
                 </div> -->
                 <div class="row">
-                    <div class="col-33">房&nbsp;&nbsp;型：</div>
+                    <div class="col-33">类&nbsp;&nbsp;型：</div>
                     <div class="col-67">{{hotel.hotelType}}</div>
                 </div>
                 <div class="row">
@@ -493,12 +496,16 @@
                     <div class="col-67" ng-bind-html="hotel.hotelcomplex"></div>
                 </div> -->
                 <div class="row">
-                    <div class="col-33">酒店政策：</div>
+                    <div class="col-33">酒店配套：</div>
                     <div class="col-67" ng-bind-html="hotel.hotelActivity"></div>
                 </div>
                 <div class="row">
                     <div class="col-33">网&nbsp;&nbsp;络：</div>
                     <div class="col-67">{{hotel.hotelnetwork}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-33">车&nbsp;&nbsp;场：</div>
+                    <div class="col-67">{{hotel.hotelpark}}</div>
                 </div>
                 <h4></h4>
                 <p class="hotelh4"><b>房型信息</b></p>
@@ -510,15 +517,16 @@
                     <div class="col-33">床铺尺寸：</div>
                     <div class="col-67">{{hotel.hotelBedSize}}</div>
                 </div>
+                <p class="hotelh4"><b>酒店政策</b></p>
+                <div class="row">
+                    <div class="col-33">酒店政策：</div>
+                    <div class="col-67" ng-bind-html="hotel.hotelContent"></div>
+                </div>
                 <!-- <div class="row">
                     <div class="col-33">客房设施：</div>
-                    <div class="col-67" ng-bind-html="hotel.hotelRoomfacilities"></div>
+                    <div class="col-67" ></div>
                 </div> -->
                 <p class="hotelh4"><b>入住须知</b></p>
-                <div class="row">
-                    <div class="col-33">&nbsp;停车场：</div>
-                    <div class="col-67">{{hotel.hotelpark}}</div>
-                </div>
                 <div class="row">
                     <div class="col-33">入住时间：</div>
                     <div class="col-67">{{hotel.hotelFromtime}}</div>

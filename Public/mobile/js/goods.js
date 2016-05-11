@@ -17,10 +17,10 @@ $(function(){
     });
     var selectedDate ;
     $(".dateSelect").live("click", function() {
-       var todayDate = new Date($("#today").html().replace(/-/g, '/'));
+       var todayDate = new Date($("#goodtoday").val().replace(/-/g, '/'));
         var dateSelectDay = new Date($(this).children(".dateSelectDay").attr("id").replace(/-/g, '/'));
         var time = dateSelectDay - todayDate.getTime() ; //日期的long型值之差
-        if(Math.floor(time/(24*60*60*1000)) >= 1){
+        if(Math.floor(time/(24*60*60*1000)) >= 0){
             $(".selected").removeClass("selected");
             $(this).children(".dateSelectDay").addClass("selected");
             selectedDate = dateSelectDay;

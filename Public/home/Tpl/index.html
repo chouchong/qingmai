@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <title>项目实战</title>
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default header_index">
+        <!--   <div class="container-fluid bg_index">
+        <img src="img/bg.jpg" alt="" width="">
+  </div> -->
+        <div class="container-fluid channel">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="img/logo.png">
+                </a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><a href="#">papi酱</a></li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-user"></i>
+                        </a>
+                    </li>
+                    <li id=""><a href="#">注册</a></li>
+                    <li id=""><a href="#">登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <footer id="footer">
+        <div class="container">
+            <p>企业培训 | 合作事宜 | 版权投诉</p>
+            <p>苏ICP 备12345678. © 2009-2016 瓢城企训网. Powered by Bootstrap.</p>
+        </div>
+    </footer>
+    <script src="libs/jquery/dist/jquery.min.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    </script>
+</body>
+
+</html>
+
+
+
+// index.html
+.header_index {
+    // height: 500px;
+    width: 100%;
+    position: relative;
+    background: #6DC5DB;
+    .channel {
+        width: $page-size;
+        margin: 0 auto;
+        height: 100px;
+        // width: 100%;
+        background: #6DC5DB;
+        position:absolute;
+        .navbar-header {
+        width: $page-size;
+            img {
+                width: 200px;
+            }
+            ul {
+                margin: 25px;
+                a {
+                    color: #fff;
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}

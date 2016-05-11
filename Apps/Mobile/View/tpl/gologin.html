@@ -4,6 +4,11 @@
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="goLogCtrl">
+<ion-header-bar class="bar bar-light">
+    <a class="button button-clear" href="javascript:history.back(-1)">
+        <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
+    </a>
+</ion-header-bar>
     <ion-content  class=" scroll-content loginre">
     <input type="hidden" id="totoUrl" value="{$url}"/>
         <form name="mygoForm" novalidate>
