@@ -255,8 +255,13 @@ class DrivesModel extends BaseModel {
       $rs = array();
       $m = D('Admin/Drives');
       $data['isSola'] = I('isSola');
-      $rs = $m->where('drivesId='.I('drivesId'))->save($data);
+      $rs = $m->where('drivesId='.I('drivesId'))->delete();
       if($rs){
+        M('drives_appraises')->where('drivesId='.I('drivesId'))->delete();
+        M('drives_articles')->where('drivesId='.I('drivesId'))->delete();
+        M('drives_goods')->where('drivesId='.I('drivesId'))->delete();
+        M('drives_hotels')->where('drivesId='.I('drivesId'))->delete();
+        M('drives_timeprice')->where('drivesId='.I('drivesId'))->delete();
         $rd['status'] = 1;
       };
       return $rd;

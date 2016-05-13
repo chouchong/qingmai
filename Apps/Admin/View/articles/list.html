@@ -52,14 +52,20 @@
    <body class='wst-page'>
        <form method='post' action='{:U("Admin/Articles/index")}'>
        <div class='wst-tbar' style='height:25px;'>
-                    文章标题：<input type='text' id='articleTitle' name='articleTitle' class='form-control wst-ipt-15' value='{$articleTitle}'/> 
-       <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button>             
+                文章分类<select id='catId' name='catId'>
+                  <option value=''>请选择</option>
+                  <volist name="catList" id="vo">
+                  <option value='{$vo['catId']}'>{$vo['catName']}</option>
+                  </volist>
+                </select>
+                    文章标题：<input type='text' id='articleTitle' name='articleTitle' class='form-control wst-ipt-15' value='{$articleTitle}'/>
+       <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button>
        <php>if(in_array('wzlb_01',$WST_STAFF['grant'])){</php>
        <a class="btn btn-success glyphicon glyphicon-plus" href="{:U('Admin/Articles/toEdit')}" style='float:right'>新增</a>
        <php>}</php>
        </div>
        </form>
-       <div class="wst-body"> 
+       <div class="wst-body">
         <table class="table table-hover table-striped table-bordered wst-list">
            <thead>
              <tr>

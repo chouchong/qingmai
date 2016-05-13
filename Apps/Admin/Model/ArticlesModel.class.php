@@ -67,6 +67,7 @@ class ArticlesModel extends BaseModel {
 	 	    from __PREFIX__articles a,__PREFIX__article_cats c,__PREFIX__staffs s 
 	 	    where a.catId=c.catId and a.staffId = s.staffId ";
 	 	if(I('articleTitle')!='')$sql.=" and articleTitle like '%".I('articleTitle')."%'";
+	 	if(I('catId')>0)$sql.=" and a.catId = ".I('catId');
 	 	$sql.=' order by articleId desc';
 		return $m->pageQuery($sql);
 	 }

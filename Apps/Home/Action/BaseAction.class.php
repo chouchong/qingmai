@@ -10,6 +10,7 @@ class BaseAction extends Controller {
 		parent::__construct();
 		$this->foot=D('Home/Articles')->getArticles();
 		$this->userSession=session('Users');
+    	$this->CONF = D('Mobile/System')->loadConfigs();
 	}
 	/**
 	 * 生成URL

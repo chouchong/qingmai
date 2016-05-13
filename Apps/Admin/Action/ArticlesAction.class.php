@@ -70,6 +70,7 @@ class ArticlesAction extends BaseAction{
 		$this->isLogin();
 		$this->checkPrivelege('wzlb_00');
 		$m = D('Admin/Articles');
+    	$this->assign('catList',D('Admin/ArticleCats')->getCatLists());
     	$page = $m->queryByPage();
     	$pager = new \Think\Page($page['total'],$page['pageSize']);// 实例化分页类 传入总记录数和每页显示的记录数
     	$page['pager'] = $pager->show();

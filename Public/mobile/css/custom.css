@@ -3,7 +3,7 @@ html {
   font-size: 62.5%; }
 
 body {
-  font-size: 1.4rem; }
+  font-size: 14px; }
 
 body,
 #menu,
@@ -19,11 +19,15 @@ a {
   font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", SimSun, "宋体", Heiti, "黑体", sans-serif !important; }
 
 p {
-  color: #777777; }
+  color: #666666;
+  /* font-size: 14px; */
+}
 
 a {
   text-decoration: none;
-  color: #777777; }
+  color: #666666;
+  font-size: 14px;
+ }
 
 .cardPS {
   padding: 0px 0;
@@ -57,12 +61,16 @@ a {
 
 .footermessage {
   background: #F5F5F5;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 120%; }
   .footermessage div {
     text-align: center;
     width: 100%;
-    padding: 5%; }
+    padding: 5%; 
+    .footermessage div p{
+      font-size: 10px;
+    }
+  }
 
 #content-index {
   padding: 0 5px; }

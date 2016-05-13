@@ -35,7 +35,7 @@ class DrivesModel extends BaseModel {
       }
       $atSQl = "SELECT a.articleTitle,a.articleContent FROM __PREFIX__drives_articles AS da RIGHT JOIN __PREFIX__articles AS a ON da.articlesId = a.articleId WHERE da.drivesId=".I('drivesId')." ORDER BY a.articleId ASC";
       $data['articles'] = $this->query($atSQl);
-      $goodsSQl = "SELECT g.goodsId,g.goodsImg,g.goodsName,g.adultPrice,g.isRecomm,g.isBest,g.isNew FROM __PREFIX__drives_goods AS dg RIGHT JOIN __PREFIX__goods AS g on dg.goodsId = g.goodsId WHERE dg.drivesId = ".I('drivesId');
+      $goodsSQl = "SELECT g.goodsId,g.goodsImg,g.goodsName,g.adultPrice,g.isRecomm,g.isBest,g.isNew FROM dt_drives_goods AS dg RIGHT JOIN dt_goods AS g on dg.goodsId = g.goodsId WHERE g.isSale = 1 AND dg.drivesId = ".I('drivesId');
       $data['goods'] = $this->query($goodsSQl);
       for ($i=0; $i <count($data['goods']); $i++) {
         $goodsLaSql = 'SELECT l.name FROM __PREFIX__goods_labels AS gl LEFT JOIN __PREFIX__labels AS l ON gl.labelsId = l.id WHERE gl.goodsId = '.$data['goods'][$i]['goodsId'];

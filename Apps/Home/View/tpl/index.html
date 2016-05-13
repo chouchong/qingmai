@@ -1,9 +1,12 @@
 <extend name="tpl:base" />
 <block name="title">
-   <title>自驾游</title> 
+    <title>{$CONF['mallTitle']}</title>
+    <meta name="keywords" content="{$CONF['mallKeywords']}" />
+    <meta name="description" content="{$CONF['mallDesc']}" />
 </block>
 <block name="css"></block>
 <block name="main">
+<div ng-app="myapp" ng-controller="IndexCtrl">
     <nav class="navbar navbar-default header_index">
         <div class="containe bg_index">
             <img src="__PUBLIC__/home/img/bg1.jpg" alt="" width="500px">
@@ -16,7 +19,6 @@
             </div>
         </div>
     </nav>
-   
     <div class="searchfor">
         <div class="searchforname">
             <div class="input-group">
@@ -29,13 +31,12 @@
             </div>
         </div>
     </div>
-
-    <div class=" content">
+    <div class="content">
         <div class="zjy_list">
-        <volist name="drives" id="vo">
+            <volist name="drives" id="vo">
              <div class="zjy">
                  <div class="imgplace">
-                    <a href="{:U('Home/Drives/diverDetail',array('drivesId'=>$vo['drivesId']))}"><img src="/{$vo['pcDrivesImg']}" alt="" width="300px" height="1110px"></a>
+                    <a href="/Home/Drives/diverDetail/drivesId/{$vo['drivesId']}"><img src="/{$vo['pcDrivesImg']}" alt="" width="300px" height="1110px"></a>
                      <div class="countlove"><i class="glyphicon glyphicon-star"></i>&nbsp;<span>{$vo.solaCount}</span></div>
                      <div class="zjy_desc">
                          <p id="zjy_desc1">{$vo.drivesFrom}</p>
@@ -55,14 +56,16 @@
                  </div>
              </div>
              </volist>
+             <nd-comnav></nd-comnav>
         </div>
     </div>
     <div class="container searchmore">
         <div class="searchmoreb">
-            <span class="searchmoret"><a href="">搜索更多</a></span>
+            <span class="searchmoret"><a ng-click="dMore()" ng-bind="dMoreCon"></a></span>
         </div>
     </div>
     <include file="tpl:footer"/>
+</div>
 </block>
 <block name="js">
     <script type="text/javascript">
@@ -87,5 +90,5 @@
             function(){
             $("#erweima").hide();
         });
-    </script>   
+    </script>
 </block>

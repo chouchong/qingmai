@@ -6,26 +6,25 @@
                 <div class="row">
                  <volist name="foot.art" id="vo">
                    <div class="col-md-2">
-                        <a href="{:U('Home/Articles/getContent',array('catId'=>$vo['catId']))}"><h4>{$vo.catName}</h4></a>
+                        <a href="{:U('Home/Articles/getContent',array('catId'=>$vo['catId']))}" style="color: #fff;"><h4>{$vo.catName}</h4></a>
                         <ul>
                               <volist name="vo.articles" id="ko">
                                 <li>{$ko['articleTitle']}</li>
                               </volist>
                                <li>更多</li>
                         </ul>
-                    </div> 
+                    </div>
                  </volist>
                     <div class="col-md-4">
-                        
                         <h4>关于我们</h4>
                         <div class="qqwxwb">
                             <img id="erweimaqq" src="__PUBLIC__/home/img/01.png" alt="">
                             <img id="erweimawx" src="__PUBLIC__/home/img/02.png" alt="">
                             <img id="erweimawb" src="__PUBLIC__/home/img/03.png" alt="">
-                        </div>  
+                        </div>
                         <img id="erweima" src="__PUBLIC__/home/img/erweima.png" alt="" width="150px" style="display: none;">
                      {$foot['footer']['fieldValue']|htmlspecialchars_decode}
                     </div>
                 </div>
-            </div>   
+            </div>
     </footer>

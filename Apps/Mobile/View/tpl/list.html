@@ -9,6 +9,39 @@
     .item {
         border:0;
     }
+    .bar {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 9;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 5px;
+        width: 100%;
+        height: 50px;
+        border-width: 0;
+        border-style: solid;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid #ddd;
+        background-color: white;
+        background-size: 0;
+    }
+    .has-header {
+        top: 51px;
+    }
 </style>
 <div ng-app="myApp"  ng-controller="Ixctrl">
     <include file="tpl:inav" />
@@ -51,8 +84,8 @@
         </ion-list>
         <!-- 旅行寄语 -->
         <fieldset style="padding:10px 20px;">
-            <legend class="" style="font-size: 20px;text-align: center;border: none;width:100px;">旅行寄语</legend>
-            <p>人的一生，必须有一次是为追梦而走的自驾旅途！用车轮和眼睛去发现途中始料不及的没，一路翻山越岭，看青山滴翠、赏蓝天白云、或思绪海阔天空，或体验异域风情，这段旅途是用来怀念的！</p>
+            <legend class="" style="font-size: 16px;text-align: center;border: none;width:100px;">旅行寄语</legend>
+            <p>{$CONF.travelMessage|htmlspecialchars_decode}</p>
         </fieldset>
         <!-- 选择我们 -->
         <div class="row" style="text-align: center;">
@@ -160,8 +193,8 @@
                 <p>贴心行程、目的地突发状况反馈</p>
             </div>
         </div>
-        <div class="row" style="background:#F5F5F5;font-size: 14px;line-height: 120%;">
-            <div style="text-align: center;    width: 100%;padding:5%;">
+        <div name="footerme" class="row footermessage " >
+            <div >
                 {$CONF.mallFooter|htmlspecialchars_decode}
             </div>
         </div>

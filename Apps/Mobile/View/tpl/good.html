@@ -6,13 +6,21 @@
 </block>
 <block name="css">
     <link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
+    <style>
+        .xcmessageP img{
+            width:100%;
+        }
+        .footermessage div p {
+            margin: 0 0 10px;
+        }
+    </style>
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="goodCtrl">
 <include file="tpl:nav" /> >
 <!-- content -->
 <form name="myAddress" novalidate>
-<ion-content on-scroll="hiDiv()" overflow-scroll="false" class=" scroll-content has-header" style="    background: #f5f5f5;">
+<ion-content on-scroll="hiDiv()" overflow-scroll="false" class=" scroll-content has-header" style="background: #f5f5f5;">
     <div class="card">
         <div class="item item-divider">
             <input type="hidden" id="goodsId" value="{$goodsId}" />
@@ -22,9 +30,9 @@
             <p style="color:#F77A69;padding:10px; font-size: 16px;">￥<span>{$good['adultPrice']}</span>&nbsp;元/人</p>
         </div>
         <div class="item item-text-wrap">
-            <p>
+            <div class="xcmessageP">
                 {$good['goodsDesc']|htmlspecialchars_decode}
-            </p>
+            </div>
         </div>
     </div>
     <!-- 日历 -->
@@ -70,7 +78,7 @@
     <notempty name="good.attrfd">
     <div class="card">
         <div class="item item-divider">
-            选择分店
+            选择分类
         </div>
         <div class="item item-text-wrap scenicShop">
         <volist name="good.attrfd" id="vo">

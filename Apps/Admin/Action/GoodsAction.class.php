@@ -64,6 +64,15 @@ class GoodsAction extends BaseAction{
 		$this->view->display('/goods/view_pendding');
 	}
 	/**
+	 * 显示门票是否上架/下架
+	 */
+	 public function editiIsSale(){
+	 	$this->isAjaxLogin();
+	 	$m = D('Admin/Goods');
+		$rs = $m->editiIsSale();
+		$this->ajaxReturn($rs);
+	 }
+	/**
 	 * 分页查询
 	 */
 	public function index(){
@@ -81,7 +90,6 @@ class GoodsAction extends BaseAction{
     	$page['pager'] = $pager->show();
     	$this->assign('Page',$page);
     	$this->assign('goodsName',I('goodsName'));
-      // var_dump($page['root']);
         $this->display("/goods/list");
 	}
     /**
@@ -130,16 +138,6 @@ class GoodsAction extends BaseAction{
 		$rs = array();
 		$rs['status'] = 1;
 		$rs['list'] = $list;
-		$this->ajaxReturn($rs);
-	}
-	/**
-	 * 修改待审核门票状态
-	 */
-	public function changePenddingGoodsStatus(){
-		$this->isAjaxLogin();
-		$this->checkAjaxPrivelege('spsh_04');
-		$m = D('Admin/Goods');
-		$rs = $m->changeGoodsStatus();
 		$this->ajaxReturn($rs);
 	}
     /**

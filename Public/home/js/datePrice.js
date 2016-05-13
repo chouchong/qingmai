@@ -21,7 +21,7 @@ var dateAll = [{
 $(function() {
     init();
     $.ajax({
-        url: "http://lvyou.2blab.com/Api/Api/getDtp",
+        url: "/Api/Api/getDtp",
         data: { drivesId: drivesId },
         dataType: 'json',
         type: 'POST',
@@ -106,7 +106,7 @@ function addDay(date,price,tickets,id) {
     } else if(isbgeinSell){
                 htmls = htmls + '<div class="dateprice"><p class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +
-            '</p><p class="ticket">已售</p><span class="timeId">'+id+'</span></div>';
+            '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else {
         htmls = htmls + '<div class="dateprice"><p  class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +

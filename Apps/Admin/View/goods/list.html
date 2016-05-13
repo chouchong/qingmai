@@ -120,16 +120,16 @@
    <body class='wst-page'>
     <form method='post' action='{:U("Admin/Goods/index")}' autocomplete="off">
        <div class='wst-tbar'>
-  门票分类：<select id='goodsCatId1' onchange='javascript:getCatListForEdit("goodsCatId2",this.value,0)'>
+  门票分类：<select id='goodsCatId1' onchange='javascript:getCatListForEdit("goodsCatId2",this.value,0)' name='goodsCatId1'>
                   <option value=''>请选择</option>
                   <volist name="goodsCatsList" id="vo">
                   <option value='{$vo['catId']}' <if condition="$object['goodsCatId1'] == $vo['catId'] ">selected</if>>{$vo['catName']}</option>
                   </volist>
                </select>
-               <select id='goodsCatId2' onchange='javascript:getCatListForEdit("goodsCatId3",this.value,1);'>
+               <select id='goodsCatId2' onchange='javascript:getCatListForEdit("goodsCatId3",this.value,1);' name='goodsCatId2'>
                   <option value=''>请选择</option>
                </select>
-               <select id='goodsCatId3'>
+               <select id='goodsCatId3' name='goodsCatId3'>
                   <option value=''>请选择</option>
                </select>
    </div>
@@ -152,6 +152,7 @@
                <th width='40'>价格</th>
                <th width='25'>销量</th>
                <th width='25'>属性</th>
+               <th width='25'>上下架</th>
                <th width='80'>操作</th>
              </tr>
            </thead>
@@ -169,9 +170,28 @@
                <td><button type="button" class="btn btn-info" onclick="addAttr({$vo[goodsId]})">属性管理</button></td>
                <php>}</php>
                <td>
+                 <div class="dropdown">
+               <if condition="$vo['isSale']==0 ">
+                   <button class="btn btn-danger dropdown-toggle wst-btn-dropdown"  type="button" data-toggle="dropdown">
+               下架
+            <span class="caret"></span>
+           </button>
+               <else/>
+                   <button class="btn btn-success dropdown-toggle wst-btn-dropdown" type="button" data-toggle="dropdown">
+               上架
+            <span class="caret"></span>
+           </button>
+               </if>
+                <ul class="dropdown-menu" role="menu">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:toggleIsSale(1,{$vo['goodsId']})">上架</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:toggleIsSale(0,{$vo['goodsId']})">下架</a></li>
+           </ul>
+               </div>
+               </td>
+               <td>
                <a class="btn btn-primary glyphicon" href='{:U("Admin/Goods/toView",array("id"=>$vo["goodsId"]))}'>修改</a> 
                <php>if(in_array('splb_04',$WST_STAFF['grant'])){</php>
-               <button type="button" class="btn btn-danger glyphicon glyphicon-pencil" onclick="javascript:changeStatus({$vo['goodsId']},0)">禁售</button>&nbsp;
+               <button type="button" class="btn btn-danger glyphicon glyphicon-pencil" onclick="javascript:changeStatus({$vo['goodsId']},0)">删除</button>&nbsp;
                <php>}</php>
                </td>
              </tr>
@@ -225,7 +245,7 @@
             </tr>
             <tr>
                <th width='120'>属性:</th>
-               <td>分店&nbsp;</td>
+               <td>分类&nbsp;</td>
             </tr>
             <tr>
             <th width='120'></th>
@@ -282,6 +302,20 @@
       </div>
    </body>
    <script>
+   function toggleIsSale(t,v){
+     Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
+     $.post("{:U('Admin/Goods/editiIsSale')}",{id:v,isSale:t},function(data,textStatus){
+      var json = WST.toJson(data);
+      if(json.status=='1'){
+        Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+            location.reload();
+        }});
+      }else{
+        Plugins.closeWindow();
+        Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+      }
+     });
+   }
     //添加门票属性
     var suibian=null;
     function addAttr(id){

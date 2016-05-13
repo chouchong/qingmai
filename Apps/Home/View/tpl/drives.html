@@ -1,6 +1,8 @@
 <extend name="tpl:base" />
 <block name="title">
-   <title>自驾游</title> 
+    <title>{$diver.drivesName}</title>
+    <meta name="keywords" content="{$diver['drivesKeywords']}" />
+    <meta name="description" content="{$diver['drivesSpec']}" />
 </block>
 <block name="css"></block>
 <block name="main">
@@ -9,10 +11,10 @@
     </nav>
     <div class="d_content">
         <div class="d_head">
-            <input type="hidden" id="drivesId" value="{$diverDetail['drivesId']}" />
-            <input type="hidden" id="daytime" value="{$diverDetail['daytime']}" />
+            <input type="hidden" id="drivesId" value="{$diver['drivesId']}" />
+            <input type="hidden" id="daytime" value="{$daytime}" />
             <div class="d_title">
-                <h1>{$diverDetail.drivesName}</h1>
+                <h1>{$diver.drivesName}</h1>
                 <p>4日5夜游阿克苏经典款</p>
             </div>
             <div class="d_intro">
@@ -22,14 +24,14 @@
                 <div class="d_introduce">
                     <div class="d_intrl">
                         <p>
-                            <span class="d_intrlt">{$diverDetail.drivesKeywords}</span>
-                            <span class="d_intrld">{$diverDetail.drivesDay}</span>
+                            <span class="d_intrlt">{$diver.drivesKeywords}</span>
+                            <span class="d_intrld">{$diver.drivesDay}</span>
                         </p>
-                        <p><span class="d_place">{$diverDetail.drivesFrom}</span></p>
+                        <p><span class="d_place">{$diver.drivesFrom}</span></p>
                     </div>
                     <div class="d_intrr">
                         <p><span>清新版</span>
-                            <span>{$diverDetail.adultPrice}元/人</span>
+                            <span>{$diver.adultPrice}元/人</span>
                         </p>
                     </div>
                 </div>
@@ -82,7 +84,7 @@
                 <div class="diverformlist">
                     <div class="df_left">出发日期</div>
                     <div class="df_center">&nbsp;</div>
-                    <div class="df_right" id="df_seldate">{$diverDetail['daytime']}</div>
+                    <div class="df_right" id="df_seldate">{$diver['daytime']}</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -98,7 +100,7 @@
                       </span>
                         </div>
                     </div>
-                    <div class="df_right"><span>{$diverDetail.adultPrice}元/人</span></div>
+                    <div class="df_right"><span>{$diver.adultPrice}元/人</span></div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -114,7 +116,7 @@
                       </span>
                         </div>
                     </div>
-                    <div class="df_right"><span>{$diverDetail.childPrice}元/人</span></div>
+                    <div class="df_right"><span>{$diver.childPrice}元/人</span></div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -130,7 +132,7 @@
                       </span>
                         </div>
                     </div>
-                    <div class="df_right">单房差<span>{$diverDetail.homePrice}元/人</span></div>
+                    <div class="df_right">单房差<span>{$diver.homePrice}元/人</span></div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">

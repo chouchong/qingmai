@@ -74,7 +74,7 @@
                   <a class="btn btn-primary glyphicon" href="{:U('Admin/Drives/toEdit',array('drivesId'=>$vo[drivesId]))}">修改</a>
                 <php>}</php>
                 <php>if(in_array('dplb_03',$WST_STAFF['grant'])){</php>
-                    <button type="button" class="btn btn-danger glyphicon glyphicon-pencil" onclick="javascript:changeStatus({$vo[drivesId]},0)">禁售</button>&nbsp;
+                    <button type="button" class="btn btn-danger glyphicon glyphicon-pencil" onclick="javascript:changeStatus({$vo[drivesId]},0)">删除</button>&nbsp;
                   <php>}</php>
                 </td>
               </tr>
@@ -191,6 +191,7 @@
         });
       }
       function changeStatus(drivesId,isSola){
+        Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
         $.ajax({
           url: "{:U('Admin/Drives/changeDrives')}" ,
           type: "POST",
@@ -199,15 +200,15 @@
           dataType:'Json',
           success: function(data, textStatus, jqXHR ){
             if(data.status){
-              WST.msg('操作成功!', {icon: 1});
-              location.reload();
+             Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+                  location.reload();
+              }});
             }else{
-              WST.msg(data.msg, {icon: 5});
+              Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
             }
           } ,
           error: function(jqXHR, textStatus, errorMsg){
-            console.log(jqXHR);
-            console.log(errorMsg);
+            Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
           }
         });
       }

@@ -24,7 +24,7 @@ class ToolsAction extends Controller {
     $data=array(
       'tpl_id'=>'8',
       //#code#=1234&#tel#=400-081-2798#company#=云片网
-      'tpl_value'=>('#code#').'='.urlencode($code).'&'.('#tel#').'='.urlencode($m['phoneNo']).'&'.('#company#').'='.urlencode('要自在旅行'),
+      'tpl_value'=>('#code#').'='.urlencode($code).'&'.('#tel#').'='.urlencode('4008627098').'&'.('#company#').'='.urlencode('要自在旅行'),
       'mobile'=>htmlspecialchars(I('userPhone','18206766729'))
     );
     $object = $sms->yp_send_tpl($data);

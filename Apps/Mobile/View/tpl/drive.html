@@ -31,6 +31,9 @@
             font-weight: 500;
             line-height: 44px;
         }
+        .footermessage div p {
+            margin: 0 0 10px;
+        }
     </style>
 </block>
 <block name="main">
@@ -85,7 +88,7 @@
             </div>
             <div class="row" style="text-align: center;">
                 <div class="item item-text-wrap">
-                    <p>本起价是按2位成人参加<span id="goTimeday">{$daytime}</span>出发的产品，并入住同一间房间的单人价格。</p>
+                    <p>本起价是按2位成人参加<span id="goTimeday" style="color:#f44;">{$daytime}</span>出发的产品，并入住同一间房间的单人价格。</p>
                 </div>
             </div>
         </div>
@@ -117,7 +120,7 @@
         <!-- 选择人数 -->
         <ion-list class="list list-inset" style="width:100%;">
             <ion-item class="">
-                <div style="width:33%; float:left;">
+                <div style="width:33%; float:left;font-size: 16px;">
                     成人
                 </div>
                 <div style="width:33%; float:left;">
@@ -134,7 +137,7 @@
                 </div>
             </ion-item>
             <ion-item >
-                <div style="width:33%; float:left;">
+                <div style="width:33%; float:left;font-size: 16px;">
                     儿童
                 </div>
                 <div style="width:33%; float:left;">
@@ -146,7 +149,7 @@
                 <p style="font-size: 10px; margin-top: 35px;     clear: both;">12岁以下，不占床，不含早餐</p>
             </ion-item>
             <ion-item>
-                <div style="width:33%; float:left;">
+                <div style="width:33%; float:left;font-size: 16px;">
                     房间数
                 </div>
                 <div style="width:33%; float:left;">
@@ -156,8 +159,9 @@
                     <span id="roomPrice" style="">{$drive.homePrice}</span>&nbsp;单房差
                 </div>
             </ion-item>
-            <ion-item style="font-size: 20px;">
-                总价格 <span style="float:right;color: #EC5037;">¥<span id="totalPrice">0</span>元</span>
+            <ion-item style="font-size: 16px;">
+                总价格 
+                <span style="float:right;color: #EC5037;">¥<span id="totalPrice">0</span>元</span>
             </ion-item>
         </ion-list>
         <div class="list card cardPS">
@@ -242,7 +246,7 @@
         </div>
         </if>
         <div class="row ">
-            <span style="color: #555;font-size: 20px;">酒店信息</span>
+            <span style="color: #666666;font-size: 16px;">酒店信息</span>
         </div>
         <volist name="drive['noWay']" id="ht" >
         <ion-list class="hotelshow"  style="margin: -8px;" >
@@ -252,9 +256,9 @@
                     <ion-slide><img src="/{$himg.hotelImg}"></ion-slide>
                      </volist>
                 </ion-slide-box>
-                <p class="passhoteltitle">{$ht.hotelName}</p>
+                <p class="passhoteltitle" style="color: #666666;font-size: 16px;">{$ht.hotelName}</p>
                 <p>
-                    <span style="color:#f17a3a;">{$ht.hotelStar}</span></p>
+                    <span style="color:#f17a3a;font-size: 12px;">{$ht.hotelStar}</span></p>
                 <p class="hotelshowcon" >{$ht.hotelDesc|htmlspecialchars_decode}</p>
                 <p class="detail"><a ng-click="openPopover({$ht['hotelId']})">查看详情</a></p>
             </div>
@@ -269,14 +273,14 @@
          <volist name="drive['isWay']" id="ht">
             <div class="passhotelitem" >
                 <img src="/{$ht['hotelImg']}" alt="">
-                <p class="passhoteltitle" >{$ht.hotelName}</p>
-                <p><span style="color:#f17a3a;">{$ht.hotelStar}</span></p>
+                <p class="passhoteltitle" style="color: #666666;font-size: 16px;">{$ht.hotelName}</p>
+                <p><span style="color:#f17a3a;font-size: 12px;">{$ht.hotelStar}</span></p>
                 <p >{$ht.hotelDesc|htmlspecialchars_decode}</p>
             </div>
         </volist>
         </ion-list>
         <div class="list xcjsList">
-            <div class="item cardPS">行程介绍
+            <div class="item cardPS" style="color: #666666;font-size: 16px;">行程介绍
                 <i class="icon  ion-chevron-up placeholder-icon"></i>
             </div>
             <div style="padding: 1px;">
@@ -285,9 +289,9 @@
                     <img ng-click="openMPopover()" src="/{$drive['drivesMap']}" style="margin: 5px 0;" width="100%">
                     <!-- <p style="margin: 5px 0;">以下行程已部分包含及推荐清迈必游的TOP10景点</p> -->
                 </div>
-                <volist name="drive['articles']" id="at">
+                <volist name="drive['articles']" id="at" key="k">
                     <div class="xcmessage">
-                        <span class="xcmessageTit">{$at.articleTitle}</span>
+                        <span class="xcmessageTit">DAY_{$k}{$at.articleTitle}</span>
                         <div class="xcmessageP">
                             {$at.articleContent|htmlspecialchars_decode}
                         </div>
@@ -295,20 +299,20 @@
                 </volist>
             </div>
         </div>
-        <div class="list card" style="margin:12px 0;">
+        <!-- <div class="list card" style="margin:12px 0;">
             <div class="item">
                 <h1>自驾游温馨提示</h1>
             </div>
             <div class="item item-body" style="line-height: 130%;">
                 {$drive.prompt|htmlspecialchars_decode}
             </div>
-        </div>
+        </div> -->
         <div class="card zjywarm" style="margin:12px 0;">
             <div class="item item-divider" >
                 <h2 >温馨提示</h2>
             </div>
-            <div class="item item-text-wrap" style="    ">
-                <p >温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示温馨提示</p>
+            <div class="item item-text-wrap">
+                {$drive.prompt|htmlspecialchars_decode}
             </div>
         </div>
         <div class="list card zjytjjd">
@@ -359,7 +363,7 @@
             </div>
         </div>
         <div name="footerme" class="row footermessage " >
-            <div >
+            <div>
                 {$CONF.mallFooter|htmlspecialchars_decode}
             </div>
         </div>
@@ -482,10 +486,10 @@
                     <div class="col-33">电&nbsp;&nbsp;话：</div>
                     <div class="col-67">{{hotel.hotelPhone}}</div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <p style="color:#000;" ng-bind-html="hotel.hotelDesc">
                     </p>
-                </div>
+                </div> -->
                 <p class="hotelh4"><b>酒店设施</b></p>
                 <!-- <div class="row">
                     <div class="col-33">综合设施：</div>

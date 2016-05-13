@@ -55,10 +55,16 @@ class GoodsModel extends BaseModel {
      public function queryByPage(){
         $m = M('goods');
      	$goodsName = I('goodsName');
+     	$goodsCatId1 = (int)I('goodsCatId1',0);
+     	$goodsCatId2 = (int)I('goodsCatId2',0);
+     	$goodsCatId3 = (int)I('goodsCatId3',0);
 	 	$sql = "select g.*,gc.catName from __PREFIX__goods g
 	 	      left join __PREFIX__goods_cats gc on g.goodsCatId3=gc.catId
-	 	      where goodsStatus=1 and goodsFlag=1 and g.isSale=1";
+	 	      where goodsStatus=1 and goodsFlag=1";
 	 	if($goodsName!='')$sql.=" and (g.goodsName like '%".$goodsName."%')";
+	 	if($goodsCatId1>0)$sql.=" and g.goodsCatId1=".$goodsCatId1;
+	 	if($goodsCatId2>0)$sql.=" and g.goodsCatId2=".$goodsCatId2;
+	 	if($goodsCatId3>0)$sql.=" and g.goodsCatId3=".$goodsCatId3;
 	 	$sql.="  order by goodsId desc";
 		return $m->pageQuery($sql);
 	 }
@@ -84,27 +90,11 @@ class GoodsModel extends BaseModel {
 	 	$rd = array('status'=>-1);
 	 	$m = M('goods');
 	 	$id = (int)I('id',0);
-	 	$m->goodsStatus = (int)I('status',0);
-		$rs = $m->where('goodsId='.$id)->save();
+		$rs = $m->where('goodsId='.$id)->delete();
 		if(false !== $rs){
-			$sql = "select goodsName,userId from __PREFIX__goods g,__PREFIX__shops s where g.shopId=s.shopId and g.goodsId=".$id;
-			$goods = $this->query($sql);
-			$msg = "";
-			if(I('status',0)==0){
-				$msg = "门票[".$goods[0]['goodsName']."]已被商城下架";
-			}else{
-				$msg = "门票[".$goods[0]['goodsName']."]已通过审核";
-			}
-			$yj_data = array(
-				'msgType' => 0,
-				'sendUserId' => session('WST_STAFF.staffId'),
-				'receiveUserId' => $goods[0]['userId'],
-				'msgContent' => $msg,
-				'createTime' => date('Y-m-d H:i:s'),
-				'msgStatus' => 0,
-				'msgFlag' => 1,
-			);
-			M('messages')->add($yj_data);
+			M('goods_attributes')->where('goodsId='.$id)->delete();
+			M('goods_gallerys')->where('goodsId='.$id)->delete();
+			M('drives_goods')->where('goodsId='.$id)->delete();
 			$rd['status'] = 1;
 		}
 		return $rd;
@@ -184,16 +174,16 @@ class GoodsModel extends BaseModel {
 			$goodsId = $m->add($data);
 			if(false !== $goodsId){
 				if($labelsIds!=''){
-            $strway = explode(',',$labelsIds);
-            foreach ($strway as $k => $v){
-              $label['labelsId'] = $v;
-              $label['goodsId'] = $goodsId;
-              $m = M('goods_labels');
-              $m->add($label);
-              $rd['status']=1;
-            }
-          }
-				//保存相册
+		            $strway = explode(',',$labelsIds);
+		            foreach ($strway as $k => $v){
+		              $label['labelsId'] = $v;
+		              $label['goodsId'] = $goodsId;
+		              $m = M('goods_labels');
+		              $m->add($label);
+		              $rd['status']=1;
+		            }
+		          }
+					//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){
 					$str = explode(',',$gallery);
@@ -252,15 +242,15 @@ class GoodsModel extends BaseModel {
 			if(false !== $rs){
 				M('goods_labels')->where('goodsId='.$goodsId)->delete();
 				if($labelsIds!=''){
-            $strway = explode(',',$labelsIds);
-            foreach ($strway as $k => $v){
-              $label['labelsId'] = $v;
-              $label['goodsId'] = $goodsId;
-              $m = M('goods_labels');
-              $m->add($label);
-              $rd['status']=1;
-            }
-          }
+		            $strway = explode(',',$labelsIds);
+		            foreach ($strway as $k => $v){
+		              $label['labelsId'] = $v;
+		              $label['goodsId'] = $goodsId;
+		              $m = M('goods_labels');
+		              $m->add($label);
+		              $rd['status']=1;
+		            }
+		          }
 				//保存相册
 				$gallery = I("gallery");
 				if($gallery!=''){
@@ -282,5 +272,20 @@ class GoodsModel extends BaseModel {
 		}
 		return $rd;
 	}
+	/**
+	  * 显示门票是否上架/下架
+	  */
+	 public function editiIsSale(){
+	 	$rd = array('status'=>-1);
+	 	$id = I('id',0);
+	 	if($id==0)return $rd;
+	 	$data['isSale'] = (int)I('isSale');
+	 	$m = M('goods');
+	 	$rs = $m->where("goodsId =".$id)->save($data);
+	    if(false !== $rs){
+			$rd['status']= 1;
+		}
+	 	return $rd;
+	 }
 };
 ?>
