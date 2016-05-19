@@ -57,7 +57,7 @@
                 <span>凡在本行程中需要驾驶车辆的人员均提供有效驾驶证信息。用于制作驾驶证标准英文翻译件、翻译件用于在国外发生检查时提供警察查看所用</span>
             </div>
         </div>
-        <div class="card">
+        <div class="card" ng-if="isShowCar == false">
             <label class="item item-text-wrap ">
                 <p style="font-size: 18px;">
                     上传示例<p style="font-size: 13px;"> 一个订单一位联系人即可，三个成人需上传一份驾驶证，含正反面，以此类推</p>
@@ -112,7 +112,7 @@
                     <span style="font-size: 80%"> 驾驶证需在有效期、亲保证照片清晰</span>
                 </p>
             </label>
-             <div class="item item-text-wrap">
+             <div class="item item-text-wrap" ng-if="isShowCar == false">
                 <h2>驾驶证正本正面</h2>
                 <br/>
                 <div id="preview_Z0">
@@ -123,7 +123,7 @@
                      </div>
                  </for>
             </div>
-             <div class="item item-text-wrap">
+             <div class="item item-text-wrap" ng-if="isShowCar == false">
                 <h2>驾驶证正本反面</h2>
                 <br/>
                 <div id="preview_F0">
@@ -134,9 +134,19 @@
                      </div>
               </for>
             </div>
+            <div class="item item-text-wrap" ng-repeat="carzz in carzImg">
+                <h2>第<em ng-bind="$index"></em>个人的驾驶证</h2>
+                <br/>
+                <div>
+                    <img ng-src="/{{carzz.carzImg}}" alt="" width="100%">
+                </div>
+                <div>
+                    <img ng-src="/{{carzz.carfImg}}" alt="" width="100%">
+                </div>
+            </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="isShowCar == false">
             <div style="width:100%;">
                 <a ng-click="carLic()">
                     <button class="button button-block" style="background:#F77462;color:#fff;">提交资料</button>

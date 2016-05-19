@@ -18,7 +18,40 @@
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="orCtrl">
-<include file="tpl:nav"/>
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <empty name="Users">
+        <div>
+            <a ng-click="userLogin()">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a ng-click="userRegister()">注册</a>
+        </div>
+        <else />
+        <div>
+            <a href="{:U('Mobile/Users/index')}">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="{:U('Mobile/Orders/index')}">我的订单</a>
+        </div>
+        </empty>
+    </div>
+    <a class="button button-clear" href="/Mobile">
+        <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回首页</i>
+    </a>
+    <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>
+</ion-header-bar>
+<script>
+    $(function(){
+        $("ion-content").click(function(event) {
+            var traget = document.getElementById("myuser");
+              if(traget.style.display == ""){
+                 traget.style.display = "none";
+             }
+        });
+    })
+</script>
+<!-- <include file="tpl:nav"/> -->
     <!-- content -->
     <ion-content on-scroll="hiDiv()" id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
          <div class="card gopay" ng-repeat="vo in oList">

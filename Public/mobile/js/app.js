@@ -818,7 +818,23 @@
       };
     }])
     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
-      
+      $scope.isShowCar = false;
+      serviceHttp.getCarLic({orderId:$('#orderId').val()}).success(function(data) {
+        if(data){
+          var zarr=[];
+          zarr=data[0]["carzImg"].split(",");
+          var farr=[];
+          farr=data[0]["carfImg"].split(",");
+          var carzImg = [];
+          for (var i = 0; i < zarr.length; i++) {
+            carzImg.push({carzImg:zarr[i],carfImg:farr[i]});
+          }
+          if(carzImg.length>0){
+            $scope.carzImg = carzImg;
+            $scope.isShowCar = true;
+          }
+        }
+      });
       $scope.carLic = function() {
         var len = $("#len").val();
         var picZ = new Array()
@@ -1054,7 +1070,7 @@
       };
       this.getCarLic = function(data) {
         return $http({
-          url: '/Mobile/Users/getCarLic',
+          url: '/Admin/Orders/getCarPic',
           method: "POST",
           data: data
         });

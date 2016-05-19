@@ -251,13 +251,19 @@ git push -u origin master
 git add .
 git commit -m "web第11次修改"
 git push -u origin master
+
 git add .
 git commit -m "web第12次修改"
 git push -u origin master
 
 git add .
+git commit -m "web第13次修改"
+git push -u origin master
+
+git add .
 git commit -m "pc第一次"
 git push -u origin master
+
 git add .
 git commit -m "pc第2次"
 git push -u origin master
