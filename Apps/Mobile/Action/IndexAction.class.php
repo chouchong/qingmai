@@ -23,4 +23,10 @@ class IndexAction extends BaseAction {
     $this->Ads  = D('Mobile/Ads')->getAds(-2,1);
     $this->view->display('/tpl/list');
   }
+  /**
+     * 自驾加载
+     */
+  public function getDList(){
+    $this->ajaxReturn(D('Mobile/Drives')->pageByIndex());
+  }
 }

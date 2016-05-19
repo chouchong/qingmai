@@ -20,9 +20,14 @@
 	'SESSION_AUTO_START'    =>  true,
 	'MODULE_ALLOW_LIST'    =>    array('Home','Admin','Mobile','Api'),
 	'DEFAULT_MODULE'       =>    'Home',  // 默认模块
-	'APP_SUB_DOMAIN_DEPLOY'  =>    1, // 开启子域名配置
-	'APP_SUB_DOMAIN_RULES'   =>array(
-	    'm.dt.ngrok.4kb.cn'  => 'Mobile',  // m.dt.ngrok.4kb.cn域名指向Mobile模块
+	'APP_SUB_DOMAIN_DEPLOY'   =>    1, // 开启子域名配置
+	'APP_SUB_DOMAIN_RULES'    =>    array(
+	    'm.gozztrip.com'  => 'Mobile',
+	    'admin.gozztrip.com'  => 'Admin',
 	),
+	'TMPL_TEMPLATE_SUFFIX'  =>  '.html',     // 默认模板文件后缀
+    'URL_HTML_SUFFIX'       =>  'html',  // URL伪静态后缀设置  默认为html  去除默认的 否则很多地址报错
+    'URL_CASE_INSENSITIVE'  =>  true,
+    'URL_MODEL' => 2,
 	);
 ?>

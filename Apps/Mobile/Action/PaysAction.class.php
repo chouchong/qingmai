@@ -17,6 +17,7 @@ class PaysAction extends BaseAction {
     $this->isLogin();
     C('TOKEN_ON',false);
     $this->order = D('Mobile/Orders')->OrdersDetail()[0];
+
     $sms = new YunpianSms();
 
     $data=array(
@@ -24,8 +25,23 @@ class PaysAction extends BaseAction {
       'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
       'mobile'=>session('Users')['userPhone']
     );
-    $object = $sms->yp_send_tpl($data);
+    $arr = array(
+      'createTime'=>date('Y-m-d H:i:s'),
+      'con'=>$GLOBALS['CONFIG']['phoneNo'],
+      'orderId'=>I('orderId'),
+      'mobile'=>session('Users')['userPhone']
+    );
+    $rs = D('Mobile/Logs')->addOrderSms($arr);
+    if($rs['status']==0){
+      $object = $sms->yp_send_tpl($data);
+    }
     $this->view->display('/tpl/pay');
+  }
+  /**
+   * 短信发送
+   */
+  public function smsSend($orderId)
+  {
   }
   /**
    * 支付修改
@@ -146,7 +162,7 @@ class PaysAction extends BaseAction {
     $unifiedOrder = new \UnifiedOrder_pub();
     $total_fee = $row['totalMoney']*100;
     //$total_fee = 1;
-    $body = "昆明自驾旅游";
+    $body = "要自在旅游";
     $pkey = $row['orderId'];
     $unifiedOrder->setParameter("openid", session('openid'));//用户标识
     $unifiedOrder->setParameter("body", $body);//商品描述
@@ -154,7 +170,7 @@ class PaysAction extends BaseAction {
     $unifiedOrder->setParameter("out_trade_no", $row['orderNo']);//商户订单号
     $unifiedOrder->setParameter("total_fee", $total_fee);//总金额
     $unifiedOrder->setParameter("attach", "$pkey");//附加数据
-    $unifiedOrder->setParameter("notify_url", "http://dt.ngrok.4kb.cn/Mobile/Pays/wxNotify");//通知地址
+    $unifiedOrder->setParameter("notify_url", "http://gozztrip.com/Mobile/Pays/wxNotify");//通知地址
     $unifiedOrder->setParameter("trade_type", "JSAPI");//交易类型
     $unifiedOrder->SetParameter("input_charset", "UTF-8");
     //非必填参数，商户可根据实际情况选填

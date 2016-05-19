@@ -79,4 +79,11 @@ class OrdersAction extends BaseAction {
     $data = D('Mobile/Orders')->orDel();
     $this->ajaxReturn($data);
   }
+  /**
+   * 订单删除保险人
+   */
+  public function getUserInDel(){
+    $data = D('Mobile/Orders')->getUserInDel();
+    $this->ajaxReturn($data);
+  }
 }

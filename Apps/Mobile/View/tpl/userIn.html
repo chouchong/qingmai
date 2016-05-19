@@ -1,6 +1,6 @@
 <extend name="tpl:base" />
 <block name="title">
-<title>我的订单</title>
+<title>被保险人信息</title>
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="userInCtrl">
@@ -9,15 +9,16 @@
     <ion-content on-scroll="hiDiv()" id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
         <div class="card  insurance">
         <input type="hidden" id="orderId" value="{$row['orderId']}">
+        <input type="hidden" id="iOrderId" value="{$row['orderId']}" />
             <div class="item item-divider" >
                 <span>订单号：<span> {$row.orderNo}</span></span>
             </div>
             <div class="item item-text-wrap insurancepeo">
                 <span id="adultNum">{$row.adultNum}</span><span>成人</span>
-                <span>{$row.childNum}</span><span>儿童</span>
+                <span id="childNum">{$row.childNum}</span><span>儿童</span>
             </div>
             <div class="item item-text-wrap">
-                <span>被保险人信息要填下&nbsp;<em style="color: red;">{$row.adultNum}</em>&nbsp;个人（请按护照信息录入）</span>
+                <span>被保险人信息请按护照信息录入，请仔细确人，提交后不可更改，&nbsp;&nbsp;如未能一次性录入，{{isShow}}可再次进入我的订单（点击被保险人，继续录入）</span>
             </div>
         </div>
         <div ng-show="inUser">
@@ -32,20 +33,20 @@
                 <label class="item item-divider">
                     <span class="input-label">护照号码：{{vo.userCard}}</span>
                 </label>
-                <label class="item item-divider" style="padding:0;">
-                    <button ng-click="inEdit(vo)" class="button" style="float: right;color: #FB6B9C;"><i class=" ion-edit"></i>修改</button>
+                <label class="item item-divider" style="padding:0;" ng-if="isShow == false">
+                    <button ng-click="inEdit(vo.insuredId)" class="button" style="float: right;color: #FB6B9C;"><i class="ion-trash-a"></i>&nbsp;删除</button>
                 </label>
             </div>
         </div>
-        <div class="card">
+        <form name="oUserIn" novalidate ng-if="isShow == false">
+        <div class="card" ng-if="isShowadd == false">
             <label class="item item-input">
-                <input type="hidden" id="iOrderId" value="{$row['orderId']}" />
                 <span class="input-label">&nbsp;姓  &nbsp;名：</span>
-                <input type="text" ng-model="oUser.userName">
+                <input type="text" ng-model="oUser.userName" required name="userName">
             </label>
             <label class="item item-input">
                 <span class="input-label">护照号码：</span>
-                <input type="text" ng-model="oUser.userCard">
+                <input type="text" ng-model="oUser.userCard" required name="userCard">
             </label>
             <label class="item item-input" style="padding:0 0 0 16px;">
                 <span class="input-label">&nbsp;性  &nbsp;别：</span>
@@ -55,12 +56,14 @@
             </label>
         </div>
         <div class="row">
-            <div style="width:100%;">
-                <a ng-click="addUserIn()">
-                    <button class="button button-block " style="background:#F77462;color:#fff;">提交资料</button>
-                </a>
+            <div style="width:45%;margin-left:3%;" ng-if="isShowadd == false">
+                <button ng-click="addUserIn()" ng-disabled="oUserIn.$invalid" class="button button-block" style="background:#66BDE0;color:#fff;">保存</button>
+            </div>
+            <div style="width:{{isShowWidth}}%;margin-left:4%;">
+                <button ng-click="addUserOrder()" class="button button-block " style="background:#F77462;color:#fff;">提交资料</button>
             </div>
         </div>
+        </form>
     </ion-content>
 </div>
 </block>

@@ -442,11 +442,6 @@
         if($(this).prop('checked'))visaIds.push($(this).val());
       });
      visaIds.join(',');
-     if(visaIds.length == 0){
-       Plugins.Tips({title:'信息提示',icon:'error',content:'至少选择一个景点!',timeout:1000});
-       num = false;
-       return;
-     }
      if(num == true){
        $('#visa').val(visaIds);
       $('#myVisas').modal('hide');
@@ -527,22 +522,22 @@
        Plugins.Tips({title:'信息提示',icon:'error',content:'PC端自驾图没有上传!',timeout:1000});
        return;
      }
-     if(params.articlesIds==''){
-       Plugins.Tips({title:'信息提示',icon:'error',content:'行程没有选择!',timeout:1000});
-       return;
-     }
-     if(params.goodsids==''){
-       Plugins.Tips({title:'信息提示',icon:'error',content:'景点推荐没有选择!',timeout:1000});
-       return;
-     }
-     if(params.tuzhongHotels==''){
-       Plugins.Tips({title:'信息提示',icon:'error',content:'自驾途中酒店没有选择!',timeout:1000});
-       return;
-     }
-     if(params.zhuchuHotels==''){
-       Plugins.Tips({title:'信息提示',icon:'error',content:'自驾住处酒店没有选择!',timeout:1000});
-       return;
-     }
+     // if(params.articlesIds==''){
+     //   Plugins.Tips({title:'信息提示',icon:'error',content:'行程没有选择!',timeout:1000});
+     //   return;
+     // }
+     // if(params.goodsids==''){
+     //   Plugins.Tips({title:'信息提示',icon:'error',content:'景点推荐没有选择!',timeout:1000});
+     //   return;
+     // }
+     // if(params.tuzhongHotels==''){
+     //   Plugins.Tips({title:'信息提示',icon:'error',content:'自驾途中酒店没有选择!',timeout:1000});
+     //   return;
+     // }
+     // if(params.zhuchuHotels==''){
+     //   Plugins.Tips({title:'信息提示',icon:'error',content:'自驾住处酒店没有选择!',timeout:1000});
+     //   return;
+     // }
      if(params.drivesFrom==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾目的地不能为空!',timeout:1000});
        return;

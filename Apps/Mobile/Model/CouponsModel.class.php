@@ -11,7 +11,7 @@ class CouponsModel extends BaseModel {
   public function checkZcode(){
     $m = M('Coupons');
     $rd = array('status' => -1);
-    $rs = $m->where(array('couponsCode'=>I('myZcode'),'isUse'=>0))->find();
+    $rs = $m->where(array('couponsCode'=>I('myZcode'),'isUse'=>-1))->find();
     $zcode = M('Order_coupons')->where(array('couponsCode'=>I('myZcode')))->find();
     if($rs!=false && $zcode==false){
       $rd['couponsPrice'] = $rs['couponsPrice'];

@@ -15,5 +15,13 @@ class GoodsModel extends BaseModel {
     $data['attrfd'] = M('goods_attributes')->field('attrVal')->where(array('goodsId' => I('goodsId'),'attrId'=>2))->select();
     return $data;
   }
+  /**
+   * 获取门票是哪个自驾推荐
+   */
+  public function goodsFindDrivesId(){
+    $m = M('drives_goods');
+    $data = $m->field('drivesId')->where(array('goodsId' => I('goodsId')))->find();
+    return $data;
+  }
 }
 ?>

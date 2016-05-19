@@ -33,5 +33,20 @@ class LogsModel extends BaseModel {
     $data["loginIp"] = get_client_ip();
     M('log_user_logins')->add($data);
   }
+  /**
+   * 日志 订单sms
+   */
+  public function addOrderSms($data)
+  {
+    $rd = array('status' => 0);
+    $sms = M('log_sms_order')->where(array('orderId'=>$data['orderId']))->find();
+    if($sms !== false){
+      $rd['status'] = 1;
+    }else{
+      M('log_sms_order')->add($data);
+      $rd['status'] = 0;
+    }
+    return $rd;
+  }
 }
 ?>

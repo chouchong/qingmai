@@ -11,11 +11,12 @@ class DrivesAction extends BaseAction {
    */
  public function diverDetail(){
  	$m = D('Home/Drives');
-    $this->diver = $m->drivesDetail();
+    $this->drive = $m->drivesDetail();
     $this->daymtime = date('Y-m-d', time());
     $this->daytime = date('Y-m', time());
-    // dump( $m->drivesDetail());
+    $this->ap = $m->getDap();
     $this->display('tpl/drives');
+    // var_dump($this->ap);
  }
 
 }

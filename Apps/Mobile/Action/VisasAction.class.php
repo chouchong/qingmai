@@ -10,6 +10,8 @@ class VisasAction extends BaseAction {
    */
   public function index(){
   	$this->visa = D('Mobile/Visas')->getVisa();
+  	$this->drivesId = D('Mobile/Visas')->visaFindDrivesId()['drivesId'];
+  	// var_dump($this->drivesId);
     $this->view->display('/tpl/visa');
   }
 }

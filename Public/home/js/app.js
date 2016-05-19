@@ -127,6 +127,7 @@
     serviceHttp.getDList({page:++$scope.page}).success(function(data) {
       if (data != "null") {
         $scope.dlist = $scope.dlist.concat(data);
+        console.log($scope.dlist);
       }else {
         $scope.dMoreCon = "加载完成";
       }
@@ -225,7 +226,7 @@
       restrict: 'E',
       template: '<div class="zjy" ng-show="dlist" ng-repeat="vo in dlist">'
                  +'<div class="imgplace" >'
-                  +'<a href="/Home/Drives/diverDetail/drivesId/{{vo.drivesId}}"><img ng-src="/{{vo.pcDrivesImg}}" alt=""></a>'
+                  +'<a href="/Home/Drives/diverDetail/drivesId/{{vo.drivesId}}.html"><img ng-src="/{{vo.pcDrivesImg}}" alt=""></a>'
                   +   '<div class="countlove"><i class="glyphicon glyphicon-star"></i>&nbsp;<span>{{vo.solaCount}}</span></div>'
                   +   '<div class="zjy_desc">'
                   +       '<p id="zjy_desc1">{{vo.drivesFrom}}</p>'

@@ -302,11 +302,10 @@ footer {
     .d_content .d_head .d_title p {
       font-size: 20px; }
     .d_content .d_head .d_intro {
-      width: 1110px;
-      height: 420px; }
+      width: 1110px; }
       .d_content .d_head .d_intro .d_img {
-        width: 1110px;
-        height: 300px; }
+        text-align: center;
+        width: 1110px; }
       .d_content .d_head .d_intro .d_introduce {
         width: 1110px;
         height: 120px;
@@ -342,7 +341,7 @@ footer {
       width: 539px;
       float: left;
       background: #fff;
-      min-height: 530px; }
+      min-height: 100px; }
       .d_content .d_form .selectdate .datemonth {
         height: 60px;
         background: #6DC5DB;
@@ -354,13 +353,15 @@ footer {
           text-decoration: underline; }
         .d_content .d_form .selectdate .datemonth .monthlast {
           width: 25%;
-          float: left; }
+          float: left;
+          cursor: pointer; }
         .d_content .d_form .selectdate .datemonth .selectyear {
           width: 50%;
           float: left; }
         .d_content .d_form .selectdate .datemonth .monthnext {
           width: 25%;
-          float: left; }
+          float: left;
+          cursor: pointer; }
       .d_content .d_form .selectdate .dateday {
         text-align: center;
         height: 40px; }
@@ -481,24 +482,45 @@ footer {
           background: #6DC5DB; }
           .d_content .d_form .diverform .diverformlist_sub #df_submit a {
             text-decoration: none; }
-  .d_content .d_xc {
+  .d_content .d_xcts {
     margin: 10px 0;
     padding: 10px 0;
-    min-height: 50px;
-    background: #fff; }
-    .d_content .d_xc #timeDesc {
-      padding: 20px;
-      font-size: 20px; }
-      .d_content .d_xc #timeDesc .item-text-wrap .xcapgright {
-        float: right; }
-      .d_content .d_xc #timeDesc .xingchengPlan {
-        border-top: 1px solid #bbb;
-        padding: 5px; }
+    min-height: 100px;
+    background: #fff;
+    overflow: hidden; }
+    .d_content .d_xcts .dx_left {
+      width: 50%;
+      float: left; }
+      .d_content .d_xcts .dx_left .xcmx {
+        clear: both;
+        padding: 5px 20px; }
+        .d_content .d_xcts .dx_left .xcmx .xc_title span {
+          font-size: 20px; }
+        .d_content .d_xcts .dx_left .xcmx .xc_title .xc_title1 {
+          width: 30px;
+          height: 5px;
+          background: #6DC5DB; }
+        .d_content .d_xcts .dx_left .xcmx .xc_content {
+          padding: 10px; }
+          .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc {
+            padding-top: 20px; }
+            .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc .item-text-wrap {
+              font-size: 18px; }
+              .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc .item-text-wrap .xcapgright {
+                float: right; }
+            .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc .xingchengPlan {
+              border-top: 1px #eee solid; }
+              .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc .xingchengPlan .item-text-wrap {
+                padding: 10px;
+                font-size: 16px; }
+                .d_content .d_xcts .dx_left .xcmx .xc_content #xc_timeDesc .xingchengPlan .item-text-wrap .xcapgright {
+                  float: right; }
   .d_content .d_explain {
     margin: 10px 0;
     padding: 10px 0;
     min-height: 650px;
-    background: #fff; }
+    background: #fff;
+    overflow: hidden; }
     .d_content .d_explain .de_left {
       width: 50%;
       float: left; }
@@ -689,7 +711,8 @@ footer {
         margin: 10px;
         float: left; }
         .d_content .d_scenic .d_sceniclist .d_scenics .d_scenicimg img {
-          width: 100%; }
+          width: 500px;
+          height: 284px; }
         .d_content .d_scenic .d_sceniclist .d_scenics .d_scenicdesc .d_scenicp {
           float: right;
           margin-right: 20px;
@@ -701,6 +724,36 @@ footer {
           padding: 2px;
           color: #ffc900;
           margin: 0 5px; }
+
+.Mbm_msg {
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  font-size: 18px; }
+  .Mbm_msg .Mbm_phone {
+    float: right; }
+
+.mh_con {
+  min-height: 50px;
+  overflow: hidden; }
+  .mh_con .mh_msgs {
+    padding: 15px;
+    font-size: 20px;
+    overflow: hidden;
+    margin: 10px 0; }
+    .mh_con .mh_msgs h3 {
+      margin-top: 5px; }
+    .mh_con .mh_msgs .mh_msg {
+      margin: 0 20px;
+      padding: 20px 0;
+      width: 100%;
+      font-size: 17px;
+      line-height: 20px; }
+      .mh_con .mh_msgs .mh_msg .mh_msgl {
+        float: left;
+        width: 20%; }
+      .mh_con .mh_msgs .mh_msg .mh_msgr {
+        float: left;
+        width: 80%; }
 
 .od_content {
   width: 1210px;
@@ -745,14 +798,16 @@ footer {
             float: right; }
         .od_content .od_form .od_forml .odf_xc #timeDesc .xingchengPlan {
           border-top: 1px #eee solid; }
+      .od_content .od_form .od_forml .odf_lxr .odf_lxrs {
+        border-bottom: 1px #eee solid; }
       .od_content .od_form .od_forml .odf_lxr .odf_lxrbtn {
-        border-bottom: 1px #eee solid;
-        border-top: 1px #eee solid;
         height: 50px;
         margin-bottom: 8px; }
         .od_content .od_form .od_forml .odf_lxr .odf_lxrbtn .checkbox {
           padding: 5px; }
       .od_content .od_form .od_forml .odf_lxr .form-horizontal {
+        border-top: 1px #eee solid;
+        padding-top: 15px;
         clear: both; }
       .od_content .od_form .od_forml .odf_l {
         margin: 0 10px; }
@@ -849,6 +904,8 @@ footer {
       width: 120px;
       background: #F77462;
       color: #fff; }
+      .p_content .p_submit .p_submitb a {
+        color: #fff; }
 
 .ps_content {
   font-size: 18px;
@@ -1034,7 +1091,7 @@ footer {
 
 .s_con {
   font-size: 18px;
-  width: 1210px;
+  width: 1119px;
   min-height: 100px;
   margin: 10px auto;
   overflow: hidden;
@@ -1075,5 +1132,162 @@ footer {
     padding: 10px 0;
     min-height: 620px;
     overflow: hidden; }
+    .s_con .s_form .s_selectdate {
+      width: 539px;
+      float: left;
+      margin-right: 20px;
+      background: #fff;
+      min-height: 530px; }
+      .s_con .s_form .s_selectdate .s_datemonth {
+        height: 60px;
+        background: #6DC5DB;
+        text-align: center;
+        font-size: 25px;
+        color: #fff;
+        line-height: 60px; }
+        .s_con .s_form .s_selectdate .s_datemonth .s_monthlast {
+          width: 33%;
+          float: left;
+          cursor: pointer; }
+        .s_con .s_form .s_selectdate .s_datemonth .s_selectyear {
+          width: 34%;
+          float: left; }
+        .s_con .s_form .s_selectdate .s_datemonth .s_monthnext {
+          width: 33%;
+          float: left;
+          cursor: pointer; }
+      .s_con .s_form .s_selectdate .dateday {
+        text-align: center; }
+        .s_con .s_form .s_selectdate .dateday .dateweek {
+          padding: 10px 0;
+          width: 14%;
+          float: left; }
+      .s_con .s_form .s_selectdate #calendarSelect .dateSelect {
+        width: 14%;
+        float: left;
+        padding: 10px 0; }
+        .s_con .s_form .s_selectdate #calendarSelect .dateSelect .dateSelectDay {
+          margin: 0 auto;
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          line-height: 40px;
+          color: #666; }
+        .s_con .s_form .s_selectdate #calendarSelect .dateSelect .dateSelectDay:hover {
+          background: #BAFFFB;
+          color: #fff; }
+        .s_con .s_form .s_selectdate #calendarSelect .dateSelect .selected {
+          background: #FF6B57;
+          color: #fff; }
+        .s_con .s_form .s_selectdate #calendarSelect .dateSelect .today {
+          background: #6DC5DB;
+          color: #fff; }
+      .s_con .s_form .s_selectdate .calendarpricedesc {
+        clear: both;
+        padding: 15px; }
+      .s_con .s_form .s_selectdate .s_lxr {
+        height: 60px;
+        background: #6DC5DB;
+        line-height: 60px;
+        padding: 0 20px; }
+      .s_con .s_form .s_selectdate .s_lxrf {
+        padding: 20px;
+        clear: both; }
+        .s_con .s_form .s_selectdate .s_lxrf .control-label {
+          font-size: 16px; }
+    .s_con .s_form .sf_sel {
+      margin-left: 20px;
+      float: left;
+      width: 540px;
+      background: #fff;
+      min-height: 200px;
+      overflow: hidden; }
+      .s_con .s_form .sf_sel .sf_tc {
+        clear: both;
+        overflow: hidden; }
+        .s_con .s_form .sf_sel .sf_tc .sf_tch {
+          height: 60px;
+          width: 100%;
+          background: #6DC5DB;
+          padding: 0 20px;
+          line-height: 60px; }
+        .s_con .s_form .sf_sel .sf_tc .sf_tcc {
+          overflow: hidden;
+          padding: 20px; }
+          .s_con .s_form .sf_sel .sf_tc .sf_tcc .sf_tcs {
+            cursor: pointer;
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #6DC5DB;
+            text-align: center;
+            width: 210px;
+            margin: 5px 20px;
+            border-radius: 8px; }
+          .s_con .s_form .sf_sel .sf_tc .sf_tcc .active {
+            background: #6DC5DB;
+            color: #fff; }
+      .s_con .s_form .sf_sel .sf_fd {
+        clear: both;
+        overflow: hidden; }
+        .s_con .s_form .sf_sel .sf_fd .sf_fdh {
+          height: 60px;
+          width: 100%;
+          background: #6DC5DB;
+          padding: 0 20px;
+          line-height: 60px; }
+        .s_con .s_form .sf_sel .sf_fd .sf_fdc {
+          overflow: hidden;
+          padding: 20px; }
+          .s_con .s_form .sf_sel .sf_fd .sf_fdc .sf_fds {
+            float: left;
+            height: 40px;
+            line-height: 40px;
+            border: 1px solid #6DC5DB;
+            text-align: center;
+            width: 210px;
+            margin: 5px 20px;
+            border-radius: 8px;
+            cursor: pointer; }
+          .s_con .s_form .sf_sel .sf_fd .sf_fdc .active {
+            background: #6DC5DB;
+            color: #fff; }
+      .s_con .s_form .sf_sel .sf_inputs {
+        margin: 20px 0; }
+        .s_con .s_form .sf_sel .sf_inputs .sf_input {
+          clear: both;
+          text-align: center;
+          margin: 10px 10px;
+          overflow: hidden; }
+          .s_con .s_form .sf_sel .sf_inputs .sf_input .sfi_l {
+            float: left;
+            width: 30%;
+            font-size: 18px;
+            font-weight: bold; }
+          .s_con .s_form .sf_sel .sf_inputs .sf_input .sfi_c {
+            float: left;
+            width: 40%; }
+            .s_con .s_form .sf_sel .sf_inputs .sf_input .sfi_c .input-group {
+              margin: 0 auto;
+              width: 110px; }
+              .s_con .s_form .sf_sel .sf_inputs .sf_input .sfi_c .input-group input {
+                text-align: center; }
+          .s_con .s_form .sf_sel .sf_inputs .sf_input .sfi_r {
+            float: left;
+            width: 30%; }
+      .s_con .s_form .sf_sel .sf_submit {
+        padding: 20px 0; }
+        .s_con .s_form .sf_sel .sf_submit .sf_sbs {
+          width: 250px;
+          text-align: center;
+          margin: 10px auto;
+          font-size: 20px; }
+          .s_con .s_form .sf_sel .sf_submit .sf_sbs .sf_sbp #sf_price {
+            color: #f44; }
+          .s_con .s_form .sf_sel .sf_submit .sf_sbs .sf_sbtn {
+            color: #fff;
+            margin: 10px 0;
+            padding: 20px 0;
+            background: #6DC5DB; }
 
 /*# sourceMappingURL=custom.css.map */

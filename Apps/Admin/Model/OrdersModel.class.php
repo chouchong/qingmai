@@ -109,7 +109,7 @@ class OrdersModel extends BaseModel {
 	  */
      public function getDetailModel(){
      	$orderId=I('orderId');
-        $sql="select totalMoney,zMoney,adultNum,childNum,roomNum,toTime,endTime,orderNo,adultPrice,childPrice,roomPrice from dt_orders where orderId=".$orderId;
+        $sql="SELECT o.payType,o.orderId,o.goodsType,o.orderNo,o.createTime,o.toTime,o.adultNum,o.adultPrice,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.totalMoney,o.isBigber,o.zMoney,o.orderDesc,og.*,ua.userName,ua.address,ua.userPhone,ua.userEmail FROM dt_user_address AS ua,dt_orders AS o LEFT JOIN dt_order_goods AS og ON o.orderId = og.orderId WHERE o.addressId = ua.addressId AND o.orderId =".$orderId;
         $data=$this->query($sql);
      	return $data;
      }
@@ -118,7 +118,7 @@ class OrdersModel extends BaseModel {
 	 */
      public function addresDetail(){
         $orderId=I('orderId');
-        $sql="select dt_orders.addressId,dt_orders.orderId,dt_orders.orderNo,dt_user_address.userName,dt_user_address.userPhone,dt_user_address.address from dt_orders left join dt_user_address  on  dt_orders.addressId=dt_user_address.addressId where orderId=".$orderId;
+        $sql="select o.addressId,o.orderId,o.orderNo,ua.userName,ua.userPhone,ua.address,ua.userEmail from dt_orders as o left join dt_user_address as ua on  o.addressId=ua.addressId where orderId=".$orderId;
         $data=$this->query($sql);
      	 return $data;
      }

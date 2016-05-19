@@ -16,12 +16,12 @@
                 <span style="">{$obj.drivesTo}</span>
                 <span style="background:#FFD679;color:#fff;float:right;    padding: 0 20px;">{$obj['drivesDay']}</span>
             </p>
-            <p  style="    clear: both;">
+            <!-- <p  style="    clear: both;">
                 出发时间： <span>{$obj.toTime}</span>
             </p>
             <p>
                 结束时间： <span>{$obj.endTime}</span>
-            </p>
+            </p> -->
         </div>
     </div>
     <div class="list xcapmsg" style="padding:8px;">
@@ -143,9 +143,9 @@
     </div>
     <div class="row" style="background:#fff font-size: 20px; ">
         <div class="col col-67">
-            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">应付&nbsp;¥&nbsp;<span id="totalPrice">{$obj['totalMoney']}</span>元</p>
+            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 16px;">应付&nbsp;¥&nbsp;<span id="totalPrice">{$obj['totalMoney']}</span>元</p>
         </div>
-        <button ng-click="odcf()"  class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 20px">立即支付</button>
+        <button ng-click="odcf()"  class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 16px">立即支付</button>
     </div>
 </form>
 </ion-content>

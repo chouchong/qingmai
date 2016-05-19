@@ -29,6 +29,12 @@
           traget.style.display = "none";
         }
       }
+      $rootScope.userLogin = function() {
+        window.location.href = '/Mobile/Users/gologin?url=' + window.location.href;
+      }
+      $rootScope.userRegister = function() {
+        window.location.href = '/Mobile/Users/register?url=' + window.location.href;
+      }
       $rootScope.hiDiv = function() {
         var traget = document.getElementById("myuser");
         traget.style.display = "none";
@@ -42,8 +48,20 @@
         }
       });
     }])
-    .controller("Ixctrl", ['$scope', function($scope, serviceHttp) {
-      // $(".item").remove("item");
+    .controller("Ixctrl", ['$scope','serviceHttp', function($scope, serviceHttp) {
+      $scope.page = 0;
+      $scope.dMoreCon = "加载更多精彩";
+      $scope.dlist = [];
+      $scope.dMore = function(){
+        serviceHttp.getDrList({page:++$scope.page}).success(function(data) {
+          // console.log(data != null);
+          if (data != null) {
+            $scope.dlist = $scope.dlist.concat(data);
+          }else {
+            $scope.dMoreCon = "没有更多产品了";
+          }
+        });
+      }
     }])
     .controller("goLogCtrl", ['$rootScope', '$scope', 'serviceHttp', 'Storage', function($rootScope, $scope, serviceHttp, Storage) {
       $scope.dogologin = function(phone) {
@@ -77,7 +95,7 @@
               window.location.href = url;
             }
           } else {
-            $rootScope.msg("登录失败");
+            $rootScope.msg("账号密码不正确");
           }
         })
       }
@@ -278,7 +296,7 @@
               window.location.href = url;
             }
           } else {
-            $rootScope.msg('登录失败');
+            $rootScope.msg('账号密码不正确');
           }
         });
       }
@@ -800,6 +818,7 @@
       };
     }])
     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+      
       $scope.carLic = function() {
         var len = $("#len").val();
         var picZ = new Array()
@@ -843,7 +862,7 @@
       };
     }])
 
-  .controller("userInCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+  .controller("userInCtrl", ['$rootScope', '$scope','$ionicPopup','serviceHttp', function($rootScope, $scope,$ionicPopup ,serviceHttp) {
       $scope.sexlist = [{
         text: "男",
         value: "1"
@@ -855,18 +874,45 @@
         sex: '1'
       };
       var iOrderId = $('#iOrderId').val();
-      var numIn = $('#adultNum').html();
+      var adultNum = $('#adultNum').html();
+      var childNum = $('#childNum').html();
       var cIn = 0;
+      $scope.isShow = false;
+      $scope.isShowadd = false;
+      $scope.isShowWidth = 45;
       serviceHttp.getUserIn({
         orderId: iOrderId
       }).success(function(data) {
         $scope.inUser = data;
         if (data) {
           cIn = $scope.inUser.length;
+          if(cIn == (parseInt(childNum)+parseInt(adultNum))){
+            $scope.isShow = true;
+          }
         }
       });
-      $scope.inEdit = function(voIn) {
-        $scope.oUser = voIn;
+      $scope.inEdit = function(insuredId) {
+        var confirmPopup = $ionicPopup.confirm({
+          title: '确认是否删除被保险人',
+          cancelText: '取消', // String (默认: 'Cancel')。一个取消按钮的文字。
+          okText: '确认', // String (默认: 'OK')。OK按钮的文字。
+        });
+        confirmPopup.then(function(res) {
+          if (res) {
+            serviceHttp.getUserInDel({insuredId:insuredId}).success(function(data) {
+              if(data.status > 0){
+                serviceHttp.getUserIn({
+                  orderId: iOrderId
+                }).success(function(data) {
+                  $scope.inUser = data;
+                  cIn = $scope.inUser.length;
+                  $scope.isShowadd = false;
+                  $scope.isShowWidth = 45;
+                });
+              }
+            });
+          }
+        });
       }
       $scope.serverSideChange = function(item) {
         $scope.oUser.sex = item.value;
@@ -881,16 +927,9 @@
             }).success(function(data) {
               $scope.inUser = data;
               cIn = $scope.inUser.length;
-              if (cIn == numIn) {
-                serviceHttp.addOUserIn({
-                  orderId: iOrderId
-                }).success(function(data) {
-                  if (data.status > 0) {
-                    window.location.href = '/Mobile/Orders/index';
-                  } else {
-                    $rootScope.msg('添加失败');
-                  }
-                })
+              if(cIn == (parseInt(childNum)+parseInt(adultNum))){
+                $scope.isShowadd = true;
+                $scope.isShowWidth = 90;
               }
             });
           } else {
@@ -900,6 +939,19 @@
           $scope.oUser.userName = '';
           $scope.oUser.userCard = '';
         })
+      }
+      $scope.addUserOrder = function(){
+        if(cIn != (parseInt(childNum)+parseInt(adultNum))){
+          $rootScope.msg('请先保存,完善资料后提交');
+        }else{
+          serviceHttp.addOUserIn({orderId:iOrderId}).success(function(data){
+            if(data.status>0){
+              window.location.href = '/Mobile/Orders/index';
+            }else{
+              $rootScope.msg('提交失败');
+            }
+          })
+        }
       }
     }])
     .controller("dCommentCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
@@ -944,6 +996,13 @@
         };
     }])
     .service('serviceHttp', ['$http', function($http) {
+      this.getDrList=function(data){
+        return $http({
+          url: '/Mobile/Index/getDList',
+          method: "POST",
+          data:data
+        });
+      };
       this.getArticle = function(data) {
         return $http({
           url: '/Mobile/Articles/getArticle',
@@ -965,6 +1024,13 @@
           data: data
         });
       };
+      this.getUserInDel = function(data) {
+        return $http({
+          url: '/Mobile/Orders/getUserInDel',
+          method: "POST",
+          data: data
+        });
+      };
       this.getUserIn = function(data) {
         return $http({
           url: '/Mobile/Orders/getUserIn',
@@ -982,6 +1048,13 @@
       this.addComment = function(data) {
         return $http({
           url: '/Mobile/Drives/addComment',
+          method: "POST",
+          data: data
+        });
+      };
+      this.getCarLic = function(data) {
+        return $http({
+          url: '/Mobile/Users/getCarLic',
           method: "POST",
           data: data
         });
@@ -1213,7 +1286,7 @@
     }])
     .filter('to_day', ['$sce', function($sce) {
       return function(text) {
-        return $sce.trustAsHtml((text - 1) + "晚" + text + "夜跨境自驾自由行");
+        return $sce.trustAsHtml((text - 1) + "晚" + text + "天自驾自由行");
       };
     }])
     .factory('Storage', function() {
@@ -1229,6 +1302,33 @@
         }
       };
     })
+    .directive('ionVolist', [
+      function () {
+        return {
+          restrict: 'E',
+          template: '<ion-item class="zjy" ng-show="dlist" ng-repeat="vo in dlist">'
+                    +'<a href="">'
+                    +   '<img ng-src="/{{vo.drivesImg}}"  width="100%">'
+                    +   '<div class="row">'
+                    +        '<div class="col col-67 ionstar" ng-bind-html="vo.drivesDesc">'
+                    +        '</div>'
+                    +        '<div class="col col-33 price">'
+                    +            '<p>'
+                    +                '<span style="color:#F77766;">&nbsp;{{vo.adultPrice}}元/人</span>'
+                    +            '</p>'
+                    +        '</div>'
+                    +    '</div>'
+                    +'</a>'
+                    +'</ion-item>',
+          link: function (scope, element) {
+            /**
+             * 初始化变量
+             */
+            scope.user = {};
+          }
+        }
+      }
+    ]);
     // .directive('hotlesStar', function () {
     //   return {
     //     restrict:'AE',

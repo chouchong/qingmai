@@ -37,7 +37,7 @@ class OrdersAction extends BaseAction{
 	 */
      public function getDetailModel(){
         $m=D('Admin/Orders');
-        $this->ajaxReturn($m->getDetailModel());
+        $this->ajaxReturn($m->getDetailModel()[0]);
      }
    /**
     * 获取地址详情

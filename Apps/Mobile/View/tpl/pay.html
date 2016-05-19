@@ -39,7 +39,7 @@
         </div>
         </empty>
     </div>
-    <a class="button button-clear" href="/Mobile">
+    <a class="button button-clear" href="/Mobile/Orders/index">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
     <a class="button button-clear icon ion-navicon-round" ng-click="userShow()"></a>
@@ -102,13 +102,13 @@
             </div>
             </ion-radio>
         </div>
-        <div class="row " style="background:#fff ;    font-size: 20px; ">
+        <div class="row " style="background:#fff;">
             <div class="col col-67">
-                <p class="pricecolor" style="margin: 0; line-height: 50px; font-size: 20px;">应付&nbsp;¥<span>{$order.totalMoney}</span>&nbsp;元</p>
+                <p class="pricecolor" style="margin: 0; line-height: 50px; font-size: 16px;">应付&nbsp;¥<span>{$order.totalMoney}</span>&nbsp;元</p>
             </div>
             <div class="col col-33" style="background:#F77462; text-align: center;">
                 <a ng-click="pay()" style="display: block;text-decoration: none;">
-                    <span style="margin: 0; line-height: 50px;color: #fff;">立即支付</span>
+                    <span style="margin: 0; line-height: 50px;color: #fff;font-size: 16px;">立即支付</span>
                 </a>
             </div>
         </div>

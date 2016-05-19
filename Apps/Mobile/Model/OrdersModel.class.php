@@ -78,7 +78,7 @@ class OrdersModel extends BaseModel {
     $data['isRread'] = I('isRread')?1:0;
     $data['totalMoney'] = I('totalPrice');
     $data['zMoney'] = I('zMoney');
-    $data['isBigber'] = I('isBigber')?0:1;
+    $data['isBigber'] = I('isBigber')?1:0;
     $data['orderDesc'] = I('Desc');
     $zcode = I("zcode");
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
@@ -103,7 +103,7 @@ class OrdersModel extends BaseModel {
   **/
   public function OrdersDetail()
   {
-    $Sql = "SELECT o.orderId,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.createTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.isPay = 0 AND o.orderId = ".I('orderId',3);
+    $Sql = "SELECT o.orderId,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.createTime,og.goodsName,o.orderNo,o.totalMoney,o.zMoney,og.drivesTo FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.isPay = 0 AND o.orderId = ".I('orderId');
     $dataO= $this->query($Sql);
     $data['userId'] = (int)session('Users.userId');
     $address = M('orders')->field('addressId,userId')->where(array('orderId'=>I('orderId')))->find();
@@ -130,7 +130,7 @@ class OrdersModel extends BaseModel {
     $m = M('orders');
     $data['totalMoney'] = I('totalPrice');  //1
     $daytime =I('selectday');
-    $day =I('drivesDay');
+    $day =I('drivesDay',0);
     $data['childNum'] = I('childNum');
     $data['childPrice'] = I('childPrice');
     $data['roomNum'] = I('roomNum');
@@ -291,5 +291,26 @@ class OrdersModel extends BaseModel {
     }
     return $rd;
   }
+  /**
+  *删除被保险人
+  **/
+  public function getUserInDel()
+  {
+    $rd = array('status' => -1);
+    $ed = M('order_insureds')->where(array('insuredId'=>I('insuredId')))->delete();
+    if($ed !== false){
+      $rd['status'] = 1;
+    }
+    return $rd;
+  }
+  /**
+    * 获取订单驾驶证照片
+    */
+     public function getCarPic(){
+      $orderId=I('orderId');
+        $sql="select carzImg,carfImg from dt_order_drivinglicences where orderId=".$orderId;
+        $data=$this->query($sql);
+      return $data;
+     }
 }
 ?>

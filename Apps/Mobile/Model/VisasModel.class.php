@@ -6,10 +6,16 @@
  */
 class VisasModel extends BaseModel {
     /**
-   * 添加报名时间
+   * 签证
    */
   public function getVisa(){
     return M('Visas')->where(array('visaId' =>I('visaId')))->find();
+  }
+  /**
+   * 签证获取哪个自驾的签证
+   */
+  public function visaFindDrivesId(){
+    return M('drives')->field('drivesId')->where(array('drivesVisa' =>I('visaId')))->find();
   }
 }
 ?>

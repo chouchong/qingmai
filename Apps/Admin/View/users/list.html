@@ -65,7 +65,7 @@
                <!-- <th width='40'>积分</th> -->
                <!-- <th width='60'>等级</th> -->
                <th width='130'>注册时间</th>
-               <th width='40'>状态</th>
+               <!-- <th width='40'>状态</th> -->
                <th width='130'>操作</th>
              </tr>
            </thead>
@@ -86,7 +86,7 @@
                </if>
                &nbsp;</td> -->
                <td>{$vo['createTime']}&nbsp;</td>
-               <td>
+               <!-- <td>
                <if condition="$vo['userStatus']==0 ">
                  <span class='label label-danger wst-label'>
 			               停用
@@ -96,13 +96,13 @@
 			               启用
 			     </span>
                </if>
-               </td>
+               </td> -->
                <td>
                <php>if(in_array('hylb_02',$WST_STAFF['grant'])){</php>
                <a class="btn btn-default glyphicon glyphicon-pencil" href="{:U('Admin/Users/toEdit',array('id'=>$vo['userId']))}">修改</a>&nbsp;
                <php>}</php>
                <php>if(in_array('hylb_03',$WST_STAFF['grant'])){</php>
-               <button type="button" class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo['userId']},{$vo['userType']})">刪除</buttona>
+               <button type="button" class="btn btn-default glyphicon glyphicon-trash" onclick="javascript:del({$vo['userId']},{$vo['userType']})">刪除</button>
                <php>}</php>
                </td>
              </tr>

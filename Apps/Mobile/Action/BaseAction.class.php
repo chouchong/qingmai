@@ -31,7 +31,7 @@ class BaseAction extends Controller {
     // 获取openid
     if($openid == '') {
       // 指定微信重定向后的地址
-      $redirect_uri = urlencode('http://dt.ngrok.4kb.cn/Mobile');
+      $redirect_uri = urlencode('http://gozztrip.com/Mobile');
       // 微信重定向
       $url = 'https://open.weixin.qq.com/connect/oauth2/authorize' .
         '?appid=' . C('wx_config.APPID') .

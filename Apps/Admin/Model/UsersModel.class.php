@@ -152,23 +152,12 @@ class UsersModel extends BaseModel {
 	 	$id = (int)I('id');
 	 	$m = M('users');
 	 	//获取用户类型
-	 	$userType = $m->where('userId='.$id)->getField('userType',1);
-	 	$m->userFlag = -1;
-		$rs = $m->where(" userId=".$id)->save();
+	 	// $userType = $m->where('userId='.$id)->getField('userType',1);
+	 	// $m->userFlag = -1;
+		$rs = $m->where("userId=".$id)->delete();
 		if(false !== $rs){
 		   $rd['status']= 1;
-		   //如果是商家还要下架他的门票
-		   if($userType==1){
-		   	    $m = M('shops');
-		   	    $m->shopFlag = -1;
-		   	    $m->shopStatus=-2;
-		   	    $rs = $m->where(" userId=".$id)->save();
-		   	    $shopId = $m->where('userId='.$id)->getField('shopId',1);
-				$sql = "update __PREFIX__goods set isSale=0,goodsStatus=-1 where shopId=".$shopId;
-			 	$m->execute($sql);
-		   }
 		}
-		
 		return $rd;
 	 }
 	 /**

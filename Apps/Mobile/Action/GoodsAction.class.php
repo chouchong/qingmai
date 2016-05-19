@@ -12,6 +12,7 @@ class GoodsAction extends BaseAction {
     $this->good = D('Mobile/Goods')->goodsDetail();
     $this->datetime = date('Y-m-d', time());
     $this->goodsId = I('goodsId');
+    $this->drivesId = D('Mobile/Goods')->goodsFindDrivesId()['drivesId'];
     $this->view->display('/tpl/good');
   }
 }
