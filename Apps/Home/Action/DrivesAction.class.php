@@ -14,9 +14,10 @@ class DrivesAction extends BaseAction {
     $this->drive = $m->drivesDetail();
     $this->daymtime = date('Y-m-d', time());
     $this->daytime = date('Y-m', time());
+    $this->drivesId = I('drivesId');
     $this->ap = $m->getDap();
     $this->display('tpl/drives');
-    // var_dump($this->ap);
+    // var_dump($this->drive['tp']);
  }
 
 }

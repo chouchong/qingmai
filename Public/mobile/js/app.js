@@ -703,17 +703,20 @@
     .controller("payCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicScrollDelegate, serviceHttp) {
       var ua = navigator.userAgent.toLowerCase();
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
-        $scope.serverSideList = [{
+        $scope.serverSideList = [
+        {
           text: "微信",
           imgsrc: "img/weixin.png",
           desc: "推荐微信的用户",
           value: "2"
-        }, {
-          text: "银联",
-          imgsrc: "img/yinlian.png",
-          desc: "信用卡、网银、储蓄卡",
-          value: "3"
-        }];
+        },
+        // {
+        //   text: "银联",
+        //   imgsrc: "img/yinlian.png",
+        //   desc: "信用卡、网银、储蓄卡",
+        //   value: "3"
+        // }
+        ];
       } else {
         $scope.serverSideList = [
           // { text: "支付宝",imgsrc:"img/zhifubao.png",desc:"推荐支付宝的用户",value: "1" },
@@ -820,7 +823,7 @@
     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
       $scope.isShowCar = false;
       serviceHttp.getCarLic({orderId:$('#orderId').val()}).success(function(data) {
-        if(data){
+        if(data.length>0){
           var zarr=[];
           zarr=data[0]["carzImg"].split(",");
           var farr=[];

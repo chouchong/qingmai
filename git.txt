@@ -267,3 +267,7 @@ git push -u origin master
 git add .
 git commit -m "pc第2次"
 git push -u origin master
+
+git add .
+git commit -m "pc第3次"
+git push -u origin master

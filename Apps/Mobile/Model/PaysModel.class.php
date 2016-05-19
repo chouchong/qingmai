@@ -22,7 +22,7 @@ class PaysModel extends BaseModel {
     $data = $o->field('orderId,adultNum,goodsType')->where(array('orderNo'=>$orderNo))->find();
     $good = M('order_goods')->field('goodsId,drivesId,drivestimeId')->where(array('orderId'=>$data['orderId']))->find();
     if($good['goodsId']>0){
-      M('order_goods')->where('goodsId='.$good['goodsId'])->setInc('saleCount',$data['adultNum']);
+      M('goods')->where('goodsId='.$good['goodsId'])->setInc('saleCount',$data['adultNum']);
     }
     if($good['drivesId']>0){
       M('drives')->where('drivesId='.$good['drivesId'])->setInc('solaCount',$data['adultNum']);

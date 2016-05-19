@@ -12,7 +12,7 @@ class DrivesModel extends BaseModel {
     public function pageByIndex()
     {
       $m = M('drives');
-      $pageSize = 3;
+      $pageSize = 10;
       $data = $m->field('drivesId,drivesImg,adultPrice,drivesDesc')->where('isSola=1')->order('drivesId desc')->limit($pageSize*I('page',0),$pageSize)->select();
       for ($i=0; $i < count($data); $i++) {
         $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();

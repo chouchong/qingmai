@@ -30,16 +30,25 @@ $(function() {
             getAllDays();
             addMonths();
             addAllDays();
-            addMonthsDateHTmls();
-            // console.log(dateServer);
-            // console.log(dateAll);
-
+            // addMonthsDateHTmls();
+            setTimeouts();
         }
     });
 });
 
+// 延时加载动画，并添加数据
+function setTimeouts() {
+    diver_heightchange();
+    setTimeout(function() {
+        $(".loadcalendarprice").hide();
+        addMonthsDateHTmls();
+        diver_heightchange();
+    }, 1000);
+}
+
+
 function init(){
-    drivesId = 2;
+    drivesId = $("#drivesId").val();
     today = new Date($("#daytime").val().replace(/-/g, '/'));
     bgeinSellday = new Date(today.getFullYear(),today.getMonth(),today.getDate()+2);
 }
@@ -47,18 +56,21 @@ function init(){
 function preMonth() {
     if (currentMonthNo != 0) {
         currentMonthNo--;
-        $("#calendarprice").children().remove();
-        addMonthsDateHTmls();
+        $("#calendarprice").children(".dateprice").remove();
+        $(".loadcalendarprice").show();
+        setTimeouts();
     }
 }
 
 function nextMonth() {
     if (currentMonthNo < allMonths.length - 1) {
         currentMonthNo++;
-        $("#calendarprice").children().remove();
-        addMonthsDateHTmls();
+        $("#calendarprice").children(".dateprice").remove();
+        $(".loadcalendarprice").show();
+        setTimeouts();
     }
 }
+
 
 function addMonthsDateHTmls() {
     htmls = '';
@@ -85,8 +97,9 @@ function addMonthsDateHTmls() {
             addPastDay(dateAll[i].daydata,dateAll[i].adultPrice);
         }
     }
+    var selectM = allMonths[currentMonthNo].dateM<10?'0'+allMonths[currentMonthNo].dateM:allMonths[currentMonthNo].dateM;
     $("#calendarprice").append(htmls);
-    $("#currentMonth").html(allMonths[currentMonthNo].dateY+"/"+allMonths[currentMonthNo].dateM);
+    $("#currentMonth").html(allMonths[currentMonthNo].dateY+"-"+selectM);
     if(parseInt(allMonths[currentMonthNo].dateY) == today.getFullYear() && parseInt(allMonths[currentMonthNo].dateM) == today.getMonth()+1){
         $('#'+today.getDate()).parent().addClass("today");
     }

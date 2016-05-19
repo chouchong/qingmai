@@ -71,12 +71,18 @@
                   </element>
                   <element ng-switch-when="1">
                     <span>待出发</span>
-                    <p ng-if="vo.goodsType==1"><span ng-if="vo.isGo==0" class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
-                    <span ng-if="vo.isCar==0" class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span></p>
+                    <p ng-if="vo.goodsType==1">
+                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
+                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span>
+                    </p>
                   </element>
                   <element ng-switch-when="2">
                     <span>去评论</span>
-                    <span ng-if="vo.goodsType==1" class="bb" style="float:right;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评论</a></span>
+                    <p ng-if="vo.goodsType==1">
+                      <span class="textright" style="float:right;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评论</a></span>
+                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
+                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span>
+                    </p>
                   </element>
                   <element ng-switch-when="3">
                     <span>已完成</span>
@@ -131,8 +137,12 @@
                 <span>{{vo.childNum}}人 x {{vo.childPrice}}元/人</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.roomNum > 0">
-                房间
-                <span>{{vo.roomNum}}房 x {{vo.roomPrice}}元/房</span>
+                房间数
+                <span>{{vo.roomNum}}间标准双床房</span>
+            </div>
+            <div class="item item-wrap orderMessage" ng-if="vo.roomPrice > 0">
+                总单房差
+                <span>{{vo.roomNum*2*vo.roomPrice - vo.adultNum*vo.roomPrice}}元</span>
             </div>
             <div class="item item-wrap orderMessage" ng-if="vo.zMoney > 0">
                 优惠

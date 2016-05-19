@@ -1,6 +1,6 @@
 <extend name="tpl:base" />
 <block name="title">
-<title>出境车辆行驶证</title>
+<title>出境人员驾驶证</title>
 </block>
 <block name="css">
 <style type="text/css">
@@ -58,23 +58,22 @@
             </div>
         </div>
         <div class="card" ng-if="isShowCar == false">
-            <label class="item item-text-wrap ">
+            <!-- <label class="item item-text-wrap ">
                 <p style="font-size: 18px;">
                     上传示例<p style="font-size: 13px;"> 一个订单一位联系人即可，三个成人需上传一份驾驶证，含正反面，以此类推</p>
                 </p>
-            </label>
+            </label> -->
             <div class="item item-text-wrap">
                 <h2>驾驶证正本正面</h2>
-                <div style="border: 1px solid #f2f2f2;
-                min-height: 120px; text-align: center;vertical-align:middle;">
+                <div style="border: 1px solid #f2f2f2; text-align: center;vertical-align:middle;">
                     <for start="0" end="ceil($row[adultNum]/3)" step="1">
                         <iframe name="upload" style="display:none"></iframe>
                         <form id="uploadform_Z{$i}" autocomplete="off" enctype="multipart/form-data"  target="upload" method="POST" action="{:U('Home/Base/uploadPics')}" >
                                 <div class="div" style="padding: 10px">
                                    <a href="javascript:;" class="a-upload">
-                                       <input  type="file" class="inputstyleZ{$i}" id="inputstyle1" name="Filedata" onchange="updfiles({$i},'Z');">
+                                       <input type="file" class="inputstyleZ{$i}" id="inputstyle1" name="Filedata" onchange="updfiles({$i},'Z');">
                                        <span style="font-size: 15px;float: left;padding-top:6px;">上传第{$i+1}份正面图片</span>
-                                       <span style="font-size: 30px;float: left;padding-top:6px">+</span>
+                                       <span style="font-size: 30px;float: left;padding-top:4px">+</span>
                                    </a>
                                    <input type="hidden" name="type" value="Z">
                                    <input type="hidden" name="len" value="{$i}">
@@ -86,8 +85,7 @@
             </div>
             <div class="item item-text-wrap">
                 <h2>驾驶证正本反面</h2>
-                <div style="border: 1px solid #f2f2f2;
-                min-height: 120px; text-align: center;vertical-align:middle;">
+                <div style="border: 1px solid #f2f2f2; text-align: center;vertical-align:middle;">
                     <for start="0" end="ceil($row[adultNum]/3)" step="1">
                         <iframe name="upload" style="display:none"></iframe>
                         <form id="uploadform_F{$i}" autocomplete="off" enctype="multipart/form-data"  target="upload" method="POST" action="{:U('Home/Base/uploadPics')}" >
@@ -95,7 +93,7 @@
                                    <a href="javascript:;" class="a-upload" style="position:relative ">
                                        <input type="file" class="inputstyleF{$i}" name="Filedata" onchange="updfiles({$i},'F');">
                                         <span style="font-size: 15px;float: left;padding-top:6px;">上传第{$i+1}份反面图片</span>
-                                       <span style="font-size: 30px;float: left;padding-top:6px">+</span>
+                                       <span style="font-size: 30px;float: left;padding-top:4px">+</span>
                                    </a>
                                    <input type="hidden" name="type" value="F">
                                    <input type="hidden" name="len" value="{$i}">
@@ -109,7 +107,7 @@
         <div class="card">
             <label class="item item-text-wrap ">
                 <p style="font-size: 18px;">
-                    <span style="font-size: 80%"> 驾驶证需在有效期、亲保证照片清晰</span>
+                    <span style="font-size: 80%">驾驶证需在有效期、请保证照片清晰</span>
                 </p>
             </label>
              <div class="item item-text-wrap" ng-if="isShowCar == false">
@@ -135,7 +133,7 @@
               </for>
             </div>
             <div class="item item-text-wrap" ng-repeat="carzz in carzImg">
-                <h2>第<em ng-bind="$index"></em>个人的驾驶证</h2>
+                <h2>第<em ng-bind="$index+1"></em>个人的驾驶证</h2>
                 <br/>
                 <div>
                     <img ng-src="/{{carzz.carzImg}}" alt="" width="100%">
@@ -159,5 +157,6 @@
 <block name="js">
 <script>
 </script>
+<script src="__PUBLIC__/home/layer/layer.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/Mobile/js/upload.js"></script>
 </block>

@@ -11,8 +11,8 @@
     </nav>
     <div class="d_content">
         <div class="d_head">
-            <input type="hidden" id="drivesId" value="2" />
-            <input type="hidden" id="daytime" value="2016-05-11" />
+            <input type="hidden" id="drivesId" value="{$drivesId}" />
+            <input type="hidden" id="daytime" value="{$daymtime}" />
             <div class="d_intro">
                 <div class="d_img">
                     <img src="/{$drive.pcDrivesImg}" alt="">
@@ -26,9 +26,16 @@
                         <p><span class="d_place">{$drive.drivesFrom}</span></p>
                     </div>
                     <div class="d_intrr">
-                        <p><span>清新版</span>
-                            <span>2999</span>元/人
+                        <p>
+                        <empty name="drive.tp">
+                        <span id="drivesType"></span>&nbsp;&nbsp;
+                        <span id="tpadultPrice">{$drive['adultPrice']}</span>&nbsp;元/人
+                        <else />
+                        <span id="drivesType">{$drive['tp']['drivesType']}</span>
+                        <span id="tpadultPrice">{$drive['tp']['adultPrice']}</span>&nbsp;元/人
+                        </empty>
                         </p>
+
                     </div>
                 </div>
             </div>
@@ -60,22 +67,28 @@
                     <div class="dateweek">六</div>
                 </div>
                 <div class="calendarprice" id="calendarprice">
+                    <!-- 加载动画 -->
+                    <div class="loadcalendarprice">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                    </div>
                 </div>
                 <div class="calendarpricedesc">
-                    <p>起价是按2位成人参加2016-04-29出发的产品，并入住同一间房间的单人价格。</p>
+                    <p>起价是按2位成人参加<span id="driveDateDay">{$daymtime}</span>出发的产品，并入住同一间房间的单人价格。</p>
                 </div>
             </div>
             <div class="diverform">
                 <div class="diverformlist">
                     <div class="df_left">行程天数：</div>
-                    <div class="df_center" id="df_days">4日3晚</div>
-                    <div class="df_right" id="df_buys">132人已购买</div>
+                    <div class="df_center" id="df_days">{$drive.drivesDay}</div>
+                    <div class="df_right" id="df_buys">{$drive.solaCount}人已购买</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
                     <div class="df_left">出发日期</div>
                     <div class="df_center">&nbsp;</div>
-                    <div class="df_right" id="df_seldate">2016-12-25</div>
+                    <div class="df_right" id="df_seldate">{$daymtime}</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -83,28 +96,37 @@
                     <div class="df_center ">
                         <div class="input-group">
                             <span class="input-group-btn">
-                        <button class="btn btn-default disabled" type="button">-</button>
-                      </span>
-                            <input type="text" class="form-control" value="5" readonly>
+                                <button class="btn btn-default" type="button">-</button>
+                            </span>
+                            <input type="text" class="form-control" id="manNum" value="0" readonly>
                             <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">+</button>
-                      </span>
+                                <button class="btn btn-default" type="button">+</button>
+                            </span>
                         </div>
                     </div>
-                    <div class="df_right"><span>1235元/人</span></div>
+                    <div class="df_right">
+                    <empty name="drive.tp">
+                        <span id="selectAdultPrice">{$drive['adultPrice']}</span>&nbsp;元/人
+                    <else />
+                        <span>{$drive['tp']['adultPrice']}</span>&nbsp;元/人
+                    </empty>
+                    </div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
                     <div class="df_left">儿童</div>
                     <div class="df_center ">
                         <div class="input-group">
-                            <span class="input-group-btn"><button class="btn btn-default" type="button">-</button></span>
-                            <input type="text" class="form-control" placeholder="">
-                            <span class="input-group-btn"><button class="btn btn-default" type="button">+</button>
-                      </span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">-</button>
+                            </span>
+                            <input type="text" class="form-control" value="0" readonly id="childNum">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">+</button>
+                            </span>
                         </div>
                     </div>
-                    <div class="df_right"><span>1235元/人</span></div>
+                    <div class="df_right"><span id="childPrice">{$drive.childPrice}</span>&nbsp;元/人</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -112,19 +134,19 @@
                     <div class="df_center ">
                         <div class="input-group">
                             <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">-</button>
-                      </span>
-                            <input type="text" class="form-control" placeholder="">
+                                <button class="btn btn-default" type="button">-</button>
+                            </span>
+                            <input type="text" id="roomNum" class="form-control" value="8" readonly>
                             <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">+</button>
-                      </span>
+                                <button class="btn btn-default" type="button">+</button>
+                            </span>
                         </div>
                     </div>
-                    <div class="df_right">单房差<span>1235元/人</span></div>
+                    <div class="df_right">单房差&nbsp;<span>{$drive.homePrice}</span>&nbsp;元/人</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
-                    <div style="color:#1AD4D2;float:right;margin:0 50px;">成人/儿童/单房差 价格说明</div>
+                    <div style="color:#1AD4D2;float:right;margin:0 50px;"></div>
                 </div>
                 <div class="diverformlist_sub">
                     <div id="df_price">
@@ -283,7 +305,7 @@
                     <div class="ex_contentvisa">
                         <div class="ex_visa">
                             <div class="ex_visaimg">
-                                <img src="__PUBLIC__/Home/img/qz.png" alt="" width="">
+                                <img src="__PUBLIC__/home/img/qz.png" alt="" width="">
                             </div>
                             <div class="ex_visacon">
                                 <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
@@ -291,7 +313,7 @@
                         </div>
                         <div class="ex_visa">
                             <div class="ex_visaimg">
-                                <img src="__PUBLIC__/Home/img/tg.png" alt="" width="">
+                                <img src="__PUBLIC__/home/img/tg.png" alt="" width="">
                             </div>
                             <div class="ex_visacon">
                                 <p style="font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
@@ -613,33 +635,121 @@
                             <div class="mh_msgr">酒店</div>
                         </div>
                     </div>
-                    <!--      <div class="mh_msgdesc">
-                        <div class="mh_msgl">
-                            Koreana Hotel酒店距离首尔金融中心不到200米，提供带平面电视的优雅宽敞客房，俯瞰着清溪川，拥有一个健身中心，提供放松的按摩治疗和桑拿，也提供免费停车场。 现代客房都配备了良好的迷你吧、冰箱和茶/咖啡设施。私人浴室设有一个浴缸和吹风机。 Koreana Hotel酒店位于首尔的光化门十字路口，距离南大门、Jongmyo Shrine和 Ssamji-gil不到1公里，距离I仁川国际机场约有47公里， 客人可以在商务中心查阅电子邮件，在沙龙洗头或在纪念品商店购买礼物。酒店还提供洗衣服务和外币兑换服务。 酒店内的3间餐厅提供中餐、西欧和日本料理。酒店的酒吧供应饮品。
-                        </div>
-                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <!-- <button type="button" class="btn btn-primary">提交信息</button> -->
                 </div>
             </div>
         </div>
     </div>
     </block>
 <block name="js">
+<script src="__PUBLIC__/home/js/script.js" type="text/javascript" charset="utf-8"></script>
 <script src="__PUBLIC__/home/js/datePrice.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-    // alert($("#daytime").val());
-    // $(function() {
-    // });
+    var soNum;
+    _0('childNum');
+    _0('roomNum');
     $(document).on("click", ".dateprice", function() {
         if (!$(this).hasClass("disabled")) {
             $(".selected").removeClass('selected');
             $(this).addClass("selected");
-            // selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find(".dd").html());
-            // selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find(".dd").html());
+            var selectedDay = $(this).find(".dd").html();
+            selectedDay = selectedDay < 10 ? '0' + selectedDay : selectedDay;
+            $('#driveDateDay').html($('#currentMonth').html()+'-'+selectedDay);
+            $('#df_seldate').html($('#currentMonth').html()+'-'+selectedDay);
+            $.ajax({
+                url: '/Mobile/Drives/getTp',
+                type: "post",
+                dataType: "json",
+                async: true,
+                data: {
+                    timeId: $(this).find(".timeId").html()
+                },
+                success: function(data) {
+                    $('#drivesType').html(data.drivesType);
+                    $('#tpadultPrice').html(data.adultPrice);
+                    $('#selectAdultPrice').html(data.adultPrice);
+                    $('#xc_timeDesc').html(data.timeDesc);
+                    $('#timeId').val(data.timeId);
+                }
+            });
+            //初始出发人数点击
+            _0('childNum');
+            _0('roomNum');
+            //
+            soGetNum($('.selected').find("p:eq(2)").html())
+            //可以点击 +
+            selectDay_Click('manNum');
+            selectDay_Click('childNum');
+            selectDay_Click('roomNum');
         }
     });
+    //点击+ 改变出发人数
+    next_click('manNum');
+    next_click('childNum');
+    next_click('roomNum');
+    //点击- 改变出发人数
+    prev_click('manNum');
+    prev_click('childNum');
+    prev_click('roomNum');
+    //时间没有选择的初始化
+    selectDay_onClick('manNum');
+    selectDay_onClick('childNum');
+    selectDay_onClick('roomNum');
+    //获取出发人数函数
+    function soGetNum(so) {
+        if (so != '售罄' && so != "已售") {
+            soNum = so.replace(/[^0-9]/ig, "");
+        } else {
+            _0('manNum');
+            _0('childNum');
+            _0('roomNum');
+        }
+    }
+    //出发人数初始化函数
+    function _0(id) {
+        $("#" + id).val(0);
+    }
+    //点击+时间列表 点击函数
+    function next_click(id) {
+        $("#" + id).next().find('button').on('click',function(){
+            var jiaNum = $("#" + id).val();
+            ++jiaNum;
+            if(soNum==jiaNum){
+                $("#" + id).next().find('button').attr('disabled', 'disabled');
+            }
+            $("#" + id).val(jiaNum);
+            if (id == 'manNum') {
+                $("#roomNum").val(Math.ceil(parseInt($("#" + id).val()) / 2));
+            }else{
+                if(jiaNum == $("#manNum").val()){
+                    $("#" + id).next().find('button').attr('disabled', 'disabled');
+                }
+            }
+            $("#childNum").prev().find('button').removeAttr('disabled', 'disabled');
+            $("#manNum").prev().find('button').removeAttr('disabled', 'disabled');
+        });
+    }
+    //点击-时间列表 点击函数
+    function prev_click(id) {
+        $("#" + id).prev().find('button').on('click',function(){
+            var jianNum = $("#" + id).val();
+            --jianNum;
+            jianNum = jianNum<0?0:jianNum;
+            $("#" + id).val(jianNum);
+            $("#childNum").next().find('button').removeAttr('disabled', 'disabled');
+            $("#manNum").next().find('button').removeAttr('disabled', 'disabled');
+        });
+    }
+    //没有选择日期  都不能点击+-
+    function selectDay_onClick(id) {
+        $("#" + id).next().find('button').attr('disabled', 'disabled');
+        $("#" + id).prev().find('button').attr('disabled', 'disabled');
+    }
+    //选择日期  都能点击-
+    function selectDay_Click(id) {
+        $("#" + id).next().find('button').removeAttr('disabled', 'disabled');
+    }
     </script>
 </block>

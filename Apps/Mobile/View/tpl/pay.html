@@ -80,7 +80,7 @@
                     </p>
                 </notempty>
                 <if condition="$order['roomPrice'] gt 0 ">
-                     <p>房价差<span>{$order['roomNum']*2*$order['roomPrice']-$order['adultNum']*$order['roomPrice']}&nbsp;元</span></p>
+                     <p>总单房差<span>{$order['roomNum']*2*$order['roomPrice']-$order['adultNum']*$order['roomPrice']}&nbsp;元</span></p>
                 </if>
                 <if condition="$order['zMoney'] gt 0 ">
                    <p>优惠<span>{$order.zMoney}&nbsp;元</span></p>

@@ -50,7 +50,11 @@
                      <div class="col-md-4 descplaceright">
                          <div class="descplacerightcon">
                              <div class="condesc"><span>{$vo.drivesDay}</span></div>
+                             <empty name="vo.tp">
                              <span class="conprivce">{$vo.adultPrice}</span>元/人
+                             <else />
+                             <span class="conprivce">{$vo['tp']['adultPrice']}</span>元/人
+                            </empty>
                          </div>
                      </div>
                  </div>
