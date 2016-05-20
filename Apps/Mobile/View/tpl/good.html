@@ -134,7 +134,8 @@
                 <span id="manPrice">{$good['adultPrice']}</span>元/人
             </div>
         </ion-item>
-        <ion-item >
+        <if condition="$good['childPrice'] gt 0">
+        <ion-item>
             <div  style="width:33%; float:left;">
                 儿童
             </div>
@@ -145,6 +146,7 @@
                 <span id="childPrice">{$good['childPrice']}</span>元/人
             </div>
         </ion-item>
+        </if>
     </div>
     <div class="card" >
         <div class="item item-text-wrap defaultaddr" ng-show="addRess">

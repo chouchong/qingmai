@@ -38,6 +38,9 @@ $(function(){
         $("#"+id).parent().click(function(){
             var manPrice = $('#manPrice').html()*$("#manNum").val();
             var childtotalPrice = $('#childPrice').html()*$("#childNum").val();
+            if($("#childNum").val() == undefined){
+                childtotalPrice = 0.00
+            }
             var totalPrice = parseFloat(manPrice) + parseFloat(childtotalPrice);
             $('#totalPrice').html(totalPrice.toFixed(2));
         });

@@ -1,11 +1,12 @@
 <extend name="tpl:base" />
 <block name="title">
-    <title>{$diver.drivesName}</title>
-    <meta name="keywords" content="{$diver['drivesKeywords']}" />
-    <meta name="description" content="{$diver['drivesSpec']}" />
+    <title>{$drive.drivesName}</title>
+    <meta name="keywords" content="{$drive['drivesKeywords']}" />
+    <meta name="description" content="{$drive['drivesSpec']}" />
 </block>
 <block name="css"></block>
 <block name="main">
+<div ng-app="myapp" ng-controller="driveCtrl">
     <nav class="navbar navbar-default header_subpage">
         <include file="tpl:comnav" />
     </nav>
@@ -142,7 +143,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="df_right">单房差&nbsp;<span>{$drive.homePrice}</span>&nbsp;元/人</div>
+                    <div class="df_right" id="singleRoom" style="display: none;">单房差&nbsp;<span id="roomPrice">{$drive.homePrice}</span>&nbsp;元/人</div>
                 </div>
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
@@ -150,7 +151,7 @@
                 </div>
                 <div class="diverformlist_sub">
                     <div id="df_price">
-                        总价格<span id="df_totelprice">￥1699</span>
+                        总价格:￥<span id="df_totelprice">0</span>&nbsp;元
                     </div>
                     <div id="df_submit">
                         <a href="orderdiver.html"><span>立即预定</span></a>
@@ -303,6 +304,7 @@
                         </div>
                     </div>
                     <div class="ex_contentvisa">
+                        <if condition="$drive['drivesVisa'] gt 0">
                         <div class="ex_visa">
                             <div class="ex_visaimg">
                                 <img src="__PUBLIC__/home/img/qz.png" alt="" width="">
@@ -311,6 +313,7 @@
                                 <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好目的地签证或点击下方签证服务了解详情！</p>
                             </div>
                         </div>
+                        </if>
                         <div class="ex_visa">
                             <div class="ex_visaimg">
                                 <img src="__PUBLIC__/home/img/tg.png" alt="" width="">
@@ -320,12 +323,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ex_content" style="padding:30px 10px;clear:both;">
+                    <if condition="$drive['drivesVisa'] gt 0">
+                    <div class="ex_content" style="padding:30px 10px;clear:both;cursor: pointer;" ng-click="visa({$drive.drivesVisa},{$drivesId})">
                             <div class="ex_hrefvisa">
                                 <span>签证服务</span>
                             </div>
-                        </a>
                     </div>
+                    </if>
                 </div>
                 <div class="explaina">
                     <div class="ex_title">
@@ -357,12 +361,12 @@
             <div class="dh_list">
                 <div class="dh_img">
                     <div class="dh_imgb">
-                        <img src="/{$noH.hotelImg}" />
+                        <img src="/{$noH.hotelImg}" width="624px" height="355px"/>
                     </div>
                     <div class="dh_imgs">
                         <volist name="noH.gallerys" id="vo">
                         <div class="dh_imgss">
-                            <img src="/{$vo.hotelThumbs}" alt="">
+                            <img src="/{$vo.hotelThumbs}" alt="" width="148.5px" height="84.5px">
                         </div>
                         </volist>
                     </div>
@@ -379,7 +383,7 @@
                     </div>
                     <div class="dh_descbtn">
                         <a>
-                            <div data-toggle="modal" data-target="#hotelModal">查看详情</div>
+                            <div data-toggle="modal" ng-click="hotelModal({$noH.hotelId})">查看详情</div>
                         </a>
                     </div>
                 </div>
@@ -423,7 +427,7 @@
             </div>
             </volist>
         </div>
-        <if condition="$ap['apcount'] lt 0">
+        <if condition="$ap['apcount'] gt 0">
         <div class="d_comment">
             <div class="d_commentt">
                 <div class="d_commentta"></div>
@@ -452,8 +456,8 @@
             </div>
             </volist>
             <ap-apdrives></ap-apdrives>
-            <div id="dc_refresh" ng-click="">
-                <span class="glyphicon glyphicon-refresh" style="cursor: pointer;">更多评论</span>
+            <div id="dc_refresh" ng-click="apMore({$drivesId})">
+                <span class="glyphicon glyphicon-refresh" style="cursor: pointer;">{{dMoreAp}}</span>
             </div>
         </div>
     </if>
@@ -483,6 +487,7 @@
         </div>
     </div>
     </notempty>
+    </div>
     <include file="tpl:footer"/>
      <!--diyModal -->
     <div class="modal fade" id="diyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -492,30 +497,30 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h3 class="modal-title" id="myModalLabel">定制出发计划</h3>
                 </div>
+                <form name="mygoForm" novalidate>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error':mygoForm.goTime.$dirty && mygoForm.goTime.$invalid}">
                             <label for="recipient-name" class="control-label">待出发日期</label>
-                            <input type="text" class="form-control" id="recipient-name" placeholder="20xx-01-01">
+                            <input type="text" placeholder="请输入如{$daymtime}格式的时间" ng-model="goTime.goTime" required name="goTime" ng-pattern="/^([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))$/" class="form-control" id="recipient-name">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error':mygoForm.goNum.$dirty && mygoForm.goNum.$invalid}">
                             <label for="recipient-name" class="control-label">预计人数</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-name" ng-model="goTime.goNum" placeholder="请输入出发人数" required name="goNum" ng-pattern="/^[0-9]+$/">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error':mygoForm.goName.$dirty && mygoForm.goName.$invalid}">
                             <label for="recipient-name" class="control-label">联系人姓名</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input type="text" class="form-control" id="recipient-name" placeholder="请输入(只能中文)联系人姓名" ng-model="goTime.goName" required name="goName" ng-pattern="/[\u4e00-\u9fa5]/">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error':mygoForm.goPhone.$dirty && mygoForm.goPhone.$invalid}">
                             <label for="recipient-name" class="control-label">联系人手机号</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                            <input class="form-control" id="recipient-name" type="tel" placeholder="请输入联系人手机号" ng-model="goTime.goPhone" required name="goPhone" ng-pattern="/^1\d{10}$/">
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">提交信息</button>
+                    <button type="button" ng-disabled="mygoForm.$invalid" class="btn btn-primary" ng-click="addGoTime()">提交信息</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -531,17 +536,9 @@
                     <div class="" style="text-align: center;">
                         <h4>亲们 可以就近报名哦！</h4>
                     </div>
-                    <div class="Mbm_msg">
-                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
-                        <span class="Mbm_phone">0871-65096386</span>
-                    </div>
-                    <div class="Mbm_msg">
-                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
-                        <span class="Mbm_phone">0871-65096386</span>
-                    </div>
-                    <div class="Mbm_msg">
-                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
-                        <span class="Mbm_phone">0871-65096386</span>
+                    <div class="Mbm_msg" ng-repeat="vo in goplaces">
+                        <span class="Mbm_add" ng-bind="vo.placeName"></span>
+                        <span class="Mbm_phone" ng-bind="vo.placePhone"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -563,64 +560,52 @@
                         <h3>酒店介绍</h3>
                         <div class="mh_msg">
                             <div class="mh_msgl">酒店</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelName"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">类型</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelType"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">地址</div>
-                            <div class="mh_msgr">电话</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelAddress"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">电话</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelPhone"></div>
                         </div>
                     </div>
                     <div class="mh_msgs">
                         <h3>酒店设施</h3>
                         <div class="mh_msg">
                             <div class="mh_msgl">酒店配套</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind-html="hotel.hotelActivity|to_trusted"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">网络</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelnetwork"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">停车</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelpark"></div>
                         </div>
                     </div>
                     <div class="mh_msgs">
                         <h3>房型信息</h3>
                         <div class="mh_msg">
                             <div class="mh_msgl">客房面积</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelRoomArea"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">床铺尺寸</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelBedSize"></div>
                         </div>
                     </div>
                     <div class="mh_msgs">
                         <h3>酒店政策</h3>
                         <div class="mh_msg">
                             <div class="mh_msgl">酒店政策</div>
-                            <div class="mh_msgr">
-                                <p>
-                                    <span>允许客人携带儿童入住。</span>
-                                </p>
-                                <p class="positivepolicyfreecontainsfreerow">
-                                    <span>允许</span><span>1</span><span>名</span><span>5</span><span>岁以下的儿童，使用现有床铺免费。</span><span></span>
-                                </p>
-                                <p>
-                                    <span>所提出的任何加床或婴儿床的要求均需获得酒店的确认。</span>
-                                </p>
-                                <p>
-                                    <span>附加费用不会自动计算在总价中，您需在入住时另行支付。</span>
-                                </p>
+                            <div class="mh_msgr" ng-bind-html="hotel.hotelContent|to_trusted">
                             </div>
                         </div>
                     </div>
@@ -628,11 +613,11 @@
                         <h3>入住须知</h3>
                         <div class="mh_msg">
                             <div class="mh_msgl">入住时间</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelFromtime"></div>
                         </div>
                         <div class="mh_msg">
                             <div class="mh_msgl">退房时间</div>
-                            <div class="mh_msgr">酒店</div>
+                            <div class="mh_msgr" ng-bind="hotel.hotelTntime"></div>
                         </div>
                     </div>
                 </div>
@@ -642,11 +627,17 @@
             </div>
         </div>
     </div>
-    </block>
+</block>
 <block name="js">
 <script src="__PUBLIC__/home/js/script.js" type="text/javascript" charset="utf-8"></script>
 <script src="__PUBLIC__/home/js/datePrice.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
+    $(function() {
+        diver_heightchange();
+    });
+    $(".dh_imgss").mouseover(function(){
+        $(".dh_imgb img").attr("src",$(this).children("img").attr("src"));
+    });
     var soNum;
     _0('childNum');
     _0('roomNum');
@@ -677,12 +668,14 @@
             //初始出发人数点击
             _0('childNum');
             _0('roomNum');
+            _0('manNum');
             //
             soGetNum($('.selected').find("p:eq(2)").html())
             //可以点击 +
-            selectDay_Click('manNum');
-            selectDay_Click('childNum');
-            selectDay_Click('roomNum');
+            disabled_isClick('manNum');disabled_no_prevClick('manNum');
+            selectDay_onClick('childNum');selectDay_onClick('roomNum');
+            // 总价
+            $('#df_totelprice').html(0);
         }
     });
     //点击+ 改变出发人数
@@ -717,18 +710,39 @@
             var jiaNum = $("#" + id).val();
             ++jiaNum;
             if(soNum==jiaNum){
-                $("#" + id).next().find('button').attr('disabled', 'disabled');
+                disabled_noClick(id);
             }
             $("#" + id).val(jiaNum);
             if (id == 'manNum') {
+                if(parseInt($("#" + id).val()) == 1){
+                    disabled_noClick('roomNum');
+                }else{
+                    disabled_isClick('roomNum');
+                }
+                if (/^\d+\.\d+$/.test(parseInt($("#" + id).val()) / 2) == true) {
+                    $('#singleRoom').css('display', 'block');
+                } else {
+                    $('#singleRoom').css('display', 'none');
+                }
                 $("#roomNum").val(Math.ceil(parseInt($("#" + id).val()) / 2));
+                disabled_isClick('childNum');
             }else{
                 if(jiaNum == $("#manNum").val()){
-                    $("#" + id).next().find('button').attr('disabled', 'disabled');
+                    disabled_noClick(id);
+                }
+                if(id == 'roomNum'){
+                    disabled_is_prevClick(id);
+                    if ($("#roomNum").val() > parseInt($("#manNum").val()) / 2) {
+                        $('#singleRoom').css('display', 'block');
+                    }
                 }
             }
-            $("#childNum").prev().find('button').removeAttr('disabled', 'disabled');
-            $("#manNum").prev().find('button').removeAttr('disabled', 'disabled');
+            disabled_is_prevClick('childNum');
+            disabled_is_prevClick('manNum');
+            var roomtotalPrice = (parseInt($("#roomNum").val()) * 2 - parseInt($("#manNum").val())) * parseInt($('#roomPrice').html());
+            var totalPrice = parseInt($('#selectAdultPrice').html()) * parseInt($("#manNum").val());
+            var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+            $('#df_totelprice').html(childtotalPrice + totalPrice + roomtotalPrice);
         });
     }
     //点击-时间列表 点击函数
@@ -738,8 +752,56 @@
             --jianNum;
             jianNum = jianNum<0?0:jianNum;
             $("#" + id).val(jianNum);
-            $("#childNum").next().find('button').removeAttr('disabled', 'disabled');
-            $("#manNum").next().find('button').removeAttr('disabled', 'disabled');
+            disabled_isClick('childNum');
+            if(id == 'roomNum'){
+                if(Math.ceil($("#manNum").val() / 2) == parseInt($("#roomNum").val())){
+                    disabled_no_prevClick(id);
+                    disabled_isClick(id);
+                }
+                if (Math.ceil($("#manNum").val() / 2) == parseInt($("#roomNum").val())) {
+                    $('#singleRoom').css('display', 'none');
+                }
+                disabled_noClick('childNum');
+            }
+            if(id == 'manNum'){
+                if(parseInt($("#" + id).val()) == 0){
+                    _0('childNum');
+                    _0('roomNum');
+                    disabled_no_prevClick(id);
+                    disabled_noClick('childNum');
+                    disabled_noClick('roomNum');
+                }
+                else if(parseInt($("#" + id).val()) == 1){
+                    disabled_noClick('roomNum');
+                    $("#childNum").val($("#" + id).val());
+                    disabled_noClick('childNum');
+                }
+                else if(parseInt($("#" + id).val())<parseInt($("#childNum").val())){
+                    $("#childNum").val(Math.ceil($("#" + id).val()));
+                    disabled_noClick('childNum');
+                }
+                else{
+                    disabled_isClick('roomNum');
+                    disabled_is_prevClick('childNum');
+                }
+                if (/^\d+\.\d+$/.test(parseInt($("#" + id).val()) / 2) == true) {
+                    $('#singleRoom').css('display', 'block');
+                } else {
+                    $('#singleRoom').css('display', 'none');
+                }
+                $("#roomNum").val(Math.ceil(parseInt($("#" + id).val()) / 2));
+                disabled_no_prevClick('roomNum');
+                disabled_isClick(id);
+            }
+            if(id == 'childNum'){
+                if(parseInt($("#" + id).val()) == 0){
+                    disabled_no_prevClick(id);
+                }
+            }
+            var roomtotalPrice = (parseInt($("#roomNum").val()) * 2 - parseInt($("#manNum").val())) * parseInt($('#roomPrice').html());
+            var totalPrice = parseInt($('#selectAdultPrice').html()) * parseInt($("#manNum").val());
+            var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+            $('#df_totelprice').html(childtotalPrice + totalPrice + roomtotalPrice);
         });
     }
     //没有选择日期  都不能点击+-
@@ -747,9 +809,21 @@
         $("#" + id).next().find('button').attr('disabled', 'disabled');
         $("#" + id).prev().find('button').attr('disabled', 'disabled');
     }
-    //选择日期  都能点击-
-    function selectDay_Click(id) {
+    //能点击 +
+    function disabled_isClick(id) {
         $("#" + id).next().find('button').removeAttr('disabled', 'disabled');
+    }
+    //不能点击 +
+    function disabled_noClick(id) {
+        $("#" + id).next().find('button').attr('disabled', 'disabled');
+    }
+    //能点击 -
+    function disabled_is_prevClick(id) {
+        $("#" + id).prev().find('button').removeAttr('disabled', 'disabled');
+    }
+    //不能点击 -
+    function disabled_no_prevClick(id) {
+        $("#" + id).prev().find('button').attr('disabled', 'disabled');
     }
     </script>
 </block>

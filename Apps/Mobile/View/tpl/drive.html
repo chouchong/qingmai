@@ -318,7 +318,8 @@
             <div style="padding: 1px;">
                 <div class="item item-text-wrap">
                     <h2>行车地图</h2>
-                    <img ng-click="openMPopover()" src="/{$drive['drivesMap']}" style="margin: 5px 0;" width="100%">
+                    <img src="/{$drive['drivesMap']}" style="margin: 5px 0;" width="100%">
+                        <div class="ion-ios-search-strong" ng-click="openMPopover()"  style="padding: 7px;font-size: 26px;background: rgba(55,55,55,0.2);width:40px;float:right;position: relative;margin-top: -50px;border-radius: 8px;text-align: center;color: #037A9C;font-weight: bolder;"></div>
                     <!-- <p style="margin: 5px 0;">以下行程已部分包含及推荐清迈必游的TOP10景点</p> -->
                 </div>
                 <volist name="drive['articles']" id="at" key="k">

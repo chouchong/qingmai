@@ -32,12 +32,12 @@
                     </div>
                 </div>
             </div>
-            <div class="v_cdesc">
+            <div class="v_cdesc" >
                 <div class="v_cdesct">
                     <div class="v_cdesctb"></div>
                     <span class="v_cdesctt">办理签证所需资料</span>
                 </div>
-                <div class="v_cdescs" style="padding-top:20px;">
+                <div class="v_cdescs" style="padding-top:20px;border: none;">
                     {$visa.visaDesc|htmlspecialchars_decode}
                 </div>
             </div>
@@ -133,7 +133,11 @@
         <include file="tpl:footer"/>
     </block>
 <block name="js">
+<script src="__PUBLIC__/home/js/script.js" type="text/javascript" charset="utf-8"></script>
    <script type="text/javascript">
+        $(function() {
+           visa_heightchange();
+        });
         $(function() {
             $('input:checkbox').attr('checked',true);
             $('input:checkbox').bind("click", function () {
@@ -144,6 +148,7 @@
                     $("#isDef").hide();
                     $(".vc_lxr").show();
                 }
+                visa_heightchange();
             });
             var menNum = $('.vc_mennum').find('input').val();
             $('#jia').on('click',function(){

@@ -77,7 +77,7 @@
       }
     })
     .error(function(data){
-      layer.msg('提交失败'); 
+      layer.msg('提交失败');
     })
   }
   }])
@@ -127,15 +127,49 @@
     serviceHttp.getDList({page:++$scope.page}).success(function(data) {
       if (data != "null") {
         $scope.dlist = $scope.dlist.concat(data);
-        console.log($scope.dlist);
       }else {
         $scope.dMoreCon = "加载完成";
       }
     });
-  }
+  };
+}])
+.controller('driveCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.addGoTime = function(){
+    serviceHttp.addGoTime($scope.goTime).success(function(data){
+      if(data.status>0){
+        $('#diyModal').modal('hide');
+        layer.msg('报名成功,请等待客户的电话');
+      }else{
+        layer.msg('报名失败');
+      }
+    });
+  };
+  serviceHttp.getgoPlace().success(function(data) {
+    $scope.goplaces = data;
+  });
+  $scope.hotelModal = function(hotelId){
+    $('#hotelModal').modal('show');
+    serviceHttp.getHotel(hotelId).success(function(data) {
+      $scope.hotel = data;
+    })
+  };
+  $scope.visa = function(visaId,drivesId){
+    window.location.href = "/Home/Visas/index/visaId/"+visaId+"/drivesId/"+drivesId+".html";
+  };
+  $scope.pageAp = 0;
+  $scope.dMoreAp = "更多评论";
+  $scope.apList = [];
+  $scope.apMore = function(drivesId){
+    serviceHttp.getApList({drivesId:drivesId,page:++$scope.pageAp}).success(function(data) {
+      if (data != "null") {
+        $scope.apList = $scope.apList.concat(data.ap);
+      }else {
+        $scope.dMoreAp = "加载完成";
+      }
+    });
+  };
 }])
 .controller('VisaCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
-
   serviceHttp.getUserAddress().success(function(data) {
     $scope.addRess = data;
     if ($scope.addRess == null) {
@@ -159,61 +193,89 @@
       $('input:checkbox').attr('checked',false);
     }
   }
-  // console.log($scope.visaAddress);
 }])
 .service('serviceHttp',['$http',function($http){
-    this.getDList=function(data){
-      return $http({
-        url: '/Api/V1/getDList',
-        method: "POST",
-        data:data
-      });
-    };
-    this.getUserAddress = function() {
-      return $http({
-        url: '/Mobile/Users/getAddress',
-        method: "POST"
-      });
-    };
-    this.setpassword=function(data){
-      return $http({
-        url:'/Home/Users/setpassword',
-        method:"POST",
-        data: data
-      });
-    };
-    this.getPhone=function(data){
-      return $http({
-        url:'/Home/Users/getPhone',
-        method:"POST",
-        data: {
-          'phone':data
-        }
-      });
-    };
-    this.userLogin=function(data){
-      return $http({
-        url:'/Home/Users/userLogin',
-        method:"POST",
-        data: data
-      });
-    };
-    this.smsSend=function(data){
-      return $http({
-        url:'/Home/Tools/smsSend',
-        method:"POST",
-        data: {
-          'userPhone':data
-        }
-      });
-    };
-    this.UserAdd=function(data){
-      return $http({
-        url:'/Home/Users/UserAdd',
-        method:"POST",
-        data:data
-      });
-    };
+  this.getApList=function(data){
+    return $http({
+      url: '/Api/V1/getApList',
+      method: "POST",
+      data:data
+    });
+  };
+  this.getHotel = function(HotelsId) {
+    return $http({
+      url: '/Mobile/Drives/getHotel',
+      method: "POST",
+      data: {
+        HotelsId: HotelsId
+      }
+    });
+  };
+  this.getgoPlace = function() {
+    return $http({
+      url: '/Mobile/Drives/goPlace',
+      method: "POST",
+    });
+  };
+  this.addGoTime=function(data){
+    return $http({
+      url: '/Mobile/Gos/addGoTime',
+      method: "POST",
+      data:data
+    });
+  };
+  this.getDList=function(data){
+    return $http({
+      url: '/Api/V1/getDList',
+      method: "POST",
+      data:data
+    });
+  };
+  this.getUserAddress = function() {
+    return $http({
+      url: '/Mobile/Users/getAddress',
+      method: "POST"
+    });
+  };
+  this.setpassword=function(data){
+    return $http({
+      url:'/Home/Users/setpassword',
+      method:"POST",
+      data: data
+    });
+  };
+  this.getPhone=function(data){
+    return $http({
+      url:'/Home/Users/getPhone',
+      method:"POST",
+      data: {
+        'phone':data
+      }
+    });
+  };
+  this.userLogin=function(data){
+    return $http({
+      url:'/Home/Users/userLogin',
+      method:"POST",
+      data: data
+    });
+  };
+  this.smsSend=function(data){
+    return $http({
+      url:'/Home/Tools/smsSend',
+      method:"POST",
+      data: {
+        'userPhone':data
+      }
+    });
+  };
+  this.UserAdd=function(data){
+    return $http({
+      url:'/Home/Users/UserAdd',
+      method:"POST",
+      data:data
+    });
+  };
 }])
 .filter('to_trusted', ['$sce', function($sce) {
   return function(text) {
@@ -252,5 +314,30 @@
       }
     }
   }
-]);;
+])
+.directive('apApdrives', [
+  function () {
+    return {
+      restrict: 'E',
+      template: '<div class="dc_lists" ng-show="apList" ng-repeat="vo in apList">'
+                +'<div class="dc_listsl">'
+                +    '<p><span class="dc_name">张三</span>&nbsp;&nbsp;&nbsp;'
+                +       '<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>'
+                +    '</p>'
+                +    '<p>真的是太好玩啦！了房价肯定看看</p>'
+                +'</div>'
+                +'<div class="dc_listsr">'
+                +    '<p>2016-12-25</p>'
+                +'</div>'
+                +'<hr style="clear:both;">'
+                +'</div>',
+      link: function (scope, element) {
+        /**
+         * 初始化变量
+         */
+        scope.user = {};
+      }
+    }
+  }
+]);
 }).call(this);

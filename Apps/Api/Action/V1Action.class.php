@@ -25,4 +25,11 @@ class V1Action extends Controller
   	echo json_encode($object);
     die();
   }
+  // 自驾游评论
+  public function getApList()
+  {
+    $object  = D('Home/Drives')->getDap();
+    echo json_encode($object);
+    die();
+  }
 }
