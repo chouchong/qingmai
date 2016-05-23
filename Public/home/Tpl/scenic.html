@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"> -->
+    <title></title>
+    <link rel="stylesheet" href="../libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <script src="../libs/jquery/dist/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/dateSelect.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default header_subpage">
+        <div class="container-fluid channel">
+            <a class="navbar-brand" href="#">
+                <img alt="" src="../img/logo.png">
+            </a>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#">我的订单</a></li>
+                <li><a href="#">papi酱</a></li>
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </a>
+                </li>
+                <li id=""><a href="register.html">注册</a></li>
+                <li id=""><a href="login.html">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="s_con">
+        <div class="s_title">
+            <h2>丛林飞跃</h2>
+            <p>飞呀飞呀</p>
+        </div>
+        <div class="s_desc">
+            <div class="s_descimg">
+                <img src="../img/jspc.png" alt="">
+            </div>
+            <div class="s_descs">
+                <div class="s_descst">
+                    <p><span id="s_descsttitle">丛林飞跃</span><span class="s_descstb">刺激</span></p>
+                    <p><span>昆明</span>——<span>南宁</span></p>
+                </div>
+                <div class="s_descsp">
+                    <span style="line-height: 200%;">299元</span>
+                </div>
+            </div>
+        </div>
+        <div class="s_descon">
+            <p>您只需准备1.【护照原件】2.【照片四张】3.【身份证】</p>
+            <br>
+            <p>
+                【身份证 正反面复印件一份】 护照完整无损、无水渍（请去掉护照套）
+            </p>
+            <br>
+            <p>
+                【护照原件】 护照有效期大于6个月、成人儿童一样 至少需有4页完整的空白签证页（不包含备注页）
+            </p>
+            <br>
+            <p>
+                【照片】 证件照两张 规格35MMX45MM 本人近6个月内彩色白底照片4张 五官端正清晰、耳朵外露、不露肩膀、不能戴配饰 请用圆珠笔在照片背面写上您的名字
+            </p>
+            <br>
+            <p>
+                建议：在送交或邮寄出护照前请复印或拍摄护照重要 页面、以备不时之需！
+            </p>
+            <br>
+            <p>
+                以下情况不可办理： 由于客人自身原因护照有DT记录/两次或多次借证记 录/境外延期被罚款/假签证等（需要退回订单并且邮 费自理、敬请谅解！）
+            </p>
+        </div>
+        <div class="s_form">
+            <div class="s_selectdate">
+                <div class="s_datemonth">
+                    <a onclick="preMonth()">
+                        <div class="s_monthlast">
+                            <span class="glyphicon glyphicon-menu-left"></span>
+                        </div>
+                    </a>
+                    <div class="s_selectyear">
+                        <span id="currentMonth">2016/05</span>
+                    </div>
+                    <a onclick="nextMonth()">
+                        <div class="s_monthnext">
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="dateday">
+                    <div class="dateweek">日</div>
+                    <div class="dateweek">一</div>
+                    <div class="dateweek">二</div>
+                    <div class="dateweek">三</div>
+                    <div class="dateweek">四</div>
+                    <div class="dateweek">五</div>
+                    <div class="dateweek">六</div>
+                </div>
+                <div id="calendarSelect" class=" responsive-break" style="text-align: center;">
+                    <!-- <div class="dateSelect">
+                        <div class="dateSelectDay">
+                        </div>
+                    </div>
+                    <div class="dateSelect">
+                        <div class="dateSelectDay">
+                        </div>
+                    </div>
+                    <div class="dateSelect">
+                        <div class="dateSelectDay">
+                        </div>
+                    </div> -->
+                </div>
+                <div class="calendarpricedesc">
+                    <p>起价是按2位成人参加<span id="today">2016-04-29</span>出发的产品，并入住同一间房间的单人价格。</p>
+                </div>
+                <div class="s_lxr">
+                    <div>
+                        联系人信息
+                    </div>
+                </div>
+                <div class="v_cdescs" style="overflow:hidden;padding: 0 20px;">
+                    <div class="checkbox" style="float:right;">
+                        <label>
+                            <input id="ismrlxr" type="checkbox" checked="true"> <span href="">使用默认联系人</span>
+                        </label>
+                    </div>
+                </div>
+                <hr style="color:#666;margin: 0;">
+                <div id="usemrlxr" class="v_cdescs" style="clear:both;padding: 0 20px;">
+                    <h4>默认联系人</h4>
+                    <p style="margin:8px 15px;"><span>张三</span><span style="float:right">13388768484</span></p>
+                    <p style="margin:8px 15px;"><span>北京路151号</span><span style="float:right">1242313151@qq.com</span></p>
+                </div>
+                <div id="addmrlxr" class="s_lxrf" style="display: none;">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">联系人</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputEmail3" placeholder="联系人">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系电话</label>
+                            <div class="col-sm-9">
+                                <input type="tel" class="form-control" id="inputPassword3" placeholder="联系电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系人邮件</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" id="inputPassword3" placeholder="联系人电子邮件">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系人地址</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputPassword3" placeholder="联系人地址">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="sf_sel">
+                <div class="sf_tc">
+                    <div class="sf_tch">
+                        选择套餐
+                    </div>
+                    <div class="sf_tcc">
+                        <div class="sf_tcs">
+                            套餐一
+                        </div>
+                        <div class="sf_tcs active">
+                            套餐一
+                        </div>
+                        <div class="sf_tcs">
+                            套餐一
+                        </div>
+                    </div>
+                </div>
+                <div class="sf_fd">
+                    <div class="sf_fdh">
+                        选择分店
+                    </div>
+                    <div class="sf_fdc">
+                        <div class="sf_fds">
+                            分店一
+                        </div>
+                        <div class="sf_fds">
+                            分店2
+                        </div>
+                        <div class="sf_fds">
+                            分店3
+                        </div>
+                    </div>
+                </div>
+                <div class="sf_fd">
+                    <div class="sf_fdh">
+                        选择票数
+                    </div>
+                </div>
+                <div class="sf_inputs">
+                    <div class="sf_input">
+                        <div class="sfi_l">成人</div>
+                        <div class="sfi_c ">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">-</button>
+                      </span>
+                                <input type="text" class="form-control" placeholder="">
+                                <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">+</button>
+                      </span>
+                            </div>
+                        </div>
+                        <div class="sfi_r"><span>1235元/人</span></div>
+                    </div>
+                    <div class="sf_input">
+                        <div class="sfi_l">儿童</div>
+                        <div class="sfi_c ">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">-</button>
+                      </span>
+                                <input type="text" class="form-control" placeholder="">
+                                <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">+</button>
+                      </span>
+                            </div>
+                        </div>
+                        <div class="sfi_r"><span>1235元/人</span></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="sf_submit">
+                    <div class="sf_sbs">
+                        <div class="sf_sbp">
+                            总价格&nbsp;&nbsp;<span id="sf_price">5200</span>元
+                        </div>
+                        <div class="sf_sbtn">
+                            立即购买
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer id="footer">
+        <div class="foot_bg">
+            <img src="../img/slide2.jpg" alt="">
+        </div>
+        <div class="container foot_con">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>为什么选择自由旅行</h4>
+                    <ul>
+                        <li>您的自由行有保障吗？</li>
+                        <li>您的旅游省心吗？</li>
+                        <li>您的旅游升级了吗</li>
+                        <li>7*24小时管家服务</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>常见问题与答案</h4>
+                    <ul>
+                        <li>基础类</li>
+                        <li>签证类</li>
+                        <li>机票类</li>
+                        <li>酒店类</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>合作信息</h4>
+                    <ul>
+                        <li>供应商合作</li>
+                        <li>大客户采购</li>
+                        <li>品牌渠道合作</li>
+                        <li>合作伙伴</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>公司信息</h4>
+                    <ul>
+                        <li>关于自由旅行</li>
+                        <li>创始团队</li>
+                        <li>加入我们</li>
+                        <li>法律声明</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>为什么选择自由旅行</h4>
+                    <div class="qqwxwb">
+                        <img id="erweimaqq" src="../img/01.png" alt="">
+                        <img id="erweimawx" src="../img/02.png" alt="">
+                        <img id="erweimawb" src="../img/03.png" alt="">
+                    </div>
+                    <img id="erweima" src="../img/erweima.png" alt="" width="150px" style="display: none;">
+                    <ul>
+                        <li>版权所有 昆明春秋国际旅行社有限公司</li>
+                        <li>滇ICP证 16097834</li>
+                        <li>2015 ALLcopyrihts by Kunming spring tour CO,ltd</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="../libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        scenic_heightchange();
+    });
+    // 切换联系人
+    $("#ismrlxr").change(function() {
+        $("#usemrlxr").toggle();
+        $("#addmrlxr").toggle();
+        scenic_heightchange();
+    });
+    // 选择套餐分店
+    $(".sf_tcs").click(function(){
+        $(".sf_tcc").children(".active").removeClass('active');
+        $(this).addClass("active");
+    });
+    $(".sf_fds").click(function(){
+        $(".sf_fdc").children(".active").removeClass('active');
+        $(this).addClass("active");
+        console.log($(this).html());
+    });
+
+
+
+    // 选择日期
+    var selectedDate;
+    $("#calendarSelect").on("click", ".dateSelect", function() {
+        var todayDate = new Date($("#today").html().replace(/-/g, '/'));
+        var dateSelectDay = new Date($(this).children(".dateSelectDay").attr("id").replace(/-/g, '/'));
+        var time = dateSelectDay - todayDate.getTime(); //日期的long型值之差
+        if (Math.floor(time / (24 * 60 * 60 * 1000)) >= 1) {
+            $(".selected").removeClass("selected");
+            $(this).children(".dateSelectDay").addClass("selected");
+            selectedDate = dateSelectDay;
+        }
+    });
+    </script>
+</body>
+
+</html>

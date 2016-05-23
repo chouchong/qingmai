@@ -1,4 +1,5 @@
 (function(){
+'use strict';
  angular.module('myapp', [])
  .config(['$httpProvider', function ($httpProvider) {
     // 设置post时使用urlencode编码方式;
@@ -148,9 +149,9 @@
     $scope.goplaces = data;
   });
   $scope.hotelModal = function(hotelId){
-    $('#hotelModal').modal('show');
     serviceHttp.getHotel(hotelId).success(function(data) {
       $scope.hotel = data;
+      $('#hotelModal').modal('show');
     })
   };
   $scope.visa = function(visaId,drivesId){
@@ -161,7 +162,7 @@
   $scope.apList = [];
   $scope.apMore = function(drivesId){
     serviceHttp.getApList({drivesId:drivesId,page:++$scope.pageAp}).success(function(data) {
-      if (data != "null") {
+      if (data.ap.length != 0) {
         $scope.apList = $scope.apList.concat(data.ap);
       }else {
         $scope.dMoreAp = "加载完成";
@@ -179,6 +180,7 @@
     }else{
       $("#isDef").show();
       $(".vc_lxr").hide();
+      visa_heightchange();
       $('input:checkbox').attr('checked',false);
     }
   });
@@ -192,6 +194,25 @@
       $(".vc_lxr").hide();
       $('input:checkbox').attr('checked',false);
     }
+  }
+}])
+.controller('goodsCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  serviceHttp.getUserAddress().success(function(data) {
+    $scope.addRess = data;
+    if ($scope.addRess == null) {
+      $("#usemrlxr").hide();
+      $("#addmrlxr").show();
+      scenic_heightchange();
+      $('#ismrlxr').attr('checked',false);
+    }else{
+      $("#usemrlxr").show();
+      $("#addmrlxr").hide();
+      scenic_heightchange();
+      $('#ismrlxr').attr('checked',true);
+    }
+  });
+  $scope.goodOrAdd = function() {
+    console.log($scope.goodAddress);
   }
 }])
 .service('serviceHttp',['$http',function($http){
@@ -310,7 +331,7 @@
         /**
          * 初始化变量
          */
-        scope.user = {};
+        // scope.user = {};
       }
     }
   }
@@ -321,21 +342,17 @@
       restrict: 'E',
       template: '<div class="dc_lists" ng-show="apList" ng-repeat="vo in apList">'
                 +'<div class="dc_listsl">'
-                +    '<p><span class="dc_name">张三</span>&nbsp;&nbsp;&nbsp;'
+                +    '<p><span class="dc_name">{{vo.userName}}</span>&nbsp;&nbsp;&nbsp;'
                 +       '<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>'
                 +    '</p>'
-                +    '<p>真的是太好玩啦！了房价肯定看看</p>'
+                +    '<p>{{vo.content}}</p>'
                 +'</div>'
                 +'<div class="dc_listsr">'
-                +    '<p>2016-12-25</p>'
+                +    '<p>{{vo.createTime}}</p>'
                 +'</div>'
                 +'<hr style="clear:both;">'
                 +'</div>',
       link: function (scope, element) {
-        /**
-         * 初始化变量
-         */
-        scope.user = {};
       }
     }
   }

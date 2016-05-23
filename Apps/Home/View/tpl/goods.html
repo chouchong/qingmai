@@ -1,0 +1,306 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>{$good.goodsName}</title>
+    <meta name="keywords" content="{$good['goodsKeywords']}" />
+    <meta name="description" content="{$good['goodsSpec']}" />
+</block>
+<block name="css"></block>
+<block name="main">
+<div ng-app="myapp" ng-controller="goodsCtrl">
+<input type="hidden" id="servertoday" value="{$daymtime}">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="s_con">
+        <!-- <div class="s_title">
+            <h2>丛林飞跃</h2>
+            <p>飞呀飞呀</p>
+        </div> -->
+        <div class="s_desc">
+            <div class="s_descimg">
+                <img src="/{$good.goodsImg}" alt="{$good['goodsName']}" height="500px">
+            </div>
+            <div class="s_descs">
+                <div class="s_descst">
+                    <p><span id="s_descsttitle">{$good['goodsName']}</span>
+                    <volist name="good.labels" id="vo">
+                    <span class="s_descstb">{$vo.name}</span>&nbsp;
+                	</volist>
+                    </p>
+                    <!-- <p><span>昆明</span>——<span>南宁</span></p> -->
+                </div>
+                <div class="s_descsp">
+                    <span style="line-height: 200%;">{$good.adultPrice}元</span>
+                </div>
+            </div>
+        </div>
+        <div class="s_descon">
+        	{$good['goodsDesc']|htmlspecialchars_decode}
+        </div>
+        <div class="s_form">
+            <div class="s_selectdate">
+                <div class="s_datemonth">
+                    <a onclick="preMonth()">
+                        <div class="s_monthlast">
+                            <span class="glyphicon glyphicon-menu-left"></span>
+                        </div>
+                    </a>
+                    <div class="s_selectyear">
+                        <span id="currentMonth">2016-05</span>
+                    </div>
+                    <a onclick="nextMonth()">
+                        <div class="s_monthnext">
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="dateday">
+                    <div class="dateweek">日</div>
+                    <div class="dateweek">一</div>
+                    <div class="dateweek">二</div>
+                    <div class="dateweek">三</div>
+                    <div class="dateweek">四</div>
+                    <div class="dateweek">五</div>
+                    <div class="dateweek">六</div>
+                </div>
+                <div id="calendarSelect" class=" responsive-break" style="text-align: center;">
+                </div>
+                <div class="calendarpricedesc">
+                    <p>当前日不可选,您选择了<span id="today">{$daymtime}</span>的产品</p>
+                </div>
+                <div class="s_lxr">
+                    <div>
+                        联系人信息
+                    </div>
+                </div>
+                <div class="v_cdescs" style="overflow:hidden;padding: 0 20px;">
+                    <div class="checkbox" style="float:right;" ng-show="addRess">
+                        <label>
+                            <input id="ismrlxr" type="checkbox" checked="true"> <span href="">使用默认联系人</span>
+                        </label>
+                    </div>
+                </div>
+                <hr style="color:#666;margin: 0;">
+                <div id="usemrlxr" class="v_cdescs" style="clear:both;padding: 0 20px;" ng-show="addRess">
+                    <h4 ng-bing="默认联系人"></h4>
+                    <input type="hidden" id="addressId" value="{{addRess.addressId}}" />
+                    <p style="margin:8px 15px;">
+                        <span ng-bind="addRess.userName"></span>
+                        <span style="float:right" ng-bind="addRess.userName"></span>
+                    </p>
+                    <p style="margin:8px 15px;">
+                        <span ng-bind="addRess.address"></span>
+                        <span style="float:right" ng-bind="addRess.userEmail"></span>
+                    </p>
+                </div>
+                <div id="addmrlxr" class="s_lxrf" style="display: none;">
+                    <form class="form-horizontal" name="goodAddress" novalidate>
+                        <div class="form-group" ng-class="{'has-error':goodAddress.aName.$dirty && goodAddress.aName.$invalid}">
+                            <label for="inputEmail3" class="col-sm-3 control-label">联系人</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="aName" ng-model="user.aName" placeholder="请输入联系人" required>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':goodAddress.phone.$dirty && goodAddress.phone.$invalid}">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系电话</label>
+                            <div class="col-sm-9">
+                                <input type="tel" class="form-control" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':goodAddress.email.$dirty && goodAddress.email.$invalid}">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系人邮件</label>
+                            <div class="col-sm-9">
+                                <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="请输入联系邮箱" required>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':goodAddress.address.$dirty && goodAddress.address.$invalid}">
+                            <label for="inputPassword3" class="col-sm-3 control-label">联系人地址</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="address" ng-model="user.address" placeholder="联系人地址" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="sf_sel">
+            	<notempty name="good.attrPrice">
+                <div class="sf_tc">
+                    <div class="sf_tch">
+                        选择套餐
+                    </div>
+                    <div class="sf_tcc">
+                    	<volist name="good.attrPrice" id="p">
+                        <div class="sf_tcs">
+                            {$p.attrVal}
+                            <input type="hidden" value="{$p['attrPrice']}" />
+                        </div>
+                    	</volist>
+                    </div>
+                </div>
+            	</notempty>
+            	<notempty name="good.attrfd">
+                <div class="sf_fd">
+                    <div class="sf_fdh">
+                        选择分店
+                    </div>
+                    <div class="sf_fdc">
+                    <volist name="good.attrfd" id="f">
+                        <div class="sf_fds">
+                            {$f.attrVal}
+                        </div>
+                    </volist>
+                    </div>
+                </div>
+            	</notempty>
+                <div class="sf_fd">
+                    <div class="sf_fdh">
+                        选择票数
+                    </div>
+                </div>
+                <div class="sf_inputs">
+                    <div class="sf_input">
+                        <div class="sfi_l">成人</div>
+                        <div class="sfi_c ">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                        			<button class="btn btn-default" type="button">-</button>
+                      			</span>
+                                <input type="text" id="manNum" class="form-control" value="0" readonly="true">
+                                <span class="input-group-btn">
+                        			<button class="btn btn-default" type="button">+</button>
+                      			</span>
+                            </div>
+                        </div>
+                        <div class="sfi_r"><span id="manPrice">{$good['adultPrice']}</span>元/人</div>
+                    </div>
+                    <if condition="$good['childPrice'] gt 0">
+                    <div class="sf_input">
+                        <div class="sfi_l">儿童</div>
+                        <div class="sfi_c ">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+		                        	<button class="btn btn-default" type="button">-</button>
+		                      	</span>
+                                <input type="text" id="childNum" class="form-control" value="0" readonly="true">
+                                <span class="input-group-btn">
+		                        	<button class="btn btn-default" type="button">+</button>
+		                      	</span>
+                            </div>
+                        </div>
+                        <div class="sfi_r"><span id="childPrice">{$good['childPrice']}</span>元/人</div>
+                    </div>
+               		 </if>
+                </div>
+                <hr>
+                <div class="sf_submit">
+                    <div class="sf_sbs">
+                        <div class="sf_sbp">
+                            总价格&nbsp;&nbsp;<span id="sf_price">0</span>元
+                        </div>
+                        <div class="sf_sbtn" ng-click="goodOrAdd()">
+                            立即购买
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+    <script src="__PUBLIC__/home/js/dateSelect.js"></script>
+    <script type="text/javascript">
+    $(function() {
+    	// 套餐没有选择  不能点击 数量
+    	selectDay_onClick('manNum');selectDay_onClick('childNum');
+    	scenic_heightchange();
+	    // 切换联系人
+	    $("#ismrlxr").change(function() {
+	        $("#usemrlxr").toggle();
+	        $("#addmrlxr").toggle();
+	        scenic_heightchange();
+	    });
+	    // 选择套餐分店
+	    $(".sf_tcs").click(function(){
+	        $(".sf_tcc").children(".active").removeClass('active');
+	        $(this).addClass("active");
+	    });
+	    $(".sf_fds").click(function(){
+	        $(".sf_fdc").children(".active").removeClass('active');
+	        $(this).addClass("active");
+	    });
+	    // 选择日期
+	    var selectedDate;
+	    $("#calendarSelect").on("click", ".dateSelect", function() {
+	        var todayDate = new Date($("#servertoday").val().replace(/-/g, '/'));
+	        var dateSelectDay = new Date($(this).children(".dateSelectDay").attr("id").replace(/-/g, '/'));
+	        var time = dateSelectDay - todayDate.getTime(); //日期的long型值之差
+	        if (Math.floor(time / (24 * 60 * 60 * 1000)) >= 1) {
+	            $(".selected").removeClass("selected");
+	            $(this).children(".dateSelectDay").addClass("selected");
+	            selectedDate = dateSelectDay;
+                $('#today').html($(this).children(".dateSelectDay").attr("id"))
+	        }
+	        disabled_isClick('manNum');disabled_isClick('childNum');
+	    });
+	    //成人数量
+	    next_click('manNum');
+	    prev_click('manNum');
+	    //儿童数量
+	    next_click('childNum');
+	    prev_click('childNum');
+	    //点击+时间列表 点击函数
+	    function next_click(id) {
+	        $("#" + id).next().find('button').on('click',function(){
+	            var jiaNum = $("#" + id).val();
+	            ++jiaNum;
+	            $("#" + id).val(jiaNum);
+	            disabled_is_prevClick('manNum');disabled_is_prevClick('childNum');
+	            var totalPrice = parseInt($('#manPrice').html()) * parseInt($("#manNum").val());
+	            var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+                if($("#childNum").val() == undefined){
+                    childtotalPrice = 0;
+                }
+	            $('#sf_price').html(childtotalPrice + totalPrice);
+	        });
+	    }
+	    //点击-时间列表 点击函数
+		function prev_click(id) {
+		    $("#" + id).prev().find('button').on('click',function(){
+		        var jianNum = $("#" + id).val();
+		        --jianNum;
+		        jianNum = jianNum<0?0:jianNum;
+		        $("#" + id).val(jianNum);
+		        var totalPrice = parseInt($('#manPrice').html()) * parseInt($("#manNum").val());
+	            var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+                if($("#childNum").val() == undefined){
+                    childtotalPrice = 0;
+                }
+	            $('#sf_price').html(childtotalPrice + totalPrice);
+		    });
+		}
+		//没有选择日期  都不能点击+-
+	    function selectDay_onClick(id) {
+	        $("#" + id).next().find('button').attr('disabled', 'disabled');
+	        $("#" + id).prev().find('button').attr('disabled', 'disabled');
+	    }
+	    //能点击 +
+	    function disabled_isClick(id) {
+	        $("#" + id).next().find('button').removeAttr('disabled', 'disabled');
+	    }
+	    //不能点击 +
+	    function disabled_noClick(id) {
+	        $("#" + id).next().find('button').attr('disabled', 'disabled');
+	    }
+	    //能点击 -
+	    function disabled_is_prevClick(id) {
+	        $("#" + id).prev().find('button').removeAttr('disabled', 'disabled');
+	    }
+	    //不能点击 -
+	    function disabled_no_prevClick(id) {
+	        $("#" + id).prev().find('button').attr('disabled', 'disabled');
+	    }
+    });
+    </script>
+</block>

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"> -->
+    <title></title>
+    <link rel="stylesheet" href="../libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/custom.css">
+    <script src="../libs/jquery/dist/jquery.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/datePrice.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default header_subpage">
+        <div class="container-fluid channel">
+            <a class="navbar-brand" href="#">
+                <img alt="" src="../img/logo.png">
+            </a>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#">我的订单</a></li>
+                <li><a href="#">papi酱</a></li>
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-user"></i>
+                    </a>
+                </li>
+                <li id=""><a href="register.html">注册</a></li>
+                <li id=""><a href="login.html">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="d_content">
+        <div class="d_head">
+            <input type="hidden" id="drivesId" value="2" />
+            <input type="hidden" id="daytime" value="2016-05-11" />
+            <div class="d_title">
+                <h1>自驾昆明游</h1>
+                <p>4日5夜游阿克苏经典款</p>
+            </div>
+            <div class="d_intro">
+                <div class="d_img">
+                    <img src="../img/1.jpg" alt="">
+                </div>
+                <div class="d_introduce">
+                    <div class="d_intrl">
+                        <p>
+                            <span class="d_intrlt">年轻人的第一次跨境自驾旅行</span>
+                            <span class="d_intrld">6晚7天跨境自驾自由行</span>
+                        </p>
+                        <p><span class="d_place">磨憨——清迈</span></p>
+                    </div>
+                    <div class="d_intrr">
+                        <p><span>清新版</span>
+                            <span>2999元/人</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d_form">
+            <div class="selectdate">
+                <div class="datemonth">
+                    <a onclick="preMonth()">
+                        <div class="monthlast">
+                            <span class="glyphicon glyphicon-menu-left"></span>
+                        </div>
+                    </a>
+                    <div class="selectyear">
+                        <span id="currentMonth">&nbsp;</span>
+                    </div>
+                    <a onclick="nextMonth()">
+                        <div class="monthnext">
+                            <span class="glyphicon glyphicon-menu-right"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="dateday">
+                    <div class="dateweek">日</div>
+                    <div class="dateweek">一</div>
+                    <div class="dateweek">二</div>
+                    <div class="dateweek">三</div>
+                    <div class="dateweek">四</div>
+                    <div class="dateweek">五</div>
+                    <div class="dateweek">六</div>
+                </div>
+                <div class="calendarprice" id="calendarprice">
+                    <!-- 加载动画 -->
+                    <div class="loadcalendarprice">
+                          <div class="bounce1"></div>
+                          <div class="bounce2"></div>
+                          <div class="bounce3"></div>
+                    </div>
+                    <!--         
+                    <div class="dateprice">
+                        <p class="dd">23</p>
+                        <p class="price">5660</p>
+                        <p class="ticket">50</p>
+                    </div> -->
+                </div>
+                <div class="calendarpricedesc">
+                    <p>起价是按2位成人参加2016-04-29出发的产品，并入住同一间房间的单人价格。</p>
+                </div>
+            </div>
+            <div class="diverform">
+                <div class="diverformlist">
+                    <div class="df_left">行程天数：</div>
+                    <div class="df_center" id="df_days">4日3晚</div>
+                    <div class="df_right" id="df_buys">132人已购买</div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
+                <div class="diverformlist">
+                    <div class="df_left">出发日期</div>
+                    <div class="df_center">&nbsp;</div>
+                    <div class="df_right" id="df_seldate">2016-12-25</div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
+                <div class="diverformlist">
+                    <div class="df_left">成人</div>
+                    <div class="df_center ">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default disabled" type="button">-</button>
+                      </span>
+                            <input type="text" class="form-control" value="5" readonly>
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">+</button>
+                      </span>
+                        </div>
+                    </div>
+                    <div class="df_right"><span>1235元/人</span></div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
+                <div class="diverformlist">
+                    <div class="df_left">儿童</div>
+                    <div class="df_center ">
+                        <div class="input-group">
+                            <span class="input-group-btn"><button class="btn btn-default" type="button">-</button></span>
+                            <input type="text" class="form-control" placeholder="">
+                            <span class="input-group-btn"><button class="btn btn-default" type="button">+</button>
+                      </span>
+                        </div>
+                    </div>
+                    <div class="df_right"><span>1235元/人</span></div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
+                <div class="diverformlist">
+                    <div class="df_left">房间数</div>
+                    <div class="df_center ">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">-</button>
+                      </span>
+                            <input type="text" class="form-control" placeholder="">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">+</button>
+                      </span>
+                        </div>
+                    </div>
+                    <div class="df_right">单房差<span>1235元/人</span></div>
+                </div>
+                <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
+                <div class="diverformlist">
+                    <div style="color:#1AD4D2;float:right;margin:0 50px;">成人/儿童/单房差 价格说明</div>
+                </div>
+                <div class="diverformlist_sub">
+                    <div id="df_price">
+                        总价格<span id="df_totelprice">￥1699</span>
+                    </div>
+                    <div id="df_submit">
+                        <a href="orderdiver.html"><span>立即预定</span></a>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <!--         <div class="d_xc">
+            <div id="timeDesc">
+                <div class="item item-text-wrap">
+                    <p>
+                        出发日期:&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">云南昆明</span>
+                    </p>
+                </div>
+                <div class="item item-text-wrap">
+                    <p>
+                        结束日期:&nbsp;&nbsp;<span>2016-07-11</span><span class="xcapgright">云南临沧</span>
+                    </p>
+                </div>
+                <div class="xingchengPlan">
+                    <div class="item item-text-wrap">
+                        <p>
+                            <span>临沧1</span><span class="xcapgright">临沧酒店1 </span>
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <p>
+                            入住&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">2016-07-10</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="xingchengPlan">
+                    <div class="item item-text-wrap">
+                        <p>
+                            <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
+                        </p>
+                    </div>
+                    <div class="item item-text-wrap">
+                        <p>
+                            入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="d_xcts">
+            <div class="dx_left">
+                <div class="xcmx">
+                    <div class="xc_title">
+                        <span>行程简介</span>
+                        <div class="xc_title1">
+                        </div>
+                    </div>
+                    <div class="xc_content">
+                        <div id="xc_timeDesc">
+                            <div class="item item-text-wrap">
+                                <p>
+                                    出发日期:&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">云南昆明</span>
+                                </p>
+                            </div>
+                            <div class="item item-text-wrap">
+                                <p>
+                                    结束日期:&nbsp;&nbsp;<span>2016-07-11</span><span class="xcapgright">云南临沧</span>
+                                </p>
+                            </div>
+                            <div class="xingchengPlan">
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        <span>临沧1</span><span class="xcapgright">临沧酒店1 </span>
+                                    </p>
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        入住&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">2016-07-10</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="xingchengPlan">
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
+                                    </p>
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="xingchengPlan">
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
+                                    </p>
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="xingchengPlan">
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
+                                    </p>
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <p>
+                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dx_left">
+                <div class="xcmx">
+                    <div class="xc_title">
+                        <span>价格说明</span>
+                        <div class="xc_title1">
+                        </div>
+                    </div>
+                    <div class="xc_content">
+                        <p>
+                            成人价格：按照2位成人参加所选日期出发产品，并入住同一间房间所核算的单人价格
+                        </p>
+                        <p>
+                            儿童价格：12岁以下儿童仅包含行程中游览项目，不含床位，不提供加床，不含酒店早餐的价格。(酒店早餐产生费用家长自理)。
+                        </p>
+                        <p>
+                            单房差：本产品不提供拼房，当单人入住双人间时，需支付酒店另外一个空床位的费用即为单房差。
+                        </p>
+                    </div>
+                </div>
+                <div class="xcmx">
+                    <div class="xc_title">
+                        <span>温馨提示</span>
+                        <div class="xc_title1">
+                        </div>
+                    </div>
+                    <div class="xc_content">
+                        <span style="color:#3E3E3E;font-family:'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'Apple Color Emoji', 'Emoji Symbols Font', 'Segoe UI Symbol', Arial, sans-serif;line-height:19.2px;">1、此行程总计920KM左右，均为山岭高速路、需由经验丰富之合法驾驶员谨慎驾驶车辆。敬请严格遵守行车规则之要求及工作人员的安排。不可强超、强会、随意停放。</span>
+                        <br>
+                        <span style="color:#3E3E3E;font-family:'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'Apple Color Emoji', 'Emoji Symbols Font', 'Segoe UI Symbol', Arial, sans-serif;line-height:19.2px;">2、特别告知：驾驶车辆或乘坐汽车旅游具有不可预知的安全隐患，驾驶员负有因驾驶车辆所引致一切后果的全部责任。</span>
+                        <br>
+                        <span style="color:#3E3E3E;font-family:'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'Apple Color Emoji', 'Emoji Symbols Font', 'Segoe UI Symbol', Arial, sans-serif;line-height:19.2px;">3、自驾前往异地，会有众多不可预知问题，上述行程中时间及行车距离仅用于参考，具体时间及距离以实际行车为准。</span>
+                        <br>
+                        <span style="color:#3E3E3E;font-family:'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', 'Apple Color Emoji', 'Emoji Symbols Font', 'Segoe UI Symbol', Arial, sans-serif;line-height:19.2px;">4、本公司保留因气候条件、道路交通、运政、国家政策调整以及其它人力不可抗拒因素对具体时间、行程做适当调整的权利；在行程中因人力不可抗拒因素引起的行程延误、滞留所产生的费用由客人自理，行程以当地旅行社安排为准。</span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d_explain">
+            <div class="de_left">
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>费用包含</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_content">
+                        <p>
+                            行程所列6晚酒店住宿（含早餐）
+                            <br>
+                            <br> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                            <br> 票）
+                            <br> 拜县一日游（巴士、中文向导、中餐、景点门票）
+                            <br> 磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                            <br> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                            <br> 票）
+                            <br> 拜县一日游（巴士、中文向导、中餐、景点门票）
+                            <br> 磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                            <br> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                            <br> 票）
+                            <br> 拜县一日游（巴士、中文向导、中餐、景点门票）
+                            <br> 磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                            <br> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                            <br> 票）
+                            <br> 拜县一日游（巴士、中文向导、中餐、景点门票）
+                            <br> 磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                            <br> 素贴山-双龙寺-蒲屏宫半日游（巴士、中文导游、缆车、景点门
+                            <br> 票）
+                            <br> 拜县一日游（巴士、中文向导、中餐、景点门票）
+                            <br> 磨憨、清迈、清莱均有我社驻地地工作人员提供帮助
+                            <br> 7X24小时在线旅行顾问服务
+                        </p>
+                    </div>
+                </div>
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>费用不含</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_content">
+                        <p>
+                            人员及车辆出过境费用（路书中有详细指引）
+                            <br> 个人消费：行程包含项目外的个人消费
+                        </p>
+                    </div>
+                </div>
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>赠送项目</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_content">
+                        <p>
+                            电话卡：每间房赠送泰国HAPPY电话卡一张（7天无限上网及 国内通话，100分钟国际通话）
+                        </p>
+                        <p>
+                            保险：出国人员旅游意外伤害险<a>详情</a>
+                        </p>
+                        <p>
+                            路书：详细的清迈自驾游路书、详细过境指引<a>详情</a>
+                        </p>
+                        <p>
+                            专属礼盒：精美护照票据夹及车贴纸
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="de_left">
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>所需资料</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_contentvisa">
+                        <div class="ex_visa">
+                            <div class="ex_visaimg">
+                                <img src="../img/qz.png" alt="" width="">
+                            </div>
+                            <div class="ex_visacon">
+                                <p style="font-size: 15px;">已有护照客人（护照有效期6个月以上、空白签证页4页）请在出行前自行办理好泰国老挝两国签证。或在出行前15日交由我社代办、详见下方惠享代办所需资料说明！</p>
+                            </div>
+                        </div>
+                        <div class="ex_visa">
+                            <div class="ex_visaimg">
+                                <img src="../img/tg.png" alt="" width="">
+                            </div>
+                            <div class="ex_visacon">
+                                <p style="font-size: 15px;padding-top: 6px">产品数量有限、一经确认不接受任何退改！</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ex_content" style="padding:30px 10px;clear:both;">
+                        <p>护照及签证：有效期内护照及泰国老挝两国签证</p>
+                        <a href="visa.html" style="text-decoration: none;">
+                            <div class="ex_hrefvisa">
+                                <span>惠享400元代办两国签证</span>
+                            </div>
+                        </a>
+                        <p style="text-align: center;">代办签证限报名用户 昆明三环内提供上门取件</p>
+                    </div>
+                </div>
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>选择报名</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_content" style="padding:30px 10px;">
+                        <a href="" style="text-decoration: none;" data-toggle="modal" data-target="#diyModal">
+                            <div class="ex_hrefvisa" style="background:#E279AE;">
+                                <span>没有合适日期或需定制</span>
+                            </div>
+                        </a>
+                        <a href="" style="text-decoration: none;" data-toggle="modal" data-target="#bmModal">
+                            <div class="ex_hrefvisa" style="background:#E279AE;">
+                                <span>前往报名</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d_hotel">
+            <div class="d_hotelt">
+                <div class="d_scenicta"></div>
+                <h3>&nbsp;&nbsp;&nbsp;酒店信息</h3>
+            </div>
+            <div class="dh_list">
+                <div class="dh_img">
+                    <div class="dh_imgb">
+                        <img src="../img/hotel1.png" width="624px" height="355px" />
+                    </div>
+                    <div class="dh_imgs">
+                        <div class="dh_imgss">
+                            <img src="../img/hotel1.png" alt="" width="148.5px" height="84.5px">
+                        </div>
+                        <div class="dh_imgss">
+                            <img src="../img/hotel0.png" alt="" width="148.5px" height="84.5px">
+                        </div>
+                        <div class="dh_imgss">
+                            <img src="../img/hotel1.png" alt="" width="148.5px" height="84.5px">
+                        </div>
+                        <div class="dh_imgss">
+                            <img src="../img/hotel1.png" alt="" width="148.5px" height="84.5px">
+                        </div>
+                    </div>
+                </div>
+                <div class="dh_desc">
+                    <div class="dh_desccon">
+                        <h3>打算看见了酒店</h3>
+                        <h3>laks jfsd klfjals asdfsd</h3>
+                        <p>房型<span>标准大床房</span></p>
+                        <p style="color:#F3DE26;"><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+                        <p>地点：东京</p>
+                        <p>
+                            阿双方尽快哈萨克斯拒订盒饭会计师卡萨丁几乎
+                            <br> 阿双方尽快哈萨克斯拒订盒饭会计师卡萨丁几乎
+                            <br> 阿双方尽快哈萨克斯拒订盒卡萨丁几乎
+                            <br> 阿双方尽快哈计师卡萨丁几乎
+                            <br> 阿双方尽快哈萨克斯拒订盒卡萨丁几乎
+                            <br> 阿双方尽快哈计师卡萨丁几乎
+                            <br> 阿双方尽快哈萨克斯拒订盒卡萨丁几乎
+                            <br> 阿双方尽快哈计师卡萨丁几乎
+                            <br>
+                        </p>
+                    </div>
+                    <div class="dh_descbtn">
+                        <a>
+                            <div data-toggle="modal" data-target="#hotelModal">查看详情</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d_passhotel">
+            <div class="d_hotelt">
+                <div class="d_scenicta"></div>
+                <h3>&nbsp;&nbsp;&nbsp;途中酒店信息</h3>
+            </div>
+            <div class="dph_list">
+                <img src="../img/hotel1.png" alt="" width="100%">
+                <h3>洒家大酒店</h3>
+                <h3>asdf asfl wetilaks</h3>
+                <p>房型<span>标准大床房</span></p>
+                <p>交通：思考的激发了</p>
+                <p>圣诞节发货</p>
+                <p>阿斯顿发送到干啥更惹人股份的烧烤架啦思考的激发了卡上的减肥卢卡斯大家飞拉克丝酒店法律框架啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊 阿斯利康积分卢卡斯大家飞卢卡斯大家飞卢卡斯大家飞卢卡斯大家飞了卡上的减肥看见了手机地方圣诞快乐房间了斯柯达法就了卡上的减肥卢卡斯大家发了卡萨丁解放路口洒家大费卢卡斯敬爱的发了卡机是到付款了静安寺法律框架阿三的路口附近圣诞快乐房间索拉卡减肥考虑经济模式快乐大脚发神经 快速减肥大 </p>
+            </div>
+        </div>
+        <!--         <div class="d_desc">
+            <div class="ddchannel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">行程介绍</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">用户评论</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">..2dgfdfvgdasdvdsafsd.</div>
+                </div>
+            </div>
+        </div> -->
+        <div class="d_desc">
+            <div class="d_desct">
+                <div class="d_descta"></div>
+                <h3>&nbsp;&nbsp;&nbsp;行程介绍</h3>
+            </div>
+            <div class="d_descmap">
+                <h4>行车地图</h4>
+                <img src="../img/xc1.png" alt="">
+            </div>
+            <div class="d_descday">
+                <div class="d_descdays">
+                    <img src="../img/xc.png" alt="">
+                    <span class="d_xcnum">1</span>
+                </div>
+                <div class="d_descdayc">
+                    <p>sdfgsdfg</p>
+                    <p>dsfgsdfg</p>
+                    <p>sdfgsdfg</p>
+                </div>
+            </div>
+            <div class="d_descday">
+                <div class="d_descdays">
+                    <img src="../img/xc.png" alt="">
+                    <span class="d_xcnum">1</span>
+                </div>
+                <div class="d_descdayc">
+                    <p>sdfgsdfg</p>
+                    <p>dsfgsdfg</p>
+                    <p>sdfgsdfg</p>
+                </div>
+            </div>
+            <div class="d_descday">
+                <div class="d_descdays">
+                    <img src="../img/xc.png" alt="">
+                    <span class="d_xcnum">1</span>
+                </div>
+                <div class="d_descdayc">
+                    <p>sdfgsdfg</p>
+                    <p>dsfgsdfg</p>
+                    <p>sdfgsdfg</p>
+                </div>
+            </div>
+            <div class="d_descday">
+                <div class="d_descdays">
+                    <img src="../img/xc.png" alt="">
+                    <span class="d_xcnum">10</span>
+                </div>
+                <div class="d_descdayc">
+                    <p>sdfgsdfg</p>
+                    <p>dsfgsdfg</p>
+                    <p>sdfgsdfg</p>
+                </div>
+            </div>
+            <div class="d_descday">
+                <div class="d_descdays">
+                    <img src="../img/xc.png" alt="">
+                    <span class="d_xcnum">1</span>
+                </div>
+                <div class="d_descdayc">
+                    <p>sdfgsdfg</p>
+                    <p>dsfgsdfg</p>
+                    <p>sdfgsdfg</p>
+                </div>
+            </div>
+        </div>
+        <div class="d_comment">
+            <div class="d_commentt">
+                <div class="d_commentta"></div>
+                <h3>&nbsp;&nbsp;&nbsp;相关评论</h3>
+            </div>
+            <div class="dc_lists">
+                <div class="dc_listsl">
+                    <h5>共<span id="dc_totol" style="color: #ffc900;">450</span>人评论</h5>
+                    <p>客服会电话或邮件回访每位出游归来的游客，请游客进行点评。</p>
+                </div>
+                <div class="dc_listsr">
+                    <p>评论时间</p>
+                </div>
+                <hr style="clear:both;">
+            </div>
+            <div class="dc_lists">
+                <div class="dc_listsl">
+                    <p><span class="dc_name">张三</span>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+                    <p>真的是太好玩啦！了房价肯定看看</p>
+                </div>
+                <div class="dc_listsr">
+                    <p>2016-12-25</p>
+                </div>
+                <hr style="clear:both;">
+            </div>
+            <div class="dc_lists">
+                <div class="dc_listsl">
+                    <p><span class="dc_name">张三</span>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+                    <p>真的是太好玩啦！了房价肯定看看</p>
+                </div>
+                <div class="dc_listsr">
+                    <p>2016-12-25</p>
+                </div>
+                <hr style="clear:both;">
+            </div>
+            <div class="dc_lists">
+                <div class="dc_listsl">
+                    <p><span class="dc_name">张三</span>&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span></p>
+                    <p>真的是太好玩啦！了房价肯定看看</p>
+                </div>
+                <div class="dc_listsr">
+                    <p>2016-12-25</p>
+                </div>
+                <hr style="clear:both;">
+            </div>
+            <div id="dc_refresh">
+                <span class="glyphicon glyphicon-refresh"></span>
+            </div>
+        </div>
+        <div class="d_scenic">
+            <div class="d_scenict">
+                <div class="d_scenicta"></div>
+                <h3>&nbsp;&nbsp;&nbsp;景点推荐</h3>
+            </div>
+            <div class="d_sceniclist">
+                <div class="d_scenics">
+                    <div class="d_scenicimg">
+                        <img src="../img/bg.jpg" alt="">
+                    </div>
+                    <div class="d_scenicdesc">
+                        <h4>昆明大观楼</h4>
+                        <p><span class="jdtag">刺激</span><span class="d_scenicp">1500</span></p>
+                    </div>
+                </div>
+                <div class="d_scenics">
+                    <div class="d_scenicimg">
+                        <a href="scenic.html"><img src="../img/jd2.png" alt=""></a>
+                    </div>
+                    <div class="d_scenicdesc">
+                        <h4><a href="scenic.html">昆明大观楼</a></h4>
+                        <p><span class="jdtag">刺激</span><span class="d_scenicp">1500</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pc_top">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+    </div>
+    <footer id="footer">
+        <div class="foot_bg">
+            <img src="../img/slide2.jpg" alt="">
+        </div>
+        <div class="container foot_con">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>为什么选择自由旅行</h4>
+                    <ul>
+                        <li>您的自由行有保障吗？</li>
+                        <li>您的旅游省心吗？</li>
+                        <li>您的旅游升级了吗</li>
+                        <li>7*24小时管家服务</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>常见问题与答案</h4>
+                    <ul>
+                        <li>基础类</li>
+                        <li>签证类</li>
+                        <li>机票类</li>
+                        <li>酒店类</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>合作信息</h4>
+                    <ul>
+                        <li>供应商合作</li>
+                        <li>大客户采购</li>
+                        <li>品牌渠道合作</li>
+                        <li>合作伙伴</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-2">
+                    <h4>公司信息</h4>
+                    <ul>
+                        <li>关于自由旅行</li>
+                        <li>创始团队</li>
+                        <li>加入我们</li>
+                        <li>法律声明</li>
+                        <li>更多</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>为什么选择自由旅行</h4>
+                    <div class="qqwxwb">
+                        <img id="erweimaqq" src="../img/01.png" alt="">
+                        <img id="erweimawx" src="../img/02.png" alt="">
+                        <img id="erweimawb" src="../img/03.png" alt="">
+                    </div>
+                    <img id="erweima" src="../img/erweima.png" alt="" width="150px" style="display: none;">
+                    <ul>
+                        <li>版权所有 昆明春秋国际旅行社有限公司</li>
+                        <li>滇ICP证 16097834</li>
+                        <li>2015 ALLcopyrihts by Kunming spring tour CO,ltd</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--diyModal -->
+    <div class="modal fade" id="diyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">定制出发计划</h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">待出发日期</label>
+                            <input type="text" class="form-control" id="recipient-name" placeholder="20xx-01-01">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">预计人数</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">联系人姓名</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">联系人手机号</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交信息</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bmModal -->
+    <div class="modal fade" id="bmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">前往报名信息</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="" style="text-align: center;">
+                        <h4>亲们 可以就近报名哦！</h4>
+                    </div>
+                    <div class="Mbm_msg">
+                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
+                        <span class="Mbm_phone">0871-65096386</span>
+                    </div>
+                    <div class="Mbm_msg">
+                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
+                        <span class="Mbm_phone">0871-65096386</span>
+                    </div>
+                    <div class="Mbm_msg">
+                        <span class="Mbm_add">昆明市穿金路白字路白字路白字小区11-3栋</span>
+                        <span class="Mbm_phone">0871-65096386</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--hotelModal -->
+    <div class="modal fade bs-example-modal-lg" id="hotelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">酒店信息</h3>
+                </div>
+                <div class="modal-body mh_con">
+                    <div class="mh_msgs">
+                        <h3>酒店介绍</h3>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">酒店</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">类型</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">地址</div>
+                            <div class="mh_msgr">电话</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">电话</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                    </div>
+                    <div class="mh_msgs">
+                        <h3>酒店设施</h3>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">酒店配套</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">网络</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">停车</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                    </div>
+                    <div class="mh_msgs">
+                        <h3>房型信息</h3>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">客房面积</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">床铺尺寸</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                    </div>
+                    <div class="mh_msgs">
+                        <h3>酒店政策</h3>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">酒店政策</div>
+                            <div class="mh_msgr">
+                                <p>
+                                    <span>允许客人携带儿童入住。</span>
+                                </p>
+                                <p class="positivepolicyfreecontainsfreerow">
+                                    <span>允许</span><span>1</span><span>名</span><span>5</span><span>岁以下的儿童，使用现有床铺免费。</span><span></span>
+                                </p>
+                                <p>
+                                    <span>所提出的任何加床或婴儿床的要求均需获得酒店的确认。</span>
+                                </p>
+                                <p>
+                                    <span>附加费用不会自动计算在总价中，您需在入住时另行支付。</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mh_msgs">
+                        <h3>入住须知</h3>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">入住时间</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                        <div class="mh_msg">
+                            <div class="mh_msgl">退房时间</div>
+                            <div class="mh_msgr">酒店</div>
+                        </div>
+                    </div>
+                    <!--      <div class="mh_msgdesc">
+                        <div class="mh_msgl">
+                            Koreana Hotel酒店距离首尔金融中心不到200米，提供带平面电视的优雅宽敞客房，俯瞰着清溪川，拥有一个健身中心，提供放松的按摩治疗和桑拿，也提供免费停车场。 现代客房都配备了良好的迷你吧、冰箱和茶/咖啡设施。私人浴室设有一个浴缸和吹风机。 Koreana Hotel酒店位于首尔的光化门十字路口，距离南大门、Jongmyo Shrine和 Ssamji-gil不到1公里，距离I仁川国际机场约有47公里， 客人可以在商务中心查阅电子邮件，在沙龙洗头或在纪念品商店购买礼物。酒店还提供洗衣服务和外币兑换服务。 酒店内的3间餐厅提供中餐、西欧和日本料理。酒店的酒吧供应饮品。
+                        </div>
+                    </div> -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <!-- <button type="button" class="btn btn-primary">提交信息</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        diver_heightchange();
+    }); 
+    $(document).on("click", ".dateprice", function() {
+        if (!$(this).hasClass("disabled")) {
+            $(".selected").removeClass('selected');
+            $(this).addClass("selected");
+            // selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find(".dd").html());
+            // selectedDay = new Date(today.getFullYear(), today.getMonth(), $(this).find(".dd").html());
+        }
+    });
+    $('#hotelModal').on('show.bs.modal', function(e) {
+        // alert();
+        $.ajax({
+            type: 'POST',
+            url: 'http://lvyou.2blab.com/Mobile/Drives/getHotel',
+            data: {
+                HotelsId: 5
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+
+            },
+            error: function() {
+                alert("异常！");
+            }
+        });
+    });
+    $(".dh_imgss").mouseover(function(){
+        $(".dh_imgb img").attr("src",$(this).children("img").attr("src"));
+    });
+
+    
+    
+
+
+
+    </script>
+</body>
+
+</html>

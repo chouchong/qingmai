@@ -75,9 +75,15 @@
                     </div>
                 </div>
                 <div class="v_cdescs" id="isDef" ng-show="addRess">
-                    <h4>默认联系人</h4>
-                    <p style="margin:8px 15px;"><span>{{addRess.userName}}</span><span style="float:right">{{addRess.userPhone}}</span></p>
-                    <p style="margin:8px 15px;"><span>{{addRess.address}}</span><span style="float:right">{{addRess.userEmail}}</span></p>
+                    <h4 ng-bing="默认联系人"></h4>
+                    <p style="margin:8px 15px;">
+                        <span ng-bind="addRess.userName"></span>
+                        <span style="float:right" ng-bind="addRess.userPhone"></span>
+                    </p>
+                    <p style="margin:8px 15px;">
+                        <span ng-bind="addRess.address"></span>
+                        <span style="float:right" ng-bind="addRess.userEmail"></span>
+                    </p>
                 </div>
                 <div class="v_cdescs">
                     <div class="checkbox" style="float:right;">
@@ -133,12 +139,9 @@
         <include file="tpl:footer"/>
     </block>
 <block name="js">
-<script src="__PUBLIC__/home/js/script.js" type="text/javascript" charset="utf-8"></script>
    <script type="text/javascript">
         $(function() {
-           visa_heightchange();
-        });
-        $(function() {
+            visa_heightchange();
             $('input:checkbox').attr('checked',true);
             $('input:checkbox').bind("click", function () {
                 if($('input:checkbox').is(':checked')==false){
@@ -150,6 +153,7 @@
                 }
                 visa_heightchange();
             });
+            //
             var menNum = $('.vc_mennum').find('input').val();
             $('#jia').on('click',function(){
                 ++menNum;
@@ -160,7 +164,6 @@
                 menNum = menNum<0?0:menNum;
                 $('.vc_mennum').find('input').val(menNum);
             });
-            $('#myTab li:eq(1) a').tab('show');
         });
     </script>
 </block>

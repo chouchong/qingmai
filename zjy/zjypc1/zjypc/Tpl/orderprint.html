@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"> -->
+    <title></title>
+    <link rel="stylesheet" href="../libs/bootstrap/dist/css/bootstrap.min.css">
+    <style type="text/css" media="screen">
+
+@media screen {
+    #printSection {
+        display: none;
+    }
+}
+@media print {
+    body * {
+        visibility:hidden;
+    }
+    #printSection, #printSection * {
+        visibility:visible;
+    }
+    #printSection {
+        position:absolute;
+        left:0;
+        top:0;
+    }
+}        
+    </style>
+</head>
+<!-- Large modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">查看</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">打印</button>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div  class="modal-dialog modal-lg">
+        <div id="m" class="modal-content">
+        <!--startprint-->
+            <h1 style="text-align: center;">行程订单详情</h1>
+            <p>编号：<span>02512</span></p>
+            <p>订单号：<span>a02512</span></p>
+            <p>下单时间：<span>2016-12-12</span></p>
+            <br>
+            <p>联系人：<span>02512</span></p>
+            <p>联系电话：<span>a02512</span></p>
+            <p>联系邮箱：<span>2016-12-12</span></p>
+            <p>联系地址：<span>昆明市穿金路白汁小区11-3栋</span></p>
+            <br>
+            <p>订单类型：<span>02512</span></p>
+            <p>产品详情：<span>a02512</span></p>
+            <p>订单总金额：<span>2016-12-12</span></p>
+            <p>成人：<span>昆明市穿金路白汁小区11-3栋</span></p>
+            <p>儿童：<span>02512</span></p>
+            <p>单房差：<span>a02512</span></p>
+            <p>用房数：<span>2016-12-12</span></p>
+            <p>出发时间：<span>昆明市穿金路白汁小区11-3栋</span></p>
+            <p>是否需要大床房：<span>2016-12-12</span></p>
+            <p>备注留言：<span>昆明市穿金路白汁小区11-3栋</span></p><!--endprint-->
+        </div>
+    </div>
+</div>
+    <!-- <div id="printSection"></div> -->
+<body>
+    <script src="../libs/jquery/dist/jquery.min.js"></script>
+    <script src="../libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    function printElement(elem) {
+        var domClone = elem.cloneNode(true);
+
+        var $printSection = document.getElementById("printSection");
+
+        if (!$printSection) {
+            var $printSection = document.createElement("div");
+            $printSection.id = "printSection";
+            document.body.appendChild($printSection);
+        }
+
+        $printSection.innerHTML = "";
+        $printSection.appendChild(domClone);
+        window.print();
+    }
+    $(function() {
+        // printElement($(".modal-content"));
+        printElement(document.getElementById("m"));
+        // preview();
+    });
+
+    function preview() {
+            bdhtml = window.document.body.innerHTML;
+            sprnstr = "<!--startprint-->";
+            eprnstr = "<!--endprint-->";
+            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
+            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML = prnhtml;
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

@@ -428,65 +428,64 @@
             </volist>
         </div>
         <if condition="$ap['apcount'] gt 0">
-        <div class="d_comment">
-            <div class="d_commentt">
-                <div class="d_commentta"></div>
-                <h3>&nbsp;&nbsp;&nbsp;相关评论</h3>
-            </div>
-            <div class="dc_lists">
-                <div class="dc_listsl">
-                    <h6>共<span id="dc_totol" style="color: #ffc900;">{$ap.apcount}</span>人评论</h6>
+            <div class="d_comment">
+                <div class="d_commentt">
+                    <div class="d_commentta"></div>
+                    <h3>&nbsp;&nbsp;&nbsp;相关评论</h3>
                 </div>
-                <hr style="clear:both;">
-            </div>
-            <volist name ='ap.ap' id="voap">
-            <div class="dc_lists">
-                <div class="dc_listsl">
-                    <p><span class="dc_name">{$voap.userName}</span>&nbsp;&nbsp;&nbsp;
-                    <for start="0" end="$voap['drivesScore']">
-                        <span class="glyphicon glyphicon-star"></span>
-                    </for>
-                    </p>
-                    <p>{$voap.content}</p>
-                </div>
-                <div class="dc_listsr">
-                    <p>{$voap.createTime}</p>
-                </div>
-                <hr style="clear:both;">
-            </div>
-            </volist>
-            <ap-apdrives></ap-apdrives>
-            <div id="dc_refresh" ng-click="apMore({$drivesId})">
-                <span class="glyphicon glyphicon-refresh" style="cursor: pointer;">{{dMoreAp}}</span>
-            </div>
-        </div>
-    </if>
-    <notempty name="drive.goods">
-        <div class="d_scenic">
-            <div class="d_scenict">
-                <div class="d_scenicta"></div>
-                <h3>&nbsp;&nbsp;&nbsp;景点推荐</h3>
-            </div>
-            <div class="d_sceniclist">
-            <volist name="drive.goods" id="good">
-                <div class="d_scenics">
-                    <div class="d_scenicimg">
-                        <img src="/{$good.goodsImg}" alt="">
+                <div class="dc_lists">
+                    <div class="dc_listsl">
+                        <h6>共<span id="dc_totol" style="color: #ffc900;">{$ap.apcount}</span>人评论</h6>
                     </div>
-                    <div class="d_scenicdesc">
-                        <h4>{$good.goodsName}</h4>
-                        <p>
-                        <volist name="good.labels" id="al">
-                            <span class="jdtag">{$al.name}</span>
-                        </volist>
-                        <span class="d_scenicp">{$good.adultPrice}</span></p>
-                    </div>
+                    <hr style="clear:both;">
                 </div>
-            </volist>
+                <volist name ='ap.ap' id="voap">
+                <div class="dc_lists">
+                    <div class="dc_listsl">
+                        <p><span class="dc_name">{$voap.userName}</span>&nbsp;&nbsp;&nbsp;
+                        <for start="0" end="$voap['drivesScore']">
+                            <span class="glyphicon glyphicon-star"></span>
+                        </for>
+                        </p>
+                        <p>{$voap.content}</p>
+                    </div>
+                    <div class="dc_listsr">
+                        <p>{$voap.createTime}</p>
+                    </div>
+                    <hr style="clear:both;">
+                </div>
+                </volist>
+                <ap-apdrives></ap-apdrives>
+                <div id="dc_refresh" ng-click="apMore({$drivesId})">
+                    <span class="glyphicon glyphicon-refresh" style="cursor: pointer;">{{dMoreAp}}</span>
+                </div>
             </div>
-        </div>
-    </div>
-    </notempty>
+        </if>
+        <notempty name="drive.goods">
+            <div class="d_scenic">
+                <div class="d_scenict">
+                    <div class="d_scenicta"></div>
+                    <h3>&nbsp;&nbsp;&nbsp;景点推荐</h3>
+                </div>
+                <div class="d_sceniclist">
+                <volist name="drive.goods" id="good">
+                    <div class="d_scenics">
+                        <div class="d_scenicimg">
+                            <a href="/Home/Goods/index/goodsId/{$good.goodsId}.html"><img src="/{$good.goodsImg}" alt="{$good['goodsName']}"></a>
+                        </div>
+                        <div class="d_scenicdesc">
+                            <h4><a href="/Home/Goods/index/goodsId/{$good.goodsId}.html">{$good.goodsName}</a></h4>
+                            <p>
+                            <volist name="good.labels" id="al">
+                                <span class="jdtag">{$al.name}</span>
+                            </volist>
+                            <span class="d_scenicp">{$good.adultPrice}</span></p>
+                        </div>
+                    </div>
+                </volist>
+                </div>
+            </div>
+        </notempty>
     </div>
     <include file="tpl:footer"/>
      <!--diyModal -->
@@ -627,9 +626,9 @@
             </div>
         </div>
     </div>
+</div>
 </block>
 <block name="js">
-<script src="__PUBLIC__/home/js/script.js" type="text/javascript" charset="utf-8"></script>
 <script src="__PUBLIC__/home/js/datePrice.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
     $(function() {
