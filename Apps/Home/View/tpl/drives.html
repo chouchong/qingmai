@@ -271,6 +271,7 @@
                         </div>
                     </div>
                 </div>
+                <if condition="$drive['drivesVisa'] gt 0">
                 <div class="explaina">
                     <div class="ex_title">
                         <span>费用不含</span>
@@ -283,6 +284,7 @@
                         </div>
                     </div>
                 </div>
+                </if>
                 <div class="explaina">
                     <div class="ex_title">
                         <span>赠送项目</span>
@@ -297,6 +299,20 @@
                 </div>
             </div>
             <div class="de_left">
+                <if condition="$drive['drivesVisa'] eq 0">
+                <div class="explaina">
+                    <div class="ex_title">
+                        <span>费用不含</span>
+                        <div class="ex_title1">
+                        </div>
+                    </div>
+                    <div class="ex_content">
+                       <div>
+                        {$drive.noFeeDesc|htmlspecialchars_decode}
+                        </div>
+                    </div>
+                </div>
+                </if>
                 <div class="explaina">
                     <div class="ex_title">
                         <span>所需资料</span>

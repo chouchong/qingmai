@@ -11,6 +11,11 @@
     return angular.isObject(data) && String(data) !== '[object File]' ? jQuery.param(data) : data;
     }
 }])
+.run(function($rootScope){
+  $rootScope.comLogin = function(){
+    console.log('ddd');
+  }
+})
 .controller('regCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){ 
   $scope.checkbox = $("#checkbox").prop('checked');
   $scope.text="发送验证码";
