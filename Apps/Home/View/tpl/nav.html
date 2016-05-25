@@ -1,10 +1,10 @@
 <div class="navbar-header">
-<a class="navbar-brand" href="#">
+<a class="navbar-brand" href="/">
     <img alt="Brand" src="__PUBLIC__/home/img/logo.png">
 </a>
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{:U('Home/Index/index')}">首页</a></li>
-    <li><a href="{:U('Home/Articles/getContent',array('catId'=>5))}">联系我们</a></li>
+    <li><a href="/index.html">首页</a></li>
+    <li><a href="/a/5.html">联系我们</a></li>
     <if condition="$userSession neq ''">
     <li><a href="#">我的订单</a></li>
     <li>
@@ -16,8 +16,8 @@
     <li id=""><a href="{:U('Home/Users/loginOut')}">退出</a></li>
     </if>
     <if condition="$userSession eq ''">
-    <li id=""><a href="{:U('Home/Users/register')}">注册</a></li>
-    <li id=""><a href="{:U('Home/Users/login')}">登录</a></li>
+    <li id=""><a href="/register.html">注册</a></li>
+    <li id=""><a href="/login.html">登录</a></li>
     </if>
 </ul>
 </div>

@@ -29,6 +29,9 @@
           traget.style.display = "none";
         }
       }
+      $rootScope.goBack = function() {
+        window.location.href = history.back(-1);
+      }
       $rootScope.userLogin = function() {
         window.location.href = '/Mobile/Users/gologin?url=' + window.location.href;
       }
@@ -64,6 +67,14 @@
       }
     }])
     .controller("goLogCtrl", ['$rootScope', '$scope', 'serviceHttp', 'Storage', function($rootScope, $scope, serviceHttp, Storage) {
+      $scope.ggBack = function(){
+        var url = $('#totoUrl').val();
+        if (url == '') {
+          self.location.href = '/Mobile';
+        } else {
+          self.location.href = url;
+        }
+      };
       $scope.dogologin = function(phone) {
         var url = $('#totoUrl').val();
         Storage.set('phone', phone);
@@ -85,6 +96,14 @@
       }
     }])
     .controller('logCtrl', ['$scope', '$rootScope', 'serviceHttp', function($scope, $rootScope, serviceHttp) {
+      $scope.lgBack = function(){
+        var url = $('#togoUrl').val();
+        if (url == '') {
+          self.location.href = '/Mobile/Users/gologin';
+        } else {
+          self.location.href = '/Mobile/Users/gologin?url=' + url;
+        }
+      };
       $scope.dologin = function() {
         var url = $('#togoUrl').val();
         serviceHttp.UserLogin($scope.user).success(function(data) {
@@ -98,7 +117,7 @@
             $rootScope.msg("账号密码不正确");
           }
         })
-      }
+      };
     }])
     .controller('regCtrl', ['$scope', '$interval', '$rootScope','$ionicPopover', 'serviceHttp', function($scope, $interval, $rootScope,$ionicPopover, serviceHttp) {
       $scope.text = '发送验证码';
@@ -157,6 +176,14 @@
           }
         })
       }
+      $scope.rgBack = function(){
+        var url = $('#goUrl').val();
+        if (url == '') {
+          self.location.href = '/Mobile/Users/gologin';
+        } else {
+          self.location.href = '/Mobile/Users/gologin?url=' + url;
+        }
+      };
       //用户服务条款
       $ionicPopover.fromTemplateUrl('mySer.html', {
         scope: $scope
@@ -227,7 +254,9 @@
           }, 1000);
         }
       }
-
+      $scope.pwBack = function(){
+        self.location.href = '/Mobile/Users/gologin'
+      }
       $scope.dopsw = function(pws) {
         serviceHttp.UserPws(pws).success(function(data) {
           if (data.status > 0) {
@@ -284,6 +313,14 @@
               iNow = 60;
             }
           }, 1000);
+        }
+      }
+      $scope.cdBack = function(){
+        var url = $('#tocodeUrl').val();
+        if (url == '') {
+          self.location.href = '/Mobile/Users/gologin';
+        } else {
+          self.location.href = '/Mobile/Users/gologin?url=' + url;
         }
       }
       $scope.dologincode = function(scode) {
@@ -369,6 +406,9 @@
       //   maxWidth: 200,
       //   showDelay: 0
       // });
+      $scope.dBack = function(){
+        self.location.href = '/Mobile';
+      }
       //时间报名
       $ionicPopover.fromTemplateUrl('customDate.html', {
         scope: $scope
@@ -441,8 +481,8 @@
           }
         })
       }
-      $scope.visa = function(visaId) {
-        window.location.href = '/Mobile/Visas/index/visaId/' + visaId;
+      $scope.visa = function(visaId,drivesId) {
+        self.location.href = '/Mobile/Visas/index/visaId/' + visaId +'/drivesId/'+drivesId+'.html';
       }
       $scope.drive = {};
       $scope.drivesBuy = function() {
@@ -483,6 +523,9 @@
       }
     }])
     .controller("visaCtrl", ['$rootScope', '$scope', '$ionicPopup', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicPopup, $ionicScrollDelegate, serviceHttp) {
+      $scope.vBack = function(id){
+        window.location.href = '/Mobile/Drives/index/drivesId/'+id+'.html';
+      }
       $scope.showAddress = function() {
         $ionicScrollDelegate.resize();
         if ($("#uselinkman").hasClass("ion-android-radio-button-off")) {
@@ -631,6 +674,9 @@
       }
     }])
     .controller("goodCtrl", ['$scope', '$rootScope', '$ionicScrollDelegate', '$ionicPopup', 'serviceHttp', function($scope, $rootScope, $ionicScrollDelegate, $ionicPopup, serviceHttp) {
+      $scope.gBack = function(id){
+        self.location.href = '/Mobile/Drives/index/drivesId/'+id+'.html';
+      }
       $scope.showAddress = function() {
         $ionicScrollDelegate.resize();
         if ($("#uselinkman").hasClass("ion-android-radio-button-off")) {
@@ -820,53 +866,36 @@
         });
       };
     }])
-    .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
       $scope.isShowCar = false;
       serviceHttp.getCarLic({orderId:$('#orderId').val()}).success(function(data) {
         if(data.length>0){
-          var zarr=[];
-          zarr=data[0]["carzImg"].split(",");
-          var farr=[];
-          farr=data[0]["carfImg"].split(",");
-          var carzImg = [];
-          for (var i = 0; i < zarr.length; i++) {
-            carzImg.push({carzImg:zarr[i],carfImg:farr[i]});
-          }
-          if(carzImg.length>0){
-            $scope.carzImg = carzImg;
-            $scope.isShowCar = true;
-          }
+          console.log(data);
+          $scope.carzImg = data;
+          $scope.isShowCar = true;
         }
       });
       $scope.carLic = function() {
         var len = $("#len").val();
-        var picZ = new Array()
+        var picZ = new Array();
         $('.picZ').each(function() {
-          picZ = picZ.concat($(this).val());
+          if($(this).val()!=""){
+            picZ = picZ.concat($(this).val());
+          }
         });
         var picF = new Array()
         $('.picF').each(function() {
-          picF = picF.concat($(this).val());
+          if($(this).val()!=""){
+            picF = picF.concat($(this).val());
+          }
         });
-        for (var i = 0; i <= picZ.length; i++) {
-          if (!picZ[i]) {
-            picZ.splice(i, 1);
-            break;
-          }
-        }
-        for (var i = 0; i <= picF.length; i++) {
-          if (!picF[i]) {
-            picF.splice(i, 1);
-            break;
-          }
-        }
         if (picZ.length < len || picF.length < len) {
           $rootScope.msg('三个成人需上传一份驾驶证，含正反面，以此类推');
           return false;
         } else {
           var car = {
-            carzImg: picZ.join(","),
-            carfImg: picF.join(","),
+            carzImg: picZ,
+            carfImg: picF,
             orderId: $('#orderId').val()
           }
           serviceHttp.addCarLic(car).success(function(data) {

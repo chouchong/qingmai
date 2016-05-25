@@ -6,7 +6,7 @@
                 <div class="row">
                  <volist name="foot.art" id="vo">
                    <div class="col-md-2">
-                        <a href="{:U('Home/Articles/getContent',array('catId'=>$vo['catId']))}" style="color: #fff;"><h4>{$vo.catName}</h4></a>
+                        <a href="/a/{$vo['catId']}.html" style="color: #fff;"><h4>{$vo.catName}</h4></a>
                         <ul>
                               <volist name="vo.articles" id="ko">
                                 <li>{$ko['articleTitle']}</li>

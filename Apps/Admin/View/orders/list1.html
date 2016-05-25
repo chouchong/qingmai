@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{$CONF['shopTitle']['fieldValue']}后台管理中心</title>
+      <link href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="__ROOT__/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+      <!--[if lt IE 9]>
+      <script src="__PUBLIC__/js/html5shiv.min.js"></script>
+      <script src="__PUBLIC__/js/respond.min.js"></script>
+      <![endif]-->
+      <script src="__PUBLIC__/js/jquery.min.js"></script>
+      <script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+      <script src="__PUBLIC__/js/common.js"></script>
+      <script src="__PUBLIC__/vue/js/vue.min.js"></script>
+      <script src="__PUBLIC__/plugins/plugins/plugins.js"></script>
+   </head>
+ <body class='wst-page'>
+      <form method="post" action='{:U("Admin/Orders/index")}'>
+
+       <div class='wst-tbar'>
+       订单号：<input type='text' name='orderNo' id='orderNo'/>
+订单类型查询:<select name='goodsType' id='goodsType'>
+             <option value='-9999'>请选择</option>
+             <option value='1'>自驾游</option>
+             <option value='2'>门票</option>
+             <option value='3'>签证</option>
+           </select>
+  订单状态:<select name='orderStatus' id='orderStatus'>
+             <option value='-9999'>请选择</option>
+             <option value='0'>待付款</option>
+             <option value='1'>待出发</option>
+             <option value='2'>待评论</option>
+             <option value='3'>已完成</option>
+           </select>
+       <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button> 
+       </div>
+       </form>
+       <div class="wst-body"> 
+         <table class="table table-hover table-striped table-bordered wst-list">
+            <thead>
+             <tr>
+               <th width='2'>编号</th>
+               <th width='25'>订单号</th>
+               <th width='25'>用户</th>
+               <th width='25'>订单类型</th>
+               <th width='25'>订单金额</th>
+               <th width='30'>支付类型</th>
+               <th width='20'>下单时间</th>
+               <th width='20'>订单状态</th>
+               <th width='60'>详情</th>
+             </tr>
+           </thead> 
+           <tbody>
+                 <volist name="page['root']" id="vo" key='i'> 
+                    <tr class="detailModel">
+                      <td>{$i}</td>
+                      <td>{$vo.orderNo}</td>
+                      <td>{$vo.userName}</td>
+                      <td><if condition="$vo.goodsType eq 1">自驾游</if>
+                          <if condition="$vo.goodsType eq 2">门票</if>
+                          <if condition="$vo.goodsType eq 3">签证</if>
+                      </td>
+                      <td><if condition="$vo.totalMoney gt 0">{$vo.totalMoney}元</if></td>
+                      <td><if condition="$vo.payType neq ''">{$vo.payType}</if></td>
+                      <td>{$vo.createTime}</td>
+                      <td><if condition="$vo.orderStatus eq 0">待付款</if>
+                          <if condition="$vo.orderStatus eq 1">待出发</if>
+                          <if condition="$vo.goodsType eq 1"><if condition="$vo.orderStatus eq 2">待评论</if></if>
+                          <if condition="$vo.orderStatus eq 3">已完成</if>
+                      </td>
+                      <td>
+                        <!-- <button class="btn btn-primary" onclick="addresDetail({$vo[orderId]})">地址详情</button> -->
+                        <button class="btn btn-primary" onclick="getdetail({$vo[orderId]})">订单详情</button>
+                     <if condition="$vo.goodsType eq 1"><if condition="$vo.orderStatus gt 1"><button class="btn btn-primary" onclick="getCar({$vo[orderId]})">驾驶证</button> <button class="btn btn-primary" onclick="getinsureds({$vo[orderId]})">被保险人</button></td></if></if>
+                    </tr>
+                 </volist>
+           </tbody>
+             <tr>
+                <td colspan='15' align='center'>{$page['pager']}</td>
+             </tr>
+        </table>
+       </div>
+       <!-- 驾驶证照片模态框 -->
+       <div class="modal fade" id="getcar" tabindex="-1" role="dialog" aria-labelledby="drivesTimePriceLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 1000px">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="drivesTimePriceLabel" style="text-align: center;">驾驶证正反面照片</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+               <div id="carzImg"></div>
+               <div id="carfImg"></div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      <!-- 被保险人信息模态框 -->
+       <div class="modal fade" id="getinsureds" tabindex="-1" role="dialog" aria-labelledby="drivesTimePriceLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width:800px">
+              <h4 class="modal-title" id="drivesTimePriceLabel"  style="margin-left: 42%;margin-top:5px">被保险人详情</h4>
+            <div class="modal-body">
+              <div class="row">
+              <table class="table table-hover insuredsTb">
+              </table>
+              </div>
+            </div>
+              <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 92%;margin-bottom: 10px">关闭</button>
+          </div>
+        </div>
+      </div>
+   <!-- 订单详情模态框 -->
+   <div class="modal fade" id="getdetail" tabindex="-1" role="dialog" aria-labelledby="drivesTimePriceLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 800px">
+            <div class="modal-header">
+              <button type="button" class="close" @click="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="drivesTimePriceLabel" style="text-align: center;">订单详情</h4>
+            </div>
+            <style>
+              .pcals{
+                margin-left:30px;
+              }
+              .pcals span{
+                color:#7BBEE6;font-size:18px;
+              }
+            </style>
+            <div class="modal-body" id="printThis">
+              <div class="row">
+                <h3 style="text-align: center;">订单详情</h3>
+                <p style="margin-left:30px;">编号：<span>{{odata.orderId}}</span></p>
+                <p style="margin-left:30px;">订单号：<span>{{odata.orderNo}}</span></p>
+                <p style="margin-left:30px;">下单时间：<span>{{odata.createTime}}</span></p>
+                <p style="margin-left:30px;" v-if="odata.payType">支付方式：<span>{{odata.payType}}</span></p>
+                <hr/>
+                <p style="margin-left:30px;">联系人：<span>{{odata.userName}}</span></p>
+                <p style="margin-left:30px;">联系电话：<span>{{odata.userPhone}}</span></p>
+                <p style="margin-left:30px;">联系邮箱：<span>{{odata.userEmail}}</span></p>
+                <p style="margin-left:30px;">联系地址：<span>{{odata.address}}</span></p>
+                <hr/>
+                <p style="margin-left:30px;"
+                v-if="odata.goodsType == 1 ">订单类型：<span>自驾游</span></p>
+                <p style="margin-left:30px;"
+                v-if="odata.goodsType == 2 ">订单类型：<span>门票</span></p>
+                <p style="margin-left:30px;"
+                v-if="odata.goodsType == 3 ">订单类型：<span>签证</span></p>
+                <p style="margin-left:30px;">产品详情：<span>{{odata.goodsName}}&nbsp;<span v-if="odata.drivesDay != 0 ">{{odata.drivesDay}}</span></span></p>
+                <p style="margin-left:30px;" v-if="odata.adultNum > 0 ">成人：<span>{{odata.adultPrice}}元/1人X{{odata.adultNum}}人</span></p>
+                <p style="margin-left:30px;" v-if="odata.childNum > 0 ">儿童：<span>{{odata.childPrice}}元/1人X{{odata.childNum}}人</span></p>
+                <p style="margin-left:30px;" v-if="odata.roomNum > 0 ">总单房差：<span>{{odata.roomNum*2*odata.roomPrice - odata.adultNum*odata.roomPrice}}元</span></p>
+                <p style="margin-left:30px;" v-if="odata.roomNum > 0 ">用房数：<span>{{odata.roomNum}}间标准双床房</span></p>
+                <p style="margin-left:30px;" v-if="odata.zMoney > 0 ">总优惠：<span>{{odata.zMoney}}元</span></p>
+                <p style="margin-left:30px;">订单总金额：<span>{{odata.totalMoney}}元</span></p>
+                <p style="margin-left:30px;" v-if="odata.toTime">出发时间：<span>{{odata.toTime}}</span></p>
+                <p style="margin-left:30px;" v-if="odata.isBigber > 0 ">是否需要大床房：<span>是</span>
+                <span v-if="odata.isBigber == 0 ">否</span>
+                </p>
+                <p style="margin-left:30px;" v-if="odata.isBigber == 0 ">是否需要大床房：<span>否</span>
+                </p>
+                <p style="margin-left:30px;" v-if="odata.orderDesc">备注留言：<span>{{odata.orderDesc}}</span></p>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" @click="closeModal()">关闭</button>
+              <button type="button" id="Print" class="btn btn-primary">打印</button>
+            </div>
+          </div>
+          </div>
+        </div>
+       <!-- 送货地址详情模态框 -->
+       <div class="modal fade" id="addresDetail" tabindex="-1" role="dialog" aria-labelledby="drivesTimePriceLabel">
+        <div class="modal-dialog" role="document" style="margin-left: 20%">
+          <div class="modal-content" style="width: 1000px">
+              <h4 class="modal-title" id="drivesTimePriceLabel" style="margin-left: 45%;margin-top: 10px">地址详情</h4>
+            <div class="modal-body">
+              <table class="table table-hover addresDetail">
+              </table>
+            </div>
+            <button type="button" class="btn btn-default" data-dismiss="modal" style="margin-left: 94%;margin-bottom: 10px">关闭</button>
+          </div>
+        </div>
+      </div>
+    <script type="text/javascript">
+    //打印
+      document.getElementById("Print").onclick = function () {
+        location.reload();
+        printdiv(document.getElementById("printThis"));
+      };
+      function printdiv(printpage){
+          var headstr="<html><head><title>订单详情</title></head><body>";
+          var footstr="</body></html>";
+          var newstr=printpage.innerHTML;
+          var oldstr=document.body.innerHTML;
+          document.body.innerHTML=headstr+newstr+footstr;
+          window.print();
+          document.body.innerHTML=oldstr;
+          return false;
+      }
+    // 驾驶证照片模态框弹出显示
+      function getCar(orderId){
+        $('#getcar').modal('show');
+        $.ajax({
+          url: "{:U('Admin/Orders/getCarPic')}",
+          type: "POST",
+          async:false,
+          data:{orderId:orderId},
+          success: function(data){
+           var zarr=[];
+               zarr=data[0]["carzImg"].split(",");
+           var farr=[];
+               farr=data[0]["carfImg"].split(",");
+           var carImg=[];
+           for (var i = 0; i < zarr.length; i++) {
+            carImg=carImg.concat('<h4 class="modal-title" id="drivesTimePriceLabel">&nbsp;第'+(i+1)+'份驾驶证</h4>&nbsp;&nbsp;<img width="46%" height="240" src="/'+zarr[i]+'"/>&nbsp;&nbsp;<img width="46%" height="240" src="/'+farr[i]+'"/>');
+           }
+           $("#carzImg").html(carImg);
+          } ,
+          error: function(){
+            Plugins.Tips({title:'信息提示',icon:'error',content:'驾驶证照片加载失败!',timeout:2000});
+          }
+        });
+     }
+     // 被保险人信息模态框弹出显示
+     function getinsureds(orderId){
+        $('#getinsureds').modal('show');
+        $.ajax({
+          url: "{:U('Admin/Orders/getInsureds')}",
+          type: "POST",
+          async:false,
+          data:{orderId:orderId},
+          success: function(data){
+          var insuredshtml=[];
+          for (var i = 0; i < data.length; i++) {
+            var _inhtml = '<tr><td colspan="2"><h4>第'+(i+1)+'个被保险人信息</h4></td></tr><tr><td>被保险人姓名：</td><td>'+data[i]['userName']+'</td></tr><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;性别：</td><td>';
+            if(data[i]['sex']==1){
+              _inhtml+='男';
+            }
+            if(data[i]['sex']==2){
+              _inhtml+='女';
+            }
+            _inhtml+='</td></tr><tr><td>&nbsp;&nbsp;保险号码：</td><td>'+data[i]['userCard']+'</td></tr>';
+            insuredshtml=insuredshtml.concat(_inhtml);
+          }
+          $(".insuredsTb").html(insuredshtml);
+          },
+          error: function(){
+             Plugins.Tips({title:'信息提示',icon:'error',content:'被保险人信息加载失败!',timeout:2000});
+          }
+        });
+      }
+     // 订单详情模态框弹出显示
+      var ttData=null;
+      function getdetail(orderId){
+        $('#getdetail').modal('show');
+        if(ttData != null){
+          if(ttData.odata==null){
+            ttData.odata = getOrdersData(orderId);
+          }
+        }else{
+          ttData = new Vue({
+            el:'#getdetail',
+            data:{
+              odata:getOrdersData(orderId)
+            },
+            methods:{
+              closeModal:function(){
+                $('#getdetail').modal('hide');
+                ttData.odata = null;
+              }
+            }
+          });
+        }
+      }
+      function getOrdersData(orderId){
+      var attrJson = null;
+      $.ajax( {
+          url: "{:U('Admin/Orders/getDetailModel')}",
+          type: "POST" ,
+          async:false,
+          data:{orderId:orderId},
+          dataType:'Json',
+          success: function(data, textStatus, jqXHR ){
+             attrJson = data;//WST.toJson(data);
+          } ,
+          error: function(jqXHR, textStatus, errorMsg){
+            console.log(jqXHR);
+            console.log(errorMsg);
+          }
+      });
+      return attrJson;
+    }
+        // 地址详情模态框弹出显示
+     function addresDetail(orderId){
+       $('#addresDetail').modal('show');
+       $.ajax({
+          url: "{:U('Admin/Orders/addresDetail')}",
+          type: "POST",
+          async:false,
+          data:{orderId:orderId},
+          success: function(data){
+            // console.log(data);
+           var html = "<tr><td>&nbsp;订单号：</td><td>"+data[0]['orderNo']+"</td></tr>";
+           if(data[0]['userName']!=''){
+            html +='<tr><td>用户姓名：</td><td>'+data[0]['userName']+'</td></tr>'
+           }
+           if(data[0]['userPhone']!=''){
+            html +='<tr><td>用户电话：</td><td>'+data[0]['userPhone']+'</td></tr>'
+           }
+           if(data[0]['address']!=''){
+            html +='<tr><td>用户地址：</td><td>'+data[0]['address']+'</td></tr>'
+           }
+           if(data[0]['userEmail']!=''){
+            html +='<tr><td>用户邮箱：</td><td>'+data[0]['userEmail']+'</td></tr>'
+           }
+           $(".addresDetail").html(html);
+          } ,
+          error: function(){
+            Plugins.Tips({title:'信息提示',icon:'error',content:'订单地址详情加载失败!',timeout:2000});
+          }
+        });
+      }
+
+    </script>
+   </body>
+</html>

@@ -212,11 +212,13 @@ class OrdersModel extends BaseModel {
   {
     $m = M('order_drivinglicences');
     $rd = array('status' => -1);
-    $data['carzImg'] = I('carzImg');
-    $data['carfImg'] = I('carfImg');
     $data['orderId'] = I('orderId');
     $data['userId'] = session('Users')['userId'];
-    $id = $m->add($data);
+    for($i=0;$i<count(I('carzImg'));$i++){
+      $data['carzImg'] = I('carzImg')[$i];
+      $data['carfImg'] = I('carfImg')[$i]; 
+      $id = $m->add($data);
+    }
     if($id){
       $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>$data['orderId']))->find();
       if($o['isGo']>0){

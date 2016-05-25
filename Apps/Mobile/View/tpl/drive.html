@@ -56,7 +56,7 @@
         </div>
         </empty>
     </div>
-    <a class="button button-clear" href="/Mobile">
+    <a class="button button-clear" ng-click="dBack()">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
     <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>
@@ -270,7 +270,7 @@
         <p>
         <div class="row" style="padding: 0;">
             <div style="width:100%;padding: 0;">
-                    <a ng-click="visa({$drive['drivesVisa']})">
+                    <a ng-click="visa({$drive['drivesVisa']},{$drivesId})">
                         <button class="button button-block button-calm">签证服务</button>
                     </a>
                 </p>
@@ -357,7 +357,7 @@
                         <span class="jdtag">{$gl.name}</span>
                     </volist>
                         <span class="jdprice">￥{$go.adultPrice}</span></p>
-                    <a href="{:U('Mobile/Goods/index',array('goodsId' =>$go['goodsId']))}"><img src="/{$go['goodsImg']}"></a>
+                    <a href="{:U('Mobile/Goods/index',array('goodsId' =>$go['goodsId'],'drivesId'=>$drivesId))}"><img src="/{$go['goodsImg']}"></a>
                 </div>
             </volist>
             </div>

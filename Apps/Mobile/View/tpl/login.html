@@ -3,14 +3,14 @@
 <title>登录</title>
 </block>
 <block name="main">
-<div ng-app="myApp">
+<div ng-app="myApp" ng-controller="logCtrl">
 <ion-header-bar class="bar bar-light">
-    <a class="button button-clear" href="javascript:history.back(-1)">
+    <a class="button button-clear" ng-click="lgBack()">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
 </ion-header-bar>
 <ion-content  class=" scroll-content loginre">
-    <form ng-controller="logCtrl" name="myForm" novalidate>
+    <form name="myForm" novalidate>
     <input type="hidden" id="togoUrl" value="{$url}"/>
         <div class="card">
             <div class="list">
@@ -35,8 +35,8 @@
                     <a>
                         <button ng-click="dologin()" ng-disabled="myForm.$invalid" class="button button-block">登&nbsp;&nbsp;录</button>
                     </a>
-                    <a href="{:U('Mobile/Users/psw')}"><span>忘记密码</span></a>
-                    <a href="/Mobile/Users/register?url={$url}"><span class="registerbutton">注册账号</span></a>
+                    <!-- <a href="{:U('Mobile/Users/psw')}"><span>忘记密码</span></a>
+                    <a href="/Mobile/Users/register?url={$url}"><span class="registerbutton">注册账号</span></a> -->
                 </div>
             </div>
         </div>

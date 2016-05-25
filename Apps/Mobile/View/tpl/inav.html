@@ -2,10 +2,10 @@
     <div id="myuser" style="display: none;">
         <empty name="Users">
         <div>
-            <a href="{:U('Mobile/Users/gologin')}">登录</a>
+            <a ng-click="userLogin()">登录</a>
         </div>
         <div style="line-height: 40px;color:#72C7DD;">
-            <a href="{:U('Mobile/Users/register')}">注册</a>
+            <a ng-click="userRegister()">注册</a>
         </div>
         <else />
         <div>

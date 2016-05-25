@@ -16,15 +16,15 @@
     </style>
 </block>
 <block name="main">
-<div ng-app="myApp">
+<div ng-app="myApp" ng-controller="regCtrl">
     <ion-header-bar class="bar bar-light">
-    <a class="button button-clear" href="javascript:history.back(-1)">
+    <a class="button button-clear" ng-click="rgBack()">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
 </ion-header-bar>
     <!-- content -->
     <div class="scroll-content loginre" >
-    <form ng-controller="regCtrl" name="myReForm" novalidate>
+    <form name="myReForm" novalidate>
     <input type="hidden" id="goUrl" value="{$url}"/>
         <div class="card">
             <div class="list">

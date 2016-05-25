@@ -11,10 +11,31 @@
     return angular.isObject(data) && String(data) !== '[object File]' ? jQuery.param(data) : data;
     }
 }])
-.controller('regCtrl',['$scope','serviceHttp',function($scope,serviceHttp){ 
+.controller('regCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){ 
   $scope.checkbox = $("#checkbox").prop('checked');
+  $scope.text="发送验证码";
+  var iNow=60;
+  $scope.fash = false;
+  $scope.textClass = "btn-info";
+  $scope.smsClass=function(){
+      var timer = $interval(function () {
+      $scope.fash = true;
+      iNow--;
+      $scope.text = iNow + '秒后重新发送';
+      $scope.textClass = "";
+      if(iNow==0){
+        $interval.cancel(timer);
+        $scope.text = '重新发送';
+        $scope.fash = false;
+        iNow = 60;
+        $scope.textClass = "btn-info";
+        }
+      },1000);
+  }
+
   $scope.sms = function()
   {
+    $scope.smsClass();
     serviceHttp.smsSend($scope.user.phone)
     .success(function(data){
       layer.msg('验证码已发送，请注意查收');
@@ -27,7 +48,7 @@
     .success( function(data){
       if(data['status'] == 1){
         layer.msg(data['msg']);
-        window.location.href = "/Home/Users/login";
+        window.location.href = "/login.html";
       }
       if(data['status'] == -3){
         layer.msg(data['msg']);
@@ -44,8 +65,28 @@
     })
   }
 }])
-.controller('lostpasswordCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+.controller('lostpasswordCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){
+  $scope.text="发送验证码";
+  var iNow=60;
+  $scope.fash = false;
+  $scope.textClass = "btn-info";
+  $scope.smsClass=function(){
+      var timer = $interval(function () {
+      $scope.fash = true;
+      iNow--;
+      $scope.text = iNow + '秒后重新发送';
+      $scope.textClass = "";
+      if(iNow==0){
+        $interval.cancel(timer);
+        $scope.text = '重新发送';
+        $scope.fash = false;
+        iNow = 60;
+        $scope.textClass = "btn-info";
+        }
+      },1000);
+  }
   $scope.sms=function(){
+    $scope.smsClass();
     serviceHttp.getPhone($scope.user.phone)
     .success(function(data){
       if(data['status'] == 1){
@@ -59,7 +100,7 @@
       }
       if(data['status'] == -1){
         layer.msg('您尚未注册,请先注册');
-        window.location.href="/Home/Users/register";
+        window.location.href="/register.html";
       }
     })
     .error(function(data){
@@ -71,7 +112,7 @@
     .success(function(data){
       if(data['status'] == 1){
         layer.msg(data['msg']);
-        window.location.href="/Home/Users/login";
+        window.location.href="/login.html";
       }
       if(data['status'] == -3){
         layer.msg(data['msg']);
@@ -82,8 +123,28 @@
     })
   }
   }])
-.controller('loginCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+.controller('loginCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){
+    $scope.text="发送验证码";
+  var iNow = 60;
+  $scope.fash = false;
+  $scope.textClass = "btn-info";
+  $scope.smsClass = function(){
+      var timer = $interval(function () {
+      $scope.fash = true;
+      iNow--;
+      $scope.text = iNow + '秒后重新发送';
+      $scope.textClass = "";
+      if(iNow==0){
+        $interval.cancel(timer);
+        $scope.text = '重新发送';
+        $scope.fash = false;
+        iNow = 60;
+        $scope.textClass = "btn-info";
+        }
+      },1000);
+  }
   $scope.sms=function(){
+    $scope.smsClass();
     serviceHttp.getPhone($scope.user.phone)
     .success(function(data){
       if(data['status'] == 1){
@@ -97,7 +158,7 @@
       }
       if(data['status'] == -1){
         layer.msg('您尚未注册,请先注册');
-        window.location.href="/Home/Users/register";
+        window.location.href="/register.html";
       }
     })
     .error(function(data){
@@ -109,7 +170,7 @@
     .success(function(data){
       if(data['status'] == 1){
         layer.msg('登录成功');
-        window.location.href="/Home/Index/index";
+        window.location.href="/index.html";
       }
       if(data['status'] == -1){
         layer.msg('登录失败');
@@ -154,8 +215,8 @@
       $('#hotelModal').modal('show');
     })
   };
-  $scope.visa = function(visaId,drivesId){
-    window.location.href = "/Home/Visas/index/visaId/"+visaId+"/drivesId/"+drivesId+".html";
+  $scope.visa = function(v,d){
+    window.location.href = '/v/'+v+'/'+d+'.html';
   };
   $scope.pageAp = 0;
   $scope.dMoreAp = "更多评论";
@@ -309,7 +370,7 @@
       restrict: 'E',
       template: '<div class="zjy" ng-show="dlist" ng-repeat="vo in dlist">'
                  +'<div class="imgplace" >'
-                  +'<a href="/Home/Drives/diverDetail/drivesId/{{vo.drivesId}}.html"><img ng-src="/{{vo.pcDrivesImg}}" alt=""></a>'
+                  +'<a href="/z/{{vo.drivesId}}.html"><img ng-src="/{{vo.pcDrivesImg}}" alt=""></a>'
                   +   '<div class="countlove"><i class="glyphicon glyphicon-star"></i>&nbsp;<span>{{vo.solaCount}}</span></div>'
                   +   '<div class="zjy_desc">'
                   +       '<p id="zjy_desc1">{{vo.drivesFrom}}</p>'

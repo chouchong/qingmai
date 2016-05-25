@@ -1,6 +1,6 @@
 <extend name="tpl:base" />
 <block name="title">
-<title>两国签证</title>
+<title>{$visa.visaName}</title>
 </block>
 <block name="css">
 <link rel="stylesheet" href="__PUBLIC__/Mobile/css/jquery.spinner.css" />
@@ -26,7 +26,7 @@
         </div>
         </empty>
     </div>
-    <a class="button button-clear" href="{:U('Mobile/Drives/index',array('drivesId'=>$drivesId))}">
+    <a class="button button-clear" ng-click="vBack({$drivesId})">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
     <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>

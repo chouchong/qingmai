@@ -214,13 +214,13 @@
           async:false,
           data:{orderId:orderId},
           success: function(data){
-           var zarr=[];
-               zarr=data[0]["carzImg"].split(",");
-           var farr=[];
-               farr=data[0]["carfImg"].split(",");
            var carImg=[];
-           for (var i = 0; i < zarr.length; i++) {
-            carImg=carImg.concat('<h4 class="modal-title" id="drivesTimePriceLabel">&nbsp;第'+(i+1)+'份驾驶证</h4>&nbsp;&nbsp;<img width="46%" height="240" src="/'+zarr[i]+'"/>&nbsp;&nbsp;<img width="46%" height="240" src="/'+farr[i]+'"/>');
+           for (var i = 0; i < data.length; i++) {
+           var zarr=[];
+               zarr=data[i]["carzImg"];
+           var farr=[];
+               farr=data[i]["carfImg"];
+            carImg=carImg.concat('<h4 class="modal-title" id="drivesTimePriceLabel">&nbsp;第'+(i+1)+'份驾驶证</h4>&nbsp;&nbsp;<img width="46%" height="240" src="/'+zarr+'"/>&nbsp;&nbsp;<img width="46%" height="240" src="/'+farr+'"/>');
            }
            $("#carzImg").html(carImg);
           } ,

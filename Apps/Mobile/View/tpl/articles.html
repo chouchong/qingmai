@@ -6,7 +6,39 @@
 </block>
 <block name="main">
 <div ng-app="myApp" ng-controller="articleCtrl">
-<include file="tpl:nav"/>
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <empty name="Users">
+        <div>
+            <a ng-click="userLogin()">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a ng-click="userRegister()">注册</a>
+        </div>
+        <else />
+        <div>
+            <a href="{:U('Mobile/Users/index')}">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="{:U('Mobile/Orders/index')}">我的订单</a>
+        </div>
+        </empty>
+    </div>
+    <a class="button button-clear" onclick="javascript:history.back(-1);">
+        <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
+    </a>
+    <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>
+</ion-header-bar>
+<script>
+    $(function(){
+        $("ion-content").click(function(event) {
+            var traget = document.getElementById("myuser");
+              if(traget.style.display == ""){
+                 traget.style.display = "none";
+             }
+        });
+    })
+</script>
     <!-- content -->
     <div class="zjycontop" ng-click="totop()">
             <i class="ion-arrow-up-a" style=""></i><br>顶

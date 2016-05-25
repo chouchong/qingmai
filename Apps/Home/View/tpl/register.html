@@ -32,7 +32,7 @@
                                     </div>
                                     
                                     <p style="text-align: right;">
-                                    <button type="submit" class="btn btn-info " ng-disabled="myReForm.phone.$error.pattern||myReForm.phone.$error.required" ng-click="sms()">发送验证码</button></p>
+                                    <button type="submit" class="btn {{textClass}} " ng-disabled="myReForm.phone.$error.pattern||myReForm.phone.$error.required || fash" ng-click="sms()">{{text}}</button></p>
                                       <div class="checkbox">
                                         <label>
                                           <input type="checkbox" id="checkbox" ng-model="checkbox"> <a href="">我已经阅读且同意《发现旅行用户协议》</a>

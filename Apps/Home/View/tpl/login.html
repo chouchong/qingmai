@@ -23,7 +23,7 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane fade in active" id="home">
                             <div class="inputpw">
-                                <form ng-controller="loginCtrl" name="pwdLogin">
+                                <form ng-controller="loginCtrl" name="pwdLogin" novalidate>
                                       <div class="form-group has-success has-feedback" ng-class="{'has-error':pwdLogin.phone.$dirty && pwdLogin.phone.$invalid}">
                                       <label class="control-label" for="inputSuccess1">手机号</label>
                                       <input type="tel" class="form-control" id="inputSuccess1" aria-describedby="inputSuccess1Status" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
@@ -35,16 +35,16 @@
                                       <label class="control-label" for="inputSuccess2">密码</label>
                                       <input type="password" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status" ng-model="user.password"  name="password" placeholder="请输入密码" required minlength="6" ng-maxlength="12">
                                       <span ng-show="!pwdLogin.password.$error.required&&!pwdLogin.password.$error.minlength&&!pwdLogin.password.$error.maxlength" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> 
-                                      <span ng-show="pwdLogin.password.$error.required||pwdLogin.password.$error.minlength||pwdLogin.password.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>   
+                                      <span ng-show="pwdLogin.password.$error.required||pwdLogin.password.$error.minlength||pwdLogin.password.$error.maxlength" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-block" ng-click="userLogin()" ng-disabled="pwdLogin.phone.$error.pattern||pwdLogin.phone.$error.required||pwdLogin.password.$error.required||pwdLogin.password.$error.minlength||pwdLogin.password.$error.minlength">登陆</button>
-                                    <p><a href="{:U('Home/Users/lostpassword')}">忘记密码</a><a href="" style="float: right;">注册</a></p>
+                                    <p><a href="/pass.html">忘记密码</a><a href="/register.html" style="float: right;">注册</a></p>
                                 </form>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="ios">
                             <div class="inputpw">
-                                <form ng-controller="loginCtrl" name="codeLogin">
+                                <form ng-controller="loginCtrl" name="codeLogin" novalidate>
                                      <div class="form-group has-success has-feedback" ng-class="{'has-error':codeLogin.phone.$dirty && codeLogin.phone.$invalid}">
                                       <label class="control-label" for="inputSuccess1">手机号</label>
                                       <input type="text" class="form-control" id="inputSuccess1" aria-describedby="inputSuccess1Status" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
@@ -59,10 +59,10 @@
                                       <span ng-show="codeLogin.password.$error.minlength||codeLogin.password.$error.maxlength||codeLogin.password.$error.required" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>  
                                     </div>
                                     <p style="text-align: right;">
-                                    <button type="submit" class="btn btn-info" ng-click="sms()" ng-disabled=" codeLogin.phone.$invalid">发送验证码</button></p>
+                                    <button type="submit" class="btn {{textClass}}" ng-click="sms()" ng-disabled=" codeLogin.phone.$invalid || fash">{{text}}</button></p>
 
                                     <button type="submit" class="btn btn-primary btn-block" ng-click="userLogin()" ng-disabled="codeLogin.phone.$error.pattern||codeLogin.phone.$error.required||codeLogin.password.$error.minlength||codeLogin.password.$error.maxlength||codeLogin.password.$pristine">登陆</button>
-                                    <p><a href="{:U('Home/Users/lostpassword')}">忘记密码</a><a href="{:U('Home/Users/register')}" style="float: right;">注册</a></p>
+                                    <p><a href="/pass.html">忘记密码</a><a href="/register.html" style="float: right;">注册</a></p>
                                 </form>
                             </div>
                         </div>

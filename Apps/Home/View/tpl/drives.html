@@ -471,10 +471,10 @@
                 <volist name="drive.goods" id="good">
                     <div class="d_scenics">
                         <div class="d_scenicimg">
-                            <a href="/Home/Goods/index/goodsId/{$good.goodsId}.html"><img src="/{$good.goodsImg}" alt="{$good['goodsName']}"></a>
+                            <a href="/m/{$good.goodsId}.html"><img src="/{$good.goodsImg}" alt="{$good['goodsName']}"></a>
                         </div>
                         <div class="d_scenicdesc">
-                            <h4><a href="/Home/Goods/index/goodsId/{$good.goodsId}.html">{$good.goodsName}</a></h4>
+                            <h4><a href="/m/{$good.goodsId}.html">{$good.goodsName}</a></h4>
                             <p>
                             <volist name="good.labels" id="al">
                                 <span class="jdtag">{$al.name}</span>

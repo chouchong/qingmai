@@ -13,12 +13,12 @@
 <block name="main">
 <div ng-app="myApp" ng-controller="codeCtrl">
 <ion-header-bar class="bar bar-light">
-    <a class="button button-clear" href="javascript:history.back(-1)">
+    <a class="button button-clear" ng-click="cdBack()">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
     </a>
 </ion-header-bar>
 <!-- content -->
-<ion-content on-scroll="hiDiv()" class=" scroll-content loginre">
+<ion-content class=" scroll-content loginre">
     <div class="card">
     <input type="hidden" id="tocodeUrl" value="{$url}"/>
     <form name="mycodeForm" novalidate>
@@ -44,8 +44,8 @@
                 <a>
                     <button ng-click="dologincode(scode)" ng-disabled="mycodeForm.$invalid" class="button button-block">登&nbsp;&nbsp;录</button>
                 </a>
-                <a href="{:U('Mobile/Users/psw')}"><span>忘记密码</span></a>
-                <a href="/Mobile/Users/register?url={$url}"><span class="registerbutton">注册账号</span></a>
+                <!-- <a href="{:U('Mobile/Users/psw')}"><span>忘记密码</span></a>
+                <a href="/Mobile/Users/register?url={$url}"><span class="registerbutton">注册账号</span></a> -->
             </div>
         </div>
     </form>
