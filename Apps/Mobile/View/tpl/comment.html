@@ -1,12 +1,59 @@
-<extend name="tpl:base" />
-<block name="title">
-<title>自驾游评价</title>
-</block>
-<block name="css">
-</block>
-<block name="main">
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<meta name="format-detection" content="telephone=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<title>自驾评论</title>
+<link href="__PUBLIC__/Mobile/lib/ionic/css/ionic.css" rel="stylesheet">
+<link href="__PUBLIC__/Mobile/css/custom.css" rel="stylesheet" type="text/css" media="all" />
+<script src="__PUBLIC__/Mobile/js/jquery-1.8.0.min.js"></script>
+    <style>
+    .button {
+        line-height: 35px;
+        float: right;
+        background: #6dc5cc;
+        min-height: 4px;
+        color: #fff;
+    }
+    </style>
+    </head>
+    <body>
 <div ng-app="myApp" ng-controller="dCommentCtrl">
-<include file="tpl:nav"/>
+<ion-header-bar class="bar bar-light">
+    <div id="myuser" style="display: none;">
+        <empty name="Users">
+        <div>
+            <a ng-click="userLogin()">登录</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a ng-click="userRegister()">注册</a>
+        </div>
+        <else />
+        <div>
+            <a href="{:U('Mobile/Users/index')}">我的账户</a>
+        </div>
+        <div style="line-height: 40px;color:#72C7DD;">
+            <a href="{:U('Mobile/Orders/index')}">我的订单</a>
+        </div>
+        </empty>
+    </div>
+    <a class="button button-clear" ng-click="dComBack()">
+        <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回</i>
+    </a>
+    <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>
+</ion-header-bar>
+<script>
+    $(function(){
+        $("ion-content").click(function(event) {
+            var traget = document.getElementById("myuser");
+              if(traget.style.display == ""){
+                 traget.style.display = "none";
+             }
+        });
+    })
+</script>
     <!-- content -->
     <ion-content on-scroll="hiDiv()" id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
         <div class="card gocomment">
@@ -62,8 +109,9 @@
 
     </ion-content>
 </div>
-</block>
-<block name="js">
-<script>
-</script>
-</block>
+</body>
+<script src="__PUBLIC__/Mobile/lib/ionic/js/ionic.bundle.min.js"></script>
+<script src="__PUBLIC__/Mobile/js/app.js" type="text/javascript"></script>
+<script src="__PUBLIC__/Mobile/lib/ionic/js/ionic-ratings.js"></script>
+<script src="__PUBLIC__/Mobile/js/common.js"></script>
+</html>

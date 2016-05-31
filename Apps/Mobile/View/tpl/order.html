@@ -14,6 +14,12 @@
   .bb a{
     color: #fff;
   }
+  span{
+    font-size:14px;
+  }
+  .itemcom{
+    font-size:14px;
+  }
 </style>
 </block>
 <block name="main">
@@ -36,7 +42,7 @@
         </div>
         </empty>
     </div>
-    <a class="button button-clear" href="/Mobile">
+    <a class="button button-clear" ng-click="orBack()">
         <i class="ion-chevron-left" style="color:#6CC5DC;font-size: 19px;margin-left: 5px;">&nbsp;&nbsp;返回首页</i>
     </a>
     <a class="button button-clear " ng-click="userShow()" style="color: #66BDE0;    margin-top: -2px;"><i class="icon ion-navicon-round"></i></a>
@@ -54,12 +60,16 @@
 <!-- <include file="tpl:nav"/> -->
     <!-- content -->
     <ion-content on-scroll="hiDiv()" id="content-index" class=" scroll-content has-header" style="background: #f5f5f5;">
-         <div class="card gopay" ng-repeat="vo in oList">
+          <div style="text-align: center;padding: 20px;" ng-if="!oList">
+            <img src="__PUBLIC__/Mobile/img/noorder.png" alt="">
+            <button class="button button-calm" onclick="window.location='/Mobile'">回到首页</button>
+          </div>
+         <div class="card gopay" ng-repeat="vo in oList" ng-if="oList">
             <div class="item item-divider">
                 <element ng-switch="vo.goodsType">
-                  <element ng-switch-when="1"><i class="icon ion-model-s"></i></element>
-                  <element ng-switch-when="2"><i class="icon ion-android-image"></i></element>
-                  <element ng-switch-when="3"><i class="icon ion-ios-bookmarks-outline"></i></element>
+                  <element ng-switch-when="1"><i class="icon ion-model-s" style="font-size: 20px;"></i></element>
+                  <element ng-switch-when="2"><i class="icon ion-android-image" style="font-size: 20px;"></i></element>
+                  <element ng-switch-when="3"><i class="icon ion-ios-bookmarks-outline" style="font-size: 20px;"></i></element>
                   <element ng-switch-default></element>
                 </element>
                 <element ng-switch="vo.orderStatus">
@@ -73,15 +83,15 @@
                     <span>待出发</span>
                     <p ng-if="vo.goodsType==1">
                     <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
-                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span>
+                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
                     </p>
                   </element>
                   <element ng-switch-when="2">
                     <span>去评论</span>
                     <p ng-if="vo.goodsType==1">
-                      <span class="textright" style="float:right;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评论</a></span>
+                      <span class="textright" style="float:right;font-size: 16px;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评&nbsp;论</a></span>
                       <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
-                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">出境车辆行驶证</a></span>
+                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
                     </p>
                   </element>
                   <element ng-switch-when="3">
@@ -93,26 +103,26 @@
             </div>
             <element ng-switch="vo.goodsType">
               <element ng-switch-when="1">
-                <div class="item item-wrap orderMessage">
+                <div class="item item-wrap orderMessage itemcom">
                     自驾游
                     <span>{{vo.goodsName}}</span>
                 </div>
               </element>
               <element ng-switch-when="2">
-                <div class="item item-wrap orderMessage">
+                <div class="item item-wrap orderMessage itemcom">
                     门票
                     <span>{{vo.goodsName}}</span>
                 </div>
               </element>
               <element ng-switch-when="3">
-                <div class="item item-wrap orderMessage">
+                <div class="item item-wrap orderMessage itemcom">
                     签证
                     <span>{{vo.goodsName}}</span>
                 </div>
               </element>
               <element ng-switch-default></element>
             </element>
-            <div class="item item-wrap orderMessage">
+            <div class="item item-wrap orderMessage itemcom">
                 订单号
                 <span>{{vo.orderNo}}</span>
             </div>
@@ -120,45 +130,45 @@
                 {{vo.drivesTo}}
                 <span>{{vo.drivesDay}}</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.toTime">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.toTime">
                 出发日期
                 <span>{{vo.toTime}}</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.goodsType==3">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.goodsType==3">
                 签证日期
                 <span>{{vo.createTime}}</span>
             </div>
-            <div class="item item-wrap orderMessage">
+            <div class="item item-wrap orderMessage itemcom">
                 成人
                 <span>{{vo.adultNum}}人 x {{vo.adultPrice}}元/人</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.childNum > 0">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.childNum > 0">
                 儿童
                 <span>{{vo.childNum}}人 x {{vo.childPrice}}元/人</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.roomNum > 0">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.roomNum > 0">
                 房间数
                 <span>{{vo.roomNum}}间标准双床房</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.roomPrice > 0">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.roomPrice > 0">
                 总单房差
                 <span>{{vo.roomNum*2*vo.roomPrice - vo.adultNum*vo.roomPrice}}元</span>
             </div>
-            <div class="item item-wrap orderMessage" ng-if="vo.zMoney > 0">
+            <div class="item item-wrap orderMessage itemcom" ng-if="vo.zMoney > 0">
                 优惠
                 <span>{{vo.zMoney}} 元</span>
             </div>
-            <div class="item item-text-wrap orderMessage">
+            <div class="item item-text-wrap orderMessage itemcom">
                 合计价格
                 <span class="pricecolor">￥ {{vo.totalMoney}} 元</span>
             </div>
         </div>
-    <ion-infinite-scroll
-        on-infinite="doRefresh()"
-        distance="3%" ng-if="!isfresh"
-        refreshing-text="Refreshing!"
-        refreshing-icon="ion-loading-b">
-    </ion-infinite-scroll>
+        <ion-infinite-scroll
+            on-infinite="doRefresh()"
+            distance="3%" ng-if="!isfresh"
+            refreshing-text="Refreshing!"
+            refreshing-icon="ion-loading-b">
+        </ion-infinite-scroll>
     </ion-content>
 </div>
 </block>

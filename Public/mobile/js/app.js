@@ -29,9 +29,6 @@
           traget.style.display = "none";
         }
       }
-      $rootScope.goBack = function() {
-        window.location.href = history.back(-1);
-      }
       $rootScope.userLogin = function() {
         window.location.href = '/Mobile/Users/gologin?url=' + window.location.href;
       }
@@ -96,6 +93,7 @@
       }
     }])
     .controller('logCtrl', ['$scope', '$rootScope', 'serviceHttp', function($scope, $rootScope, serviceHttp) {
+      $scope.user = {};
       $scope.lgBack = function(){
         var url = $('#togoUrl').val();
         if (url == '') {
@@ -201,7 +199,28 @@
         $scope.Spopover.hide();
       };
     }])
-    .controller('userCtrl', ['$scope', '$ionicPopup', 'serviceHttp', function($scope, $ionicPopup, serviceHttp) {
+    .controller('userCtrl', ['$scope', '$ionicPopup','$timeout','serviceHttp','Storage', function($scope, $ionicPopup,$timeout,serviceHttp,Storage) {
+      if(Storage.get('isBack')>0){
+        $timeout(
+          function() {
+              Storage.remove('isBack');
+          },
+          1000
+        );
+      }
+      $scope.userBack = function(url,$event) {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          if(Storage.get('isBack')==1){
+            $event.stopPropagation();
+            Storage.remove('isBack');
+          }else{
+            self.location.href = url;
+          }
+        }
+        else{
+            self.location.href = url;
+        }
+      }
       //确认是否删除
       $scope.logout = function() {
         var confirmPopup = $ionicPopup.confirm({
@@ -349,7 +368,7 @@
         });
       }
     }])
-    .controller("aLmctrl", ['$scope', '$rootScope', 'serviceHttp', function($scope, $rootScope, serviceHttp) {
+    .controller("aLmctrl", ['$scope', '$rootScope', 'serviceHttp','Storage', function($scope, $rootScope, serviceHttp,Storage) {
       $scope.addAddress = function() {
         serviceHttp.addAddress($scope.user).success(function(data) {
           if (data.status == 1) {
@@ -358,9 +377,21 @@
             $rootScope.msg(data.msg)
           }
         });
+      };
+      $scope.aLmBack = function() {
+        self.location.href = '/Mobile/Users/addressList';
+        Storage.set('isBack',1);
       }
     }])
-    .controller("Lmctrl", ['$scope', '$ionicPopup', '$rootScope', 'serviceHttp', function($scope, $ionicPopup, $rootScope, serviceHttp) {
+    .controller("Lmctrl", ['$scope', '$ionicPopup', '$rootScope','$timeout','serviceHttp','Storage', function($scope, $ionicPopup, $rootScope,$timeout,serviceHttp,Storage) {
+      if(Storage.get('isBack')>0){
+        $timeout(
+          function() {
+              Storage.remove('isBack');
+          },
+          1000
+        );
+      }
       serviceHttp.addressList().success(function(data) {
         $scope.list = data;
       });
@@ -395,7 +426,26 @@
             })
           }
         });
+      };
+      $scope.userAddAddress = function(){
+        self.location.href = '/Mobile/Users/userAddAddress';
+        Storage.remove('isBack');
       }
+      $scope.LmBack = function() {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          if(Storage.get('isBack')==1){
+            $event.stopPropagation();
+            Storage.remove('isBack');
+          }else{
+            self.location.href = '/Mobile/Users/index';
+            Storage.set('isBack',1);
+          }
+        }
+        else{
+            self.location.href = '/Mobile/Users/index';
+            Storage.set('isBack',1);
+        }
+      };
     }])
     .controller("drvCtrl", ['$rootScope', '$scope', '$ionicLoading', '$ionicScrollDelegate', '$timeout', '$ionicPopover', '$ionicActionSheet', 'serviceHttp', function($rootScope, $scope, $ionicLoading, $ionicScrollDelegate, $timeout, $ionicPopover, $ionicActionSheet, serviceHttp) {
       //jiazai
@@ -747,6 +797,12 @@
       }
     }])
     .controller("payCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicScrollDelegate, serviceHttp) {
+      $scope.payBack = function(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+          self.location.href = '/Mobile/Orders/index';
+      };
       var ua = navigator.userAgent.toLowerCase();
       if (ua.match(/MicroMessenger/i) == "micromessenger") {
         $scope.serverSideList = [
@@ -808,7 +864,7 @@
                             //如果支付成功
                             if (res.err_msg == 'get_brand_wcpay_request:ok') {
                               //支付成功后跳转的地址
-                              window.location.href = '/Mobile';
+                              window.location.href = '/Mobile/Pays/wxPaySu/orderId/' + orderId;
                             } else {
                               window.location.href = '/Mobile/Pays/wxPayEr/orderId/' + orderId;
                             }
@@ -829,9 +885,31 @@
           }
         }
     }])
-    .controller("orCtrl", ['$rootScope', '$scope','$ionicPopup', 'serviceHttp', function($rootScope, $scope, $ionicPopup, serviceHttp) {
+    .controller("orCtrl", ['$rootScope', '$scope','$ionicPopup', 'Storage','$timeout','serviceHttp', function($rootScope, $scope, $ionicPopup,Storage,$timeout, serviceHttp) {
+      if(Storage.get('isBack')>0){
+        $timeout(
+          function() {
+              Storage.remove('isBack');
+          },
+          1000
+        );
+      }
+      $scope.orBack = function() {
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+          if(Storage.get('isBack')==1){
+            $event.stopPropagation();
+            Storage.remove('isBack');
+          }else{
+            self.location.href = '/Mobile';
+          }
+        }
+        else{
+            self.location.href = '/Mobile';
+        }
+      };
       $scope.page = 0;
       $scope.isfresh = false;
+      $scope.isList = false;
       $scope.oList = [];
       $scope.doRefresh = function() {
         serviceHttp.OrdersList({
@@ -839,6 +917,9 @@
         }).success(function(data) {
           $scope.page++;
           $scope.oList = $scope.oList.concat(data);
+          if($scope.oList.length>0){
+            $scope.isList = true;
+          }
           if (data.length == 0) {
             $scope.isfresh = true;
           }
@@ -866,7 +947,13 @@
         });
       };
     }])
-     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+     .controller("carCtrl", ['$rootScope', '$scope', 'serviceHttp','Storage', function($rootScope, $scope, serviceHttp,Storage) {
+      $scope.carBack = function(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+            self.location.href = '/Mobile/Orders/index';
+        };
       $scope.isShowCar = false;
       serviceHttp.getCarLic({orderId:$('#orderId').val()}).success(function(data) {
         if(data.length>0){
@@ -910,7 +997,13 @@
       };
     }])
 
-  .controller("userInCtrl", ['$rootScope', '$scope','$ionicPopup','serviceHttp', function($rootScope, $scope,$ionicPopup ,serviceHttp) {
+  .controller("userInCtrl", ['$rootScope', '$scope','$ionicPopup','serviceHttp','Storage', function($rootScope, $scope,$ionicPopup ,serviceHttp,Storage) {
+      $scope.userInBack = function(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+            self.location.href = '/Mobile/Orders/index';
+        };
       $scope.sexlist = [{
         text: "男",
         value: "1"
@@ -1002,7 +1095,7 @@
         }
       }
     }])
-    .controller("dCommentCtrl", ['$rootScope', '$scope', 'serviceHttp', function($rootScope, $scope, serviceHttp) {
+    .controller("dCommentCtrl", ['$rootScope', '$scope', 'serviceHttp','Storage', function($rootScope, $scope, serviceHttp,Storage) {
       $scope.ratingsObject = {
         iconOn: 'ion-ios-star',
         iconOff: 'ion-ios-star-outline',
@@ -1036,12 +1129,34 @@
             }
           });
         }
+      };
+      $scope.dComBack = function(){
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+        self.location.href = '/Mobile/Orders/index';
       }
     }])
     .controller("articleCtrl",['$scope','$ionicScrollDelegate',function($scope,$ionicScrollDelegate){
         $scope.totop = function(){
             $ionicScrollDelegate.scrollTop(true);
         };
+    }])
+    .controller("paySuctrl",['$scope','$ionicScrollDelegate','Storage',function($scope,$ionicScrollDelegate,Storage){
+        $scope.pyBack = function(){
+          if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+          self.location.href = '/Mobile/Orders/index';
+        };
+    }])
+    .controller("reNactrl",['$scope','Storage',function($scope,Storage){
+        $scope.reNaBack = function() {
+          if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            Storage.set('isBack',1)
+          }
+          self.location.href = '/Mobile/Users/index';
+        }
     }])
     .service('serviceHttp', ['$http', function($http) {
       this.getDrList=function(data){

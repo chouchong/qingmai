@@ -90,7 +90,7 @@
         </div>
         <div class="row" style="text-align: center;">
             <div class="item item-text-wrap" style="margin: auto;">
-                <p align="center">当前日不可选,您选择了<span id="today" style="color:#c00;">{$datetime}</span>的产品</p>
+                <p align="center">当前日不可选,您选择了<span id="today" style="color:#c00;">{$daymtime}</span>的产品</p>
             </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
                 成人
             </div>
             <div style="width:33%; float:left;">
-                <input id="manNum" type="text" class="spinnerExample" />
+                <input id="manNum" type="text" class="spinnerExample" readonly />
             </div>
             <div  style="width:33%; float:left; text-align: right;">
                 <span id="manPrice">{$good['adultPrice']}</span>元/人
@@ -141,7 +141,7 @@
                 儿童
             </div>
             <div  style="width:33%; float:left;">
-                <input id="childNum" type="text" class="spinnerExample" />
+                <input id="childNum" type="text" class="spinnerExample" readonly />
             </div>
             <div  style="width:33%; float:left; text-align: right;">
                 <span id="childPrice">{$good['childPrice']}</span>元/人
@@ -213,11 +213,11 @@
             {$CONF.mallFooter|htmlspecialchars_decode}
         </div>
     </div>
-    <div class="row" style="background:#fff ;font-size: 20px; ">
+    <div class="row" style="background:#fff ;font-size: 16px">
         <div class="col col-67">
-            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 25px;">总计&nbsp;¥&nbsp;<span id="totalPrice">0</span>&nbsp;元</p>
+            <p style="margin: 0; line-height: 50px;color: #F77462; font-size: 16px">总计&nbsp;¥&nbsp;<span id="totalPrice">0</span>&nbsp;元</p>
         </div>
-        <button ng-click="goodOrAdd()" class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 20px">提交订单
+        <button ng-click="goodOrAdd()" class="col col-33" style="background:#F77462; text-align: center;border: 1px solid #F77462; color: #fff;font-size: 16px">提交订单
         </button>
     </div>
 </ion-content>

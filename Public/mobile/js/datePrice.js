@@ -106,7 +106,7 @@ function addDay(date, price, tickets, id) {
             '</p><p class="price">' + parseInt(price) +
             '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else if(isbgeinSell){
-                htmls = htmls + '<div class="col col-14"><p class="dd"  id="' + days + '">' + days +
+                htmls = htmls + '<div class="col col-14 disabled"><p class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +
             '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else {

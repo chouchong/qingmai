@@ -235,6 +235,41 @@
       }
     });
   };
+  $scope.drive = {};
+  $scope.dAddBuy = function(){
+    serviceHttp.isLogin().success(function(data){
+      if(data.status>0){
+        $scope.drive.drivesId = $('#drivesId').val();
+        $scope.drive.drivesDay = $('#drivesDay').html();
+        $scope.drive.childPrice = $('#childPrice').html();
+        //drivesImg,drivesName,drivesFrom,drivesDay,childPrice,homePrice
+        $scope.drive.goodsThums = $('#drivesImg').attr('src');
+        $scope.drive.drivesFrom = $('#drivesFrom').html();
+        $scope.drive.goodsName = $('#drivesName').html();
+        $scope.drive.drivesType = $('#drivesType').html();
+        $scope.drive.timeDesc = $('#xc_timeDesc').html();
+        $scope.drive.manPrice = $('#selectAdultPrice').html();
+        $scope.drive.roomNum = $("#roomNum").val();
+        $scope.drive.manNum = $('#manNum').val();
+        if (($scope.drive.roomNum * 2 - $scope.drive.manNum) > 0) {
+          $scope.drive.homePrice = $('#roomPrice').html();
+        }
+        $scope.drive.childNum = $('#childNum').val();
+        $scope.drive.totalPrice = $('#df_totelprice').html();
+        $scope.drive.orderType = 1;
+        $scope.drive.goodsDrvivesTime = $('#xc_timeDesc').html();
+        $scope.drive.selectday = $('#df_seldate').html();
+        $scope.drive.timeId = $('#timeId').val();
+        if($scope.drive.timeId == ""){
+          layer.msg('请选择出发日期');
+        }else{
+          console.log($scope.drive);
+        }
+      }else{
+        layer.msg('您尚未登录,登录了才能预定');
+      }
+    })
+  }
 }])
 .controller('VisaCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
   serviceHttp.getUserAddress().success(function(data) {
@@ -282,6 +317,12 @@
   }
 }])
 .service('serviceHttp',['$http',function($http){
+  this.isLogin = function() {
+    return $http({
+      url: '/home/Base/getLogin',
+      method: "POST"
+    });
+  };
   this.getApList=function(data){
     return $http({
       url: '/Api/V1/getApList',

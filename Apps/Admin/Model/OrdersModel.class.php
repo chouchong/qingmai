@@ -199,6 +199,18 @@ class OrdersModel extends BaseModel {
 			$page = $m->pageQuery($sql);
 		 	return $page;
 	 }
+	 //联系用户
+	 public function goDDDo()
+	{
+		$m = M('orders');
+		$rd = array('status'=>-1);
+		$data['isDo'] = 1;
+ 	    $rss = $m->where("orderId=".(int)I('orderId',0))->save($data);
+		if(false !== $rs){
+			$rd['status']= 1;
+		}
+		return $rd;
+	}
 
 };
 ?>

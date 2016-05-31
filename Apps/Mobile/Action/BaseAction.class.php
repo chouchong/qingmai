@@ -8,6 +8,9 @@ use Think\Controller;
 use Org\Pay\WxPay;
 class BaseAction extends Controller {
 	public function __construct(){
+    if(!WSTIsMobile()){
+      $this->redirect("Home/Index/index");
+    }
 		parent::__construct();
     $m = D('Mobile/System');
     $GLOBALS['CONFIG'] = $m->loadConfigs();

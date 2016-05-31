@@ -8,6 +8,9 @@ use Think\Controller;
 class BaseAction extends Controller {
 	public function __construct(){
 		parent::__construct();
+		if(WSTIsMobile()){
+	      $this->redirect("Mobile/Index/index");
+	    }
 		$this->foot=D('Home/Articles')->getArticles();
 		$this->userSession=session('Users');
     	$this->CONF = D('Mobile/System')->loadConfigs();
@@ -107,6 +110,14 @@ class BaseAction extends Controller {
   public function isLogin(){
     $s = session('Users');
       if(empty($s))$this->redirect("Users/gologin");
+  }
+  /**
+   * 登录操作验证
+   */
+  public function getLogin(){
+    $s = session('Users');
+    $rs['status'] = !empty($s)?1:-1;
+    echo json_encode($rs);
   }
   /*
   商城信息

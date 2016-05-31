@@ -12,7 +12,7 @@ $(function() {
         addHtml();
         var currM1= (currM + 1) < 10 ? '0' + (currM + 1) : (currM + 1);
         $("#currentMonth").html(currY + "-" + currM1);
-        $("#today").html(currY + "-" + currM1 + "-" + theDay);
+        // $("#today").html(currY + "-" + currM1 + "-" + theDay);
     }
 });
 

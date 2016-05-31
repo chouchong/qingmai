@@ -34,4 +34,20 @@ class ToolsAction extends Controller {
     echo json_encode($object);
     die();
   }
+  public function smsTest()
+  {
+    $sms = new YunpianSms();
+        // $data=array(
+        //   'tpl_id'=>'1357521',
+        //   'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+        //   'mobile'=>session('Users')['userPhone']
+        // );
+    $data=array(
+      'tpl_id'=>'1357523',
+      'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+      'mobile'=>session('Users')['userPhone']
+    );
+    $object = $sms->yp_send_tpl($data);
+    var_dump($object);
+  }
 }

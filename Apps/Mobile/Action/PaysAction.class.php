@@ -84,6 +84,14 @@ class PaysAction extends BaseAction {
     if($Uniopay->Check($_POST)){    //验证
         $this->row = $Pay->getInfoNo($_POST['orderNo']);
         C('TOKEN_ON',false);
+        $sms = new YunpianSms();
+
+        $data=array(
+          'tpl_id'=>'1357523',
+          'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+          'mobile'=>session('Users')['userPhone']
+        );
+        $object = $sms->yp_send_tpl($data);
         $this->view->display('/tpl/paySu');
     }else{
         $this->row = $Pay->getInfoNo($_POST['orderNo']);
@@ -96,14 +104,6 @@ class PaysAction extends BaseAction {
   public function UnionPayGo(){
     $Uniopay = new \Org\Pay\UnionPay();
     if($Uniopay->Check($_POST)){    //验证
-      $sms = new YunpianSms();
-
-      $data=array(
-        'tpl_id'=>'1357523',
-        'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
-        'mobile'=>session('Users')['userPhone']
-      );
-      $sms->yp_send_tpl($data);
       D('Mobile/Pays')->editOrder($_POST['orderId']);
     }else{
       echo "失败";
@@ -132,6 +132,13 @@ class PaysAction extends BaseAction {
     C('TOKEN_ON',false);
     $Pay = D('Mobile/Pays');
     $this->row = $Pay->getInfo(I('orderId'));
+    $sms = new YunpianSms();
+    $data=array(
+      'tpl_id'=>'1357523',
+      'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
+      'mobile'=>session('Users')['userPhone']
+    );
+    $object = $sms->yp_send_tpl($data);
     $this->view->display('/tpl/paySu');
   }
   //微信
@@ -162,7 +169,7 @@ class PaysAction extends BaseAction {
     $unifiedOrder = new \UnifiedOrder_pub();
     $total_fee = $row['totalMoney']*100;
     //$total_fee = 1;
-    $body = "要自在旅游";
+    $body = $GLOBALS['CONFIG']['mallName'];
     $pkey = $row['orderId'];
     $unifiedOrder->setParameter("openid", session('openid'));//用户标识
     $unifiedOrder->setParameter("body", $body);//商品描述
@@ -213,14 +220,6 @@ class PaysAction extends BaseAction {
       } else {
         // 此处应该更新一下订单状态，商户自行增删操作
         $order = $notify->getData();
-        $sms = new YunpianSms();
-
-        $data=array(
-          'tpl_id'=>'1357523',
-          'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
-          'mobile'=>session('Users')['userPhone']
-        );
-        $sms->yp_send_tpl($data);
         D('Mobile/Pays')->editOrder($order["out_trade_no"]);
       }
     }

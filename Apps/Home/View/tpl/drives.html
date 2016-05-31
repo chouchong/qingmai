@@ -16,15 +16,15 @@
             <input type="hidden" id="daytime" value="{$daymtime}" />
             <div class="d_intro">
                 <div class="d_img">
-                    <img src="/{$drive.pcDrivesImg}" alt="">
+                    <img src="/{$drive.pcDrivesImg}" alt="" id="drivesImg">
                 </div>
                 <div class="d_introduce">
                     <div class="d_intrl">
                         <p>
-                            <span class="d_intrlt">{$drive.drivesName}</span>
-                            <span class="d_intrld">{$drive.drivesDay}</span>
+                            <span class="d_intrlt" id="drivesName">{$drive.drivesName}</span>
+                            <span class="d_intrld" id="drivesDay">{$drive.drivesDay}</span>
                         </p>
-                        <p><span class="d_place">{$drive.drivesFrom}</span></p>
+                        <p><span class="d_place" id="drivesFrom">{$drive.drivesFrom}</span></p>
                     </div>
                     <div class="d_intrr">
                         <p>
@@ -91,6 +91,7 @@
                     <div class="df_center">&nbsp;</div>
                     <div class="df_right" id="df_seldate">{$daymtime}</div>
                 </div>
+                <input type="hidden" id="timeId">
                 <HR style="FILTER: progid:DXImageTransform.Microsoft.Shadow(color:#987cb9,direction:145,strength:15);margin:0px;padding:0;" width="100%" color=#7D7D7D SIZE=1>
                 <div class="diverformlist">
                     <div class="df_left">成人</div>
@@ -154,7 +155,7 @@
                         总价格:￥<span id="df_totelprice">0</span>&nbsp;元
                     </div>
                     <div id="df_submit">
-                        <a href="orderdiver.html"><span>立即预定</span></a>
+                        <a ng-click="dAddBuy()"><span>立即预定</span></a>
                     </div>
                     <p></p>
                 </div>

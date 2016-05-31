@@ -51,6 +51,7 @@
                <th width='20'>下单时间</th>
                <th width='20'>订单状态</th>
                <th width='60'>详情</th>
+               <th width='30'>操作</th>
              </tr>
            </thead> 
            <tbody>
@@ -74,12 +75,21 @@
                       <td>
                         <!-- <button class="btn btn-primary" onclick="addresDetail({$vo[orderId]})">地址详情</button> -->
                         <button class="btn btn-primary" onclick="getdetail({$vo[orderId]})">订单详情</button>
-                     <if condition="$vo.goodsType eq 1"><if condition="$vo.orderStatus gt 1"><button class="btn btn-primary" onclick="getCar({$vo[orderId]})">驾驶证</button> <button class="btn btn-primary" onclick="getinsureds({$vo[orderId]})">被保险人</button></td></if></if>
-                    </tr>
+                     <if condition="$vo.goodsType eq 1"><if condition="$vo.orderStatus gt 1"><button class="btn btn-primary" onclick="getCar({$vo[orderId]})">驾驶证</button> <button class="btn btn-primary" onclick="getinsureds({$vo[orderId]})">被保险人</button></if></if></td>
+                    <td>
+                    <if condition="$vo['isDo'] gt 0">
+                     已操作
+                     <else/>
+                     <if condition="$vo.isPay gt 0">
+                     <a class="btn btn-primary glyphicon" href='javascript:goDDDo({$vo["orderId"]});'>未操作</a>
+                    </if>
+                   </if>
+                   </td>
+                   </tr>
                  </volist>
            </tbody>
              <tr>
-                <td colspan='15' align='center'>{$page['pager']}</td>
+                <td colspan='10' align='center'>{$page['pager']}</td>
              </tr>
         </table>
        </div>
@@ -328,7 +338,23 @@
           }
         });
       }
-
+      function goDDDo(id){
+     Plugins.confirm({title:'信息提示',content:'确定已经操作完成?',okText:'确定',cancelText:'取消',okFun:function(){
+       Plugins.closeWindow();
+       Plugins.waitTips({title:'信息提示',content:'正在操作，请稍后...'});
+       $.post("{:U('Admin/Orders/goDDDo')}",{orderId:id},function(data,textStatus){
+          var json = WST.toJson(data);
+          if(json.status=='1'){
+            Plugins.setWaitTipsMsg({content:'操作成功',timeout:1000,callback:function(){
+               location.reload();
+            }});
+          }else{
+            Plugins.closeWindow();
+            Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+          }
+        });
+     }});
+   }
     </script>
    </body>
 </html>

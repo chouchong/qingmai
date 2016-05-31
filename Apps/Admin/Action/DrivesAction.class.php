@@ -76,6 +76,17 @@ class DrivesAction extends BaseAction{
     $this->ajaxReturn($rs);
   }
   /**
+  *时间价格是否添加
+  **/
+  public function isTimePrice(){
+    $this->isLogin();
+    $m = D('Admin/Drives');
+    $this->checkAjaxPrivelege('dplb_01');
+    $rs = array();
+    $rs = $m->isTimePrice();
+    $this->ajaxReturn($rs);
+  }
+  /**
   *查询时间价格
   **/
   public function timePrice(){
@@ -106,6 +117,16 @@ class DrivesAction extends BaseAction{
     $rs = array();
     $m = D('Admin/Drives');
     $rs = $m->changeDrives();
+    echo json_encode($rs);
+  }
+  //自驾排序
+  public function changeDrivesSort()
+  {
+    $this->isLogin();
+    $this->checkAjaxPrivelege('dplb_03');
+    $rs = array();
+    $m = D('Admin/Drives');
+    $rs = $m->changeDrivesSort();
     echo json_encode($rs);
   }
 

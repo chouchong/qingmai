@@ -132,5 +132,11 @@ class OrdersAction extends BaseAction{
     	$m=D('Admin/Gos');
         $this->ajaxReturn($m->goContact());
 	}
+	//订单是否操作
+	public function goDDDo()
+	{
+		$m=D('Admin/Orders');
+        $this->ajaxReturn($m->goDDDo());
+	}
 };
 ?>

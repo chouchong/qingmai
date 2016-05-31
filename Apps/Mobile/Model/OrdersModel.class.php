@@ -206,7 +206,7 @@ class OrdersModel extends BaseModel {
     return $data;
   }
   /**
-  *自驾出被保险人
+  *自驾出被驾驶证
   **/
    public function addCarLic()
   {
@@ -268,12 +268,18 @@ class OrdersModel extends BaseModel {
   public function addOUserIn()
   {
     $rd = array('status' => -1);
-    $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>I('orderId')))->find();
-    if($o['isCar']>0){
-      M('orders')->where(array('orderId'=>I('orderId')))->save(array('orderStatus' =>2 , 'isGo'=>1));
-      $rd['status'] = 1;
-    }else{
-      M('orders')->where(array('orderId'=>I('orderId')))->save(array('isGo'=>1));
+    //保存驾驶证
+    // $o = M('orders')->field('isCar,isGo')->where(array('orderId'=>I('orderId')))->find();
+    // if($o['isCar']>0){
+    //   M('orders')->where(array('orderId'=>I('orderId')))->save(array('orderStatus' =>2 , 'isGo'=>1));
+    //   $rd['status'] = 1;
+    // }else{
+    //   M('orders')->where(array('orderId'=>I('orderId')))->save(array('isGo'=>1));
+    //   $rd['status'] = 1;
+    // }
+    //不保存驾驶证
+    $fs = M('orders')->where(array('orderId'=>I('orderId')))->save(array('orderStatus' =>2 , 'isGo'=>1));
+    if($fs !== false){
       $rd['status'] = 1;
     }
     return $rd;

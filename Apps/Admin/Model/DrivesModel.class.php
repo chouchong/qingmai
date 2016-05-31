@@ -170,7 +170,7 @@ class DrivesModel extends BaseModel {
     */
     public function queryByPage(){
       $m = M('drives');
-        $sql = "select drivesId,drivesName,drivesDay FROM __PREFIX__drives where isSola=1 order by drivesId desc";
+        $sql = "select drivesId,drivesName,drivesDay,drvSort FROM __PREFIX__drives where isSola=1 order by drvSort asc";
       return $m->pageQuery($sql);
    }
    /**
@@ -253,7 +253,7 @@ class DrivesModel extends BaseModel {
     public function changeDrives(){
       $rd = array('status'=>-1);
       $rs = array();
-      $m = D('Admin/Drives');
+      $m = D('drives');
       $data['isSola'] = I('isSola');
       $rs = $m->where('drivesId='.I('drivesId'))->delete();
       if($rs){
@@ -262,6 +262,36 @@ class DrivesModel extends BaseModel {
         M('drives_goods')->where('drivesId='.I('drivesId'))->delete();
         M('drives_hotels')->where('drivesId='.I('drivesId'))->delete();
         M('drives_timeprice')->where('drivesId='.I('drivesId'))->delete();
+        $rd['status'] = 1;
+      };
+      return $rd;
+    }
+    /**
+   *时间价格添加
+   **/
+    public function isTimePrice(){
+      $rd = array('status'=>-1);
+      $data = array();
+      $data["drivesId"] = I("drivesId");
+      $data["daydata"] = I("daydata");
+      if($this->checkEmpty($data,true)){;
+        $id = M('drives_timeprice')->where($data)->count();
+        if($id>0){
+          $rd['status'] = 1;
+        }
+      }
+      return $rd;
+    }
+       /**
+    *自驾禁用
+    **/
+    public function changeDrivesSort(){
+      $rd = array('status'=>-1);
+      $rs = array();
+      $m = D('drives');
+      $data['drvSort'] = I('drvSort');
+      $rs = $m->where('drivesId='.I('drivesId'))->save($data);
+      if($rs){
         $rd['status'] = 1;
       };
       return $rd;
