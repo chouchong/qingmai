@@ -33,14 +33,17 @@ class OrdersModel extends BaseModel {
     $address = M('order_goods')->field('drivestimeId')->where(array('orderId'=>I('orderId')))->find();
     $rs = M('orders')->where(array('orderId'=>I('orderId')))->save($data);
     $tp = M('drives_timeprice')->field('drivesStock')->where(array('timeId'=>$address['drivestimeId']))->find();
-    if($address['drivestimeId'] >0){
-      if($tp['drivesStock']<I('adultNum')){
-        $rd['num'] = $tp['drivesStock'];
-        $rd['status']=2;
+    if($rs !== false){
+      if($address['drivestimeId'] >0){
+        if($tp['drivesStock']<I('adultNum')){
+          $rd['num'] = $tp['drivesStock'];
+          $rd['status']=2;
+        }
       }else{
         $rd['status']=1;
       }
     }
+    
     return $rd;
   }
   /**

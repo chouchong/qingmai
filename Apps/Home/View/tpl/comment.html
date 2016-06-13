@@ -1,0 +1,79 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>自驾评论</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</block>
+<block name="css"></block>
+<block name="main">
+<div ng-app="myapp" ng-controller="ordersCommentCtrl">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="com_c">
+        <div class="com_cs">
+            <div style="width:100%;text-align: center;border-radius: 8px;">
+                <img src="/{$d.pcDrivesImg}" alt="" style="width:100%;text-align: center;border-radius: 8px 8px 0 0;">
+            </div>
+            <div style="background:#fff;height:8px;width:100%;">
+            </div>
+            <div class="com_csedit">
+                <div class="com_cseditimg">
+                    <h3>{$d.drivesName}</h3>
+                    <p>{$d.drivesFrom}</p>
+                    <p>请给我打个分吧</p>
+                    <p class="com_stars">
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span id="com_score">0分</span>
+                    </p>
+                </div>
+                <div class="com_csedittext">
+                <input type="hidden" id="drivesId" value="{$d['drivesId']}">
+                <input type="hidden" value="{$d['orderNo']}" id="orderNo">
+                <input type="hidden" id="orderId" value="{$d['orderId']}">
+                <input type="hidden" id="drivesScore">
+                    <textarea placeholder="为我评价哦！" ng-model="mm.conT"></textarea>
+                </div>
+            </div>
+            <div class="com_csbtn" ng-click="addComment()">
+                <div class="com_csbtns">
+                    提交
+                </div>
+            </div>
+        </div>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+<script>
+    $(function() {
+        // 评分星星
+        var index = -1;
+        var score = 0;
+        $(".com_stars .glyphicon").mouseover(function() {
+            index = $(".com_stars .glyphicon").index(this);
+            for (var i = 0; i <= index; i++) {
+                $(".com_stars .glyphicon").eq(i).addClass("glyphicon-star").removeClass("glyphicon-star-empty");
+            }
+        });
+        $(".com_stars .glyphicon").mouseleave(function() {
+            if (score == 0) {
+                $(".com_stars .glyphicon").removeClass('glyphicon-star').addClass("glyphicon-star-empty");
+            }
+        });
+        $(".com_stars .glyphicon").click(function() {
+            score = index+1;
+            for(var i = 4;i>index;i--){
+            $(".com_stars .glyphicon").eq(i).removeClass('glyphicon-star').addClass("glyphicon-star-empty");
+            }
+            $("#com_score").html(index + 1 + "分");
+            $('#drivesScore').val((index + 1));
+        });
+    })
+</script>
+</block>

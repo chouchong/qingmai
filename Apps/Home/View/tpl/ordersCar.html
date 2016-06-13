@@ -1,0 +1,72 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>出行被保险人</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</block>
+<block name="css">
+    <style type="text/css" media="screen">
+        input{
+            filter: alpha(opacity=0);
+            cursor: pointer
+        }
+    </style>
+</block>
+<block name="main">
+<div ng-app="myapp" ng-controller="ordersCarCtrl">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="cl_c">
+        <div class="cl_ch">
+            <h1>行车驾驶证</h1>
+        </div>
+        <div class="cl_orderid">
+        <input type="hidden" id="orderId" value="{$row['orderId']}">
+            订单号&nbsp;&nbsp;<span id="orderid">{$row.orderNo}11</span>
+            <span style="float:right;">{$row.adultNum}成人&nbsp;&nbsp;{$row.childNum}儿童</span>
+        </div>
+        <hr style="margin: 0;">
+        <div class="cl_orderids">
+            <p>凡在本行程中需要驾驶车辆的人员均提供有效驾驶证信息。用于制作驾驶证标准英文翻译件、翻译件用于在国外发生检查时提供警察查看所用</p>
+        </div>
+        <hr style="margin: 0;">
+        <div class="cl_uploadimgs">
+            上传预览&nbsp;&nbsp;&nbsp;<span>驾驶证需在有效期内，请保证清晰度</span>
+        </div>
+        <for start="0" end="ceil($row['adultNum']/3)">
+        <div class="cl_uploadimgzf">
+            <iframe name="upload" style="display:none"></iframe>
+            <div class="clui_tx">
+                <img src="__PUBLIC__/home/img/upcar.jpg" style="height:80px; width:90px;margin-top: 130px;">
+            </div>
+            <div class="clui_l">
+                <h4>驾驶证反面</h4>
+                <div class="clui_ld">
+                    <img class="clui_ldu" src="__PUBLIC__/home/img/uploadimg.png" alt="">
+                    <img class="clui_ldimg" src="__PUBLIC__/home/img/car1.png">
+                    <div class="clui_ldxg">修改图片</div>
+                    <input type="file" class="cl_upfmi">
+                </div>
+            </div>
+            <div class="clui_l">
+                <h4>驾驶证反面</h4>
+                <div class="clui_ld">
+                    <img class="clui_ldu" src="__PUBLIC__/home/img/uploadimg.png" alt="">
+                    <img class="clui_ldimg" src="__PUBLIC__/home/img/car1.png">
+                    <div class="clui_ldxg">修改图片</div>
+                    <input type="file" class="cl_upfmi">
+                </div>
+            </div>
+        </div>
+        </for>
+        <hr style="margin: 0;">
+        <div style="text-align: center;width:100%;padding: 20px;background:#fff;">
+            <span style="background-color: #6DC5DB;padding: 15px 30px;font-size: 25px;color:#fff;cursor:pointer;">提交资料</span>
+        </div>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+</block>

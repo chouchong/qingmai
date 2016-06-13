@@ -30,4 +30,11 @@ class ApiAction extends Controller {
     echo json_encode($object);
     die();
   }
+  /**
+   * 订单列表
+   */
+  public function oList(){
+    $data = D('Mobile/Orders')->OrdersList();
+    $this->ajaxReturn($data);
+  }
 }

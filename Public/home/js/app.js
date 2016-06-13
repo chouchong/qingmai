@@ -11,12 +11,18 @@
     return angular.isObject(data) && String(data) !== '[object File]' ? jQuery.param(data) : data;
     }
 }])
-.run(function($rootScope){
+.run(function($rootScope,Storage){
   $rootScope.comLogin = function(){
-    console.log('ddd');
+
+    Storage.set('url',window.location.href);
+    window.location.href = '/login.html';
+  }
+  $rootScope.comReg = function(){
+    Storage.set('url',window.location.href);
+    window.location.href = '/register.html';
   }
 })
-.controller('regCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){ 
+.controller('regCtrl',['$scope','serviceHttp','Storage','$interval',function($scope,serviceHttp,Storage,$interval){ 
   $scope.checkbox = $("#checkbox").prop('checked');
   $scope.text="发送验证码";
   var iNow=60;
@@ -53,7 +59,8 @@
     .success( function(data){
       if(data['status'] == 1){
         layer.msg(data['msg']);
-        window.location.href = "/login.html";
+        window.location.href = Storage.get('url');
+        Storage.remove('url');
       }
       if(data['status'] == -3){
         layer.msg(data['msg']);
@@ -128,8 +135,8 @@
     })
   }
   }])
-.controller('loginCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){
-    $scope.text="发送验证码";
+.controller('loginCtrl',['$scope','serviceHttp','$interval','Storage',function($scope,serviceHttp,$interval,Storage){
+  $scope.text="发送验证码";
   var iNow = 60;
   $scope.fash = false;
   $scope.textClass = "btn-info";
@@ -175,7 +182,8 @@
     .success(function(data){
       if(data['status'] == 1){
         layer.msg('登录成功');
-        window.location.href="/index.html";
+        window.location.href= Storage.get('url');
+        Storage.remove('url');
       }
       if(data['status'] == -1){
         layer.msg('登录失败');
@@ -211,6 +219,7 @@
       }
     });
   };
+  $scope.goplaces = {};
   serviceHttp.getgoPlace().success(function(data) {
     $scope.goplaces = data;
   });
@@ -237,41 +246,88 @@
   };
   $scope.drive = {};
   $scope.dAddBuy = function(){
-    serviceHttp.isLogin().success(function(data){
-      if(data.status>0){
-        $scope.drive.drivesId = $('#drivesId').val();
-        $scope.drive.drivesDay = $('#drivesDay').html();
-        $scope.drive.childPrice = $('#childPrice').html();
-        //drivesImg,drivesName,drivesFrom,drivesDay,childPrice,homePrice
-        $scope.drive.goodsThums = $('#drivesImg').attr('src');
-        $scope.drive.drivesFrom = $('#drivesFrom').html();
-        $scope.drive.goodsName = $('#drivesName').html();
-        $scope.drive.drivesType = $('#drivesType').html();
-        $scope.drive.timeDesc = $('#xc_timeDesc').html();
-        $scope.drive.manPrice = $('#selectAdultPrice').html();
-        $scope.drive.roomNum = $("#roomNum").val();
-        $scope.drive.manNum = $('#manNum').val();
-        if (($scope.drive.roomNum * 2 - $scope.drive.manNum) > 0) {
-          $scope.drive.homePrice = $('#roomPrice').html();
-        }
-        $scope.drive.childNum = $('#childNum').val();
-        $scope.drive.totalPrice = $('#df_totelprice').html();
-        $scope.drive.orderType = 1;
-        $scope.drive.goodsDrvivesTime = $('#xc_timeDesc').html();
-        $scope.drive.selectday = $('#df_seldate').html();
-        $scope.drive.timeId = $('#timeId').val();
-        if($scope.drive.timeId == ""){
+      if($('#timeId').val() == ""){
           layer.msg('请选择出发日期');
+        }else if(parseInt($('#manNum').val()) == 0){
+          layer.msg('请选择出发人数');
         }else{
-          console.log($scope.drive);
+          serviceHttp.isLogin().success(function(data){
+            if(data.status>0){
+              $scope.drive.drivesId = $('#drivesId').val();
+              $scope.drive.drivesDay = $('#drivesDay').html();
+              $scope.drive.childPrice = $('#childPrice').html();
+              $scope.drive.goodsThums = $('#drivesImg').attr('src');
+              $scope.drive.drivesFrom = $('#drivesFrom').html();
+              $scope.drive.goodsName = $('#drivesName').html();
+              $scope.drive.drivesType = $('#drivesType').html();
+              $scope.drive.timeDesc = $('#xc_timeDesc').html();
+              $scope.drive.manPrice = $('#selectAdultPrice').html();
+              $scope.drive.roomNum = $("#roomNum").val();
+              $scope.drive.manNum = $('#manNum').val();
+              if (($scope.drive.roomNum * 2 - $scope.drive.manNum) > 0) {
+                $scope.drive.homePrice = $('#roomPrice').html();
+              }
+              $scope.drive.childNum = $('#childNum').val();
+              $scope.drive.totalPrice = $('#df_totelprice').html();
+              $scope.drive.orderType = 1;
+              $scope.drive.goodsDrvivesTime = $('#xc_timeDesc').html();
+              $scope.drive.selectday = $('#df_seldate').html();
+              $scope.drive.timeId = $('#timeId').val();
+              serviceHttp.drivesForm($scope.drive)
+                .success(function(data){
+                  if(data['status']>0){
+                    window.location.href = "/o/"+data['orderId']+'.html';
+                  }
+                });
+            }else{
+              layer.msg('您尚未登录,登录了才能预定');
+            }
+          })
+      }
+  };
+}])
+.controller('VisaCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.visa = {};
+  $scope.visaNews = function(){
+   serviceHttp.isLogin().success(function(data){
+      if(data.status>0){
+        $scope.visa.manNum = $("#manNum").val();
+        $scope.visa.visaId = $("#visaId").html();
+        $scope.visa.visaPrice = $("#visaPrice").html();
+        $scope.visa.visaName = $("#visaName").html();
+        var addressId = $scope.addRess.addressId;
+        var check = $('input:checkbox').prop("checked");
+        if($scope.visa.manNum > 0){
+          if(check == true){
+            if($scope.visaAddress.$invalid || $scope.visaAddress.$error.required){
+                 layer.msg('请填写完整联系人信息');
+            }else{
+              serviceHttp.visaAddress($scope.visa)
+              .success(function(data){
+                if(data.status > 1){
+                  window.location.href = '/p/'+data.orderId+'.html';
+                }
+              })
+            }
+          }else if(check == false && addressId == 0){
+             layer.msg('请填写完整联系人信息');
+          }else if(check == false && addressId > 0){
+            $scope.visa.addressId = addressId;
+            serviceHttp.visaAddress($scope.visa)
+            .success(function(data){
+              if(data.status > 1){
+                window.location.href = '/p/'+data.orderId+'.html';
+              }
+            })
+          }
+        }else{
+          layer.msg('办理签证人数不能为空');
         }
       }else{
         layer.msg('您尚未登录,登录了才能预定');
       }
     })
   }
-}])
-.controller('VisaCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
   serviceHttp.getUserAddress().success(function(data) {
     $scope.addRess = data;
     if ($scope.addRess == null) {
@@ -297,7 +353,9 @@
     }
   }
 }])
+
 .controller('goodsCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+
   serviceHttp.getUserAddress().success(function(data) {
     $scope.addRess = data;
     if ($scope.addRess == null) {
@@ -312,46 +370,559 @@
       $('#ismrlxr').attr('checked',true);
     }
   });
-  $scope.goodOrAdd = function() {
-    console.log($scope.goodAddress);
+        // 选择套餐分店
+      $(".sf_tcs").click(function(){
+          $(".sf_tcc").children(".active").removeClass('active');
+          $(this).addClass("active");
+            $('#manPrice').html($(this).find('input').val());
+            $("#ticketVal").val($(this).find('span').html());
+            $("#ticketPrice").val($(this).find('input').val());
+      });
+      $(".sf_fds").click(function(){
+          $(".sf_fdc").children(".active").removeClass('active');
+          $(this).addClass("active");
+          $("#ticketFendian").val($(this).children().first().html());
+      });
+  $scope.ticket = {};
+  $scope.goodOrAdd = function(){
+    serviceHttp.isLogin().success(function(data){
+      if(data.status>0){
+        $scope.ticket.goodsId = $("#goodsId").val();
+        $scope.ticket.goodsThums = $(".s_descimg img").attr("src");
+        $scope.ticket.goodsName = $(".s_descimg img").attr("alt");
+        $scope.ticket.toTime = $("#goodSelectTime").val();
+        $scope.ticket.ticketVal = $("#ticketVal").val();
+        $scope.ticket.ticketPrice = $("#ticketPrice").val();
+        $scope.ticket.ticketFendian = $("#ticketFendian").val();
+        $scope.ticket.totalPrice = $("#sf_price").html();
+        $scope.ticket.adultNum = $("#manNum").val();
+        $scope.ticket.childNum = $("#childNum").val();
+        $scope.ticket.childPrice = $("#childPrice").html();
+        var check =  $("#ismrlxr").prop("checked");
+        var addressId = $("#addressId").val();
+        if($scope.ticket.ticketVal == ''){
+          layer.msg('请选择套餐');
+        }
+        if($(".sf_fds span").html() == ''){
+          if($scope.ticket.ticketFendian == ''){
+           layer.msg('请选择分店');
+          }
+        }
+        if($("#manNum").val() == 0){
+          layer.msg('成人数需大于1');
+        }
+        else if(check == false){
+            if($scope.goodAddress.$invalid || $scope.goodAddress.$error.required){
+                 layer.msg('请填写完整联系人信息');
+            }else{
+              serviceHttp.goodAddress($scope.ticket)
+              .success(function(data){
+                if(data.status > 1){
+                  window.location.href = '/p/'+data.orderId+'.html';
+                }
+              })
+            }
+        }else if(check == true && addressId > 0){
+            $scope.ticket.addressId = $("#addressId").val();
+            serviceHttp.goodAddress($scope.ticket)
+            .success(function(data){
+              if(data.status > 1){
+                window.location.href = '/p/'+data.orderId+'.html';
+              }
+            })
+        }
+      }
+      else{
+        layer.msg('您尚未登录,登录了才能预定');
+      }
+    })
+  }
+}])
+// 用户中心
+.controller('doReNameCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.userName = '';
+  $scope.doreName=function(){
+    serviceHttp.reName($scope.userName)
+    .success(function(data){
+      if (data['status'] > 0) {
+         layer.msg('昵称修改成功');
+         window.location.href = '/u.html';
+      }
+      else{
+        layer.msg('昵称修改失败');
+      }
+    })
+  }
+}])
+.controller('usersetCtrl',['$scope','serviceHttp',function($scope,serviceHttp){ 
+  serviceHttp.uclxrShow()
+  .success(function(data){
+      $scope.usershow = data;
+  });
+  $scope.userDefault = function(id){
+    serviceHttp.userDefault({addressId:id})
+    .success(function(data){
+      if(data['status'] == 1){
+        serviceHttp.uclxrShow()
+        .success(function(data){
+            $scope.usershow = data;
+      })
+    }
+    })
+  }
+  $scope.userAddressRemove = function(id){
+    serviceHttp.userAddressRemove({addressId:id})
+    .success(function(data){
+      if(data['status'] == 1){
+        serviceHttp.uclxrShow()
+        .success(function(data){
+            $scope.usershow = data;
+      })
+    }
+    })
+  }
+  $scope.user = {};
+  $scope.uclxr = function(){
+    serviceHttp.uclxr($scope.user)
+    .success(function(data){
+      if(data['status'] == 1){
+        layer.msg('添加联系人成功');
+        serviceHttp.uclxrShow()
+        .success(function(data){
+            $scope.usershow = data;
+            $scope.user = {};
+            $(".uclxr_forms").toggle();
+        })
+      }
+    }) 
+  }
+}])
+.controller('orderConfirmCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  serviceHttp.getUserAddress().success(function(data) {
+    $scope.addRess = data;
+    if (data == null) {
+        $("#odf_uselxr").hide();
+        $("#odf_addlxr").show();
+        scenic_heightchange();
+        $('#odf_check').attr('checked',false);
+        $scope.orderNews.addressId = 0;
+    }else{
+        $("#odf_uselxr").show();
+        $("#odf_addlxr").hide();
+        diverorder_heightchange();
+        $('#odf_check').attr('checked',true);
+        $scope.orderNews.addressId = data.addressId;
+    }
+  });
+  $("#odf_check").click(function() {
+    if (!$("#odf_check").is(":checked")) {
+        $("#odf_uselxr").hide();
+        $("#odf_addlxr").show();
+        $scope.orderNews.addressId = 0;
+    } else {
+        $("#odf_uselxr").show();
+        $("#odf_addlxr").hide();
+        $scope.orderNews.addressId = $("#addressId").val();
+    }
+    diverorder_heightchange();
+  });
+  $scope.orderNews = {};
+  $scope.orderNews.code = [];
+  $scope.orderNews.orderNo = $("#orderNo").val();
+  $scope.orderNews.orderId = $("#orderId").val();
+  $scope.nowPay = function(){
+    $scope.orderNews.userAddress = $scope.userAddress;
+    $scope.orderNews.totalPrice = $("#od_prices").html();
+    $scope.orderNews.codePrice = $("#codePrice").html();
+    $scope.orderNews.isBig = $("#inlineCheckbox1").prop("checked");
+    $scope.orderNews.isRead = $("#inlineCheckbox2").prop("checked");
+    if($scope.orderNews.isBig == true){
+      $scope.orderNews.isBig = 1;
+    }
+    else{
+      $scope.orderNews.isBig = 0;
+    }
+    if($scope.orderNews.isRead == true){
+      $scope.orderNews.isRead = 1;
+    }
+    else{
+      $scope.orderNews.isRead = 0;
+    }
+    var codes = [];
+    $("#odfz_codes input").each(function(){
+      var codeM = $(this).parent().next().html();
+      if(codeM>0){        
+        codes = codes.concat($(this).val());  
+      }
+    });
+    $scope.orderNews.codes = codes;
+    if($scope.orderNews.addressId > 0){
+      if($scope.orderNews.isRead == false){
+          layer.msg('请阅读《产品订购协议》');
+      }else{
+      serviceHttp.payNews($scope.orderNews)
+        .success(function(data){
+          if(data.status > 0){
+            window.location.href = '/p/'+data.orderId+'.html';
+          }
+        }) 
+      }
+    }else{
+      if($scope.orderForm.$invalid  || $scope.orderForm.$error.required){
+        layer.msg('请完整填写联系信息');
+      }else{
+        if($scope.orderNews.isRead == false){
+         layer.msg('请阅读产品订购协议');
+        }else{
+        serviceHttp.payNews($scope.orderNews)
+          .success(function(data){
+            if(data.status > 0){
+            window.location.href = '/p/'+data.orderId+'.html';
+            }
+          })
+        }
+      }
+    }
+  }
+}])
+.controller('payCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.payType = 0;
+  $(".p_ways").click(function(){
+      $("img[src='/Public/home/img/select.png']").attr("src","/Public/home/img/unselect.png");
+      $(this).find(".p_waysel img").attr("src","/Public/home/img/select.png");
+      switch($(this).attr("id"))
+      {
+      case 'pw_wx':
+        $scope.payType = 1;
+        break;
+      case 'pw_yl':
+        $scope.payType = 2;
+        break;
+      case 'pw_zfb':
+        $scope.payType = 3;
+        break;
+      default:
+        $scope.payType = 0;
+      }
+  });
+  $scope.toPay = function(){
+    if($scope.payType == 0){
+      layer.msg('请选择支付方式');
+    }else{
+      serviceHttp.editPayment({
+        orderId: $('#orderId').val(),
+        payment: $scope.payType,
+        adultNum: $('#adultNum').html()
+      }).success(function(data) {
+        if (data.status == -1) {
+          layer.msg('支付失败')
+        }else if (data.status == 2){
+          layer.msg('库存只有'+data.num);
+        }else{
+          if($scope.payType == 1){
+            window.location.href = '/wx/'+$('#orderId').val()+'/'+ $scope.payType+'.html';
+          }
+          if($scope.payType == 2){
+            window.location.href = '/yl/'+$('#orderId').val()+'/'+ $scope.payType+'.html';
+          }
+          if($scope.payType == 3){
+            window.location.href = '/zfb/'+$('#orderId').val()+'/'+ $scope.payType+'.html';
+          }
+        }
+      })
+    }
+  }
+}])
+.controller('ordersCtrl',['$scope','serviceHttp','Storage',function($scope,serviceHttp,Storage){
+  $scope.DelUserOrder = function(orderId){
+    layer.confirm('确定是否取消订单', {icon: 3, title:'提示'}, function(index){
+      if(index > 0){
+        serviceHttp.orDel({
+          orderId: orderId
+        }).success(function(data) {
+          if (data.status > 0) {
+            location.reload();
+          }
+        });
+        layer.close(index);
+      }
+    });
+  }
+}])
+.controller('ordersCarCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.addShow = false;
+  $scope.isGo = false;
+  serviceHttp.getOrderInfo({orderId: $("#orderId").val()})
+  .success(function(data){
+    if(data){
+      $scope.cIn = data.length;
+      if($scope.cIn == (parseInt($('#adultNum').html())+parseInt($("#childNum").html()))){
+        $scope.isGo = true;
+      }
+      $scope.inUser = data;
+    }else{
+      $scope.addShow = true;
+    }
+  });
+  $scope.addInfoShow = function(){
+    if($scope.cIn == (parseInt($('#adultNum').html())+parseInt($("#childNum").html()))){
+      $scope.addShow = false;
+    }else{
+      $scope.addShow = true;
+    }
+  };
+  $scope.sex1 = function(){
+    if($scope.info.sex1 == true){
+      $scope.info.sex2 = false;
+    }
+  };
+  $scope.sex2 = function(){
+    if($scope.info.sex2 == true){
+      $scope.info.sex1 = false;
+    }
+  };
+  $scope.addInfo = function(){
+    $scope.info.sex = $scope.info.sex1 == true ? 1 : 2;
+    $scope.info.orderId = $("#orderId").val();
+    serviceHttp.addUserIn($scope.info).success(function(data){
+      if(data.status > 0){
+        serviceHttp.getOrderInfo({orderId: $("#orderId").val()})
+        .success(function(data){
+          $scope.inUser = data;
+          $scope.cIn = $scope.inUser.length;
+          $scope.addShow = false;
+          $scope.info = {};
+        });
+      }
+    });
+  };
+  $scope.delInfo = function(id){
+    layer.confirm('确定是否删除被保险人', {icon: 3, title:'提示'}, function(index){
+      if(index > 0){
+        serviceHttp.getUserInDel({insuredId:id}).success(function(data) {
+          if(data.status > 0){
+            serviceHttp.getOrderInfo({orderId: $("#orderId").val()})
+            .success(function(data){
+              $scope.inUser = data;
+              $scope.cIn = $scope.inUser.length;
+              $scope.isGo = false;
+            });
+          }
+        })
+        layer.close(index);
+      }
+    });
+  };
+  $scope.addUserInfo = function(){
+    if($scope.cIn != (parseInt($('#adultNum').html())+parseInt($("#childNum").html()))){
+      layer.msg('请完整填写完出境保险人信息');
+    }else{
+      serviceHttp.addOUserIn({orderId:$("#orderId").val()}).success(function(data){
+        if(data.status>0){
+          window.location.href = '/order.html';
+        }else{
+          layer.msg('提交失败');
+        }
+      });
+    }
+  }
+}])
+.controller('ordersCommentCtrl',['$scope','serviceHttp','Storage',function($scope,serviceHttp,Storage){
+  $scope.mm = {};
+  $scope.addComment = function(){
+    if($('#drivesScore').val() == 0){
+      layer.msg('请为这个自驾游评分');
+      return;
+    }
+    if($scope.mm.conT == undefined){
+      layer.msg('请为这个自驾游评论');
+      return;
+    }
+    $scope.mm.drivesId = $('#drivesId').val();
+    $scope.mm.orderId = $('#orderId').val();
+    $scope.mm.orderNo = $('#orderNo').val();
+    $scope.mm.drivesScore = $('#drivesScore').val();
+    serviceHttp.addComment($scope.mm).success(function(data){
+      if(data.status > 0){
+        window.location.href = '/order.html';
+      }else{
+        layer.msg('评论失败,请重新评论');
+      }
+    });
   }
 }])
 .service('serviceHttp',['$http',function($http){
+  // 自驾游评论
+  this.addComment = function(data) {
+    return $http({
+      url: '/Home/Drives/addComment',
+      method: "POST",
+      data: data
+    });
+  };
+  // 订单删除
+  this.orDel = function(data) {
+    return $http({
+      url: '/Mobile/Orders/orDel',
+      method: "POST",
+      data: data
+    });
+  };
+  // 改变订单出行信息
+  this.addOUserIn = function(data) {
+    return $http({
+      url: '/Home/Orders/addOUserIn',
+      method: "POST",
+      data: data
+    });
+  };
+  //删除被保险人
+  this.getUserInDel = function(data) {
+        return $http({
+          url: '/Mobile/Orders/getUserInDel',
+          method: "POST",
+          data: data
+        });
+      };
+  // 添加出行被保险人
+  this.addUserIn = function(data) {
+    return $http({
+      url: '/Mobile/Orders/addUserIn',
+      method: "POST",
+      data: data
+    });
+  };
+  // 获取订单出行被保险人
+  this.getOrderInfo = function(data){
+    return $http({
+      url: '/Mobile/Orders/getUserIn',
+      method: "POST",
+      data: data
+    });
+  };
+  //获取订单列表
+  this.OrdersList = function(data){
+    return $http({
+      url: '/Home/Orders/OrdersList',
+      method: "POST",
+      data:data
+    });
+  };
+  //签证地址
+  this.visaAddress = function(data){
+    return $http({
+      url: '/Home/Visas/visaUserNews',
+      method: "POST",
+      data:data
+    });
+  };
+  //门票地址
+  this.goodAddress = function(data){
+    return $http({
+      url: '/Home/Goods/goodsNews',
+      method: "POST",
+      data:data
+    });
+  };
+  // 确认自驾
+  this.payNews = function(data){
+    return $http({
+      url: '/Home/Orders/payNews',
+      method: "POST",
+      data:data
+    });
+  };
+  // 自驾订单添加
+  this.drivesForm = function(data){
+    return $http({
+      url: '/Home/Orders/addOrders',
+      method: "POST",
+      data:data
+    });
+  };
+  // 用户是否登录
   this.isLogin = function() {
     return $http({
       url: '/home/Base/getLogin',
       method: "POST"
     });
   };
-  this.getApList=function(data){
+  // 用户地址删除
+  this.userAddressRemove = function(data){
+    return $http({
+      url: '/Home/Users/userAddressRemove',
+      method: "POST",
+      data:data
+    });
+  };
+  // 用户地址 默认设置
+  this.userDefault = function(data){
+    return $http({
+      url: '/Home/Users/userDefault',
+      method: "POST",
+      data:data
+    });
+  };
+  // 用户联系人
+  this.uclxrShow = function(){
+    return $http({
+      url: '/Home/Users/usershow',
+      method: "POST",
+      data:''
+    });
+  };
+  // 添加联系人
+  this.uclxr = function(data){
+    return $http({
+      url: '/Home/Users/usersetajax',
+      method: "POST",
+      data:data
+    });
+  };
+  // 用户名更新
+  this.reName = function(data){
+    return $http({
+      url: '/Home/Users/doReNameAjax',
+      method: "POST",
+      data:{
+        newName:data
+      }
+    });
+  };
+  // 自驾时间
+  this.getApList = function(data){
     return $http({
       url: '/Api/V1/getApList',
       method: "POST",
       data:data
     });
   };
+  // 酒店详情
   this.getHotel = function(HotelsId) {
     return $http({
-      url: '/Mobile/Drives/getHotel',
+      url: '/Home/Drives/getHotel',
       method: "POST",
       data: {
         HotelsId: HotelsId
       }
     });
   };
+  // 获取报名地址
   this.getgoPlace = function() {
     return $http({
-      url: '/Mobile/Drives/goPlace',
+      url: '/Home/Drives/goPlace',
       method: "POST",
     });
   };
+  // 报名时间
   this.addGoTime=function(data){
     return $http({
-      url: '/Mobile/Gos/addGoTime',
+      url: '/Home/Gos/addGoTime',
       method: "POST",
       data:data
     });
   };
+  // 获取自驾
   this.getDList=function(data){
     return $http({
       url: '/Api/V1/getDList',
@@ -359,12 +930,14 @@
       data:data
     });
   };
+  // 获取用户默认地址
   this.getUserAddress = function() {
     return $http({
-      url: '/Mobile/Users/getAddress',
+      url: '/Home/Users/getAddress',
       method: "POST"
     });
   };
+  // 忘记密码
   this.setpassword=function(data){
     return $http({
       url:'/Home/Users/setpassword',
@@ -372,6 +945,7 @@
       data: data
     });
   };
+  // 电话是否存在
   this.getPhone=function(data){
     return $http({
       url:'/Home/Users/getPhone',
@@ -381,6 +955,7 @@
       }
     });
   };
+  // 用户登录
   this.userLogin=function(data){
     return $http({
       url:'/Home/Users/userLogin',
@@ -388,6 +963,7 @@
       data: data
     });
   };
+  // 短信发送
   this.smsSend=function(data){
     return $http({
       url:'/Home/Tools/smsSend',
@@ -397,6 +973,7 @@
       }
     });
   };
+  // 用户注册
   this.UserAdd=function(data){
     return $http({
       url:'/Home/Users/UserAdd',
@@ -404,12 +981,43 @@
       data:data
     });
   };
+  // 订单支付更新
+  this.editPayment = function(data) {
+    return $http({
+      url: '/Home/Pay/editPayment',
+      method: "POST",
+      data: data
+    });
+  };
 }])
+.factory('Storage', function() {
+  return {
+    set: function(key, data) {
+      return window.localStorage.setItem(key, window.JSON.stringify(data));
+    },
+    get: function(key) {
+      return window.JSON.parse(window.localStorage.getItem(key));
+    },
+    remove: function(key) {
+      return window.localStorage.removeItem(key);
+    }
+  };
+})
 .filter('to_trusted', ['$sce', function($sce) {
   return function(text) {
     return $sce.trustAsHtml(text);
   };
 }])
+.directive('onFinishRenderFilters', function ($window,$timeout) {
+  return {
+    restrict: 'A',
+    link: function (scope, element, attr) {
+      if (scope.$last === true) {
+        $timeout(function () { scope.$emit('ngRepeatFinished'); });
+      }
+    }
+  }
+})
 .directive('ndComnav', [
   function () {
     return {

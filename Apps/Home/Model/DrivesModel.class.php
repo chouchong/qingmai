@@ -10,7 +10,7 @@ class DrivesModel extends BaseModel {
 	 */
 	public function getDrivesList(){
     $m = M('drives');
-    $pageSize = 1;
+    $pageSize = 10;
     $data = $m->field('drivesId,drivesDay,solaCount,pcDrivesImg,adultPrice,drivesDesc,drivesName,drivesFrom')->where('isSola=1')->order('drivesId desc')->limit($pageSize*I('page',0),$pageSize)->select();
     for ($i=0; $i < count($data); $i++) {
       $data[$i]['tp'] = M('drives_timeprice')->field('adultPrice')->where(array('drivesId' =>  $data[$i]['drivesId'],'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();
@@ -52,5 +52,36 @@ class DrivesModel extends BaseModel {
       $data['ap'] = $this->query($apSQL);
       $data['apcount'] = M('drives_appraises')->where(array('drivesId' => I('drivesId')))->count();
       return $data;
+    }
+    //
+    public function getInfo()
+    {
+      $rs = M('order_goods')->field('drivesId')->where(array('orderId' => I('orderId')))->find();
+      $orderNo = M('orders')->field('orderNo')->where(array('orderId' => I('orderId')))->find();
+      $m = M('drives');
+      $data = $m->field('drivesId,pcDrivesImg,drivesName,drivesFrom')->where(array('drivesId' =>$rs['drivesId']))->find();
+      $data['orderNo'] =  $orderNo['orderNo'];
+      $data['orderId'] = I('orderId');
+      return $data;
+    }
+    /**
+    *自驾添加评论
+    **/
+    public function addComment()
+    {
+      $rd = array('status' => -1);
+      $data['drivesId'] = I('drivesId');
+      $data['userId'] = session('Users')['userId'];
+      $data['drivesScore'] = I('drivesScore');
+      $data['content'] = I('conT');
+      $data['orderNo'] = I('orderNo');
+      $data["createTime"] = date('Y-m-d H:i:s');
+      $data['isShow'] = 1;
+      $rs = M('drives_appraises')->add($data);
+      if($rs !== false){
+        M('orders')->where(array('orderId'=>I('orderId')))->save(array('orderStatus' =>3));
+        $rd['status'] = 1;
+      }
+      return $rd;
     }
 }

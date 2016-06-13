@@ -82,10 +82,9 @@ class PaysAction extends BaseAction {
     $Uniopay = new \Org\Pay\UnionPay(); //实例化银联支付操作类
     $Pay = D('Mobile/Pays');
     if($Uniopay->Check($_POST)){    //验证
-        $this->row = $Pay->getInfoNo($_POST['orderNo']);
+        $this->row = $Pay->getInfoNo($_POST['orderId']);
         C('TOKEN_ON',false);
         $sms = new YunpianSms();
-
         $data=array(
           'tpl_id'=>'1357523',
           'tpl_value'=>('#tel#').'='.urlencode($GLOBALS['CONFIG']['phoneNo']),
@@ -94,7 +93,7 @@ class PaysAction extends BaseAction {
         $object = $sms->yp_send_tpl($data);
         $this->view->display('/tpl/paySu');
     }else{
-        $this->row = $Pay->getInfoNo($_POST['orderNo']);
+        $this->row = $Pay->getInfoNo($_POST['orderId']);
         $this->isNo = 1;
         C('TOKEN_ON',false);
         $this->view->display('/tpl/paySu');
@@ -177,7 +176,7 @@ class PaysAction extends BaseAction {
     $unifiedOrder->setParameter("out_trade_no", $row['orderNo']);//商户订单号
     $unifiedOrder->setParameter("total_fee", $total_fee);//总金额
     $unifiedOrder->setParameter("attach", "$pkey");//附加数据
-    $unifiedOrder->setParameter("notify_url", "http://gozztrip.com/Mobile/Pays/wxNotify");//通知地址
+    $unifiedOrder->setParameter("notify_url", "http://www.gozztrip.com/Mobile/Pays/wxNotify");//通知地址
     $unifiedOrder->setParameter("trade_type", "JSAPI");//交易类型
     $unifiedOrder->SetParameter("input_charset", "UTF-8");
     //非必填参数，商户可根据实际情况选填
@@ -201,7 +200,6 @@ class PaysAction extends BaseAction {
     // 存储微信的回调
     $xml = $GLOBALS ['HTTP_RAW_POST_DATA'];
     $notify->saveData ( $xml );
-
     // 验证签名，并回应微信。
     if ($notify->checkSign () == FALSE) {
       $notify->setReturnParameter ( "return_code", "FAIL" ); // 返回状态码
@@ -210,7 +208,6 @@ class PaysAction extends BaseAction {
       $notify->setReturnParameter ( "return_code", "SUCCESS" ); // 设置返回码
     }
     $returnXml = $notify->returnXml ();
-    echo $returnXml;
     // ==商户根据实际情况设置相应的处理流程=======
     if ($notify->checkSign () == TRUE) {
       if ($notify->data ["return_code"] == "FAIL") {
@@ -223,5 +220,6 @@ class PaysAction extends BaseAction {
         D('Mobile/Pays')->editOrder($order["out_trade_no"]);
       }
     }
+    echo $returnXml;
   }
 }

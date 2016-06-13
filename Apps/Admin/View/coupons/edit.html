@@ -58,6 +58,8 @@
 			}else{
 				Plugins.closeWindow();
 				Plugins.Tips({title:'信息提示',icon:'error',content:'操作失败!',timeout:1000});
+        location.reload();
+        // location.href="{:U('Admin/coupons/toView')}";
 			}
 		});
    }

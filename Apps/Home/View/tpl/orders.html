@@ -1,0 +1,174 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>我的订单</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</block>
+<block name="css"></block>
+<block name="main">
+<div ng-app="myapp" ng-controller="ordersCtrl">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="mo_content">
+            <h2>&nbsp;&nbsp;我的订单</h2>
+            <empty name="row">
+            <div class="mot_noorder">
+                <img src="__PUBLIC__/home/img/noorder.png" alt="">
+                <br><br><br><a href="/index.html" class="btn btn-info">回到主页</a>&nbsp;&nbsp;
+            </div>
+            <else/>
+            <div class="mot_head">
+                <div class="motd motd_order">
+                    订单号
+                </div>
+                <div class="motd motd_img">
+                    产品图片
+                </div>
+                <div class="motd motd_name">
+                    产品名称
+                </div>
+                <div class="motd motd_desc">
+                    产品详情
+                </div>
+                <div class="motd motd_state">
+                    状态
+                </div>
+                <div class="motd motd_sourse">
+                    &nbsp;
+                </div>
+                <div class="motd motd_control">
+                     操作
+                </div>
+            </div>
+            <div class="mot_body">
+            <volist name="row" id="vo">
+                <div class="mot_item">
+                    <div class="motd motd_order">
+                        <p>{$vo.orderNo}</p>
+                    </div>
+                    <div class="motd motd_img">
+                        <if condition="$vo['goodsType'] lt 3">
+                            <img src="{$vo.goodsThums}" alt="" width="140" height="80">
+                        <else />
+                            <img src="__PUBLIC__/home/img/visa.jpg" alt="" width="140" height="80">
+                        </if>
+                    </div>
+                    <div class="motd motd_name">
+                        <p>{$vo.goodsName}</p>
+                        <if condition="$vo['goodsType'] eq 1">
+                        <span>{$vo.drivesTo}</span>
+                        </if>
+                        <if condition="$vo['goodsType'] eq 2">
+                        <span>{$vo.goodsAttrName}&nbsp;&nbsp;{$vo.goodsAttrShop}</span>
+                        </if>
+                    </div>
+                    <div class="motd motd_desc">
+                        <if condition="$vo['goodsType'] lt 3">
+                            <p>出发时间：{$vo.toTime}</p>
+                        <else />
+                            <p>出发时间：{$vo.createTime}</p>
+                        </if>
+                        <if condition="$vo['adultNum'] gt 0">
+                            <p>成人：{$vo.adultNum}x{$vo.adultPrice}</p>
+                        </if>
+                        <if condition="$vo['childNum'] gt 0">
+                            <p>儿童：{$vo.childNum}x{$vo.childPrice}</p>
+                        </if>
+                        <if condition="$vo['roomNum'] gt 0">
+                            <p>房间：{$vo['roomNum']}间标准双床房</p>
+                        </if>
+                         <if condition="$vo['roomNum'] gt 0">
+                            <p>总单房差：{$vo['roomNum']*2*$vo['roomPrice']-$vo['adultNum']*$vo['roomPrice']}</p>
+                        </if>
+                    </div>
+                    <div class="motd motd_state">
+                        <p>
+                        <if condition="$vo['goodsType'] gt 1">
+                            <if condition="$vo['orderStatus'] eq 0">
+                                <span style="color:#595">未支付</span>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 3">
+                                <span style="color:#595">已完成</span>
+                            </if>
+                        <else/>
+                            <if condition="$vo['orderStatus'] eq 0">
+                                <span style="color:#595">未支付</span>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 1">
+                                <span style="color:#595">待出行</span>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 2">
+                                <span style="color:#595">去评论</span>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 3">
+                                <span style="color:#595">已完成</span>
+                            </if>
+                        </if>
+
+                            <!-- <span style="color:#955">未完成</span> -->
+                        </p>
+                    </div>
+                    <div class="motd motd_sourse">
+                        <if condition="$vo['goodsType'] gt 1">
+                            <if condition="$vo['orderStatus'] eq 0">
+                                <a href="/p/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_comment" style="background: red;">去支付</div></a>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 3">
+                                <div class="motd_comment">已完成</div>
+                            </if>
+                        <else/>
+                            <if condition="$vo['orderStatus'] eq 0">
+                                <a href="/p/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_pay" >去支付</div></a>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 1">
+                                <a href="/info/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_insure">被保险人</div></a>
+                                <a href="/car/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_carliense" style="margin-top: 10px;">出境车辆行驶证</div></a>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 2">
+                                <a href="/comment/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_comment" >去评论</div></a>
+                                <a href="/info/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_insure" style="margin-top: 10px;">被保险人</div></a>
+                                <a href="/car/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_carliense" style="margin-top: 10px;">出境车辆行驶证</div></a>
+                            </if>
+                            <if condition="$vo['orderStatus'] eq 3">
+                                <div class="motd_comment" >已完成</div>
+                            </if>
+                        </if>
+                    </div>
+                    <div class="motd motd_control">
+                        <if condition="$vo['orderStatus'] eq 0">
+                            <span class="glyphicon glyphicon-trash" ng-click="DelUserOrder({$vo.orderId})">&nbsp;</span>
+                        </if>
+                    </div>
+                </div>
+                </volist>
+                <div class="mot_load">
+                     <div class="pager">{$pager}</div>
+                </div>
+            </div>
+            </empty>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+<script type="text/javascript">
+$(function(){
+    $(".mot_item").each(function(index){
+        var item_h = $(this).height();
+        var img_h = $(this).children(".motd_img").height();
+        var name_h = $(this).children(".motd_name").height();
+        var desc_h = $(this).children(".motd_desc").height();
+        var sourse_h = $(this).children(".motd_sourse").height();
+        $(this).children(".motd_order").css("margin-top",item_h/2-12+"px");
+        $(this).children(".motd_img").css("margin-top",item_h/2-img_h/2+"px");
+        $(this).children(".motd_name").css("margin-top",item_h/2-name_h/2+"px");
+        $(this).children(".motd_desc").css("margin-top",item_h/2-desc_h/2+"px");
+        $(this).children(".motd_state").css("margin-top",item_h/2-8+"px");
+        $(this).children(".motd_sourse").css("margin-top",item_h/2-sourse_h/2+"px");
+        $(this).children(".motd_control").css("margin-top",item_h/2-8+"px");
+        console.log(index);
+    });
+});
+</script>
+</block>

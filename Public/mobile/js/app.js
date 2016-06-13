@@ -796,7 +796,7 @@
         }
       }
     }])
-    .controller("payCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicScrollDelegate, serviceHttp) {
+    .controller("payCtrl", ['$rootScope', '$scope', '$ionicScrollDelegate', 'Storage','serviceHttp', function($rootScope, $scope, $ionicScrollDelegate,Storage, serviceHttp) {
       $scope.payBack = function(){
         if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
             Storage.set('isBack',1)

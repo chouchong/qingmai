@@ -9,17 +9,20 @@ class CouponsModel extends BaseModel {
     * 新增
     */
     public function insert(){
-    	$rd=array('status'=>-1);
-    	$data=array();
-    	$data["couponsPrice"] = I("couponsPrice");
-    	$data["couponsCode"] = I("couponsCode");
-    	if($this->checkEmpty($data,true)){
-            $m = M('coupons');
-    		 $couponsId = $m->add($data);
-    		 if($couponsId){
-				$rd['status'] = 1;
-    		}
-    	}
+        $rd=array('status'=>-1);
+        $data=array();
+        $data["couponsPrice"] = I("couponsPrice");
+        $data["couponsCode"] = I("couponsCode");
+        if($this->checkEmpty($data,true)){
+             $m = M('coupons');
+             $k = M('coupons')->where(array('couponsCode'=>I("couponsCode")))->find();
+             if(!$k){
+                 $couponsId = $m->add($data);
+                 if($couponsId){
+                    $rd['status'] = 1;
+                 }
+             }
+        }
         return $rd;
     }
       /**

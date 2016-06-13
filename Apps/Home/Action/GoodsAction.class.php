@@ -15,4 +15,12 @@ class GoodsAction extends BaseAction {
     $this->daytime = date('Y-m', time());
     $this->display('tpl/goods');
   }
+   /**
+  *提交门票信息
+  **/
+  public function goodsNews()
+  {
+    $rs = D('Home/Goods')->goodsNews();
+    $this->ajaxReturn($rs);
+  }
 }

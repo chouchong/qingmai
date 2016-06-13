@@ -29,20 +29,21 @@ class CouponsAction extends BaseAction{
   {
     $this->isLogin();
     $this->checkPrivelege('yhgl_01');
-    $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $strlen = 26; 
-    while($length > $strlen){ 
-    $str .= $str; 
-    $strlen += 26; 
-    } 
+    $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    $strlen = 52;
+    while($length > $strlen){
+    $str .= $str;
+    $strlen += 52;
+    }
     $str = str_shuffle($str);
     if(I('id')>0){
       $object = D('Admin/Coupons')->pageById();
     }else{
-      $object['couponsCode'] = substr($str,0,1).time();
+      $object['couponsCode'] = substr($str,0,1).substr(time(), 3, 6);
     }
     $this->assign('object',$object);
     $this->view->display('/coupons/edit');
+
   }
   /**
   *优惠码列表

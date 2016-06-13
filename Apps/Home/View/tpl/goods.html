@@ -12,10 +12,6 @@
         <include file="tpl:comnav" />
     </nav>
     <div class="s_con">
-        <!-- <div class="s_title">
-            <h2>丛林飞跃</h2>
-            <p>飞呀飞呀</p>
-        </div> -->
         <div class="s_desc">
             <div class="s_descimg">
                 <img src="/{$good.goodsImg}" alt="{$good['goodsName']}" height="500px">
@@ -73,6 +69,7 @@
                         联系人信息
                     </div>
                 </div>
+                <input type="hidden" id="goodsId" value="{$good['goodsId']}">
                 <div class="v_cdescs" style="overflow:hidden;padding: 0 20px;">
                     <div class="checkbox" style="float:right;" ng-show="addRess">
                         <label>
@@ -98,25 +95,25 @@
                         <div class="form-group" ng-class="{'has-error':goodAddress.aName.$dirty && goodAddress.aName.$invalid}">
                             <label for="inputEmail3" class="col-sm-3 control-label">联系人</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="aName" ng-model="user.aName" placeholder="请输入联系人" required>
+                                <input type="text" class="form-control" name="aName" ng-model="ticket.aName" placeholder="请输入联系人" required>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':goodAddress.phone.$dirty && goodAddress.phone.$invalid}">
                             <label for="inputPassword3" class="col-sm-3 control-label">联系电话</label>
                             <div class="col-sm-9">
-                                <input type="tel" class="form-control" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
+                                <input type="tel" class="form-control" name="phone" ng-model="ticket.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':goodAddress.email.$dirty && goodAddress.email.$invalid}">
                             <label for="inputPassword3" class="col-sm-3 control-label">联系人邮件</label>
                             <div class="col-sm-9">
-                                <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="请输入联系邮箱" required>
+                                <input type="email" class="form-control" name="email" ng-model="ticket.email" placeholder="请输入联系邮箱" required>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{'has-error':goodAddress.address.$dirty && goodAddress.address.$invalid}">
                             <label for="inputPassword3" class="col-sm-3 control-label">联系人地址</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="address" ng-model="user.address" placeholder="联系人地址" required>
+                                <input type="text" class="form-control" name="address" ng-model="ticket.address" placeholder="联系人地址" required>
                             </div>
                         </div>
                     </form>
@@ -131,8 +128,10 @@
                     <div class="sf_tcc">
                     	<volist name="good.attrPrice" id="p">
                         <div class="sf_tcs">
-                            {$p.attrVal}
+                            <span>{$p.attrVal}</span>
                             <input type="hidden" value="{$p['attrPrice']}" />
+                            <input type="hidden" id="ticketVal">
+                            <input type="hidden" id="ticketPrice">
                         </div>
                     	</volist>
                     </div>
@@ -146,7 +145,8 @@
                     <div class="sf_fdc">
                     <volist name="good.attrfd" id="f">
                         <div class="sf_fds">
-                            {$f.attrVal}
+                            <span>{$f.attrVal}</span>
+                        <input type="hidden" id="ticketFendian">
                         </div>
                     </volist>
                     </div>
@@ -171,23 +171,24 @@
                       			</span>
                             </div>
                         </div>
+                        <input type="hidden" id="goodSelectTime">
                         <div class="sfi_r"><span id="manPrice">{$good['adultPrice']}</span>元/人</div>
                     </div>
                     <if condition="$good['childPrice'] gt 0">
                     <div class="sf_input">
-                        <div class="sfi_l">儿童</div>
+                        <div class="sfi_l" id="ertong">儿童</div>
                         <div class="sfi_c ">
                             <div class="input-group">
                                 <span class="input-group-btn">
 		                        	<button class="btn btn-default" type="button">-</button>
 		                      	</span>
-                                <input type="text" id="childNum" class="form-control" value="0" readonly="true">
+                                <input type="text" id="childNum" class="form-control"  value="0" readonly="true">
                                 <span class="input-group-btn">
 		                        	<button class="btn btn-default" type="button">+</button>
 		                      	</span>
                             </div>
                         </div>
-                        <div class="sfi_r"><span id="childPrice">{$good['childPrice']}</span>元/人</div>
+                        <div class="sfi_r"><span id="childPrice">{$good['childPrice']}</span>元/人</div>{{adultNum}}
                     </div>
                		 </if>
                 </div>
@@ -221,15 +222,7 @@
 	        $("#addmrlxr").toggle();
 	        scenic_heightchange();
 	    });
-	    // 选择套餐分店
-	    $(".sf_tcs").click(function(){
-	        $(".sf_tcc").children(".active").removeClass('active');
-	        $(this).addClass("active");
-	    });
-	    $(".sf_fds").click(function(){
-	        $(".sf_fdc").children(".active").removeClass('active');
-	        $(this).addClass("active");
-	    });
+
 	    // 选择日期
 	    var selectedDate;
 	    $("#calendarSelect").on("click", ".dateSelect", function() {
@@ -241,6 +234,7 @@
 	            $(this).children(".dateSelectDay").addClass("selected");
 	            selectedDate = dateSelectDay;
                 $('#today').html($(this).children(".dateSelectDay").attr("id"))
+                $("#goodSelectTime").val($(this).children(".dateSelectDay").attr("id"));
 	        }
 	        disabled_isClick('manNum');disabled_isClick('childNum');
 	    });
@@ -257,8 +251,8 @@
 	            ++jiaNum;
 	            $("#" + id).val(jiaNum);
 	            disabled_is_prevClick('manNum');disabled_is_prevClick('childNum');
-	            var totalPrice = parseInt($('#manPrice').html()) * parseInt($("#manNum").val());
-	            var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+	            var totalPrice = $('#manPrice').html() * parseInt($("#manNum").val());
+	            var childtotalPrice = $('#childPrice').html() * parseInt($("#childNum").val());
                 if($("#childNum").val() == undefined){
                     childtotalPrice = 0;
                 }

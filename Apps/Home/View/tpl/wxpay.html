@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="__PUBLIC__/home/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/home/css/custom.css">
+    <load href="__PUBLIC__/home/js/wxpay/qrcode.js" />
+    <load href="__PUBLIC__/home/js/wxpay/Base.js" />
+    <load href="__PUBLIC__/home/js/wxpay/prototype.js" />
+    <load href="__PUBLIC__/home/js/wxpay/mootools.js" />
+    <load href="__PUBLIC__/home/js/wxpay/Ajax/ThinkAjax.js" />
+    <style type="text/css" >
+        .ThinkAjax{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="p_content">
+    <script language="JavaScript">
+        var out_trade_no = "<?php echo $out_trade_no; ?>";
+        function Check()
+        {
+            ThinkAjax.send('/Home/Pay/orderQuery','ajax=1&out_trade_no='+out_trade_no,goto);
+        }
+        function goto(data,status){
+            if (status==1)
+            {
+                window.location.href='/wxBack/'+out_trade_no+'.html';//跳转地址
+            }
+        }
+        window.setInterval("Check()",3000);
+    </script>
+    <div class="pewm_img">
+        <div class="pewm_imgbg">
+            <img src="__PUBLIC__/home/img/payewm2.png" alt="">
+        </div>
+        <div class="pewm_imgprice">
+            <h2>￥{$totalMoney}</h2>
+            <div align="center" id="qrcode"></div>
+        </div>
+    </div>
+    </div>
+    <include file="tpl:footer"/>
+    <!-- <script src="__PUBLIC__/home/libs/jquery/dist/jquery.min.js"></script> -->
+    <!-- <script src="__PUBLIC__/home/libs/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script>
+        if(<?php echo $unifiedOrderResult["code_url"] != NULL; ?>)
+        {
+            var url = "<?php echo $code_url;?>";
+            //参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
+            var qr = qrcode(10, 'H');
+            qr.addData(url);
+            qr.make();
+            var wording=document.createElement('p');
+            // wording.innerHTML = "微信支付";
+            var code=document.createElement('DIV');
+            code.innerHTML = qr.createImgTag();
+            var element=document.getElementById("qrcode");
+            element.appendChild(wording);
+            element.appendChild(code);
+        }
+    </script>
+</body>
+
+</html>

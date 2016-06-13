@@ -1,0 +1,94 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>出行被保险人</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</block>
+<block name="css"></block>
+<block name="main">
+<div ng-app="myapp" ng-controller="ordersCarCtrl">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="is_c">
+        <div class="is_h">
+        <input type="hidden" id="orderId" value="{$row['orderId']}">
+            订单号&nbsp;&nbsp;<span id="is_hid">{$row.orderNo}</span>
+            <span style="float:right;"><span id="adultNum">{$row.adultNum}</span>成人&nbsp;&nbsp;<span id="childNum">{$row.childNum}</span>儿童</span>
+        </div>
+        <hr style="margin: 0;">
+        <div style="font-size: 18px;padding: 20px;">
+            被保险人信息（请按护照信息录入）
+            <div class="is_addman">
+                <button  id="is_addman" type="button" class="btn btn-danger" ng-click="addInfoShow()" ng-show="isGo == false">增加保险人</button>
+            </div>
+        </div>
+        <hr style="margin: 0;">
+        <div class="is_lists">
+            <div class="is_item" ng-repeat="vo in inUser">
+                <div class="is_itemuser">
+                    <span class="glyphicon glyphicon-user"></span>
+                </div>
+                <div class="is_itemn">
+                    姓名：<span>{{vo.userName}}</span>
+                </div>
+                <div class="is_itemhm">
+                    护照号码：<span>{{vo.userCard}}</span>
+                </div>
+                <div class="is_itemsex">
+                    性别：<span ng-if="vo.sex == 1">男</span><span ng-if="vo.sex == 2">女</span>
+                </div>
+                <div class="is_itemdel">
+                    <span class="glyphicon glyphicon-trash" ng-click="delInfo(vo.insuredId)" ng-show="isGo == false"></span>
+                </div>
+            </div>
+        </div>
+        <hr style="margin: 0;">
+        <div class="is_fs" ng-show="addShow == true">
+            <form name="infoForm" novalidate>
+            <div class="is_f form-horizontal">
+                <div class="is_ig">
+                    <div class="form-group" ng-class="{'has-error':infoForm.userName.$dirty && infoForm.userName.$invalid}">
+                        <label for="inputEmail3" class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="is_name" placeholder="姓名" ng-model="info.userName" required name="userName" >
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error':infoForm.userCard.$dirty && infoForm.userCard.$invalid}">
+                        <label for="inputPassword3" class="col-sm-3 control-label">护照号码</label>
+                        <div class="col-sm-9">
+                            <input id="is_port" type="text" class="form-control" placeholder="护照号码" ng-model="info.userCard" required name="userCard">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="checkbox" name="sex1" id="inlineRadio1" ng-model="info.sex1" ng-change="sex1()"> 男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="checkbox" name="sex2" id="inlineRadio2" ng-model="info.sex2" ng-change="sex2()"> 女
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="is_ifsub">
+                    <button class="btn" ng-click="addInfo()" ng-disabled="infoForm.$invalid" style="padding: 15px 20px;border-radius: 5px;background: #6DC5DB;color: #fff;cursor: pointer;" id="is_ifsubbtn">确定添加</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="is_submit">
+            <div class="is_submitdesc">
+                <p>以上信息用于购买旅行社责任保险及出国人员旅游意外保险、填表人已详细核对并按护照信息录入、如因填报人说录入的信息有误而导致保险时效的后果自负！</p>
+            </div>
+            <div class="is_submitbtn" ng-show="isGo == false">
+                <button id="is_submitbtn" type="button" class="btn btn-info btn-lg" ng-click="addUserInfo()">提交</button>
+            </div>
+        </div>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+</block>

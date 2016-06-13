@@ -14,4 +14,11 @@ class VisasAction extends BaseAction {
     // var_dump($this->visa);
     $this->display('tpl/visa');
   }
+  /**
+   * 签证用户信息
+   */
+  public function visaUserNews(){
+    $rs = D('Home/Visas')->visaUserNews();
+    $this->ajaxReturn($rs);
+  }
 }

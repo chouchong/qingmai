@@ -1,0 +1,99 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>联系人管理</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="uc_c" ng-app='myapp' ng-controller='usersetCtrl'>
+        <div class="uc_ct">
+            <h1>联系人管理</h1>
+        </div>
+        <div class="uc_cmsg">
+            <div class="uc_cmlxr">
+                 <div class="uc_cmlxrmsg">
+                     <div class="uc_cmlxrmt">
+                         默认联系人信息
+                     </div>
+                     <div class="uc_cmlxrxg" onclick="uclxr_formsshow()">添加联系人</div>
+                 </div>
+            </div>
+            <hr>
+            <div class="uclxr_forms" style="display:none">
+                 <form class="uclxr_form form-horizontal" name="lxrForm" novalidate>
+                     <div class="form-group" ng-class="{'has-error':lxrForm.name.$dirty && lxrForm.name.$invalid}">
+                         <label for="inputEmail3" class="col-sm-3 control-label">联系人</label>
+                         <div class="col-sm-8">
+                             <input type="text" class="form-control" id="usl_name" placeholder="联系人" ng-model="user.name" required name="name">
+                         </div>
+                     </div>
+                     <div class="form-group" ng-class="{'has-error':lxrForm.phone.$dirty && lxrForm.phone.$invalid}">
+                         <label for="inputPassword3" class="col-sm-3 control-label">联系电话</label>
+                         <div class="col-sm-8">
+                             <input type="tel" class="form-control" id="usl_tel" placeholder="联系电话" ng-model="user.phone" name="phone" ng-pattern="/^1\d{10}$/" required>
+                         </div>
+                     </div>
+                     <div class="form-group" ng-class="{'has-error':lxrForm.email.$dirty && lxrForm.email.$invalid}">
+                         <label for="inputPassword3" class="col-sm-3 control-label">电子邮件</label>
+                         <div class="col-sm-8">
+                             <input type="email" class="form-control" id="usl_email" placeholder="联系人电子邮件" ng-model="user.email" name="email" required>
+                         </div>
+                     </div>
+                     <div class="form-group" ng-class="{'has-error':lxrForm.address.$dirty && lxrForm.address.$invalid}">
+                         <label for="inputPassword3" class="col-sm-3 control-label">联系人地址</label>
+                         <div class="col-sm-8">
+                             <input type="text" class="form-control" id="usl_adr" placeholder="联系人地址" ng-model="user.address" name="address" required>
+                         </div>
+                     </div>
+                     </form>
+                     <div class="uclxr_formsub">
+                     <button type="submit" ng-disabled="lxrForm.$invalid || lxrForm.$error.required" class="btn btn-primary btn-block" ng-click="uclxr()" style="margin: 0 auto;margin-top: 65px;width: 80px;padding: 8px;background: #6EADD2;color: #fff;text-align: center;border-radius: 5px;">添加</button>      
+                 </div>
+                 
+            </div>
+            <!-- 我的联系人 -->
+            <div class="uclxr_lists">
+                <div class="uclxr_list" ng-repeat="user in usershow">
+                     <div class="uclxr_listl">
+                         姓名：<span class="uclxr_listname">{{user.userName}}</span>
+                     </div>
+                     <div class="uclxr_listr">
+                         地址：<span class="uclxr_listadr">{{user.address}}</span>
+                     </div>
+                     <div style="clear:both;">
+                     </div>
+                     <div class="uclxr_listl">
+                         联系电话：<span class="uclxr_listtel">{{user.userPhone}}</span>
+                     </div>
+                     <div class="uclxr_listr">
+                         电子邮箱：<span class="uclxr_listemail">{{user.userEmail}}</span>
+                     </div>
+                     <div class="uclxr_listset">
+                         <div style="float:left;width:10%;">
+                             &nbsp;
+                         </div>
+                         <div class="uclxr_listsetmr moren" ng-if="user.isDefault > 0">
+                             默认联系人
+                         </div>
+                         <div class="uclxr_listsetmr" ng-click="userDefault(user.addressId)" ng-if="user.isDefault == 0">
+                             设置为默认联系人
+                         </div>
+                         <div class="uclxr_listsetdel" ng-if="user.isDefault == 0" ng-click="userAddressRemove(user.addressId)">
+                             删除
+                         </div>
+                     </div>
+                </div>
+            </div>
+         </div>
+    </div>
+ <include file="tpl:footer"/>
+        </block>
+<block name="js">  
+    <script type="text/javascript">
+    function uclxr_formsshow(){
+        $(".uclxr_forms").toggle();
+    }
+    </script>
+</block>

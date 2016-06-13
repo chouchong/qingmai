@@ -6,29 +6,31 @@
 </block>
 <block name="css"></block>
 <block name="main">
+<div ng-app="myapp" ng-controller="VisaCtrl">
     <nav class="navbar navbar-default header_subpage">
         <include file="tpl:comnav" />
     </nav>
-    <div class="visa_c" ng-app="myapp" ng-controller="VisaCtrl">
+    <div class="visa_c">
         <div class="v_left">
             <div class="v_cdesc">
                 <div class="v_cdesct">
                     <div class="v_cdesctb"></div>
-                    <span class="v_cdesctt">{$visa.visaName}基本信息说明</span>
+                    <span class="v_cdesctt" id="visaName">{$visa.visaName}</span><span>基本信息说明</span>
+                    <span id="visaId" style="display: none">{$visa.visaId}</span>
                 </div>
                 <div class="v_cdescs">
                     <div class="v_cdesclist">
-                        签证类型<span>{$visa.visaType}</span>
+                        签证类型<span id="visaType">{$visa.visaType}</span>
                     </div>
                 </div>
                 <div class="v_cdescs">
                     <div class="v_cdesclist">
-                        有效期<span>{$visa.visaValidity}</span>
+                        有效期<span id="visaTime">{$visa.visaValidity}</span>
                     </div>
                 </div>
                 <div class="v_cdescs">
                     <div class="v_cdesclist">
-                        入境次数<span>{$visa.visaCount}</span>
+                        入境次数<span id="visaNumber">{$visa.visaCount}</span>
                     </div>
                 </div>
             </div>
@@ -37,7 +39,7 @@
                     <div class="v_cdesctb"></div>
                     <span class="v_cdesctt">办理签证所需资料</span>
                 </div>
-                <div class="v_cdescs" style="padding-top:20px;border: none;">
+                <div class="v_cdescs" style="padding-top:20px;border: none;" id="visaDesc">
                     {$visa.visaDesc|htmlspecialchars_decode}
                 </div>
             </div>
@@ -48,7 +50,7 @@
                     <div class="v_cdesctb"></div>
                     <span class="v_cdesctt">办理时效</span>
                 </div>
-                <div class="v_cdescs" style="padding:10px 20px;">
+                <div class="v_cdescs" style="padding:10px 20px;" id="visaTimeManagent">
                     {$visa.visaTimeManagent|htmlspecialchars_decode}
                 </div>
             </div>
@@ -65,16 +67,17 @@
                                 <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="jian">-</button>
                       </span>
-                                <input type="text" class="form-control" value="0">
+                                <input type="text" class="form-control"  value="0" id="manNum">
                                 <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="jia">+</button>
                       </span>
                             </div>
                         </div>
-                        <div class="vc_right"><span>{$visa.visaPrice}</span>元/人</div>
+                        <div class="vc_right"><span id="visaPrice">{$visa.visaPrice}</span>元/人</div>
                     </div>
                 </div>
                 <div class="v_cdescs" id="isDef" ng-show="addRess">
+                <input type="hidden" id="addressId" ng-model="addRess.addressId">
                     <h4 ng-bing="默认联系人"></h4>
                     <p style="margin:8px 15px;">
                         <span ng-bind="addRess.userName"></span>
@@ -99,25 +102,25 @@
                             <div class="form-group" ng-class="{'has-error':visaAddress.aName.$dirty && visaAddress.aName.$invalid}">
                                 <label for="inputPassword3" class="col-sm-3 control-label">联系人</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="aName" ng-model="user.aName" placeholder="请输入联系人" required>
+                                    <input type="text" class="form-control" id="visaName" name="aName" ng-model="visa.aName" placeholder="请输入联系人" required>
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':visaAddress.phone.$dirty && visaAddress.phone.$invalid}">
                                 <label for="inputPassword3" class="col-sm-3 control-label">联系电话</label>
                                 <div class="col-sm-9">
-                                    <input type="tel" class="form-control" name="phone" ng-model="user.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
+                                    <input type="tel" class="form-control" id="visaPhone" name="phone" ng-model="visa.phone" ng-pattern="/^1\d{10}$/" placeholder="请输入手机号" required>
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':visaAddress.email.$dirty && visaAddress.email.$invalid}">
                                 <label for="inputPassword3" class="col-sm-3 control-label">联系邮箱</label>
                                 <div class="col-sm-9">
-                                    <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="请输入联系邮箱" required>
+                                    <input type="email" class="form-control" id="visaEmail" ng-model="visa.email" name="email" placeholder="请输入联系邮箱" required>
                                 </div>
                             </div>
                             <div class="form-group" ng-class="{'has-error':visaAddress.address.$dirty && visaAddress.address.$invalid}">
                                 <label for="inputAddress" class="col-sm-3 control-label">联系人地址</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="address" ng-model="user.address" placeholder="联系人地址" required>
+                                    <input type="text" class="form-control" id="visaAddress" ng-model="visa.address" name="address" placeholder="联系人地址" required>
                                 </div>
                             </div>
                         </form>
@@ -129,14 +132,13 @@
                         <p>13888222888 0871-65096386</p>
                         <p>邮费自理</p>
                     </div>
-                    <div class="vc_submit">
-                        <a href="pay.html" style="color: #fff;">提交</a>
-                    </div>
+                        <button class="btn vc_submit"  style="color: #fff;margin-left: 120px" ng-click="visaNews()">提交</button>
                 </div>
             </div>
         </div>
     </div>
         <include file="tpl:footer"/>
+        </div>
     </block>
 <block name="js">
    <script type="text/javascript">

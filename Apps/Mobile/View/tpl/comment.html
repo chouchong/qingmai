@@ -65,14 +65,22 @@
                 <span>成人</span>
                 <span style="float:right;">{$Orders.adultNum}人 x {$Orders.adultPrice}元/人</span>
             </div>
+            <if condition="$Orders['childNum'] gt 0 ">
             <div class="item item-text-wrap">
                 <span>儿童</span>
                 <span style="float:right;">{$Orders.childNum}人 x {$Orders.childPrice}元/人</span>
             </div>
+            </if>
             <div class="item item-text-wrap">
-                <span>房间</span>
-                <span style="float:right;">{$Orders.roomNum}房 <if condition="$Orders['roomPrice'] gt 0">x {$Orders.roomPrice}元/房</if></span>
+                <span>用房数</span>
+                <span style="float:right;">{$Orders['roomNum']}间标准双床房</span>
             </div>
+                <if condition="$Orders['roomPrice'] gt 0 ">
+                <div class="item item-text-wrap">
+                    总单房差
+                    <span style="float:right;">￥<span>{$Orders['roomNum']*2*$Orders['roomPrice']-$Orders['adultNum']*$Orders['roomPrice']}</span>元</span>
+                </div>
+            </if>
             <if condition="$Orders['zMoney'] gt 0 ">
             <div class="item item-text-wrap">
                 <span>优惠</span>

@@ -69,7 +69,9 @@ class Page{
     private function url($page){
         return str_replace(urlencode('[PAGE]'), $page, $this->url);
     }
-
+    public function url111($page){
+        return str_replace(urlencode('[PAGE]'), $page, $this->url);
+    }
     /**
      * 组装分页链接
      * @return string

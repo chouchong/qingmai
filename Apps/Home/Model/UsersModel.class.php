@@ -119,65 +119,78 @@ class UsersModel extends BaseModel {
     return $rd;
   }
   /**
-  *用户名修改
+  *用户昵称修改
   **/
-  public function doReName($loginphone=null)
-  {
+  public function doReName()
+  { 
     $m = M('users');
     $rs = array('status' => -1);
-    $id = $m->where(array('userId'=>session('Users')['userId']))->save(array('userName'=>I('username')));
+    if($this->checkEmpty(I('newName'),true)){
+      $id = $m->where(array('userId'=>session('Users')['userId']))->save(array('userName'=>I('newName')));
+      if($id){
+        $data = $m->where(array('userId'=>session('Users')['userId']))->find();
+        $rs['status'] = 1;
+        session('Users',$data);
+      }
+    }
+    return $rs;
+  }
+    /**
+  *联系人
+  **/
+  public function userset()
+  { 
+    $m = M('user_address');
+    $rs = array('status' => -1);
+    $data['userName'] = I('name');
+    $data['userPhone'] = I('phone');
+    $data['userEmail'] = I('email');
+    $data['address'] = I('address');
+    $data['isDefault'] = 1;
+    $data['userId'] = session('Users')['userId'];
+    $data['createTime'] = date('Y-m-d H:i:s');
+    if($this->checkEmpty($data,true)){
+       $id = $m->where(array('userId'=>session('Users')['userId']))->add($data);
+       if($id){
+       $m->where(array('userId'=>session('Users')['userId'],'addressId'=>array('neq',$id)))->save(array('isDefault'=>0));
+       $rs['status'] = 1;
+     }
+    }
+    return $rs;
+  }
+     /**
+  *联系人展示
+  **/
+  public function usershow()
+  { 
+    return M('user_address')->field('userName,userPhone,userEmail,address,addressId,isDefault')->where(array('userId'=>session('Users')['userId']))->order('addressId desc')->select();
+  }
+   /**
+  *默认联系人
+  **/
+  public function userDefault()
+  { 
+    $rs = array('status' => -1);
+    $m = M('user_address');
+    $id = $m->where(array('addressId'=>I('addressId'),'userId'=>session('Users')['userId']))->save(array('isDefault'=>1));
     if($id){
-      $data = $m->where(array('userId'=>session('Users')['userId']))->find();
-      $rs['status'] = 1;
-      session('Users',$data);
+     $m->where(array('userId'=>session('Users')['userId'],'addressId'=>array('neq',I('addressId'))))->save(array('isDefault'=>0));
+     $rs['status'] = 1;
     }
     return $rs;
   }
   /**
-  *用户名修改
+  *删除联系人
   **/
-  public function UserPws()
-  {
-    $m = M('users');
-    $rd = array('status' => -1,'msg'=>'修改错误');
-    if(I('smscode')!=session('smscode')){
-      $rd['status'] = -3;
-      $rd['msg'] = "输入验证码有误";
-      return $rd;
-    }
-    $data['loginPwd'] = md5('??'.I('phone').I('password'));
-    $data['userPhone'] = I('phone');
-    $user = $m->where(array('userPhone'=>$data['userPhone']))->find();
-    if($this->checkEmpty($data)){
-      $rs = $m->where(array('userId'=>$user['userId']))->save($data);
-      if(false !== $rs){
-        $rd['status']= 1;
-      }
-    }
-    return $rd;
+  public function userAddressRemove()
+  { 
+    $rs = array('status' => -1);
+    $m = M('user_address');
+    $id = $m->where(array('addressId'=>I('addressId'),'userId'=>session('Users')['userId']))->delete();
+     if($id){
+      $rs['status'] = 1;
+     }
+    return $rs;
   }
-  /**
-  *用户名修改
-  **/
-  public function toCode()
-  {
-    $m = M('users');
-    $rd = array('status' => -1,'msg'=>'修改错误');
-    if(I('smscode')!=session('smscode')){
-      $rd['status'] = -3;
-      $rd['msg'] = "输入验证码有误";
-      return $rd;
-    }
-    $data['userPhone'] = I('phone');
-    $user = $m->where(array('userPhone'=>$data['userPhone']))->find();
-    if($this->checkEmpty($data)){
-      if(false !== $user){
-        session('Users',$user);
-        $rd['status']= 1;
-      }
-    }
-    return $rd;
-  }
-
 }
 ?>

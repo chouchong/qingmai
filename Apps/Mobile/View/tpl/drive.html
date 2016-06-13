@@ -334,7 +334,7 @@
         </div>
         <div class="card zjywarm" style="margin:12px 0;">
             <div class="item item-divider" >
-                <h2 >温馨提示</h2>
+                <h2 >出游提示</h2>
             </div>
             <div class="item item-text-wrap">
                 {$drive.prompt|htmlspecialchars_decode}
@@ -364,6 +364,7 @@
         </div>
         </notempty>
         <!-- 用户评论 -->
+        <if condition="$drive['apcount'] gt 0 ">
         <div class="list card cardPS usercomment">
             <div class="item">
                 <h1>用户评论</h1>
@@ -389,6 +390,7 @@
             </volist>
             </div>
         </div>
+        </if>
         <div name="footerme" class="row footermessage " >
             <div>
                 {$CONF.mallFooter|htmlspecialchars_decode}

@@ -12,6 +12,7 @@ $(function() {
         addHtml();
         var currM1 = (currM + 1) < 10 ? '0' + (currM + 1) : (currM + 1);
         $("#currentMonth").html(currY + "-" + currM1);
+        theDay = theDay < 10 ? '0' + (theDay) : (theDay);
         $("#today").html(currY + "-" + currM1 + "-" + theDay);
     }
 });
@@ -60,6 +61,7 @@ function addHtml() {
     }
     $("#calendarSelect").append(htmls);
     var theMonth1 = (theMonth + 1) < 10 ? '0' + (theMonth + 1) : (theMonth + 1);
+    theDay = theDay < 10 ? '0' + (theDay) : (theDay);
     $("#" + currY + "-" + theMonth1 + "-" + theDay).addClass("today");
 }
 

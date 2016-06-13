@@ -1,0 +1,36 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>支付结果</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+</block>
+<block name="css"></block>
+<block name="main">
+<div ng-app="myapp" ng-controller="ordersCtrl">
+	<nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+      <div class="ps_content">
+      	<empty name="isNo">
+        <p style="text-align: center"><img src="__PUBLIC__/home/img/success.png" width="80px"></p>
+        <p style="text-align: center;color:#000;font-size: 20px;">支付成功!</p>
+    	<else />
+        <p style="text-align: center"><img src="__PUBLIC__/home/img/failed.png" width="80px"></p>
+        <p style="text-align: center;color:#000;font-size: 20px;">支付失败!</p>
+    	</empty>
+        <p>订单号<span style="float:right">{$row.orderNo}</span></p>
+        <p>支付方式<span style="float:right">{$row.payType}</span></p>
+        <p>支付金额<span style="float:right">{$row.totalMoney}</span></p>
+        <div class="ps_hrefb" style="text-align: center;padding:20px;">
+        	<empty name="isNo">
+                   <span style="border:1px solid #494;padding:5px;"><a href="/order.html" style="color:#494;">我的订单</a></span>
+            <else />
+                  <span style="border:1px solid #F37568;padding:5px;"><a href="/order.html" style="color:#F37568;">返回我的订单,再试一次</a></span>
+            </empty>
+        </div>
+    </div>
+  	<include file="tpl:footer"/>
+</div>
+</block>
+<block name="js">
+</block>

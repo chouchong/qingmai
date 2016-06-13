@@ -2,17 +2,19 @@
 //支付宝支付操作类
 
 /* *
- * 配置文件
- * 版本：3.4
- * 修改日期：2016-03-08
+ * 功能：即时到账交易接口接入页
+ * 版本：3.3
+ * 修改日期：2012-07-23
  * 说明：
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  * 该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
 
- * 安全校验码查看时，输入支付密码后，页面呈灰色的现象，怎么办？
- * 解决方法：
- * 1、检查浏览器配置，不让浏览器做弹框屏蔽设置
- * 2、更换浏览器或电脑，重新登录查询。
+ *************************注意*************************
+ * 如果您在接口集成过程中遇到问题，可以按照下面的途径来解决
+ * 1、商户服务中心（https://b.alipay.com/support/helperApply.htm?action=consultationApply），提交申请集成协助，我们会有专业的技术工程师主动联系您协助解决
+ * 2、商户帮助中心（http://help.alipay.com/support/232511-16307/0-16307.htm?sh=Y&info_type=9）
+ * 3、支付宝论坛（http://club.alipay.com/read-htm-tid-8681712.html）
+ * 如果不想使用扩展功能请把扩展功能参数赋空值。
  */
 namespace Org\Pay;
 use Think\Controller;
@@ -22,47 +24,77 @@ class AliPay extends Controller{
         require_once("alipay/config.php");
         require_once("alipay/lib/alipay_submit.class.php");
         /**************************请求参数**************************/
-        //商户订单号，商户网站订单系统中唯一订单号，必填
-        $out_trade_no = $_POST['WIDout_trade_no'];
 
-        //订单名称，必填
-        $subject = $_POST['WIDsubject'];
-
-        //付款金额，必填
-        $total_fee = $_POST['WIDtotal_fee'];
-
-        //收银台页面上，商品展示的超链接，必填
-        $show_url = $_POST['WIDshow_url'];
-
-        //商品描述，可空
-        $body = $_POST['WIDbody'];
+        //支付类型
+        $payment_type = "1";
+        //必填，不能修改
 
 
+        //服务器异步通知页面路径
+         $notify_url = empty($this->notify_url)? $alipay_config['notify_url'] : $this->notify_url;
+        //需http://格式的完整路径，不能加?id=123这类自定义参数
+
+        //页面跳转同步通知页面路径
+        $return_url = empty($this->return_url)? $alipay_config['return_url'] : $this->return_url;
+        //需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
+
+        //商户订单号
+         $out_trade_no = empty($this->WIDout_trade_no)? date('YmdHis') : $this->WIDout_trade_no;
+        //商户网站订单系统中唯一订单号，必填
+
+        //订单名称
+        $subject = empty($this->subject)? "订单名称" : $this->subject;
+        //必填
+
+        //付款金额
+        $total_fee = $this->total_fee;
+        //必填
+        //订单描述
+        $body = empty($this->body)? "" : $this->body;
+
+        //商品展示地址
+        $show_url = empty($this->show_url)? "" : $this->show_url;
+        //需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
+
+        //防钓鱼时间戳
+        $anti_phishing_key = "";
+        //若要使用请调用类文件submit中的query_timestamp函数
+
+        //客户端的IP地址
+        $exter_invoke_ip = "";
+        //非局域网的外网IP地址，如：221.0.0.1
+
+        //自定义参数
+        $extra_common_param = empty($this->extra_common_param)? "" : $this->$extra_common_param;
 
         /************************************************************/
 
         //构造要请求的参数数组，无需改动
         $parameter = array(
-                "service"       => $alipay_config['service'],
-                "partner"       => $alipay_config['partner'],
-                "seller_id"  => $alipay_config['seller_id'],
-                "payment_type"  => $alipay_config['payment_type'],
-                "notify_url"    => $alipay_config['notify_url'],
-                "return_url"    => $alipay_config['return_url'],
-                "_input_charset"    => trim(strtolower($alipay_config['input_charset'])),
-                "out_trade_no"  => $out_trade_no,
-                "subject"   => $subject,
-                "total_fee" => $total_fee,
-                "show_url"  => $show_url,
-                "body"  => $body,
+            "service" => "create_direct_pay_by_user",
+            "partner" => trim($alipay_config['partner']),
+            "seller_email" => trim($alipay_config['seller_email']),
+            "payment_type"	=> $payment_type,
+            "notify_url"	=> $notify_url,
+            "return_url"	=> $return_url,
+            "out_trade_no"	=> $out_trade_no,
+            "subject"	=> $subject,
+            "total_fee"	=> $total_fee,
+            "body"	=> $body,
+            "show_url"	=> $show_url,
+            "anti_phishing_key"	=> $anti_phishing_key,
+            "exter_invoke_ip"	=> $exter_invoke_ip,
+            "extra_common_param" =>$extra_common_param,
+            "_input_charset"	=> trim(strtolower($alipay_config['input_charset']))
         );
 
         //建立请求
-        $alipaySubmit = new AlipaySubmit($alipay_config);
+        $alipaySubmit = new \AlipaySubmit($alipay_config);
         $html_text = $alipaySubmit->buildRequestForm($parameter,"get", "确认");
-        echo $html_text;
-    }
+        var_dump($html_text);
+        // echo $html_text;
 
+    }
     function check($result){
         require_once("alipay/config.php");
         require_once("alipay/lib/alipay_notify.class.php");
@@ -70,6 +102,4 @@ class AliPay extends Controller{
         $verify_result = $alipayNotify->verifyReturn($result);
         return $verify_result;
     }
-
-
 }

@@ -9,6 +9,7 @@ class DrivesAction extends BaseAction {
   * 跳到首页面
   */
   public function index(){
+    $this->getOpenid($this->get_url());
     $this->drivesId =I('drivesId');
     $this->daytime = date('Y-m-d', time());
     $this->daymtime = date('Y-m', time());

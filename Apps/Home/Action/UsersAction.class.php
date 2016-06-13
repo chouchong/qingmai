@@ -6,6 +6,62 @@ namespace Home\Action;
  */
 use Tools\YunpianSms;
 class UsersAction extends BaseAction {
+   /**
+   * 跳到用户中心
+   */
+  public function user(){
+   $this->username = session('Users')['userName'];
+   $this->display('tpl/user');
+  } 
+  /**
+   * 修改昵称
+   */
+  public function doReName(){
+   $this->username = session('Users')['userName'];
+   $this->display('tpl/doReName');
+  } 
+    /**
+   * 修改昵称ajax
+   */
+  public function doReNameAjax(){
+   $rs = D('Home/Users')->doReName();
+   $this->ajaxReturn($rs);
+  } 
+    /**
+   * 联系人管理
+   */
+  public function userset(){
+   $this->user = D('Home/Users')->usershow();
+   $this->display('tpl/userset');
+  } 
+ /**
+   * 联系人管理ajax
+   */
+  public function usersetajax(){
+   $rs = D('Home/Users')->userset();
+   $this->ajaxReturn($rs);
+  } 
+   /**
+   * 联系人展示
+   */
+   public function usershow(){
+    $rs = D('Home/Users')->usershow();
+    $this->ajaxReturn($rs);
+   }
+  /**
+   * 设置默认联系人
+   */
+   public function userDefault(){
+    $rs = D('Home/Users')->userDefault();
+    $this->ajaxReturn($rs);
+   } 
+  /**
+   * 删除联系人
+   */
+   public function userAddressRemove(){
+    $rs = D('Home/Users')->userAddressRemove();
+    $this->ajaxReturn($rs);
+   } 
   /**
    * 跳到注册页面
    */
@@ -73,5 +129,14 @@ class UsersAction extends BaseAction {
     public function loginOut(){
       session('Users',null);
       $this->redirect("Home/Index/index");
+  }
+  /**
+  *用户默认地址
+  **/
+  public function getAddress()
+  {
+    $m = D('Mobile/Address');
+    $rs = $m->getAddress();
+    $this->ajaxReturn($rs);
   }
 }

@@ -4,7 +4,9 @@
     <meta name="keywords" content="{$drive['drivesKeywords']}" />
     <meta name="description" content="{$drive['drivesSpec']}" />
 </block>
-<block name="css"></block>
+<block name="css">
+    <link href="__PUBLIC__/home/css/backtop.css" rel="stylesheet" type="text/css" />
+</block>
 <block name="main">
 <div ng-app="myapp" ng-controller="driveCtrl">
     <nav class="navbar navbar-default header_subpage">
@@ -76,7 +78,7 @@
                     </div>
                 </div>
                 <div class="calendarpricedesc">
-                    <p>起价是按2位成人参加<span id="driveDateDay">{$daymtime}</span>出发的产品，并入住同一间房间的单人价格。</p>
+                    <p>起价是按2位成人参加<span id="driveDateDay">{$daymmtime}</span>出发的产品，并入住同一间房间的单人价格。</p>
                 </div>
             </div>
             <div class="diverform">
@@ -110,7 +112,7 @@
                     <empty name="drive.tp">
                         <span id="selectAdultPrice">{$drive['adultPrice']}</span>&nbsp;元/人
                     <else />
-                        <span>{$drive['tp']['adultPrice']}</span>&nbsp;元/人
+                        <span id="selectAdultPrice">{$drive['tp']['adultPrice']}</span>&nbsp;元/人
                     </empty>
                     </div>
                 </div>
@@ -154,8 +156,8 @@
                     <div id="df_price">
                         总价格:￥<span id="df_totelprice">0</span>&nbsp;元
                     </div>
-                    <div id="df_submit">
-                        <a ng-click="dAddBuy()"><span>立即预定</span></a>
+                    <div id="df_submit" ng-click="dAddBuy()">
+                        <a ><span>立即预定</span></a>
                     </div>
                     <p></p>
                 </div>
@@ -170,6 +172,7 @@
                         </div>
                     </div>
                     <div class="xc_content">
+                    <empty name="drive.tp">
                         <div id="xc_timeDesc">
                             <div class="item item-text-wrap">
                                 <p>
@@ -230,6 +233,9 @@
                                 </div>
                             </div>
                         </div>
+                        <else/>
+                        <div id="xc_timeDesc">{$drive.tp.timeDesc}</div>
+                        </empty>
                     </div>
                 </div>
             </div>
@@ -647,12 +653,13 @@
 </block>
 <block name="js">
 <script src="__PUBLIC__/home/js/datePrice.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__PUBLIC__/home/js/backtop.js"></script>
     <script type="text/javascript">
     $(function() {
         diver_heightchange();
     });
     $(".dh_imgss").mouseover(function(){
-        $(".dh_imgb img").attr("src",$(this).children("img").attr("src"));
+        $(this).parent().parent().find(".dh_imgb img").attr("src", $(this).children("img").attr("src"));
     });
     var soNum;
     _0('childNum');
@@ -666,7 +673,7 @@
             $('#driveDateDay').html($('#currentMonth').html()+'-'+selectedDay);
             $('#df_seldate').html($('#currentMonth').html()+'-'+selectedDay);
             $.ajax({
-                url: '/Mobile/Drives/getTp',
+                url: '/Home/Drives/getTp',
                 type: "post",
                 dataType: "json",
                 async: true,
@@ -758,6 +765,7 @@
             var roomtotalPrice = (parseInt($("#roomNum").val()) * 2 - parseInt($("#manNum").val())) * parseInt($('#roomPrice').html());
             var totalPrice = parseInt($('#selectAdultPrice').html()) * parseInt($("#manNum").val());
             var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
+            console.log($('#selectAdultPrice').html());
             $('#df_totelprice').html(childtotalPrice + totalPrice + roomtotalPrice);
         });
     }
@@ -841,5 +849,30 @@
     function disabled_no_prevClick(id) {
         $("#" + id).prev().find('button').attr('disabled', 'disabled');
     }
+    $("#df_submit").click(function(){
+        if($('#timeId').val() && parseInt($('#manNum').val())>0){
+            $(this).css("cursor","wait");
+            $(this).unbind("click");
+            var btn = $("#df_submit span");
+            btn.html("提交中");
+            var i = 0;
+            setInterval(function(){
+                if(i==0){
+                    btn.html("提交中");
+                    i++;
+                }else if(i==1){
+                    btn.html("提交中.");
+                    i++;
+                }else if(i==2){
+                    btn.html("提交中..");
+                    i++;
+                }else if(i==3){
+                    btn.html("提交中...");
+                    i=0;
+                }
+            },300);
+        }
+        //setTimeout(function(){window.location.href="orderdiver.html";},6000);
+    });
     </script>
 </block>

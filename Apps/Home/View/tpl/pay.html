@@ -1,0 +1,89 @@
+<extend name="tpl:base" />
+<block name="title">
+    <title>{$drive.drivesName}</title>
+    <meta name="keywords" content="{$drive['drivesKeywords']}" />
+    <meta name="description" content="{$drive['drivesSpec']}" />
+</block>
+<block name="css"></block>
+<block name="main">
+    <div ng-app="myapp" ng-controller="payCtrl">
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="p_content">
+        <div class="p_desc">
+        <input  type="hidden" id="orderId" value="{$payNews['orderId']}" />
+            <p>{$payNews.goodsName}</p>
+            <p><span>{$payNews.drivesTo}</span></p>
+            <if condition="$payNews['goodsType'] lt 3">
+            <p>出发日期<span class="p_descright">{$payNews.toTime}</span></p>
+            <else/>
+            <p>签证日期<span class="p_descright">{$payNews.createTime}</span></p>
+            </if>
+            <if condition="$payNews['adultNum'] gt 0 ">
+            <p>成人<span class="p_descright"><span><span id="adultNum">{$payNews.adultNum}</span>X{$payNews.adultPrice}&nbsp;元/人</span></span></p>
+            </if>
+            <if condition="$payNews['childNum'] gt 0 ">
+            <p>儿童<span class="p_descright"><span>{$payNews.childNum}X{$payNews.childPrice}&nbsp;元/人</span></span></p>
+            </if>
+            <if condition="$payNews['roomNum'] gt 0 ">
+            <p>用房数<span class="p_descright">{$payNews.roomNum}标准双人床</span></p>
+            </if>
+            <if condition="$payNews['roomPrice'] gt 0 ">
+            <p>总单房差<span style="margin-left: 520px">{$payNews['roomNum']*2*$payNews['roomPrice']-$payNews['adultNum']*$payNews['roomPrice']}&nbsp;元</span></p>
+            </if>
+            <if condition="$payNews['zMoney'] gt 0 ">
+                <p>优惠<span style="margin-left: 530px">{$payNews.zMoney}&nbsp;元</span></p>
+            </if>
+        </div>
+        <p  style="margin:20px;">选择支付方式</p>
+        <div class="p_way">
+            <div id="pw_wx"  class="p_ways">
+                <div class="p_wayimg">
+                    <img src="__PUBLIC__/home/img/weixin.png" alt="">
+                </div>
+                <div class="p_wayintr">
+                    <h4>微信支付</h4>
+                    <h5>推荐微信用户使用</h5>
+                </div>
+                <div class="p_waysel">
+                    <img src="__PUBLIC__/home/img/unselect.png" alt="">
+                </div>
+            </div>
+            <div id="pw_yl" class="p_ways">
+                <div class="p_wayimg">
+                    <img src="__PUBLIC__/home/img/yinlian.png" alt="">
+                </div>
+                <div class="p_wayintr">
+                    <h4>银联支付</h4>
+                    <h5>推荐银联用户使用</h5>
+                </div>
+                <div class="p_waysel">
+                    <img id="p_selpayway" src="__PUBLIC__/home/img/unselect.png" alt="">
+                </div>
+            </div>
+            <div id="pw_zfb" class="p_ways">
+                <div class="p_wayimg">
+                    <img src="__PUBLIC__/home/img/zhifubao.png" alt="">
+                </div>
+                <div class="p_wayintr">
+                    <h4>支付宝支付</h4>
+                    <h5>推荐支付宝用户使用</h5>
+                </div>
+                <div class="p_waysel">
+                    <img  src="__PUBLIC__/home/img/unselect.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="p_submit">
+            <div class="p_submitp">
+                <p id="p_payprice">总计:&nbsp;&nbsp;{$payNews.totalMoney}元</p>
+            </div>
+            <button class="btn p_submitb" ng-click="toPay()">立即支付</button>
+        </div>
+    </div>
+    <include file="tpl:footer"/>
+    </div>
+</block>
+<block name="js">
+</block>

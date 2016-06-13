@@ -1,0 +1,47 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>登录</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="uc_c">
+        <div class="uc_ct">
+            <h1>昵称修改</h1>
+        </div>
+        <div class="uc_cmsg">
+            <div class="uc_cmname">
+                <div class="uc_cmnamemsg" style="margin-left: 20px;">
+                    我的昵称：{$username}
+                </div>
+            </div>
+            <hr style="clear:both;">
+            <!-- <div class="uc_c">
+                联系人管理：
+            </div> -->
+            <form class="form-horizontal" ng-app='myapp' ng-controller='doReNameCtrl' name="reNameForm" novalidate>
+                <div class="form-group" >
+                    <label for="inputPassword3" class="col-sm-2 control-label">新的昵称</label>
+                    <div class="col-sm-10" style="width:400px;">
+                        <input type="text" class="form-control" placeholder="新名称" ng-model="userName" name="newName" required>
+                    </div>
+                </div>
+                <hr>
+                <div class="uc_tcdl">
+                    <button class="btn btn-success" ng-click="doreName();" ng-disabled="reNameForm.$error.required" style="margin-left:350px;width: 120px">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<include file="tpl:footer"/>
+        </block>
+<block name="js">
+    <script type="text/javascript">
+    $(".com_csbtns").click(function() {
+        window.location = "myorder.html";
+    });
+    </script>
+</block>
+

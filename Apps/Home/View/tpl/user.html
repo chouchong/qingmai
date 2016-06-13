@@ -1,0 +1,48 @@
+<extend name="tpl:base" />
+<block name="title">
+   <title>用户中心</title> 
+</block>
+<block name="css"></block>
+<block name="main">
+    <nav class="navbar navbar-default header_subpage">
+        <include file="tpl:comnav" />
+    </nav>
+    <div class="uc_c">
+        <div class="uc_ct">
+            <h1>用户中心</h1>
+        </div>
+        <div class="uc_cmsg">
+            <div class="uc_cmname">
+                <div class="uc_cmnamemsg">
+                    我的昵称：{$username}
+                </div>
+                <div class="uc_cmnamexg">
+                <a href="/doReName.html">修改昵称</a> 
+                </div>
+            </div>
+            <hr style="clear:both;">
+            <div class="uc_cmlxr">
+                <div class="uc_cmlxrmsg">
+                    <div class="uc_cmlxrmt">
+                        联系人信息
+                    </div>
+                    <div class="uc_cmlxrxg" onclick="window.open('usersetlxr.html','_self' )">
+                     <a href="/userset.html">
+                     管理联系人
+                     </a></div>
+                </div>
+            </div>
+            <hr>
+            <div class="uc_tcdl">
+                <div class="uc_tcdlbtn"><a href="{:U('Home/Users/loginOut')}">退出登录</a></div>
+            </div>
+        </div>
+    </div>
+ <include file="tpl:footer"/>
+        </block>
+    <script type="text/javascript">
+    $(".com_csbtns").click(function() {
+        window.location = "myorder.html";
+    });
+    </script>
+</block>

@@ -9,7 +9,7 @@ class IndexAction extends BaseAction {
      * 跳到首页面
      */
   public function index(){
-    C('TOKEN_ON',false);
+    $this->getOpenid($this->get_url());
     $this->object  = D('Mobile/Drives')->pageByIndex();
     $this->Ads  = D('Mobile/Ads')->getAds(-2,1);
     $this->view->display('/tpl/list');
