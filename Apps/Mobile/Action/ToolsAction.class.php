@@ -22,14 +22,14 @@ class ToolsAction extends Controller {
     }
     $m = D('Mobile/System')->loadConfigs();
     $data=array(
-      'tpl_id'=>'8',
+      'tpl_id'=>'1357517',
       //#code#=1234&#tel#=400-081-2798#company#=云片网
-      'tpl_value'=>('#code#').'='.urlencode($code).'&'.('#tel#').'='.urlencode('4008627098').'&'.('#company#').'='.urlencode('要自在旅行'),
-      'mobile'=>htmlspecialchars(I('userPhone','18206766729'))
+      'tpl_value'=>('#code#').'='.urlencode($code).'&'.('#tel#').'='.urlencode('4008627098'),
+      'mobile'=>htmlspecialchars(I('userPhone'))
     );
     $object = $sms->yp_send_tpl($data);
     //记录sms日志
-    D('Mobile/Logs')->addSms(I('userPhone','18206766729'),$code);
+    D('Mobile/Logs')->addSms(I('userPhone'),$code);
     session('smscode',$code);
     echo json_encode($object);
     die();

@@ -82,16 +82,20 @@
                 </div>
             </div>
             <div class="od_forml">
+                <if condition="$orders['adultNum'] gt 0 ">
                 <div class="odf_l">
                     成人<span class="odf_lr"><span id="adultNum">{$orders['adultNum']}</span>人x<span>{$orders['adultPrice']}</span>元/人</span>
                 </div>
                 <hr>
+                </if>
+                <if condition="$orders['childNum'] gt 0 ">
                 <div class="odf_l">
                     儿童数<span class="odf_lr"><span>{$orders['childNum']}</span>人x<span>{$orders['childPrice']}</span>元/人</span>
                 </div>
                 <hr>
+                </if>
                 <div class="odf_l">
-                    房间数<span class="odf_lr"><span>{$orders['roomNum']}</span></span>
+                    房间数<span class="odf_lr"><span>{$orders['roomNum']}间标准双床房</span></span>
                 </div>
                 <hr>
                 <div class="odf_l">
@@ -130,7 +134,7 @@
                 <hr style="clear:both;margin-top:0;">
                 <div class="" style="padding:0 10px;">
                     <label class="checkbox-inline">
-                        <input type="checkbox"  id="inlineCheckbox2">我已阅读《产品订购协议》
+                        <input type="checkbox"  id="inlineCheckbox2">我已阅读<a style="color: blue;" ng-click="coAtShow()">《产品订购协议》</a>
                     </label>
                 </div>
             </div>
@@ -142,12 +146,29 @@
                 <button class="btn od_submitb" ng-click="nowPay()">立即支付</button> 
         </div>
     </div>
+    <div class="modal fade bs-example-modal-lg" id="coatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">{{art.articleTitle}}</h3>
+                </div>
+                <div class="modal-body mh_con">
+                      <div ng-bind-html="art.articleContent|to_trusted">
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     <include file="tpl:footer"/>
 </block>
 <block name="js">
     <script src="__PUBLIC__/home/layer/layer.min.js" type="text/javascript"></script>
-    <script>  
+    <script>
     function totalMoney(){
         var totalMoney = 0;
         $("#odfz_codes .col-sm-3").each(function(){ 
@@ -205,7 +226,6 @@
             totalMoney();
         }
     }
-
     $(function() {
         diverorder_heightchange();
     });
@@ -217,7 +237,5 @@
         }
         diverorder_heightchange();
     });
-
-// alert($("#odf_check").prop("checked"));
     </script>
 </block>

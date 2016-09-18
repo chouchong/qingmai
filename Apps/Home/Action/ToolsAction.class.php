@@ -21,8 +21,8 @@ class ToolsAction extends Controller {
         $code .= $charset[mt_rand(0, $_len)];
     }
     $data=array(
-      'tpl_id'=>'2',
-      'tpl_value'=>('#code#').'='.urlencode($code).'&'.urlencode('#company#').'='.urlencode('要自在旅行'),
+      'tpl_id'=>'1357517',
+      'tpl_value'=>('#code#').'='.urlencode($code).'&'.('#tel#').'='.urlencode('4008627098'),
       'mobile'=>htmlspecialchars(I('userPhone'))
     );
     // $data = array('mobile' => htmlspecialchars(I('userPhone')), //请用自己的手机号代替

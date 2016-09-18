@@ -123,7 +123,7 @@
         <table class="table table-hover table-striped table-bordered wst-form">
            <tr>
              <th width='140' align='right'>自驾名称<font color='red'>*</font>：</th>
-             <td><input type='text' id='drivesName' class="form-control wst-ipt" value='{$object.drivesName}' maxLength='25'/></td>
+             <td><input type='text' id='drivesName' class="form-control wst-ipt" value='{$object.drivesName}' maxLength='40'/></td>
            </tr>
            <tr style="height:70px;">
              <th align='right'>移动端自驾图<font color='red'>*</font>：</th>
@@ -162,6 +162,17 @@
             	<div id="preview_drivesMap">
                <img id='preview' src='__ROOT__/{$object.drivesMap}' width='152' height='152' <if condition="$object['drivesMap'] =='' ">style='display:none'</if>/>
                </div>
+             </td>
+           </tr>
+           <tr>
+             <th width='140' align='right'>是否跨境<font color='red'>*</font>：</th>
+             <td>&nbsp;
+             <if condition="$object['drivesIsCross'] eq 1">
+             <input type="checkbox" name="drivesIsCross" id="drivesIsCross" checked="checked">
+             <else/>
+             <input type="checkbox" name="drivesIsCross" id="drivesIsCross">
+              </if>
+             是否跨境
              </td>
            </tr>
            <tr>
@@ -482,30 +493,31 @@
      }
    }
    function edit(){
-     var params = {};
-     params.id = $('#id').val();
-     params.drivesName = $('#drivesName').val();
-     params.drivesFrom = $('#drivesFrom').val();
-     params.childPrice = $('#childPrice').val();
-     params.adultPrice = $('#adultPrice').val();
-     params.homePrice = $('#homePrice').val();
-     params.drivesDay = $('#drivesDay').val();
-     params.drivesSpec = $('#drivesSpec').val();
-     params.drivesKeywords = $('#drivesKeywords').val();
-     params.priceDesc = $('#priceDesc').val();
-     params.isFeeDesc = $('#isFeeDesc').val();
-     params.noFeeDesc = $('#noFeeDesc').val();
-     params.presentProject = $('#presentProject').val();
-     params.drivesImg = $('#drivesImg').val();
-     params.pcDrivesImg = $('#pcDrivesImg').val();
-     params.drivesMap = $('#drivesMap').val();
-     params.zhuchuHotels = $('#zhuchuHotels').val();
-     params.tuzhongHotels = $('#tuzhongHotels').val();
-     params.goodsids = $('#goodsids').val();
-     params.articlesIds = $('#articlesIds').val();
-     params.drivesVisa = $('#visa').val();
+      var params = {};
+      params.id = $('#id').val();
+      params.drivesName = $('#drivesName').val();
+      params.drivesFrom = $('#drivesFrom').val();
+      params.childPrice = $('#childPrice').val();
+      params.adultPrice = $('#adultPrice').val();
+      params.homePrice = $('#homePrice').val();
+      params.drivesDay = $('#drivesDay').val();
+      params.drivesSpec = $('#drivesSpec').val();
+      params.drivesKeywords = $('#drivesKeywords').val();
+      params.priceDesc = $('#priceDesc').val();
+      params.isFeeDesc = $('#isFeeDesc').val();
+      params.noFeeDesc = $('#noFeeDesc').val();
+      params.presentProject = $('#presentProject').val();
+      params.drivesImg = $('#drivesImg').val();
+      params.pcDrivesImg = $('#pcDrivesImg').val();
+      params.drivesMap = $('#drivesMap').val();
+      params.zhuchuHotels = $('#zhuchuHotels').val();
+      params.tuzhongHotels = $('#tuzhongHotels').val();
+      params.goodsids = $('#goodsids').val();
+      params.articlesIds = $('#articlesIds').val();
+      params.drivesVisa = $('#visa').val();
       params.drivesDesc = $('#drivesDesc').val();
       params.prompt = $('#prompt').val();
+      params.drivesIsCross = $("#drivesIsCross").is(':checked')==true?1:0;
      if(params.drivesName==''){
        Plugins.Tips({title:'信息提示',icon:'error',content:'自驾不能为空!',timeout:1000});
        return;

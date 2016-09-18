@@ -113,11 +113,11 @@ function addDay(date,price,tickets,id) {
         isbgeinSell = false;
     }
     if (tickets == '0') {
-        htmls = htmls + '<div class="dateprice"><p class="dd" id="' + days + '">' + days +
+        htmls = htmls + '<div class="dateprice disabled"><p class="dd" id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +
             '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else if(isbgeinSell){
-                htmls = htmls + '<div class="dateprice"><p class="dd"  id="' + days + '">' + days +
+                htmls = htmls + '<div class="dateprice disabled"><p class="dd"  id="' + days + '">' + days +
             '</p><p class="price">' + parseInt(price) +
             '</p><p class="ticket">售罄</p><span class="timeId">'+id+'</span></div>';
     } else {

@@ -13,4 +13,11 @@ class ArticlesAction extends BaseAction {
     $this->content = D('Home/Articles')->getArticlesContent();
     $this->display('tpl/content');
   }
+  /**
+   * 查询文章
+   */
+  public function getArticle(){
+    $data = D('Home/Articles')->getArticlesById();
+    $this->ajaxReturn($data);
+  }
 }

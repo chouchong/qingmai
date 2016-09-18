@@ -4,18 +4,27 @@
     <meta name="keywords" content="{$CONF['mallKeywords']}" />
     <meta name="description" content="{$CONF['mallDesc']}" />
 </block>
-<block name="css"></block>
+<block name="css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/animate.css">
+</block>
 <block name="main">
 <div ng-app="myapp" ng-controller="IndexCtrl">
     <nav class="navbar navbar-default header_index">
         <div class="containe bg_index">
+            <empty name="Ads">
             <img src="__PUBLIC__/home/img/bg1.jpg" alt="" width="500px">
+            <else/>
+            <volist name="Ads" id="item">
+            <div>
+                <a href="{$item['adURL']}"><img src="/{$item['adFile']}" alt="" width="100%"></a>
+            </div>
+            </volist>
+            </empty>
         </div>
         <div class="container-fluid channel">
             <include file="tpl:nav" />
             <div class="channel_title">
-                <h2>5月一日准时开售6月产品</h2>
-                <p>自在的旅游</p>
+                {$CONF['mallMsg']}
             </div>
         </div>
     </nav>
@@ -72,27 +81,14 @@
 </div>
 </block>
 <block name="js">
-    <script type="text/javascript">
-        $("#erweimaqq").hover(function() {
-            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
-            $("#erweima").show();
-        },
-            function(){
-            $("#erweima").hide();
+<script>
+    $(function(){
+        $(".descplaceright").each(function(){
+            $(this).css("margin-top",$(this).prev().height()/2-$(this).height()/2);
         });
-        $("#erweimawx").hover(function() {
-            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
-            $("#erweima").show();
-        },
-            function(){
-            $("#erweima").hide();
-        });
-        $("#erweimawb").hover(function() {
-            $("#erweima").attr("src","__PUBLIC__/home/img/erweima.png");
-            $("#erweima").show();
-        },
-            function(){
-            $("#erweima").hide();
-        });
-    </script>
+        setTimeout(function(){
+            $(".channel_title").addClass("animated pulse ");
+        },1000);
+    })
+</script>
 </block>

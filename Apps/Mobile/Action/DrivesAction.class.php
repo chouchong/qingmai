@@ -13,6 +13,7 @@ class DrivesAction extends BaseAction {
     $this->drivesId =I('drivesId');
     $this->daytime = date('Y-m-d', time());
     $this->daymtime = date('Y-m', time());
+    $this->daymmtime = date('Y-m-d', time() + (3 * 24 * 60 * 60));
     $this->drive=D('Mobile/Drives')->drivesDetail();
     $this->view->display('/tpl/drive');
   }

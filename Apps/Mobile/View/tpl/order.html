@@ -80,18 +80,27 @@
                     <span class="textright" style="color:#f32;background:#fff;" ng-click="orDel(vo,$index)">订单取消</span>
                   </element>
                   <element ng-switch-when="1">
-                    <span>待出发</span>
-                    <p ng-if="vo.goodsType==1">
-                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
-                    <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
-                    </p>
+                    <span ng-if="vo.drivesIsCross==1">
+                      <span>待出发</span>
+                    </span>
+                    <span ng-if="vo.goodsType==1">
+                      <span ng-if="vo.drivesIsCross==1">
+                        <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
+                        <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
+                      </span>
+                      <span ng-if="vo.drivesIsCross==0">
+                        <span class="textright" style="float:right;font-size: 16px;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评&nbsp;论</a></span>
+                      </span>
+                    </span>
                   </element>
                   <element ng-switch-when="2">
                     <span>去评论</span>
                     <p ng-if="vo.goodsType==1">
                       <span class="textright" style="float:right;font-size: 16px;"><a  href="/Mobile/Drives/dComment/orderId/{{vo.orderId}}">评&nbsp;论</a></span>
-                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
-                      <span class="bb" style="float:left;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
+                      <div ng-if="vo.drivesIsCross==1">
+                        <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserIn/orderId/{{vo.orderId}}">被保险人</a></span>
+                        <span class="bb" style="float:right;"><a  href="/Mobile/Users/UserCar/orderId/{{vo.orderId}}">驾驶证</a></span>
+                      </div>
                     </p>
                   </element>
                   <element ng-switch-when="3">

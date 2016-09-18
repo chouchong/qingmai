@@ -19,7 +19,7 @@ return array(
         'yl/:orderId/:values' => 'Home/Pay/goPay',
         'zfb/:orderId/:values' => 'Home/Pay/goPay',
         'order' => 'Home/Orders/order',
-        'wxBack/:orderId' => 'Home/Pay/wxBack',
+        'wxBack/:orderId' => 'Home/Pay/wxSuBack',
         'wxErBack/:orderId' => 'Home/Pay/wxErBack',
         'info/:orderId' => 'Home/Orders/orderInfo',
         'car/:orderId' => 'Home/Orders/orderCar',

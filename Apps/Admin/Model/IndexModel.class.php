@@ -39,6 +39,7 @@ class IndexModel extends BaseModel {
 				    $rd['status']= -1;
 				}
 			}
+			
 			$rd['status'] = 1;
 			WSTDataFile("mall_config",'',null);
 		}

@@ -29,7 +29,7 @@
         var lh = $(".od_forml").eq(0).outerHeight();
         var rh = $(".od_forml").eq(1).outerHeight();
         if (lh > rh) {
-            $(".od_forml").eq(1).css("height", lh);
+            $(".od_forml").eq(1).css("min-height", lh);
         } else {
             $(".od_forml").eq(0).css("min-height", rh);
         }

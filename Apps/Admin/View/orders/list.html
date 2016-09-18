@@ -6,6 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>{$CONF['shopTitle']['fieldValue']}后台管理中心</title>
       <link href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="__ROOT__/Apps/Admin/View/css/daterangepicker/daterangepicker-bs3.css">
       <link href="__ROOT__/Apps/Admin/View/css/AdminLTE.css" rel="stylesheet" type="text/css" />
       <!--[if lt IE 9]>
       <script src="__PUBLIC__/js/html5shiv.min.js"></script>
@@ -13,6 +14,7 @@
       <![endif]-->
       <script src="__PUBLIC__/js/jquery.min.js"></script>
       <script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+      <script src="__ROOT__/Apps/Admin/View/js/daterangepicker.js"></script>
       <script src="__PUBLIC__/js/common.js"></script>
       <script src="__PUBLIC__/vue/js/vue.min.js"></script>
       <script src="__PUBLIC__/plugins/plugins/plugins.js"></script>
@@ -35,10 +37,11 @@
              <option value='2'>待评论</option>
              <option value='3'>已完成</option>
            </select>
-       <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button> 
+  订单时间:<input type='text' name="adDateRange" id='adDateRange' class="form-control" readonly='true' style='width:300px' value=''/>
+       <button type="submit" class="btn btn-primary glyphicon glyphicon-search">查询</button>
        </div>
        </form>
-       <div class="wst-body"> 
+       <div class="wst-body">
          <table class="table table-hover table-striped table-bordered wst-list">
             <thead>
              <tr>
@@ -200,6 +203,7 @@
         </div>
       </div>
     <script type="text/javascript">
+    $('#adDateRange').daterangepicker({format:'YYYY-MM-DD',separator:' 至 '});
     //打印
       document.getElementById("Print").onclick = function () {
         location.reload();

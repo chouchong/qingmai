@@ -14,7 +14,7 @@
 </block>
 <block name="main">
 <div ng-app="myapp" ng-controller="ordersCarCtrl">
-	<nav class="navbar navbar-default header_subpage">
+    <nav class="navbar navbar-default header_subpage">
         <include file="tpl:comnav" />
     </nav>
     <div class="cl_c">
@@ -23,12 +23,14 @@
         </div>
         <div class="cl_orderid">
         <input type="hidden" id="orderId" value="{$row['orderId']}">
-            订单号&nbsp;&nbsp;<span id="orderid">{$row.orderNo}11</span>
+        <input type="hidden" id="len" value="<php>echo ceil($row[adultNum]/3);</php>">
+            订单号&nbsp;&nbsp;<span id="orderid">{$row.orderNo}</span>
             <span style="float:right;">{$row.adultNum}成人&nbsp;&nbsp;{$row.childNum}儿童</span>
         </div>
+      <div ng-if="!isResh">
         <hr style="margin: 0;">
         <div class="cl_orderids">
-            <p>凡在本行程中需要驾驶车辆的人员均提供有效驾驶证信息。用于制作驾驶证标准英文翻译件、翻译件用于在国外发生检查时提供警察查看所用</p>
+            <p>您的订单包含境外驾驶行程，凡需要在境外驾驶车辆的人员均需提供有效驾驶证信息。用于制作驾驶证标准英文翻译件，翻译件用于在国外发生检查时警察查看所用</p>
         </div>
         <hr style="margin: 0;">
         <div class="cl_uploadimgs">
@@ -41,32 +43,73 @@
                 <img src="__PUBLIC__/home/img/upcar.jpg" style="height:80px; width:90px;margin-top: 130px;">
             </div>
             <div class="clui_l">
-                <h4>驾驶证反面</h4>
+                <h4>驾驶证正本</h4>
                 <div class="clui_ld">
                     <img class="clui_ldu" src="__PUBLIC__/home/img/uploadimg.png" alt="">
-                    <img class="clui_ldimg" src="__PUBLIC__/home/img/car1.png">
+                     <div id="preview_Z{$i}"><img src="__PUBLIC__/home/img/car1.png" width="300" height="240"></div>
                     <div class="clui_ldxg">修改图片</div>
-                    <input type="file" class="cl_upfmi">
+                    <iframe name="upload" style="display:none"></iframe>
+                     <form id="uploadform_Z{$i}" autocomplete="off" enctype="multipart/form-data"  target="upload" method="POST" action="{:U('Home/Base/uploadPics')}" >
+                    <input type="file" class="cl_upfmi inputstyleZ{$i}" style="display:none" name="Filedata" onchange="updfiles({$i},'Z');">
+                    <input type="hidden" name="type" value="Z">
+                    <input type="hidden" name="len" value="{$i}">
+                    </form>
+                    <input type="hidden" class="picZ" id="picZ{$i}" name="picZ">
                 </div>
             </div>
             <div class="clui_l">
-                <h4>驾驶证反面</h4>
+                <h4>驾驶证副本</h4>
                 <div class="clui_ld">
                     <img class="clui_ldu" src="__PUBLIC__/home/img/uploadimg.png" alt="">
-                    <img class="clui_ldimg" src="__PUBLIC__/home/img/car1.png">
+                     <div id="preview_F{$i}"><img src="__PUBLIC__/home/img/car2.png" width="300" height="240"></div>
                     <div class="clui_ldxg">修改图片</div>
-                    <input type="file" class="cl_upfmi">
+                    <iframe name="upload" style="display:none"></iframe>
+                     <form id="uploadform_F{$i}" autocomplete="off" enctype="multipart/form-data"  target="upload" method="POST" action="{:U('Home/Base/uploadPics')}" >
+                    <input type="file" class="cl_upfmi inputstyleF{$i}" style="display:none" name="Filedata" onchange="updfiles({$i},'F');">
+                    <input type="hidden" name="type" value="F">
+                    <input type="hidden" name="len" value="{$i}">
+                    </form>
+                    <input type="hidden" class="picF" id="picF{$i}" name="picF">
                 </div>
             </div>
         </div>
         </for>
         <hr style="margin: 0;">
         <div style="text-align: center;width:100%;padding: 20px;background:#fff;">
-            <span style="background-color: #6DC5DB;padding: 15px 30px;font-size: 25px;color:#fff;cursor:pointer;">提交资料</span>
+            <span style="background-color: #6DC5DB;padding: 15px 30px;font-size: 25px;color:#fff;cursor:pointer;" ng-click="carSubmit()">提交资料</span>
         </div>
+      </div>
+      <div ng-if="isResh">
+      <div class="cl_uploadimgzf" ng-repeat="vo in carImg">
+            <div class="clui_tx">
+                <img src="__PUBLIC__/home/img/upcar.jpg" style="height:80px; width:90px;margin-top: 130px;">
+            </div>
+            <div class="clui_l">
+                <h4>驾驶证第<em ng-bind="$index+1"></em>位正本</h4>
+                <div class="clui_ld">
+                    <img class="clui_ldimg" style="display: block;" ng-src="/{{vo.carzImg}}">
+                </div>
+            </div>
+            <div class="clui_l">
+                <h4>驾驶证第<em ng-bind="$index+1"></em>位副本</h4>
+                <div class="clui_ld">
+                    <img class="clui_ldimg" style="display: block;" ng-src="/{{vo.carfImg}}">
+                </div>
+            </div>
+        </div>
+      </div>
     </div>
-  	<include file="tpl:footer"/>
+    <include file="tpl:footer"/>
 </div>
 </block>
 <block name="js">
+<script type="text/javascript" src="__PUBLIC__/Mobile/js/upload.js">
+</script>
+<script>
+$(function(){    
+    $(".clui_ldu").on("click", function() {
+        $(this).siblings("form").find(".cl_upfmi").trigger("click");
+    });
+})
+</script>
 </block>

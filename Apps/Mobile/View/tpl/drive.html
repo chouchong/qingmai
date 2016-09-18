@@ -34,6 +34,18 @@
         .footermessage div p {
             margin: 0 0 10px;
         }
+       .item-body span img{
+        width:100%;
+       }
+       .price {
+        color:#ff3535;
+       }
+       .display .price {
+        color:#888;
+       }
+       .sellover .price{
+        color:#888;
+       }
     </style>
 </block>
 <block name="main">
@@ -77,6 +89,7 @@
         <input type="hidden" id="drivesId" value="{$drivesId}" />
         <input type="hidden" id="daytime" value="{$daytime}" />
         <input type="hidden" id="selectedDay" />
+        <input type="hidden" id="drivesIsCross" value="{$drive['drivesIsCross']}">
         <div class="row" style="background: #f5f5f5; padding: 0; margin-bottom: 8px;">
             <div style="margin: -8px;">
                 <img src="/{$drive.drivesImg}" alt="" width="100%" id="drivesImg">
@@ -120,7 +133,7 @@
             </div>
             <div class="row" style="text-align: center;">
                 <div class="item item-text-wrap">
-                    <p>本起价是按2位成人参加<span id="goTimeday" style="color:#f44;">{$daytime}</span>出发的产品，并入住同一间房间的单人价格。</p>
+                    <p>本起价是按2位成人参加<span id="goTimeday" style="color:#f44;">{$daymmtime}</span>出发的产品，并入住同一间房间的单人价格。</p>
                 </div>
             </div>
         </div>
@@ -388,6 +401,10 @@
                     </p>
                 </div>
             </volist>
+            </div>
+            <ap-apdrives></ap-apdrives>
+            <div id="dc_refresh" ng-click="apMore({$drivesId})">
+                <span class="glyphicon glyphicon-refresh" style="line-height: 30px;text-align: center;margin-left: 40%;">{{dMoreAp}}</span>
             </div>
         </div>
         </if>

@@ -561,6 +561,7 @@
           $scope.drive.selectday = $('#selectedDay').val();
           $scope.drive.timeId = $('#timeId').val();
           $scope.drive.TOKEN_NAME = $('#TOKEN_NAME').val();
+          $scope.drive.drivesIsCross = $('#drivesIsCross').val();
           serviceHttp.addOrder($scope.drive).success(function(data) {
             if (data.status > 0) {
               window.location.href = "/Mobile/Orders/confirmDrives/orderId/" + data.orderId;
@@ -571,6 +572,18 @@
           });
         }
       }
+      $scope.pageAp = 0;
+      $scope.dMoreAp = "更多评论";
+      $scope.apList = [];
+      $scope.apMore = function(drivesId){
+        serviceHttp.getApList({drivesId:drivesId,page:++$scope.pageAp}).success(function(data) {
+          if (data.ap.length != 0) {
+            $scope.apList = $scope.apList.concat(data.ap);
+          }else {
+            $scope.dMoreAp = "加载完成";
+          }
+        });
+      };
     }])
     .controller("visaCtrl", ['$rootScope', '$scope', '$ionicPopup', '$ionicScrollDelegate', 'serviceHttp', function($rootScope, $scope, $ionicPopup, $ionicScrollDelegate, serviceHttp) {
       $scope.vBack = function(id){
@@ -1328,6 +1341,13 @@
           }
         });
       };
+      this.getApList = function(data){
+        return $http({
+          url: '/Api/V1/getApList',
+          method: "POST",
+          data:data
+        });
+      };
       this.delAddress = function(addressId) {
         return $http({
           url: '/Mobile/Users/delAddress',
@@ -1491,7 +1511,49 @@
           }
         }
       }
-    ]);
+    ]).
+    directive('apApdrives', [
+      function () {
+        return {
+          restrict: 'E',
+          template: '<div class="item item-body" ng-show="apList" ng-repeat="vo in apList">'
+                +    '<p class="commentmsg">'
+                +        '<span>{{vo.userName}}</span>'
+                +        '<span class="commentscore">{{vo.drivesScore}}分</span>'
+                +        '<span class="commentstarts" star max="vo.drivesScore">'
+                +        '</span>'
+                +    '</p>'
+                +    '<p class="commenttime">'
+                +        '<span>{{vo.createTime}}</span>'
+                +    '</p>'
+                +    '<p class="commentcon">'
+                +       '{{vo.content}}'
+                +    '</p>'
+                +'</div>',
+          link: function (scope, element) {
+          }
+        }
+      }
+    ])
+    .directive('star', function () {
+      return {
+        template: '<em>'
+                  +'<i class="iocn ion-star" ng-repeat="vo in stars"></i>'
+                  +'</em>',
+        scope: {
+          max: '=',
+        },
+        link: function (scope, elem, attrs) {
+          var updateStars = function () {
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+              scope.stars.push({filled: i});
+            }
+          };
+          updateStars()
+        }
+      };
+    });
     // .directive('hotlesStar', function () {
     //   return {
     //     restrict:'AE',

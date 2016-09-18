@@ -13,7 +13,6 @@
 }])
 .run(function($rootScope,Storage){
   $rootScope.comLogin = function(){
-
     Storage.set('url',window.location.href);
     window.location.href = '/login.html';
   }
@@ -22,7 +21,7 @@
     window.location.href = '/register.html';
   }
 })
-.controller('regCtrl',['$scope','serviceHttp','Storage','$interval',function($scope,serviceHttp,Storage,$interval){ 
+.controller('regCtrl',['$scope','serviceHttp','Storage','$interval',function($scope,serviceHttp,Storage,$interval){
   $scope.checkbox = $("#checkbox").prop('checked');
   $scope.text="发送验证码";
   var iNow=60;
@@ -75,6 +74,12 @@
     .error(function(data){
       layer.msg('注册失败');
     })
+  };
+  $scope.atShow = function(){
+    serviceHttp.getArticle({articleId:33}).success(function(data){
+      $scope.art = data;
+      $('#atModal').modal('show');
+    });
   }
 }])
 .controller('lostpasswordCtrl',['$scope','serviceHttp','$interval',function($scope,serviceHttp,$interval){
@@ -174,7 +179,7 @@
       }
     })
     .error(function(data){
-            layer.msg('请求失败');
+      layer.msg('请求失败');
     });
   }
   $scope.userLogin=function(){
@@ -182,8 +187,12 @@
     .success(function(data){
       if(data['status'] == 1){
         layer.msg('登录成功');
-        window.location.href= Storage.get('url');
-        Storage.remove('url');
+        if(Storage.get('url')){
+          window.location.href= Storage.get('url');
+          Storage.remove('url');
+        }else{
+           window.location.href= '/index.html';
+        }
       }
       if(data['status'] == -1){
         layer.msg('登录失败');
@@ -264,19 +273,21 @@
               $scope.drive.manPrice = $('#selectAdultPrice').html();
               $scope.drive.roomNum = $("#roomNum").val();
               $scope.drive.manNum = $('#manNum').val();
-              if (($scope.drive.roomNum * 2 - $scope.drive.manNum) > 0) {
-                $scope.drive.homePrice = $('#roomPrice').html();
-              }
+              var homePrice = $('#roomPrice').html();
+              $scope.drive.homePrice = homePrice>0?homePrice:0;
               $scope.drive.childNum = $('#childNum').val();
               $scope.drive.totalPrice = $('#df_totelprice').html();
               $scope.drive.orderType = 1;
               $scope.drive.goodsDrvivesTime = $('#xc_timeDesc').html();
               $scope.drive.selectday = $('#df_seldate').html();
               $scope.drive.timeId = $('#timeId').val();
+              $scope.drive.drivesIsCross = $('#drivesIsCross').val();
               serviceHttp.drivesForm($scope.drive)
                 .success(function(data){
                   if(data['status']>0){
                     window.location.href = "/o/"+data['orderId']+'.html';
+                  }else{
+                    layer.msg('系统错误');
                   }
                 });
             }else{
@@ -364,9 +375,10 @@
       scenic_heightchange();
       $('#ismrlxr').attr('checked',false);
     }else{
-      $("#usemrlxr").show();
-      $("#addmrlxr").hide();
-      scenic_heightchange();
+      $("#usemrlxr").show(0,function(){
+        setTimeout(function(){scenic_heightchange()},100);
+      });
+      $("#addmrlxr").hide();      
       $('#ismrlxr').attr('checked',true);
     }
   });
@@ -392,10 +404,11 @@
         $scope.ticket.goodsName = $(".s_descimg img").attr("alt");
         $scope.ticket.toTime = $("#goodSelectTime").val();
         $scope.ticket.ticketVal = $("#ticketVal").val();
-        $scope.ticket.ticketPrice = $("#ticketPrice").val();
+        $scope.ticket.ticketPrice = $("#manPrice").html();
         $scope.ticket.ticketFendian = $("#ticketFendian").val();
         $scope.ticket.totalPrice = $("#sf_price").html();
         $scope.ticket.adultNum = $("#manNum").val();
+        // $scope.ticket.adultPrice = $("#manPrice").html();
         $scope.ticket.childNum = $("#childNum").val();
         $scope.ticket.childPrice = $("#childPrice").html();
         var check =  $("#ismrlxr").prop("checked");
@@ -421,6 +434,7 @@
                   window.location.href = '/p/'+data.orderId+'.html';
                 }
               })
+              console.log($scope.ticket);
             }
         }else if(check == true && addressId > 0){
             $scope.ticket.addressId = $("#addressId").val();
@@ -430,6 +444,7 @@
                 window.location.href = '/p/'+data.orderId+'.html';
               }
             })
+            console.log($scope.ticket);
         }
       }
       else{
@@ -454,7 +469,7 @@
     })
   }
 }])
-.controller('usersetCtrl',['$scope','serviceHttp',function($scope,serviceHttp){ 
+.controller('usersetCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
   serviceHttp.uclxrShow()
   .success(function(data){
       $scope.usershow = data;
@@ -494,22 +509,29 @@
             $(".uclxr_forms").toggle();
         })
       }
-    }) 
+    })
   }
 }])
 .controller('orderConfirmCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.coAtShow = function(){
+    serviceHttp.getArticle({articleId:32}).success(function(data){
+      $scope.art = data;
+      $('#coatModal').modal('show');
+    });
+  }
   serviceHttp.getUserAddress().success(function(data) {
     $scope.addRess = data;
     if (data == null) {
         $("#odf_uselxr").hide();
         $("#odf_addlxr").show();
-        scenic_heightchange();
+        diverorder_heightchange();
         $('#odf_check').attr('checked',false);
         $scope.orderNews.addressId = 0;
     }else{
-        $("#odf_uselxr").show();
+        $("#odf_uselxr").show(0,function(){
+          setTimeout(function(){diverorder_heightchange()},100);
+        });
         $("#odf_addlxr").hide();
-        diverorder_heightchange();
         $('#odf_check').attr('checked',true);
         $scope.orderNews.addressId = data.addressId;
     }
@@ -551,8 +573,8 @@
     var codes = [];
     $("#odfz_codes input").each(function(){
       var codeM = $(this).parent().next().html();
-      if(codeM>0){        
-        codes = codes.concat($(this).val());  
+      if(codeM>0){
+        codes = codes.concat($(this).val());
       }
     });
     $scope.orderNews.codes = codes;
@@ -565,7 +587,7 @@
           if(data.status > 0){
             window.location.href = '/p/'+data.orderId+'.html';
           }
-        }) 
+        })
       }
     }else{
       if($scope.orderForm.$invalid  || $scope.orderForm.$error.required){
@@ -649,7 +671,54 @@
     });
   }
 }])
-.controller('ordersCarCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+.controller('ordersInfoCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.isResh = false;
+  var orderId = {orderId:$("#orderId").val()};
+   serviceHttp.getCar(orderId)
+     .success(function(data){
+        if(data.pic.length > 0){
+          $scope.isResh = true;
+          $scope.carImg = data.pic;
+          console.log($scope.carImg);
+        }
+     })
+  var F = [];
+  var Z = [];
+  var dataCar = [];
+    $scope.carSubmit = function(){
+        var len = $("#len").val();
+        var picZ = new Array();
+        $('.picZ').each(function() {
+          if($(this).val()!=""){
+            picZ = picZ.concat($(this).val());
+          }
+        });
+        var picF = new Array()
+        $('.picF').each(function() {
+          if($(this).val()!=""){
+            picF = picF.concat($(this).val());
+          }
+        });
+      if (picZ.length < len || picF.length < len) {
+         layer.msg('三个成人需上传一份驾驶证，含正反面，以此类推');
+         return false;
+      } else {
+          var car = {
+                      carzImg: picZ,
+                      carfImg: picF,
+                      orderId: $('#orderId').val()
+                    };
+          serviceHttp.driveCar(car)
+          .success(function(data){
+            if (data.status > 0) {
+              layer.msg('上传成功');
+              window.location.href = '/order.html';
+            } else {
+              layer.msg('上传失败');
+            }
+          })
+        }
+  }
   $scope.addShow = false;
   $scope.isGo = false;
   serviceHttp.getOrderInfo({orderId: $("#orderId").val()})
@@ -727,6 +796,54 @@
     }
   }
 }])
+.controller('ordersCarCtrl',['$scope','serviceHttp',function($scope,serviceHttp){
+  $scope.isResh = false;
+  var orderId = {orderId:$("#orderId").val()};
+   serviceHttp.getCar(orderId)
+     .success(function(data){
+        if(data.pic.length > 0){
+          $scope.isResh = true;
+          $scope.carImg = data.pic;
+        }
+     })
+  var F = [];
+  var Z = [];
+  var dataCar = [];
+    $scope.carSubmit = function(){
+        var len = $("#len").val();
+        var picZ = new Array();
+        $('.picZ').each(function() {
+          if($(this).val()!=""){
+            picZ = picZ.concat($(this).val());
+          }
+        });
+        var picF = new Array()
+        $('.picF').each(function() {
+          if($(this).val()!=""){
+            picF = picF.concat($(this).val());
+          }
+        });
+      if (picZ.length < len || picF.length < len) {
+         layer.msg('三个成人需上传一份驾驶证，含正反面，以此类推');
+         return false;
+      } else {
+          var car = {
+                      carzImg: picZ,
+                      carfImg: picF,
+                      orderId: $('#orderId').val()
+                    };
+          serviceHttp.driveCar(car)
+          .success(function(data){
+            if (data.status > 0) {
+              layer.msg('上传成功');
+              window.location.href = '/order.html';
+            } else {
+              layer.msg('上传失败');
+            }
+          })
+        }
+  }
+}])
 .controller('ordersCommentCtrl',['$scope','serviceHttp','Storage',function($scope,serviceHttp,Storage){
   $scope.mm = {};
   $scope.addComment = function(){
@@ -752,6 +869,30 @@
   }
 }])
 .service('serviceHttp',['$http',function($http){
+  //
+  this.getArticle = function(data) {
+    return $http({
+      url: '/Mobile/Articles/getArticle',
+      method: "POST",
+      data: data
+    });
+  };
+    // 获取驾驶证照片
+  this.getCar = function(data) {
+    return $http({
+      url: '/Home/Orders/getCarLic',
+      method: "POST",
+      data: data
+    });
+  };
+    // 上传驾驶证照片
+  this.driveCar = function(data) {
+    return $http({
+      url: '/Home/Orders/addCarLic',
+      method: "POST",
+      data: data
+    });
+  };
   // 自驾游评论
   this.addComment = function(data) {
     return $http({
@@ -1058,7 +1199,7 @@
       template: '<div class="dc_lists" ng-show="apList" ng-repeat="vo in apList">'
                 +'<div class="dc_listsl">'
                 +    '<p><span class="dc_name">{{vo.userName}}</span>&nbsp;&nbsp;&nbsp;'
-                +       '<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>'
+                +       '<span star max="vo.drivesScore"></span>'
                 +    '</p>'
                 +    '<p>{{vo.content}}</p>'
                 +'</div>'
@@ -1071,5 +1212,24 @@
       }
     }
   }
-]);
+])
+.directive('star', function () {
+      return {
+        template: '<em>'
+                  +'<span class="glyphicon glyphicon-star" ng-repeat="vo in stars"></span>'
+                  +'</em>',
+        scope: {
+          max: '=',
+        },
+        link: function (scope, elem, attrs) {
+          var updateStars = function () {
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+              scope.stars.push({filled: i});
+            }
+          };
+          updateStars()
+        }
+      };
+    });
 }).call(this);

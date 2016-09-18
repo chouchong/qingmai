@@ -6,6 +6,11 @@
 </block>
 <block name="css">
     <link href="__PUBLIC__/home/css/backtop.css" rel="stylesheet" type="text/css" />
+    <style>
+        .ex_content img,.d_descdayc img{
+            width:100%;
+        }
+    </style>
 </block>
 <block name="main">
 <div ng-app="myapp" ng-controller="driveCtrl">
@@ -16,6 +21,7 @@
         <div class="d_head">
             <input type="hidden" id="drivesId" value="{$drivesId}" />
             <input type="hidden" id="daytime" value="{$daymtime}" />
+            <input type="hidden" id="drivesIsCross" value="{$drive['drivesIsCross']}">
             <div class="d_intro">
                 <div class="d_img">
                     <img src="/{$drive.pcDrivesImg}" alt="" id="drivesImg">
@@ -167,70 +173,16 @@
             <div class="dx_left">
                 <div class="xcmx">
                     <div class="xc_title">
-                        <span>行程简介</span>
-                        <div class="xc_title1">
-                        </div>
+                        <span class="xc_titles">行程简介</span>
                     </div>
                     <div class="xc_content">
+                      <span style="color:#FFA209;">不同的出发日期，酒店会有不同，请仔细确认</span>
                     <empty name="drive.tp">
                         <div id="xc_timeDesc">
                             <div class="item item-text-wrap">
                                 <p>
-                                    出发日期:&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">云南昆明</span>
+                                    <span><h3 style="text-align: center;color: #6dc5db;">请选择出发日期</h3></span>
                                 </p>
-                            </div>
-                            <div class="item item-text-wrap">
-                                <p>
-                                    结束日期:&nbsp;&nbsp;<span>2016-07-11</span><span class="xcapgright">云南临沧</span>
-                                </p>
-                            </div>
-                            <div class="xingchengPlan">
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        <span>临沧1</span><span class="xcapgright">临沧酒店1 </span>
-                                    </p>
-                                </div>
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        入住&nbsp;&nbsp;<span>2016-07-09</span><span class="xcapgright">2016-07-10</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="xingchengPlan">
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
-                                    </p>
-                                </div>
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="xingchengPlan">
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
-                                    </p>
-                                </div>
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="xingchengPlan">
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        <span>临沧2</span><span class="xcapgright">临沧酒店 2</span>
-                                    </p>
-                                </div>
-                                <div class="item item-text-wrap">
-                                    <p>
-                                        入住&nbsp;&nbsp;<span>2016-07-10</span><span class="xcapgright">2016-07-11</span><span class="xcapgright">离店&nbsp;&nbsp;</span>
-                                    </p>
-                                </div>
                             </div>
                         </div>
                         <else/>
@@ -242,9 +194,7 @@
             <div class="dx_left">
                 <div class="xcmx">
                     <div class="xc_title">
-                        <span>价格说明</span>
-                        <div class="xc_title1">
-                        </div>
+                        <span class="xc_titles">价格说明</span>
                     </div>
                     <div class="xc_content">
                         <div>
@@ -254,9 +204,7 @@
                 </div>
                 <div class="xcmx">
                     <div class="xc_title">
-                        <span>温馨提示</span>
-                        <div class="xc_title1">
-                        </div>
+                        <span class="xc_titles">出游提示</span>
                     </div>
                     <div class="xc_content">
                         {$drive.prompt|htmlspecialchars_decode}
@@ -268,11 +216,9 @@
             <div class="de_left">
                 <div class="explaina">
                     <div class="ex_title">
-                        <span>费用包含</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">费用包含</span>
                     </div>
-                    <div class="ex_content">
+                    <div class="ex_content" id="isFeeDesc">
                         <div>
                         {$drive.isFeeDesc|htmlspecialchars_decode}
                         </div>
@@ -281,9 +227,7 @@
                 <if condition="$drive['drivesVisa'] gt 0">
                 <div class="explaina">
                     <div class="ex_title">
-                        <span>费用不含</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">费用不含</span>
                     </div>
                     <div class="ex_content">
                        <div>
@@ -292,11 +236,9 @@
                     </div>
                 </div>
                 </if>
-                <div class="explaina">
+                <div class="explaina" id="presentProject">
                     <div class="ex_title">
-                        <span>赠送项目</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">赠送项目</span>
                     </div>
                     <div class="ex_content">
                          <div>
@@ -309,9 +251,7 @@
                 <if condition="$drive['drivesVisa'] eq 0">
                 <div class="explaina">
                     <div class="ex_title">
-                        <span>费用不含</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">费用不含</span>
                     </div>
                     <div class="ex_content">
                        <div>
@@ -320,11 +260,19 @@
                     </div>
                 </div>
                 </if>
+                <div class="explaina" id="presentProject1">
+                    <div class="ex_title">
+                        <span class="ex_titles">赠送项目</span>
+                    </div>
+                    <div class="ex_content">
+                         <div>
+                       {$drive.presentProject|htmlspecialchars_decode}
+                        </div>
+                    </div>
+                </div>
                 <div class="explaina">
                     <div class="ex_title">
-                        <span>所需资料</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">所需资料</span>
                     </div>
                     <div class="ex_contentvisa">
                         <if condition="$drive['drivesVisa'] gt 0">
@@ -356,9 +304,7 @@
                 </div>
                 <div class="explaina">
                     <div class="ex_title">
-                        <span>选择报名</span>
-                        <div class="ex_title1">
-                        </div>
+                        <span class="ex_titles">定制服务</span>
                     </div>
                     <div class="ex_content" style="padding:30px 10px;">
                         <a href="" style="text-decoration: none;" data-toggle="modal" data-target="#diyModal">
@@ -412,20 +358,23 @@
                 </div>
             </div>
             </volist>
-        </div>
-        <div class="d_passhotel">
-            <div class="d_hotelt">
-                <div class="d_scenicta"></div>
-                <h3>&nbsp;&nbsp;&nbsp;途中酒店信息</h3>
-            </div>
             <volist name="drive.isWay" id="isH">
-            <div class="dph_list">
-                <img src="/{$isH.hotelImg}" alt="" width="100%">
-                <h3>{$isH.hotelName}</h3>
-                <p style="color:#F3DE26;">{$isH.hotelStar}</p>
-                <p>
-                    {$isH.hotelDesc|htmlspecialchars_decode}
-                </p>
+            <div class="dh_list">
+                <div class="dh_img dh_tjjd">
+                    <div class="dh_imgb">
+                        <img src="/{$isH.hotelImg}" width="624px" height="355px" />
+                    </div>
+                </div>
+                <div class="dh_desc">
+                    <div class="dh_desccon">
+                        <h3>{$isH.hotelName}</h3>
+                        <p>房型:<span>{$isH.hotelType}</span></p>
+                        <p style="color:#F3DE26;">{$isH.hotelStar}</p>
+                        <p>
+                            {$isH.hotelDesc|htmlspecialchars_decode}
+                        </p>
+                    </div>
+                </div>
             </div>
             </volist>
         </div>
@@ -657,6 +606,13 @@
     <script type="text/javascript">
     $(function() {
         diver_heightchange();
+        if($("#isFeeDesc").find('img').length>0){
+            $('#presentProject1').css('display','block');
+            $('#presentProject').css('display','none');
+        }else{
+            $('#presentProject').css('display','block');
+            $('#presentProject1').css('display','none');
+        }
     });
     $(".dh_imgss").mouseover(function(){
         $(this).parent().parent().find(".dh_imgb img").attr("src", $(this).children("img").attr("src"));
@@ -765,7 +721,7 @@
             var roomtotalPrice = (parseInt($("#roomNum").val()) * 2 - parseInt($("#manNum").val())) * parseInt($('#roomPrice').html());
             var totalPrice = parseInt($('#selectAdultPrice').html()) * parseInt($("#manNum").val());
             var childtotalPrice = parseInt($('#childPrice').html()) * parseInt($("#childNum").val());
-            console.log($('#selectAdultPrice').html());
+            // console.log($('#selectAdultPrice').html());
             $('#df_totelprice').html(childtotalPrice + totalPrice + roomtotalPrice);
         });
     }
@@ -850,7 +806,8 @@
         $("#" + id).prev().find('button').attr('disabled', 'disabled');
     }
     $("#df_submit").click(function(){
-        if($('#timeId').val() && parseInt($('#manNum').val())>0){
+        var userName = '{$username}';
+        if(userName !=1 && $('#timeId').val() && parseInt($('#manNum').val())>0){
             $(this).css("cursor","wait");
             $(this).unbind("click");
             var btn = $("#df_submit span");

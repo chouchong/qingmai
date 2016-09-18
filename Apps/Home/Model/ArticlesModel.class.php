@@ -28,4 +28,11 @@ class ArticlesModel extends BaseModel {
    }
    return $result;
   }
+  /**
+   * 获取文章
+   */
+  public function getArticlesById(){
+    $data = M('articles')->where("articleId=".(int)I('articleId'))->find();
+    return $data;
+  }
 }

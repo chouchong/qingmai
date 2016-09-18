@@ -19,6 +19,7 @@ class DrivesModel extends BaseModel {
       $data["homePrice"] = (int)I("homePrice");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
+      $data["drivesIsCross"] = I("drivesIsCross");
       if($this->checkEmpty($data,true)){
         $data["drivesImg"] = I("drivesImg");
         $data["pcDrivesImg"] = I("pcDrivesImg");
@@ -97,6 +98,7 @@ class DrivesModel extends BaseModel {
       $data["homePrice"] = (int)I("homePrice");
       $data["drivesMap"] = I("drivesMap");
       $data["createTime"] = date('Y-m-d H:i:s');
+      $data["drivesIsCross"] = I("drivesIsCross");
       if($this->checkEmpty($data,true)){
         $data["drivesImg"] = I("drivesImg");
         $data["pcDrivesImg"] = I("pcDrivesImg");

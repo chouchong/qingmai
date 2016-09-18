@@ -212,7 +212,6 @@ function uploadAblumInit() {
             		'<span class="setdef" style="display:none;">默认</span><span class="setdel" onclick="imglidel(this)" style="display:none;">删除</span>'+
             		'<p class="imgWrap"></p>'+
                     '<p class="progress"><span></span></p>' +
-                    
                     '</li>' ),
 
                 $btns = $('<div class="file-panel">' +

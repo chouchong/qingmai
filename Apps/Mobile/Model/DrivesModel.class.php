@@ -42,7 +42,7 @@ class DrivesModel extends BaseModel {
         $goodsLaSql = 'SELECT l.name FROM __PREFIX__goods_labels AS gl LEFT JOIN __PREFIX__labels AS l ON gl.labelsId = l.id WHERE gl.goodsId = '.$data['goods'][$i]['goodsId'];
         $data['goods'][$i]['labels'] = $this->query($goodsLaSql);
       }
-      $apSQL = "SELECT a.*,u.userName FROM __PREFIX__drives_appraises AS a LEFT JOIN __PREFIX__users AS u ON a.userId = u.userId WHERE a.drivesId = ".I('drivesId')." ORDER BY a.drivesScore LIMIT 3";
+      $apSQL = "SELECT a.*,u.userName FROM __PREFIX__drives_appraises AS a LEFT JOIN __PREFIX__users AS u ON a.userId = u.userId WHERE a.drivesId = ".I('drivesId')." ORDER BY a.drivesScore LIMIT 6";
       $data['ap'] = $this->query($apSQL);
       $data['apcount'] = M('drives_appraises')->where(array('drivesId' => I('drivesId')))->count();
       return $data;
@@ -61,7 +61,7 @@ class DrivesModel extends BaseModel {
     **/
     public function drivesTimePrices()
     {
-      $map['daydata'] = array('EGT',date('Y-m-d', time()));
+      $map['daydata'] = array('EGT',date('Y-m', time()));
       $map['drivesId'] = I('drivesId');
       return M('drives_timeprice')->field('timeId,drivesStock,adultPrice,daydata')->where($map)->order('daydata asc')->select();
     }

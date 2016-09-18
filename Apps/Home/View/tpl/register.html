@@ -4,14 +4,42 @@
 </block>
 <block name="css"></block>
 <block name="main">
+<div ng-app="myapp" ng-controller="regCtrl">
     <nav class="navbar navbar-default header_subpage">
-       <include file="tpl:comnav"/>
+       <div class="container-fluid channel">
+          <a class="navbar-brand" href="/index.html">
+              <img alt="" src="__PUBLIC__/home/img/logo.png">
+              <!-- <empty name="CONF.mallLogo">
+              <img alt="Brand" src="__PUBLIC__/home/img/logo.png">
+              <else/>
+              <img alt="Brand" src="/{$CONF['mallLogo']}">
+              </empty> -->
+          </a>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="/index.html">首页</a></li>
+              <li><a href="/a/5.html">联系我们</a></li>
+              <if condition="$userSession neq ''">
+              <li><a href="/order.html">我的订单</a></li>
+              <li>
+                  <a href="/u.html">
+                      <i class="glyphicon glyphicon-user"></i>
+                  </a>
+              </li>
+              <li><a href="/u.html">{$userSession['userName']}</a></li>
+              <li id=""><a href="{:U('Home/Users/loginOut')}">退出</a></li>
+              </if>
+              <if condition="$userSession eq ''">
+              <li id=""><a href="/register.html" style="cursor: pointer;">注册</a></li>
+              <li id=""><a href="/login.html" style="cursor: pointer;">登录</a></li>
+              </if>
+          </ul>
+      </div>
     </nav>
-    <div class="register_c" ng-app="myapp">
+    <div class="register_c">
         <div class="register_co">
             <div class="registerleft">
                 <div class="registerform">
-                    <form ng-controller="regCtrl" name="myReForm" novalidate>
+                    <form name="myReForm" novalidate>
                         <div class="form-group has-success has-feedback" ng-class="{'has-error':myReForm.phone.$dirty && myReForm.phone.$invalid}">
                             <label class="control-label" for="inputSuccess1">手机号{$user}</label>
                             <input type="tel" class="form-control" id="inputSuccess1" aria-describedby="inputSuccess1Status" ng-model="user.phone" placeholder="请输入手机号" required name="phone" ng-pattern="/^1\d{10}$/">                      
@@ -30,12 +58,11 @@
                                       <span ng-show="!myReForm.smscode.$error.minlength&&!myReForm.smscode.$error.required" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
                                       <span ng-show="myReForm.smscode.$error.minlength||myReForm.smscode.$error.required" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
                                     </div>
-                                    
                                     <p style="text-align: right;">
                                     <button type="submit" class="btn {{textClass}} " ng-disabled="myReForm.phone.$error.pattern||myReForm.phone.$error.required || fash" ng-click="sms()">{{text}}</button></p>
                                       <div class="checkbox">
                                         <label>
-                                          <input type="checkbox" id="checkbox" ng-model="checkbox"> <a href="">我已经阅读且同意《发现旅行用户协议》</a>
+                                          <input type="checkbox" id="checkbox" ng-model="checkbox">我已经阅读且同意<a ng-click="atShow()">《要自在旅行用户协议》</a>
                                         </label>
                                       </div>
                         <button type="submit" class="btn btn-primary btn-block"  ng-disabled="myReForm.$invalid||!checkbox" ng-click="doreg()">注册</button>
@@ -43,16 +70,34 @@
                 </div>
             </div>
             <div class="registerright">
-                <img src="__PUBLIC__/home/img/login.png" alt="" width="100%">
+                <img src="__PUBLIC__/home/img/login.jpg" alt="" width="500px" height="500px">
             </div>
         </div>
     </div>
     <include file="tpl:footer"/>
+    <div class="modal fade bs-example-modal-lg" id="atModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" id="myModalLabel">{{art.articleTitle}}</h3>
+                </div>
+                <div class="modal-body mh_con">
+                      <div ng-bind-html="art.articleContent|to_trusted">
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     </block>
-<block name="js">
+  <block name="js">
     <script type="text/javascript">
     $(function() {
         $('#myTab li:eq(1) a').tab('show');
     });
     </script>
-</block>
+  </block>

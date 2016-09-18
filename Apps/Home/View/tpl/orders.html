@@ -45,7 +45,18 @@
             <volist name="row" id="vo">
                 <div class="mot_item">
                     <div class="motd motd_order">
-                        <p>{$vo.orderNo}</p>
+                      <if condition="$vo['goodsType'] eq 1">
+                      <p>自驾游</p>
+                      </if>
+                      <if condition="$vo['goodsType'] eq 2">
+                      <p>门票</p>
+                      </if>
+                      <if condition="$vo['goodsType'] eq 3">
+                      <p>签证</p>
+                      </if>
+                      <p>
+                          {$vo.orderNo}
+                      </p>
                     </div>
                     <div class="motd motd_img">
                         <if condition="$vo['goodsType'] lt 3">
@@ -96,7 +107,11 @@
                                 <span style="color:#595">未支付</span>
                             </if>
                             <if condition="$vo['orderStatus'] eq 1">
+                                <if condition="$vo['drivesIsCross'] eq 1">
                                 <span style="color:#595">待出行</span>
+                                <else/>
+                                <span style="color:#595">去评论</span>
+                                </if>
                             </if>
                             <if condition="$vo['orderStatus'] eq 2">
                                 <span style="color:#595">去评论</span>
@@ -112,7 +127,7 @@
                     <div class="motd motd_sourse">
                         <if condition="$vo['goodsType'] gt 1">
                             <if condition="$vo['orderStatus'] eq 0">
-                                <a href="/p/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_comment" style="background: red;">去支付</div></a>
+                                <a href="/p/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_pay">去支付</div></a>
                             </if>
                             <if condition="$vo['orderStatus'] eq 3">
                                 <div class="motd_comment">已完成</div>
@@ -122,13 +137,19 @@
                                 <a href="/p/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_pay" >去支付</div></a>
                             </if>
                             <if condition="$vo['orderStatus'] eq 1">
+                                <if condition="$vo['drivesIsCross'] eq 1">
                                 <a href="/info/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_insure">被保险人</div></a>
                                 <a href="/car/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_carliense" style="margin-top: 10px;">出境车辆行驶证</div></a>
+                                <else/>
+                                <a href="/comment/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_comment" >去评论</div></a>
+                                </if>
                             </if>
                             <if condition="$vo['orderStatus'] eq 2">
                                 <a href="/comment/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_comment" >去评论</div></a>
+                                <if condition="$vo['drivesIsCross'] eq 1">
                                 <a href="/info/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_insure" style="margin-top: 10px;">被保险人</div></a>
                                 <a href="/car/{$vo['orderId']}.html" style="text-decoration: none;"><div class="motd_carliense" style="margin-top: 10px;">出境车辆行驶证</div></a>
+                                </if>
                             </if>
                             <if condition="$vo['orderStatus'] eq 3">
                                 <div class="motd_comment" >已完成</div>
@@ -160,14 +181,14 @@ $(function(){
         var name_h = $(this).children(".motd_name").height();
         var desc_h = $(this).children(".motd_desc").height();
         var sourse_h = $(this).children(".motd_sourse").height();
-        $(this).children(".motd_order").css("margin-top",item_h/2-12+"px");
+        var order_h = $(this).children(".motd_order").height();
+        $(this).children(".motd_order").css("margin-top",item_h/2-order_h/2+"px");
         $(this).children(".motd_img").css("margin-top",item_h/2-img_h/2+"px");
         $(this).children(".motd_name").css("margin-top",item_h/2-name_h/2+"px");
         $(this).children(".motd_desc").css("margin-top",item_h/2-desc_h/2+"px");
         $(this).children(".motd_state").css("margin-top",item_h/2-8+"px");
         $(this).children(".motd_sourse").css("margin-top",item_h/2-sourse_h/2+"px");
         $(this).children(".motd_control").css("margin-top",item_h/2-8+"px");
-        console.log(index);
     });
 });
 </script>

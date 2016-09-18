@@ -128,7 +128,7 @@ class UsersAction extends BaseAction {
    */
     public function loginOut(){
       session('Users',null);
-      $this->redirect("Home/Index/index");
+      $this->redirect("/index");
   }
   /**
   *用户默认地址

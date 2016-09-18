@@ -50,7 +50,7 @@
         <div>
              <volist name="Ads" id="item">
             <div>
-                <img src="/{$item['adFile']}" alt="" width="100%">
+                <a href="{$item['adURL']}"><img src="/{$item['adFile']}" alt="" width="100%"></a>
             </div>
             </volist>
         </div>
@@ -208,4 +208,12 @@
 </div>
 </block>
 <block name="js">
+<script type="text/javascript">
+    $(function() {
+        $(".zjy.item a .row .price p").each(function(){
+            var a = $(this).parent().parent().height()/2-$(this).height()/2-10;
+            $(this).css("margin-top",a);
+        });
+    })
+</script>
 </block>

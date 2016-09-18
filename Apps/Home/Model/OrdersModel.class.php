@@ -34,6 +34,7 @@ class OrdersModel extends BaseModel {
      $dataGoods['goodsDrvivesTime'] = I('goodsDrvivesTime');
      $dataGoods['goodsName'] = I('goodsName');
      $dataGoods['drivesDay'] = I('drivesDay');
+     $dataGoods['drivesIsCross'] = I('drivesIsCross');
      if($this->checkEmpty($dataDrives,true)){
        $id = $o->add($dataDrives);
      }
@@ -121,7 +122,7 @@ class OrdersModel extends BaseModel {
   public function OrdersList()
   {
     $pagesize = 5;
-    $Sql = "SELECT o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,og.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.orderNo,o.totalMoney,o.zMoney,o.createTime,og.drivesTo,og.goodsName,og.goodsAttrName,og.goodsAttrShop,og.goodsThums FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
+    $Sql = "SELECT o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,og.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.orderNo,o.totalMoney,o.zMoney,o.createTime,og.drivesTo,og.goodsName,og.goodsAttrName,og.goodsAttrShop,og.goodsThums,og.drivesIsCross FROM __PREFIX__orders AS o LEFT JOIN __PREFIX__order_goods AS og ON o.orderId = og.orderId WHERE o.addressId > 0 and o.userId = ".session('Users')['userId']." ORDER BY o.orderId DESC LIMIT ".I('page',0)*$pagesize." , ".$pagesize;
     $data= $this->query($Sql);
     return $data;
   }
@@ -175,7 +176,7 @@ class OrdersModel extends BaseModel {
   public function getOrdersList()
   {
     $m = M('orders');
-    $sql = "SELECT o.orderId,o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,og.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.orderNo,o.totalMoney,o.zMoney,o.createTime,og.drivesTo,og.goodsName,og.goodsAttrName,og.goodsAttrShop,og.goodsThums FROM dt_orders AS o LEFT JOIN dt_order_goods AS og ON o.orderId = og.orderId WHERE o.addressId>0 and o.userId = ".session('Users')['userId'];
+    $sql = "SELECT o.orderId,o.isGo,o.isCar,o.orderStatus,o.goodsType,o.orderId,o.orderNo,og.drivesDay,o.childNum,o.childPrice,o.roomNum,o.roomPrice,o.adultNum,o.adultPrice,o.toTime,o.orderNo,o.totalMoney,o.zMoney,o.createTime,og.drivesTo,og.goodsName,og.goodsAttrName,og.goodsAttrShop,og.goodsThums,og.drivesIsCross FROM dt_orders AS o LEFT JOIN dt_order_goods AS og ON o.orderId = og.orderId WHERE o.addressId>0 and o.userId = ".session('Users')['userId'];
     $sql.=" order by orderId desc";
     $page = $m->pageQuery($sql);
     return $page;
@@ -202,4 +203,21 @@ class OrdersModel extends BaseModel {
     // }
     return $rd;
   }
+  //获取驾驶证照片
+  public function getCarLic()
+  {
+    $rd = array('status' => -1);
+    if(I('orderId') != ''){
+      $m = M('order_drivinglicences')->where(array('orderId'=>I('orderId')))->select();
+      if($m){
+         $rd['pic'] = $m;
+         $rd['status'] = 0;
+      }
+      else{
+         $rd['status'] = 1;
+      }
+    } 
+    return $rd;
+  }
+
 }

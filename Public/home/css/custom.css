@@ -169,13 +169,19 @@ body {
       border-radius: 8px;
       margin: 50px;
       padding: 0;
-      height: 400px;
+      min-height: 400px;
       background: #FFD16A; }
+      .content .zjy_list .zjy .imgplace:hover img {
+        transform: scale(1.02, 1.02); }
       .content .zjy_list .zjy .imgplace {
+        transform: scale(1, 1);
+        overflow: hidden;
         position: relative;
-        height: 300px;
-        clear: both; }
+        min-height: 300px;
+        clear: both;
+        border-radius: 8px 8px 0 0; }
         .content .zjy_list .zjy .imgplace img {
+          transition: transform 0.3s;
           border-radius: 8px 8px 0 0;
           width: 100%;
           height: 300px;
@@ -204,11 +210,11 @@ body {
         margin-top: 10px;
         margin-right: 0;
         margin-left: 0;
-        height: 90px;
+        min-height: 90px;
         background: #fff;
         border-radius: 0 0 8px 8px; }
         .content .zjy_list .zjy .descplace .descplaceleft {
-          height: 90px;
+          min-height: 90px;
           padding: 1px 50px;
           font-size: 16px; }
           .content .zjy_list .zjy .descplace .descplaceleft i {
@@ -236,7 +242,8 @@ body {
     margin-bottom: 50px;
     padding: 10px;
     border: solid 3px #ddd;
-    width: 150px; }
+    width: 150px;
+    cursor: pointer; }
     .searchmore .searchmoreb .searchmoret {
       font-size: 20px; }
 
@@ -439,11 +446,8 @@ footer {
         min-height: 430px; }
         .d_content .d_form .selectdate .calendarprice .dateprice:hover {
           background: #BCF7FF; }
-        .d_content .d_form .selectdate .calendarprice .dateprice.disabled:hover {
-          background: #fff; }
-          .d_content .d_form .selectdate .calendarprice .dateprice.disabled:hover p {
-            color: #999; }
         .d_content .d_form .selectdate .calendarprice .dateprice {
+          transition: background 0.6s;
           cursor: pointer;
           float: left;
           width: 77px;
@@ -460,6 +464,14 @@ footer {
             color: #F77462; }
           .d_content .d_form .selectdate .calendarprice .dateprice .ticket {
             font-size: 18px; }
+        .d_content .d_form .selectdate .calendarprice .dateprice.disabled {
+          background: #fff; }
+          .d_content .d_form .selectdate .calendarprice .dateprice.disabled p {
+            color: #999; }
+        .d_content .d_form .selectdate .calendarprice .dateprice.disabled:hover {
+          background: #fff; }
+          .d_content .d_form .selectdate .calendarprice .dateprice.disabled:hover p {
+            color: #999; }
         .d_content .d_form .selectdate .calendarprice .today {
           background: #59D5F8; }
           .d_content .d_form .selectdate .calendarprice .today p {
@@ -474,6 +486,22 @@ footer {
             font-size: 21px;
             color: #fff; }
           .d_content .d_form .selectdate .calendarprice .today .ticket {
+            font-size: 18px;
+            color: #fff; }
+        .d_content .d_form .selectdate .calendarprice .today.disabled {
+          background: #59D5F8; }
+          .d_content .d_form .selectdate .calendarprice .today.disabled p {
+            color: #fff;
+            padding: 0;
+            margin: 0; }
+          .d_content .d_form .selectdate .calendarprice .today.disabled .dd {
+            font-size: 23px;
+            font-weight: bold;
+            color: #fff; }
+          .d_content .d_form .selectdate .calendarprice .today.disabled .price {
+            font-size: 21px;
+            color: #fff; }
+          .d_content .d_form .selectdate .calendarprice .today.disabled .ticket {
             font-size: 18px;
             color: #fff; }
         .d_content .d_form .selectdate .calendarprice .selected {
@@ -575,6 +603,9 @@ footer {
         padding: 5px 20px; }
         .d_content .d_xcts .dx_left .xcmx .xc_title span {
           font-size: 20px; }
+        .d_content .d_xcts .dx_left .xcmx .xc_title .xc_titles {
+          border-left: 5px solid #6DC5DB;
+          padding-left: 10px; }
         .d_content .d_xcts .dx_left .xcmx .xc_title .xc_title1 {
           width: 30px;
           height: 5px;
@@ -608,6 +639,9 @@ footer {
         padding: 5px 20px; }
         .d_content .d_explain .de_left .explaina .ex_title span {
           font-size: 20px; }
+        .d_content .d_explain .de_left .explaina .ex_title .ex_titles {
+          border-left: 5px solid #6DC5DB;
+          padding-left: 10px; }
         .d_content .d_explain .de_left .explaina .ex_title .ex_title1 {
           width: 30px;
           height: 5px;
@@ -673,15 +707,19 @@ footer {
           width: 25%; }
           .d_content .d_hotel .dh_list .dh_img .dh_imgss img {
             width: 100%; }
+      .d_content .d_hotel .dh_list .dh_tjjd.dh_img {
+        min-height: 400px; }
       .d_content .d_hotel .dh_list .dh_desc {
         padding: 10px;
         width: 40%;
         float: left; }
         .d_content .d_hotel .dh_list .dh_desc .dh_desccon {
-          height: 350px;
+          overflow: hidden;
+          height: 360px;
           margin: 10px 0;
           padding: 5px; }
         .d_content .d_hotel .dh_list .dh_desc .dh_descbtn {
+          cursor: pointer;
           margin-top: 40px;
           line-height: 40px;
           text-align: center;
@@ -773,6 +811,9 @@ footer {
       width: 100%;
       text-align: center;
       padding: 10px; }
+      .d_content .d_comment #dc_refresh span:hover {
+        cursor: pointer;
+        color: #0020FF; }
   .d_content .d_scenic {
     margin: 20px 0;
     overflow: hidden;

@@ -25,7 +25,7 @@ class DrivesModel extends BaseModel {
       $m = M('drives');
       $data =  $m->where('drivesId='.I('drivesId'))->find();
       $data['tp'] = M('drives_timeprice')->where(array('drivesId' => I('drivesId'),'daydata'=> date('Y-m-d', time() + (3 * 24 * 60 * 60))))->find();
-      $isWaySql = "SELECT h.hotelId,h.hotelDesc,h.hotelImg,h.hotelStar,h.hotelName from __PREFIX__drives_hotels AS dh RIGHT JOIN __PREFIX__hotel AS h on dh.hotelsId=h.hotelId WHERE dh.drivesId=".I('drivesId')." AND dh.isWay=1";
+      $isWaySql = "SELECT h.hotelId,h.hotelDesc,h.hotelImg,h.hotelStar,h.hotelName,h.hotelType from __PREFIX__drives_hotels AS dh RIGHT JOIN __PREFIX__hotel AS h on dh.hotelsId=h.hotelId WHERE dh.drivesId=".I('drivesId')." AND dh.isWay=1";
       $data['isWay'] = $this->query($isWaySql);
       $noWaySql = "SELECT h.hotelId,h.hotelDesc,h.hotelStar,h.hotelName,h.hotelImg,h.hotelType,h.hotelAddress from __PREFIX__drives_hotels AS dh RIGHT JOIN __PREFIX__hotel AS h on dh.hotelsId=h.hotelId WHERE dh.drivesId=".I('drivesId')." AND dh.isWay=0";
       $data['noWay'] = $this->query($noWaySql);

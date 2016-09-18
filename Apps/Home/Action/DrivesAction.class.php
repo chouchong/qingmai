@@ -10,14 +10,16 @@ class DrivesAction extends BaseAction {
    * 跳到自驾游详情
    */
  public function diverDetail(){
- 	$m = D('Home/Drives');
+ 	  $m = D('Home/Drives');  
     $this->drive = $m->drivesDetail();
     $this->daymtime = date('Y-m-d', time());
     $this->daymmtime = date('Y-m-d', time() + (3 * 24 * 60 * 60));
     $this->daytime = date('Y-m', time());
     $this->drivesId = I('drivesId');
     $this->ap = $m->getDap();
+    $this->username = empty(session('Users')['userName'])?1:session('Users')['userName'];
     $this->display('tpl/drives');
+    // var_dump($this->username);
     // var_dump($this->drive['tp']);
  }
  /**

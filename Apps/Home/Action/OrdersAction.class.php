@@ -85,4 +85,25 @@ class OrdersAction extends BaseAction {
     $this->d = $d->getInfo();
     $this->display('/tpl/comment');
   }
+    /**
+   * 获取驾驶证
+   */
+  public function getCarLic(){
+    $data = D('Home/Orders')->getCarLic();
+    $this->ajaxReturn($data);
+  }
+    /**
+   * 订单添加驾驶证完成来修改订单状态
+   */
+  public function addCarLic(){
+    $data = D('Mobile/Orders')->addCarLic();
+    $this->ajaxReturn($data);
+  }
+  /**
+   * 订单取消
+   */
+  public function orDel(){
+    $data = D('Mobile/Orders')->orDel();
+    $this->ajaxReturn($data);
+  }
 }
